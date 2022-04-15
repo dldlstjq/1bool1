@@ -1,4 +1,4 @@
-package com.oneplusone.oneplusone.config;
+package com.onepluseone.onepluseone.config;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,7 +22,7 @@ public class SwaggerConfig {
         .consumes(getConsumeContentTypes())
         .produces(getProduceContentTypes())
         .apiInfo(swaggerInfo()).select()
-        .apis(RequestHandlerSelectors.basePackage("com.oneplusone.oneplusone.controller"))
+        .apis(RequestHandlerSelectors.basePackage("com.onepluseone.onepluseone.controller"))
         .paths(PathSelectors.any())
         .build()
         .useDefaultResponseMessages(true);
