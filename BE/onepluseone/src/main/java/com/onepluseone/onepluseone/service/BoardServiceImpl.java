@@ -20,5 +20,10 @@ public class BoardServiceImpl implements BoardService{
   public List<BoardDto> findBoard() throws Exception{
     return sqlSession.getMapper(BoardMapper.class).selectBoard();
   }
+
+  @Override
+  public boolean createBoard(BoardDto boardDto) throws Exception {
+    return sqlSession.getMapper(BoardMapper.class).insertBoard(boardDto);
+  }
   
 }

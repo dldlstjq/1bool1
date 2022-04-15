@@ -10,5 +10,7 @@ import org.springframework.stereotype.Service;
 public interface BoardService {
 
   public List<BoardDto> findBoard() throws Exception;
+
+  public boolean createBoard(BoardDto boardDto) throws Exception;
   
 }

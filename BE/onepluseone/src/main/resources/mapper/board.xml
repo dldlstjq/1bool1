@@ -3,7 +3,13 @@
 
 <mapper namespace="com.onepluseone.onepluseone.mapper.BoardMapper">
 	<select id="selectBoard" resultType="BoardDto">
-    SELECT title
+    SELECT id,title,content,nickname,start_date,photo
     FROM board
+    ORDER BY id
 	</select>
+
+    <insert id="insertBoard" parameterType="BoardDto">
+        INSERT INTO board (title,content,photo,password,nickname,start_date)
+        VALUES (#{title},#{content},#{photo},#{password},#{nickname},now())
+    </insert>
 </mapper>

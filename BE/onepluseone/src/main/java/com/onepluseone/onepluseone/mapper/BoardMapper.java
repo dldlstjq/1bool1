@@ -10,4 +10,6 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface BoardMapper {
   public List<BoardDto> selectBoard() throws SQLException;
+
+  public boolean insertBoard(BoardDto boardDto) throws SQLException;
 }
