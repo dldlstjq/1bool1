@@ -1,4 +1,5 @@
-package com.oneplusone.oneplusone.common.message;
+package com.onepluseone.onepluseone.common.message;
+
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

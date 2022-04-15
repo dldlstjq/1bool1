@@ -1,13 +1,13 @@
-package com.oneplusone.oneplusone;
+package com.onepluseone.onepluseone;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class OneplusoneApplication {
+public class OnepluseoneApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(OneplusoneApplication.class, args);
+		SpringApplication.run(OnepluseoneApplication.class, args);
 	}
 
 }
