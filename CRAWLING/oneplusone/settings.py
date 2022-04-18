@@ -31,7 +31,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    #3rd party app
     'crawling',
+    #base app
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
