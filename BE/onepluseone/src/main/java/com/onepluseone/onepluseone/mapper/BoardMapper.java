@@ -5,7 +5,8 @@ import java.util.List;
 
 import com.onepluseone.onepluseone.model.board.BoardDto;
 
-import org.mapstruct.Mapper;
+import org.apache.ibatis.annotations.Mapper;
+//import org.mapstruct.Mapper;
 
 @Mapper
 public interface BoardMapper {
