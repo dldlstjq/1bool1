@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
 public class RecipeGoods extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "goods_id",nullable = false)
-    Goods goods;
+    CrawlingGoods crawlingGoods;
 
     @ManyToOne
     @JoinColumn(name = "recipe_id",nullable = false)

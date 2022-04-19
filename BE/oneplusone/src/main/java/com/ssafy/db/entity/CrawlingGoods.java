@@ -1,11 +1,7 @@
 package com.ssafy.db.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -15,7 +11,7 @@ import java.util.Date;
 @Getter
 @Setter
 //@NoArgsConstructor
-public class Goods extends BaseEntity{
+public class CrawlingGoods extends BaseEntity{
 
     @Column(name = "name", nullable = false)
     String name;
@@ -29,8 +25,8 @@ public class Goods extends BaseEntity{
     String photoPath;
 
     //비밀번호
-    @Column(name = "desciption")
-    String desciption;
+    @Column(name = "description")
+    String description;
 
     //닉네임
     @Column(name = "category")
@@ -59,13 +55,13 @@ public class Goods extends BaseEntity{
     Date updateDate;
 
     @Builder
-    public Goods(Long id, String name, String price,String photoPath, String desciption, Integer category,Integer isSell,Integer event,Integer hit,Date startDate, Date updateDate){
+    public CrawlingGoods(Long id, String name, String price,String photoPath, String description, Integer category,Integer isSell,Integer event,Integer hit,Date startDate, Date updateDate){
         this.id = id;
         this.name = name;
         this.price = price;
         this.photoPath = photoPath;
-        this.desciption = desciption;
-        this.category = category;
+        this.description = description;
+        this.event = event;
         this.isSell = isSell;
         this.category = category;
         this.hit = hit;

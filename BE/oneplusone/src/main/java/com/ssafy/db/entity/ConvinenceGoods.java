@@ -13,7 +13,7 @@ public class ConvinenceGoods extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "goods_id",nullable = false)
-    Goods goods;
+    CrawlingGoods crawlingGoods;
 
     @ManyToOne
     @JoinColumn(name = "convinence_id",nullable = false)
