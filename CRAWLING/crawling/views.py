@@ -46,7 +46,6 @@ def CU_Crawling(request):
             price = item.find("div", "price").find("strong").text
             # 행사 카테고리 가져오는 부분
             item_promotion = item.find("div","badge").find("span").text
-            print(name)
 
     if category == "promotion":
         promotion()
