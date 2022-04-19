@@ -187,6 +187,9 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.20")
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
+
+    //firebase
+    implementation group: 'com.google.firebase', name: 'firebase-admin', version:'8.1.0'
 }
 
 test {
