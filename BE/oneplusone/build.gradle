@@ -185,7 +185,8 @@ dependencies {
 
     implementation("org.projectlombok:lombok:1.18.20")
     annotationProcessor("org.projectlombok:lombok:1.18.20")
-
+    // https://mvnrepository.com/artifact/com.google.firebase/firebase-admin
+    implementation group: 'com.google.firebase', name: 'firebase-admin', version: '8.1.0'
     testCompile('org.springframework.boot:spring-boot-starter-test')
 
     //firebase
