@@ -23,14 +23,12 @@ def CU_Crawling(request):
         driver = webdriver.Chrome('C:/Users/SSAFY/Desktop/SSAFY/자율PJT/CODE/chromedriver_win32/chromedriver.exe', options=options)
         # 암묵적으로 웹 자원 로드를 위해 3초까지 기다린다
         driver.get(url)
-        # req지정
         element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "prod_img")))
         while True:
             try:
                 driver.find_element_by_xpath("//*[@id=\"contents\"]/div[2]/div/div/div[1]/a").click()
                 # 안전한 페이지 로딩을 위해 30초의 대기시간
                 time.sleep(30)
-                break
             except:
                 break
         html = driver.page_source
@@ -67,6 +65,7 @@ def GS_Crawling(request):
         # 전체 페이지로 이동
         driver.find_element_by_css_selector("#TOTAL").click()
         time.sleep(2)
+        # 마지막 페이지 번호 가져오기 위한 parsing
         element = driver.find_element_by_xpath("//*[@id=\"contents\"]/div[2]/div[3]/div/div/div[1]/div/a[4]")
         driver.execute_script("arguments[0].click();", element)
         time.sleep(5)
@@ -90,7 +89,6 @@ def GS_Crawling(request):
         time.sleep(5)
         # 암묵적으로 웹 자원 로드를 위해 3초까지 기다린다
         driver.get(url)
-        # req지정
         element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "prod_list")))
 
         for i in range(final_page_num):
@@ -108,7 +106,6 @@ def GS_Crawling(request):
                     price = item.find("span", "cost").text
                     # # 행사 카테고리 가져오는 부분
                     item_promotion = item.find("p","flg01").find("span").text
-                    print(name)
                 except:
                     pass
             element = driver.find_element_by_xpath("//*[@id=\"contents\"]/div[2]/div[3]/div/div/div[1]/div/a[3]")
