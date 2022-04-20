@@ -10,7 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from django.views.decorators.http import require_http_methods
 from selenium.webdriver.common.keys import Keys
 import time
-from .models import goods
+from .models import Goods
 
 @require_http_methods(["GET"])
 def CU_Crawling(request):
@@ -64,8 +64,8 @@ def CU_Crawling(request):
         for idx in range(len(CU_URL)):
             # url과 버튼 등록 
             url = CU_URL[idx]
-            # 카테고리 넘어가는 버튼
-            button = CU_BUTTON[idx + 1]
+           
+            
             # 카테고리 저장을 위한 이름 설정
             category = CU_CATEGORY[idx]
             # 편의점 이름 설정
@@ -79,6 +79,7 @@ def CU_Crawling(request):
                     driver.find_element_by_xpath("//*[@id=\"contents\"]/div[2]/div/div/div[1]/a").click()
                     # 안전한 페이지 로딩을 위해 30초의 대기시간
                     time.sleep(30)
+                    break
                 except:
                     break
             html = driver.page_source
@@ -113,13 +114,18 @@ def CU_Crawling(request):
                 except:
                     event = 1
                 # 데이터 저장하는 부분 
-                good = goods(name = name.encode('utf8'), photo_path=img_src, \
+                good = Goods(name = name, photo_path=img_src, \
                 price=price, is_sell=1, category=category, event=event, convinence = "CU")
                 good.save()
             
             # 한번하고 버튼 넘어감
-            if idx != len(CU_BUTTON) - 1:
+            # 카테고리 넘어가는 버튼
+            try:
+                button = CU_BUTTON[idx + 1]
                 driver.find_element_by_xpath(button).click()
+                time.sleep(10)
+            except:
+                pass
                 
     total()
     return HttpResponse('CU Success')
