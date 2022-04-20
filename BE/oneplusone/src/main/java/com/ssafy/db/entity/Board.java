@@ -57,4 +57,13 @@ public class Board extends BaseEntity{
         this.startDate = startDate;
         this.updateDate = updateDate;
     }
+
+    public void update(String title, String content, String password,Date updateDate,String photo,String nickname) {
+        this.title = title;
+        this.content = content;
+        this.password = password;
+        this.updateDate = new Date();
+        this.photo = photo;
+        this.nickname = nickname;
+    }
 }

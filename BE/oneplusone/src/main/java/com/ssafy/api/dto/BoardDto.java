@@ -34,5 +34,24 @@ public class BoardDto {
         @ApiModelProperty(name="시작 시간", example="2022-02-01")
         Date startDate;
     }
+    @Getter
+    @Setter
+    @ApiModel("BoardPutRequest")
+    public static class BoardPutRequest {
+        @ApiModelProperty(name="id 값", example="1")
+        Long id;
+        @ApiModelProperty(name="제목", example="제목")
+        String title;
+        @ApiModelProperty(name="내용", example="내용")
+        String content;
+        @ApiModelProperty(name="닉네임", example="닉네임")
+        String nickname;
+        @ApiModelProperty(name="비밀번호", example="a1234!@")
+        String password;
+        @ApiModelProperty(name="사진 경로", example="123232.jpg")
+        String photo;
+        @ApiModelProperty(name="현 시간", example="2022-02-01")
+        Date updateDate;
+    }
     
 }
