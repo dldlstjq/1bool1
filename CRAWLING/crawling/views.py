@@ -14,22 +14,6 @@ from .models import Goods
 
 @require_http_methods(["GET"])
 def CU_Crawling(request):
-    CU_URL = [
-    # 간편식사
-    "https://cu.bgfretail.com/product/product.do?category=product&depth2=4&depth3=1",
-    # 즉석조리
-    "https://cu.bgfretail.com/product/product.do?category=product&depth2=4&depth3=2",
-    # 과자류
-    "https://cu.bgfretail.com/product/product.do?category=product&depth2=4&depth3=3",
-    # 아이스크림
-    "https://cu.bgfretail.com/product/product.do?category=product&depth2=4&depth3=4",
-    # 식품
-    "https://cu.bgfretail.com/product/product.do?category=product&depth2=4&depth3=5",
-    # 음료
-    "https://cu.bgfretail.com/product/product.do?category=product&depth2=4&depth3=6",
-    # 생활용품
-    "https://cu.bgfretail.com/product/product.do?category=product&depth2=4&depth3=7",
-    ]
     CU_BUTTON = [
         # 간편 식사
         "//*[@id=\"contents\"]/div[1]/ul/li[1]/a",
@@ -60,26 +44,22 @@ def CU_Crawling(request):
     def total():
         options = webdriver.ChromeOptions()
         options.add_experimental_option('excludeSwitches', ['enable-logging'])
+        # 편의점 이름 설정
+        convinence = "cu"
+        driver = webdriver.Chrome('C:/Users/SSAFY/Desktop/SSAFY/자율PJT/CODE/chromedriver_win32/chromedriver.exe', options=options)
+        # 암묵적으로 웹 자원 로드를 위해 3초까지 기다린다
+        driver.get("https://cu.bgfretail.com/product/product.do?category=product&depth2=4&depth3=1")
+        element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "prod_img")))
         # 전체 URL을 돌벼 데이터 크롤링
-        for idx in range(len(CU_URL)):
-            # url과 버튼 등록 
-            url = CU_URL[idx]
-           
-            
+        for idx in range(len(CU_BUTTON)):
             # 카테고리 저장을 위한 이름 설정
             category = CU_CATEGORY[idx]
-            # 편의점 이름 설정
-            convinence = "cu"
-            driver = webdriver.Chrome('C:/Users/SSAFY/Desktop/SSAFY/자율PJT/CODE/chromedriver_win32/chromedriver.exe', options=options)
-            # 암묵적으로 웹 자원 로드를 위해 3초까지 기다린다
-            driver.get(url)
-            element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "prod_img")))
+
             while True:
                 try:
-                    driver.find_element_by_xpath("//*[@id=\"contents\"]/div[2]/div/div/div[1]/a").click()
+                    driver.find_element_by_xpath("//*[@id=\"dataTable\"]/div/div[1]/a").click()
                     # 안전한 페이지 로딩을 위해 30초의 대기시간
                     time.sleep(30)
-                    break
                 except:
                     break
             html = driver.page_source
@@ -123,7 +103,7 @@ def CU_Crawling(request):
             try:
                 button = CU_BUTTON[idx + 1]
                 driver.find_element_by_xpath(button).click()
-                time.sleep(10)
+                time.sleep(20)
             except:
                 pass
                 

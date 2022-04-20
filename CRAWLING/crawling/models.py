@@ -14,7 +14,7 @@ class Board(models.Model):
     nickname = models.CharField(max_length=255)
     password = models.CharField(max_length=255)
     photo = models.CharField(max_length=255, blank=True, null=True)
-    start_date = models.DateTimeField()
+    start_date = models.DateTimeField(auto_now=False)
     title = models.CharField(max_length=255)
     update_date = models.DateTimeField(blank=True, null=True)
 
@@ -68,8 +68,8 @@ class Goods(models.Model):
     name = models.CharField(max_length=255)
     photo_path = models.CharField(max_length=255, blank=True, null=True)
     price = models.CharField(max_length=255)
-    start_date = models.DateTimeField(auto_now_add = True)
-    update_date = models.DateTimeField(auto_now = True, blank=True, null=True)
+    start_date = models.DateTimeField(auto_now_add=True)
+    update_date = models.DateTimeField(auto_now=True, blank=True, null=True)
 
     class Meta:
         managed = False
