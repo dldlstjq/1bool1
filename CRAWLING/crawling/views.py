@@ -119,6 +119,7 @@ def CU_Crawling(request):
             # 한번하고 버튼 넘어감
             if idx != len(CU_BUTTON) - 1:
                 driver.find_element_by_xpath(button).click()
+                
     total()
     return HttpResponse('CU Success')
 
