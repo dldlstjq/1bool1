@@ -67,4 +67,14 @@ public class BoardServiceImpl implements BoardService{
         boardRepository.deleteById(id);
         return true;
     }
+
+    @Override
+    public Board findBoardDetail(Long id) {
+        return boardRepository.findById(id).orElseGet(() -> null);
+    }
+
+    @Override
+    public List<Board> findBySearchBoard(String search) {
+        return boardRepository.findByTitleOrContent(search,search).orElseGet(() -> null);
+    }
 }

@@ -15,4 +15,8 @@ public interface BoardService {
     boolean modifyBoard(BoardDto.BoardPutRequest boardPutRequest);
 
     boolean removeBoard(Long id);
+
+    Board findBoardDetail(Long id);
+
+    List<Board> findBySearchBoard(String search);
 }

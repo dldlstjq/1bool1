@@ -54,6 +54,41 @@ public class BoardController {
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", board));
     }
 
+    @GetMapping("/search")
+    @ApiOperation(value = "검색 글 조회", notes = "<strong>검색된 글의 목록을 가져온다.</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> findBySearchBoard(@RequestParam("search") String search) {
+        List<Board> board = boardService.findBySearchBoard(search);
+        if(board != null)
+        {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", board));
+        }else{
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail", board));
+        }
+    }
+
+    @GetMapping("{id}")
+    @ApiOperation(value = "게시글 상세 조회", notes = "<strong>게시글의 정보를 가져온다.</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> findBoardDetail(@PathVariable("id") Long id) {
+        Board board = boardService.findBoardDetail(id);
+        if(board != null) {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", board));
+        }else{
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail", board));
+        }
+    }
+
 
     @PutMapping()
     @ApiOperation(value = "해당 글 수정", notes = "<strong>글의 목록을 가져온다.</strong>")
@@ -72,7 +107,7 @@ public class BoardController {
     }
 
     @DeleteMapping("{id}")
-    @ApiOperation(value = "해당 글 수정", notes = "<strong>글의 목록을 가져온다.</strong>")
+    @ApiOperation(value = "해당 글 삭제", notes = "<strong>해당 글을 삭제한다.</strong>")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),
