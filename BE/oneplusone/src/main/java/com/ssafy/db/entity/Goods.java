@@ -11,7 +11,7 @@ import java.util.Date;
 @Getter
 @Setter
 //@NoArgsConstructor
-public class CrawlingGoods extends BaseEntity{
+public class Goods extends BaseEntity{
 
     @Column(name = "name", nullable = false)
     String name;
@@ -58,7 +58,7 @@ public class CrawlingGoods extends BaseEntity{
     Date updateDate;
 
     @Builder
-    public CrawlingGoods(Long id, String name, String price,String photoPath, String description, Integer category,Integer isSell,Integer event,Integer hit,String convinence,Date startDate, Date updateDate){
+    public Goods(Long id, String name, String price,String photoPath, String description, Integer category,Integer isSell,Integer event,Integer hit,String convinence,Date startDate, Date updateDate){
         this.id = id;
         this.name = name;
         this.price = price;

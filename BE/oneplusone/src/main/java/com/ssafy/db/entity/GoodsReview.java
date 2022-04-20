@@ -14,7 +14,7 @@ public class GoodsReview extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "goods_id")
-    CrawlingGoods crawlingGoods;
+    Goods Goods;
 
     //내용
     @Column(name = "nickname", nullable = false)
