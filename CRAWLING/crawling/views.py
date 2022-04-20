@@ -113,7 +113,8 @@ def CU_Crawling(request):
                 except:
                     event = 1
                 # 데이터 저장하는 부분 
-                good = goods(name = name.encode('utf8'), photo_path=img_src, price=price, is_sell=1, category=category, event=event)
+                good = goods(name = name.encode('utf8'), photo_path=img_src, \
+                price=price, is_sell=1, category=category, event=event, convinence = "CU")
                 good.save()
             
             # 한번하고 버튼 넘어감
