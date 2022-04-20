@@ -18,16 +18,16 @@ public class UserRepositorySupport {
     private JPAQueryFactory jpaQueryFactory;
     QUser qUser = QUser.user;
 
-    public Optional<User> findUserByUserId(String userId) {
+    public Optional<User> findByEmail(String email) {
         User user = jpaQueryFactory.select(qUser).from(qUser)
-                .where(qUser.email.eq(userId)).fetchOne();
+                .where(qUser.email.eq(email)).fetchOne();
         if(user == null) return Optional.empty();
         return Optional.ofNullable(user);
     }
 
-    public Boolean checkUserByUserId(String userId) {
+    public Boolean checkUserByUserId(String email) {
         User user = jpaQueryFactory.select(qUser).from(qUser)
-                .where(qUser.email.eq(userId)).fetchOne();
+                .where(qUser.email.eq(email)).fetchOne();
         if(user == null) return true;
         return false;
     }

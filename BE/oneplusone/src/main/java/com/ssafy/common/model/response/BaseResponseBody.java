@@ -18,6 +18,9 @@ public class BaseResponseBody {
 	String message = null;
 	@ApiModelProperty(name="응답 코드", example = "200")
 	Integer statusCode = null;
+
+	@ApiModelProperty(name="데이터", example = "Object")
+	Object object = null;
 	
 	public BaseResponseBody() {}
 	
@@ -29,11 +32,25 @@ public class BaseResponseBody {
 		this.statusCode = statusCode;
 		this.message = message;
 	}
+
+	public BaseResponseBody(Integer statusCode, String message,Object object){
+		this.statusCode = statusCode;
+		this.message = message;
+		this.object = object;
+	}
 	
 	public static BaseResponseBody of(Integer statusCode, String message) {
 		BaseResponseBody body = new BaseResponseBody();
 		body.message = message;
 		body.statusCode = statusCode;
+		return body;
+	}
+
+	public static BaseResponseBody of(Integer statusCode, String message,Object object) {
+		BaseResponseBody body = new BaseResponseBody();
+		body.message = message;
+		body.statusCode = statusCode;
+		body.object = object;
 		return body;
 	}
 }

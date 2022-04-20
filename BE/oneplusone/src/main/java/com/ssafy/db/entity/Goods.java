@@ -1,11 +1,7 @@
 package com.ssafy.db.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -29,8 +25,8 @@ public class Goods extends BaseEntity{
     String photoPath;
 
     //비밀번호
-    @Column(name = "desciption")
-    String desciption;
+    @Column(name = "description")
+    String description;
 
     //닉네임
     @Column(name = "category")
@@ -48,6 +44,9 @@ public class Goods extends BaseEntity{
     @Column(name = "hit")
     Integer hit;
 
+    @Column(name = "convinence")
+    String convinence;
+
     //시작 시간
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "start_date",nullable = false)
@@ -59,16 +58,17 @@ public class Goods extends BaseEntity{
     Date updateDate;
 
     @Builder
-    public Goods(Long id, String name, String price,String photoPath, String desciption, Integer category,Integer isSell,Integer event,Integer hit,Date startDate, Date updateDate){
+    public Goods(Long id, String name, String price,String photoPath, String description, Integer category,Integer isSell,Integer event,Integer hit,String convinence,Date startDate, Date updateDate){
         this.id = id;
         this.name = name;
         this.price = price;
         this.photoPath = photoPath;
-        this.desciption = desciption;
-        this.category = category;
+        this.description = description;
+        this.event = event;
         this.isSell = isSell;
         this.category = category;
         this.hit = hit;
+        this.convinence = convinence;
         this.startDate = startDate;
         this.updateDate = updateDate;
     }
