@@ -1,6 +1,7 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.service.BoardService;
+import com.ssafy.api.service.LikeService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,6 @@ import java.util.List;
 public class LikeController {
 
     @Autowired
-    BoardService boardService;
+    LikeService likeService;
 
 }
