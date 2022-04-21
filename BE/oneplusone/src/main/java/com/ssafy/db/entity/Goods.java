@@ -2,6 +2,7 @@ package com.ssafy.db.entity;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,7 +11,7 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
-//@NoArgsConstructor
+@NoArgsConstructor
 public class Goods extends BaseEntity{
 
     @Column(name = "name", nullable = false)

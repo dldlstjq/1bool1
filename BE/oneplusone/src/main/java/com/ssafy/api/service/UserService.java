@@ -1,5 +1,6 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.dto.UserDto;
 import com.ssafy.api.dto.UserDto.UserRegisterPostReq;
 import com.ssafy.db.entity.User;
 
@@ -8,6 +9,12 @@ import com.ssafy.db.entity.User;
  */
 public interface UserService {
 	User createUser(UserRegisterPostReq userRegisterInfo);
+
+
 	Boolean checkIdDuplicate(String userId);
 	User getUserByUserId(String userId);
+
+	Boolean update(UserDto.UserPutReq user);
+
+//	Boolean update(UserDto.UserPutReq userPutReq);
 }

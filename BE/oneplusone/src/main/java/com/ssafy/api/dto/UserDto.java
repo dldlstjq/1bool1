@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 
@@ -31,6 +32,22 @@ public class UserDto {
         String password;
     }
 
+
+    /**
+     * 유저 정보 수정 API ([POST] /api/v1/auth/login) 요청에 필요한 리퀘스트 바디 정의.
+     */
+    @Getter
+    @Setter
+    @ApiModel("UserPostRequest")
+    public static class UserPutReq {
+        @ApiModelProperty(name="유저 Email", example="ssafy_web")
+        String email;
+        @ApiModelProperty(name="유저 Password", example="your_password")
+        String password;
+        @ApiModelProperty(name="유저 Nickname", example="your_password")
+        String nickname;
+    }
+    
     /**
      * 유저 회원가입 API ([POST] /api/v1/users) 요청에 필요한 리퀘스트 바디 정의.
      */
@@ -52,14 +69,10 @@ public class UserDto {
         @ApiModelProperty(name="유저 닉네임", example="your_name", required = true)
         String nickname;
 
-        @NotBlank(message = "탈퇴 여부를 입력하세요 0 : 활동 / 1 : 탈퇴")
+        @NotNull(message = "탈퇴 여부를 입력하세요 0 : 활동 / 1 : 탈퇴")
         @ApiModelProperty(name="유저 탈퇴 여부", example="0", required = true)
         Integer isWithdrawal;
 
-
-
-//        @ApiModelProperty(name="회사 이름", example="your_construction", required = true)
-//        Construction construction;
     }
 
     /**

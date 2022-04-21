@@ -1,12 +1,9 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.dto.BoardDto;
-import com.ssafy.api.dto.UserDto;
 import com.ssafy.api.service.BoardService;
-import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.Board;
-import com.ssafy.db.entity.User;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,5 +1,6 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import com.ssafy.api.dto.UserDto.UserRegisterPostReq;
 import com.ssafy.db.entity.User;
 import com.ssafy.db.repository.UserRepository;
 import com.ssafy.db.repository.UserRepositorySupport;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *	유저 관련 비즈니스 로직 처리를 위한 서비스 구현 정의.
@@ -35,8 +37,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Boolean checkIdDuplicate(String userId){
-		return userRepositorySupport.checkUserByUserId(userId);
+	public Boolean checkIdDuplicate(String email){
+		return userRepositorySupport.checkUserByEmail(email);
 	}
 
 	@Override
@@ -45,4 +47,28 @@ public class UserServiceImpl implements UserService {
 		User user = userRepositorySupport.findByEmail(email).get();
 		return user;
 	}
+
+	@Override
+	@Transactional
+	public Boolean update(UserDto.UserPutReq userPutReq) {
+		String email = userPutReq.getEmail();
+		String password = userPutReq.getPassword();
+		String nickname = userPutReq.getNickname();
+		User user = userRepository.findByEmail(email).orElseGet(()-> null);
+
+		if(user != null && passwordEncoder.matches(password,user.getPassword())){
+			user.setNickname(nickname);
+			user.update(user.getEmail(),user.getPassword(),nickname);
+			System.out.println(user.getNickname());
+			return true;
+		}
+		return false;
+	}
+
+//	@Override
+//	public Boolean update(UserDto.UserPutReq userPutReq) {
+//		User user = new User();
+//		user.update(userPutReq.getEmail(),userPutReq.getPassword(),userPutReq.getNickname());
+//		return true;
+//	}
 }

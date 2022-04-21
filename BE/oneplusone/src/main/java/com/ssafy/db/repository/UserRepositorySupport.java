@@ -25,7 +25,7 @@ public class UserRepositorySupport {
         return Optional.ofNullable(user);
     }
 
-    public Boolean checkUserByUserId(String email) {
+    public Boolean checkUserByEmail(String email) {
         User user = jpaQueryFactory.select(qUser).from(qUser)
                 .where(qUser.email.eq(email)).fetchOne();
         if(user == null) return true;
