@@ -9,7 +9,6 @@ import lombok.Setter;
 import lombok.Builder;
 
 import javax.persistence.*;
-import java.util.List;
 
 /**
  * 유저 모델 정의.
@@ -38,13 +37,19 @@ public class User extends BaseEntity{
     Integer isWithdrawal;
 
 
+    public void update(String email, String password, String nickname) {
+        this.email = email;
+        this.password = password;
+        this.nickname = nickname;
+    }
+
     @Builder
-    public User(Long id, String email, String password, String nickname,Integer is_withdrawal){
+    public User(Long id, String email, String password, String nickname,Integer isWithdrawal){
         this.id = id;
         this.email = email;
         this.password = password;
         this.nickname = nickname;
-        this.isWithdrawal = is_withdrawal;
+        this.isWithdrawal = isWithdrawal;
     }
 //    @ManyToOne(fetch = FetchType.EAGER)
 //    @JoinColumn(name = "construction_id", nullable = false)
