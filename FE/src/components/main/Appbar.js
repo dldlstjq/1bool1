@@ -13,10 +13,10 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import logo from '../../common/logo.png'
 import { Link } from 'react-router-dom';
-// import { BrowserRouter } from 'react-router-dom';
+
 
 const pages = ['편의점', '레시피', '커뮤니티', '이벤트'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['로그인', '회원가입'];
 
 function Appbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -40,16 +40,11 @@ function Appbar() {
     <AppBar position="static" style={{backgroundColor:'white', boxShadow:'rgb(249, 61, 89) 0px 2px' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ mr: 2, mt:1,  display: { xs: 'none', md: 'flex' } }}
-          >
+          <Box sx={{ mr: 2, mt:1,  display: { xs: 'none', md: 'flex' } }}>
             <Link to='/'>
               <img src={logo} alt="logo" style={{height: '5rem'}}/>
             </Link>
-          </Typography>
+          </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -58,7 +53,7 @@ function Appbar() {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="inherit"
+              // color="inherit"
             >
               <MenuIcon />
             </IconButton>
@@ -80,30 +75,75 @@ function Appbar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Link to='/store' style={{ textDecoration:'none'}}>
+                    <Button style={{ color:'black', fontSize:'1rem', fontWeight:'bold' }}>
+                      편의점
+                    </Button>
+                  </Link>
+                  </MenuItem>
+                  <MenuItem onClick={handleCloseNavMenu}>
+                  <Link to='/' style={{ textDecoration:'none'}}>
+                    <Button style={{color:'black', fontSize:'1rem', fontWeight:'bold' }}>
+                      레시피
+                    </Button>
+                  </Link>
+                  </MenuItem>
+                  <MenuItem onClick={handleCloseNavMenu}>
+                  <Link to='/' style={{ textDecoration:'none'}}>
+                    <Button style={{color:'black', fontSize:'1rem', fontWeight:'bold' }}>
+                      커뮤니티
+                    </Button>
+                  </Link>
+                  </MenuItem>
+                  <MenuItem onClick={handleCloseNavMenu}>
+                  <Link to='/' style={{ textDecoration:'none'}}>
+                    <Button style={{ color:'black', fontSize:'1rem', fontWeight:'bold' }}>
+                      이벤트
+                    </Button>
+                  </Link>
+                  </MenuItem>
+                  <MenuItem onClick={handleCloseNavMenu}>
+                  <Link to='/' style={{ textDecoration:'none'}}>
+                    <Button style={{color:'black', fontSize:'1rem', fontWeight:'bold' }}>
+                      공지사항
+                    </Button>
+                  </Link>
                 </MenuItem>
-              ))}
+
             </Menu>
           </Box>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
-          >
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <Link to='/'>
               <img src={logo} alt="logo" style={{height: '4rem'}}/>
             </Link>
-          </Typography>
+          </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              <Link to='/store' style={{ textDecoration:'none', marginRight:'3rem', marginLeft:'3rem', hoverColor:'red'}}              >
-                <Button style={{ my: 2, color: 'black', display: 'red', fontSize:'1.3rem', fontWeight:'bold', }}>
-                  편의점
-                </Button>
-              </Link>
-
+            <Link to='/store' style={{ textDecoration:'none', marginRight:'2rem', marginLeft:'6rem', hoverColor:'red'}}>
+              <Button style={{ my: 2, color:'black', fontSize:'1.2rem', fontWeight:'bold' }}>
+                편의점
+              </Button>
+            </Link>
+            <Link to='/' style={{ textDecoration:'none', marginRight:'2rem', marginLeft:'2rem', hoverColor:'red'}}>
+              <Button style={{ my: 2, color:'black', fontSize:'1.2rem', fontWeight:'bold' }}>
+                레시피
+              </Button>
+            </Link>
+            <Link to='/' style={{ textDecoration:'none', marginRight:'2rem', marginLeft:'2rem', hoverColor:'red'}}>
+              <Button style={{ my: 2, color:'black', fontSize:'1.2rem', fontWeight:'bold' }}>
+                커뮤니티
+              </Button>
+            </Link>
+            <Link to='/' style={{ textDecoration:'none', marginRight:'2rem', marginLeft:'2rem', hoverColor:'red'}}>
+              <Button style={{ my: 2, color:'black', fontSize:'1.2rem', fontWeight:'bold' }}>
+                이벤트
+              </Button>
+            </Link>
+            <Link to='/' style={{ textDecoration:'none', marginLeft:'2rem', hoverColor:'red'}}>
+              <Button style={{ my: 2, color:'black', fontSize:'1.2rem', fontWeight:'bold' }}>
+                공지사항
+              </Button>
+            </Link>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
