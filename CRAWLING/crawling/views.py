@@ -110,8 +110,6 @@ def CU_Crawling(request):
     total()
     return HttpResponse('CU Success')
 
-
-
 @require_http_methods(["GET"])
 def GS_Crawling(request):
     # 전체 가져올건지 부분 가져올건지
@@ -147,34 +145,58 @@ def GS_Crawling(request):
         driver.get(url)
         element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "prod_list")))
 
+        category = 1
         for i in range(final_page_num):
             html = driver.page_source
             soup = BeautifulSoup(html, 'html.parser')
             items = soup.find("ul", "prod_list").find_all("div", "prod_box")
             for item in items:
+                
+                #이미지 태그 가져오는 부분
                 try:
-                    #이미지 태그 가져오는 부분
                     img = item.find("img")
                     img_src = img.get("src")
-                    #이름 가져오는 부분
-                    name = item.find("p", "tit").text
-                    # 가격 가져오는 부분
-                    price = item.find("span", "cost").text
-                    # # 행사 카테고리 가져오는 부분
-                    item_promotion = item.find("p","flg01").find("span").text
                 except:
-                    pass
+                    img_src = ""
+                #이름 가져오는 부분
+                try:
+                    name = item.find("p", "tit").text
+                except:
+                    name = ""
+                # 가격 가져오는 부분
+                try:
+                    price = item.find("span", "cost").text
+                    price = price[:-2]
+                except:
+                    price = ""
+                # # 행사 카테고리 가져오는 부분
+                try:
+                    item_promotion = item.find("p","flg01").find("span").text
+                    event = 1
+                    if item_promotion == "1+1":
+                        event = 2
+                    elif item_promotion == "2+1":
+                        event = 3
+                    elif item_promotion == "3+1":
+                        event = 4
+                    # 덤증정 
+                    else:
+                        event = 5
+                except:
+                    item_promotion = 1
+                # 데이터 저장하는 부분 
+                # gs는 카테고리가 안나뉘어 져있어서 우선은 기본으로 진행 
+                good = Goods(name = name, photo_path=img_src, \
+                price=price, is_sell=1, category=category, event=event, convinence = "GS")
+                good.save()
+
+                
+                    
             element = driver.find_element_by_xpath("//*[@id=\"contents\"]/div[2]/div[3]/div/div/div[1]/div/a[3]")
             driver.execute_script("arguments[0].click();", element)
             time.sleep(5)
     
-    if category == "promotion":
-        promotion()
-    elif category == "total":
-        total()
     promotion()
-    def total():
-        pass
     return HttpResponse('GS Success')
 
 
