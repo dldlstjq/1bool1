@@ -47,6 +47,11 @@ public class Board extends BaseEntity{
     Date updateDate;
 
     @Builder
+    public Board(Long id){
+        this.id = id;
+    }
+
+    @Builder
     public Board(Long id, String title, String content,String photo, String password, String nickname,Date startDate, Date updateDate){
         this.id = id;
         this.title = title;

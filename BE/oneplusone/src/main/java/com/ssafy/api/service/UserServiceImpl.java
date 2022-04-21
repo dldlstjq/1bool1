@@ -59,7 +59,6 @@ public class UserServiceImpl implements UserService {
 		if(user != null && passwordEncoder.matches(password,user.getPassword())){
 			user.setNickname(nickname);
 			user.update(user.getEmail(),user.getPassword(),nickname);
-			System.out.println(user.getNickname());
 			return true;
 		}
 		return false;
