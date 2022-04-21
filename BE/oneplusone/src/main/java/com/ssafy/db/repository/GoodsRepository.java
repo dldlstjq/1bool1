@@ -7,5 +7,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface GoodsRepository extends JpaRepository<Goods, Long> {
-    Optional<List<Goods>> findTop10ByOrderByStartDateAsc();
+    List<Goods> findTop10ByOrderByStartDateAsc();
 }

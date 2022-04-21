@@ -33,9 +33,9 @@ public class GoodsController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<? extends BaseResponseBody> findGoods() {
-        List<Goods> board = goodsService.findGoods();
-        if(board != null) {
-            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", board));
+        List<Goods> goods = goodsService.findGoods();
+        if(goods != null && !goods.isEmpty()) {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", goods));
         }else{
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "DB 내부에 현재 데이터가 없습니다"));
         }
