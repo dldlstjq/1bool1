@@ -25,7 +25,7 @@ public class Board extends BaseEntity{
     String content;
 
     //사진 경로
-    @Column(name = "photo")
+    @Column(name = "photo",length = 5000)
     String photo;
 
     //비밀번호

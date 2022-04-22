@@ -2,14 +2,18 @@ package com.ssafy.api.controller;
 
 import com.ssafy.api.dto.BoardDto;
 import com.ssafy.api.service.BoardService;
+import com.ssafy.api.service.FireBaseService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.Board;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Api(value = "게시물 API", tags = {"Board"})
@@ -20,9 +24,12 @@ public class BoardController {
     @Autowired
     BoardService boardService;
 
+    @Autowired
+    FireBaseService fireBaseService;
 
-    @PostMapping()
-    @ApiOperation(value = "글 등록", notes = "<strong>필수 값을 받아서 글을 등록한다.</strong>")
+
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @ApiOperation(value = "글 등록", notes = "프론트 분들에겐 죄송하지만 파일 등록은 무조건 스웨거가 아닌 <strong>POSTMAN</strong>으로 하셔야 합니다! 테스트 하시기 전에 한 번 불러주세요!")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),
@@ -30,11 +37,40 @@ public class BoardController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<? extends BaseResponseBody> register(
-            @RequestBody @ApiParam(value="글 정보", required = true) @Valid BoardDto.BoardPostRequest boardPostRequest) {
+            @RequestBody @ApiParam(value="글 정보", required = true) @ModelAttribute BoardDto.BoardPostRealRequest boardPostRealRequest) {
+        List<MultipartFile> files = boardPostRealRequest.getFile();
+        List<String> ans = new ArrayList<>();
+        if(files.isEmpty() || files == null){
 
+        }
+        else {
+            for (MultipartFile one : files) {
+                ans.add(fireBaseService.upload(one));
+            }
+        }
+
+        String photo = "";
+
+        if(ans != null) {
+            for (int i = 0; i < ans.size(); i++) {
+                if(i != (ans.size() - 1) )
+                {
+                    photo += ans.get(i) + ",";
+                }else{
+                    photo += ans.get(i);
+                }
+
+            }
+        }
+        photo += "";
+        BoardDto.BoardPostRequest boardPostRequest = new BoardDto.BoardPostRequest();
+        boardPostRequest.setPhoto(photo);
+        boardPostRequest.setNickname(boardPostRealRequest.getNickname());
+        boardPostRequest.setContent(boardPostRealRequest.getContent());
+        boardPostRequest.setTitle(boardPostRealRequest.getTitle());
+        boardPostRequest.setPassword(boardPostRealRequest.getPassword());
         //임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
         Board board = boardService.createBoard(boardPostRequest);
-
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
 
