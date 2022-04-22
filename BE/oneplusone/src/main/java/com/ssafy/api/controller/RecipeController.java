@@ -1,10 +1,13 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.dto.BoardDto;
+import com.ssafy.api.dto.RecipeDto;
 import com.ssafy.api.service.BoardService;
 import com.ssafy.api.service.FireBaseService;
+import com.ssafy.api.service.RecipeService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.Board;
+import com.ssafy.db.entity.Recipe;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -16,13 +19,13 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-@Api(value = "게시물 API", tags = {"Board"})
+@Api(value = "레시피 API", tags = {"Recipe"})
 @RestController
-@RequestMapping("/api/v1/board")
-public class BoardController {
+@RequestMapping("/api/v1/recipe")
+public class RecipeController {
 
     @Autowired
-    BoardService boardService;
+    RecipeService recipeService;
 
     @Autowired
     FireBaseService fireBaseService;
@@ -37,8 +40,8 @@ public class BoardController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<? extends BaseResponseBody> register(
-            @RequestBody @ApiParam(value="글 정보", required = true) @ModelAttribute BoardDto.BoardPostRealRequest boardPostRealRequest) {
-        List<MultipartFile> files = boardPostRealRequest.getFile();
+            @RequestBody @ApiParam(value="글 정보", required = true) @ModelAttribute RecipeDto.RecipePostRealRequest recipePostRealRequest) {
+        List<MultipartFile> files = recipePostRealRequest.getFile();
         List<String> ans = new ArrayList<>();
         if(files.isEmpty() || files == null){
 
@@ -51,7 +54,7 @@ public class BoardController {
 
         String photo = "";
 
-        if(ans != null && !ans.isEmpty()) {
+        if(ans != null) {
             for (int i = 0; i < ans.size(); i++) {
                 if(i != (ans.size() - 1) )
                 {
@@ -59,18 +62,17 @@ public class BoardController {
                 }else{
                     photo += ans.get(i);
                 }
+
             }
         }
-
         photo += "";
-        BoardDto.BoardPostRequest boardPostRequest = new BoardDto.BoardPostRequest();
-        boardPostRequest.setPhoto(photo);
-        boardPostRequest.setNickname(boardPostRealRequest.getNickname());
-        boardPostRequest.setContent(boardPostRealRequest.getContent());
-        boardPostRequest.setTitle(boardPostRealRequest.getTitle());
-        boardPostRequest.setPassword(boardPostRealRequest.getPassword());
-        //임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
-        Board board = boardService.createBoard(boardPostRequest);
+        RecipeDto.RecipePostRequest recipePostRequest = new RecipeDto.RecipePostRequest();
+        recipePostRequest.setPhoto(photo);
+        recipePostRequest.setNickname(recipePostRealRequest.getNickname());
+        recipePostRequest.setContent(recipePostRealRequest.getContent());
+        recipePostRequest.setTitle(recipePostRealRequest.getTitle());
+        recipePostRequest.setPassword(recipePostRealRequest.getPassword());
+        Recipe recipe = recipeService.createRecipe(recipePostRequest);
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
 
@@ -83,8 +85,8 @@ public class BoardController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<? extends BaseResponseBody> findBoard() {
-        List<Board> board = boardService.findBoard();
-        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", board));
+        List<Recipe> recipe = recipeService.findRecipe();
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", recipe));
     }
 
     @GetMapping("/search")
@@ -96,12 +98,12 @@ public class BoardController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<? extends BaseResponseBody> findBySearchBoard(@RequestParam("search") String search) {
-        List<Board> board = boardService.findBySearchBoard(search);
-        if(board != null)
+        List<Recipe> recipe = recipeService.findBySearchRecipe(search);
+        if(recipe != null)
         {
-            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", board));
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", recipe));
         }else{
-            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail", board));
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail"));
         }
     }
 
@@ -113,12 +115,12 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> findBoardDetail(@PathVariable("id") Long id) {
-        Board board = boardService.findBoardDetail(id);
-        if(board != null) {
-            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", board));
+    public ResponseEntity<? extends BaseResponseBody> findRecipeDetail(@PathVariable("id") Long id) {
+        Recipe recipe = recipeService.findRecipeDetail(id);
+        if(recipe != null) {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", recipe));
         }else{
-            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail", board));
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail"));
         }
     }
 
@@ -131,8 +133,8 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> modifyBoard(@ModelAttribute BoardDto.BoardPutTempRequest boardPutTempRequest) {
-        List<MultipartFile> files = boardPutTempRequest.getFile();
+    public ResponseEntity<? extends BaseResponseBody> modifyRecipe(@ModelAttribute RecipeDto.RecipePutTempRequest recipeTempPutRequest) {
+        List<MultipartFile> files = recipeTempPutRequest.getFile();
         List<String> ans = new ArrayList<>();
         if(files.isEmpty() || files == null){
         }
@@ -153,19 +155,18 @@ public class BoardController {
             }
         }
         photo += "";
-        BoardDto.BoardPutRequest boardPutRequest = new BoardDto.BoardPutRequest();
-        boardPutRequest.setPhoto(photo);
-        boardPutRequest.setContent(boardPutTempRequest.getContent());
-        boardPutRequest.setTitle(boardPutTempRequest.getTitle());
-        boardPutRequest.setNickname(boardPutTempRequest.getNickname());
-        boardPutRequest.setPassword(boardPutTempRequest.getPassword());
-        boardPutRequest.setId(boardPutTempRequest.getId());
-        if(boardService.modifyBoard(boardPutRequest)) {
+        RecipeDto.RecipePutRequest recipePutRequest = new RecipeDto.RecipePutRequest();
+        recipePutRequest.setPhoto(photo);
+        recipePutRequest.setContent(recipeTempPutRequest.getContent());
+        recipePutRequest.setTitle(recipeTempPutRequest.getTitle());
+        recipePutRequest.setNickname(recipeTempPutRequest.getNickname());
+        recipePutRequest.setPassword(recipeTempPutRequest.getPassword());
+        recipePutRequest.setId(recipeTempPutRequest.getId());
+        if(recipeService.modifyRecipe(recipePutRequest)) {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         }else{
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail"));
-        }
-    }
+        }    }
 
     @DeleteMapping("{id}")
     @ApiOperation(value = "해당 글 삭제", notes = "<strong>해당 글을 삭제한다.</strong>")
@@ -176,7 +177,7 @@ public class BoardController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<? extends BaseResponseBody> modifyBoard(@PathVariable("id") Long id) {
-        if(boardService.removeBoard(id)) {
+        if(recipeService.removeRecipe(id)) {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         }else{
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail"));

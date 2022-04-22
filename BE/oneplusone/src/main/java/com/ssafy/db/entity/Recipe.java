@@ -45,6 +45,15 @@ public class Recipe extends BaseEntity{
     @Column(name = "update_date")
     Date updateDate;
 
+    public void update(String title, String content, String password,Date updateDate,String photo,String nickname) {
+        this.title = title;
+        this.content = content;
+        this.password = password;
+        this.updateDate = new Date();
+        this.photo = photo;
+        this.nickname = nickname;
+    }
+
     @Builder
     public Recipe(Long id, String title, String content,String photo, String password, String nickname,Date startDate, Date updateDate){
         this.id = id;

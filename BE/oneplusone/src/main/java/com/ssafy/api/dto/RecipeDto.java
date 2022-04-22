@@ -16,13 +16,13 @@ import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
-public class BoardDto {
+public class RecipeDto {
     /**
      * Board 등록
      */
     @Data
-    @ApiModel("BoardPostRequest")
-    public static class BoardPostRequest {
+    @ApiModel("RecipePostRequest")
+    public static class RecipePostRequest {
         @ApiModelProperty(name="제목", example="제목")
         String title;
         @ApiModelProperty(name="내용", example="내용")
@@ -37,31 +37,12 @@ public class BoardDto {
         Date startDate;
     }
     /*
-    * Board 등록 사진 제대로
-    * */
+     * Board 등록 사진 제대로
+     * */
     @Getter
     @Setter
-    @ApiModel("BoardPostRealRequest")
-    public static class BoardPostRealRequest {
-        @ApiModelProperty(name="사진", example="사진")
-        List<MultipartFile> file;
-        @ApiModelProperty(name="제목", example="제목")
-        String title;
-        @ApiModelProperty(name="내용", example="내용")
-        String content;
-        @ApiModelProperty(name="닉네임", example="닉네임")
-        String nickname;
-        @ApiModelProperty(name="비밀번호", example="a1234!@")
-        String password;
-
-    }
-
-    @Getter
-    @Setter
-    @ApiModel("BoardPutTempRequest")
-    public static class BoardPutTempRequest {
-        @ApiModelProperty(name="id 값", example="1")
-        Long Id;
+    @ApiModel("RecipePostRealRequest")
+    public static class RecipePostRealRequest {
         @ApiModelProperty(name="사진", example="사진")
         List<MultipartFile> file;
         @ApiModelProperty(name="제목", example="제목")
@@ -76,10 +57,10 @@ public class BoardDto {
     }
     @Getter
     @Setter
-    @ApiModel("BoardPutRequest")
-    public static class BoardPutRequest {
+    @ApiModel("RecipePutRequest")
+    public static class RecipePutRequest {
         @ApiModelProperty(name="id 값", example="1")
-        Long Id;
+        Long id;
         @ApiModelProperty(name="제목", example="제목")
         String title;
         @ApiModelProperty(name="내용", example="내용")
@@ -93,5 +74,24 @@ public class BoardDto {
         @ApiModelProperty(name="현 시간", example="2022-02-01")
         Date updateDate;
     }
-    
+
+    @Getter
+    @Setter
+    @ApiModel("RecipePutTempRequest")
+    public static class RecipePutTempRequest {
+        @ApiModelProperty(name="id 값", example="1")
+        Long Id;
+        @ApiModelProperty(name="사진", example="사진")
+        List<MultipartFile> file;
+        @ApiModelProperty(name="제목", example="제목")
+        String title;
+        @ApiModelProperty(name="내용", example="내용")
+        String content;
+        @ApiModelProperty(name="닉네임", example="닉네임")
+        String nickname;
+        @ApiModelProperty(name="비밀번호", example="a1234!@")
+        String password;
+
+    }
+
 }
