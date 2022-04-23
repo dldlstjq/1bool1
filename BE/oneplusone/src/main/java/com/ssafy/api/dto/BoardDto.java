@@ -1,6 +1,7 @@
 package com.ssafy.api.dto;
 
 import com.ssafy.common.model.response.BaseResponseBody;
+import com.ssafy.db.entity.Board;
 import com.ssafy.db.entity.User;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -53,5 +54,25 @@ public class BoardDto {
         @ApiModelProperty(name="현 시간", example="2022-02-01")
         Date updateDate;
     }
-    
+
+    @Getter
+    @Setter
+    @ApiModel("BoardLikeGetRequest")
+    public static class BoardLikeGetRequest {
+        @ApiModelProperty(name="id 값", example="1")
+        Long id;
+        @ApiModelProperty(name="userId 값", example="1")
+        Long userId;
+    }
+
+    @Getter
+    @Setter
+    @ApiModel("BoardLikeGetOrderBy")
+    public static class BoardLikeGetOrderBy {
+        @ApiModelProperty(name="Board", example="객체")
+        Board board;
+        @ApiModelProperty(name="카운트 값", example="1")
+        Long cnt;
+    }
+
 }

@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -23,4 +24,16 @@ public class BoardLikeManagement extends BaseEntity{
 
     @Column(name = "isLiked")
     Integer isLiked;
+
+
+
+
+    public void update(Integer isLiked) {
+        if(this.isLiked == isLiked) {
+            this.isLiked = 1;
+        }else{
+            this.isLiked = 0;
+        }
+
+    }
 }
