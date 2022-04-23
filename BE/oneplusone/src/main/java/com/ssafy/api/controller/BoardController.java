@@ -7,6 +7,8 @@ import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.Board;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -82,8 +84,9 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> findBoard() {
-        List<Board> board = boardService.findBoard();
+    public ResponseEntity<? extends BaseResponseBody> findBoard(@RequestParam Integer page, Integer size) {
+//        Page<Board> board = boardService.findBoard(pageable);
+        List<Board> board = boardService.findBoard(page, size).getContent();
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", board));
     }
 
