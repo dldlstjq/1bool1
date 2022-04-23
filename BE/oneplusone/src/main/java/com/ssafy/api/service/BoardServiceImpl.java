@@ -8,6 +8,10 @@ import com.ssafy.db.repository.BoardRepository;
 import com.ssafy.db.repository.UserRepository;
 import com.ssafy.db.repository.UserRepositorySupport;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,8 +42,10 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public List<Board> findBoard() {
-        return boardRepository.findAll();
+    public Page<Board> findBoard(Integer page, Integer size) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("startDate").descending());
+        return boardRepository.findAll(pageRequest);
+//        return boardRepository.findAll(pageable);
     }
 
     @Override
