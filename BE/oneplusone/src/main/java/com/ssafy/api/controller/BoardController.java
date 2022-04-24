@@ -3,8 +3,11 @@ package com.ssafy.api.controller;
 import com.ssafy.api.dto.BoardDto;
 import com.ssafy.api.service.BoardService;
 import com.ssafy.api.service.FireBaseService;
+import com.ssafy.api.service.BoardLikeService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.Board;
+import com.ssafy.db.entity.BoardLike;
+import com.ssafy.db.entity.BoardLikeManagement;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -26,6 +29,7 @@ public class BoardController {
 
     @Autowired
     FireBaseService fireBaseService;
+    BoardLikeService boardlikeService;
 
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -177,6 +181,66 @@ public class BoardController {
     })
     public ResponseEntity<? extends BaseResponseBody> modifyBoard(@PathVariable("id") Long id) {
         if(boardService.removeBoard(id)) {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+        }else{
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail"));
+        }
+    }
+
+    @GetMapping("/like/{boardId}")
+    @ApiOperation(value = "해당 게시글의 좋아요 갯수를 리턴함", notes = "<strong>게시글의 좋아요 갯수를 가져온다.</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> findByBoard(@PathVariable("boardId") Long id) {
+        BoardDto.BoardLikeGetRequest dto = new BoardDto.BoardLikeGetRequest();
+        dto.setId(id);
+        Long board = boardlikeService.findByBoardId(dto);
+        if(board != null)
+        {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", board));
+        }else{
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail"));
+        }
+    }
+
+    @GetMapping("/like")
+    @ApiOperation(value = "좋아요 순 정렬", notes = "<strong>좋아요 순 정렬</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> findByBoardLike() {
+
+        List<BoardDto.BoardLikeGetOrderBy> list = boardlikeService.findByBoard();
+        if(list != null)
+        {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", list));
+        }else{
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail"));
+        }
+    }
+
+    @PostMapping("/like/{boardId}")
+    @ApiOperation(value = "게시글 좋아요 조회", notes = "<strong>게시글의 좋아요 목록을 가져온다.</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> findByBoard(@PathVariable("boardId") Long boardId, @RequestParam("user_id")Long userId) {
+        BoardDto.BoardLikeGetRequest dto = new BoardDto.BoardLikeGetRequest();
+        dto.setId(boardId);
+        dto.setUserId(userId);
+
+        if(boardlikeService.modifyBoardLike(dto))
+        {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         }else{
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail"));
