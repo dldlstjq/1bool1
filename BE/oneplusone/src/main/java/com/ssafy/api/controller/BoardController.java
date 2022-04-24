@@ -29,6 +29,7 @@ public class BoardController {
 
     @Autowired
     FireBaseService fireBaseService;
+    @Autowired
     BoardLikeService boardlikeService;
 
 
@@ -227,18 +228,17 @@ public class BoardController {
     }
 
     @PostMapping("/like/{boardId}")
-    @ApiOperation(value = "게시글 좋아요 조회", notes = "<strong>게시글의 좋아요 목록을 가져온다.</strong>")
+    @ApiOperation(value = "게시글 좋아요 등록", notes = "<strong>게시글의 좋아요 목록을 가져온다.</strong>")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> findByBoard(@PathVariable("boardId") Long boardId, @RequestParam("user_id")Long userId) {
+    public ResponseEntity<? extends BaseResponseBody> registBoard(@PathVariable("boardId") Long boardId, @RequestParam("user_id")Long userId) {
         BoardDto.BoardLikeGetRequest dto = new BoardDto.BoardLikeGetRequest();
         dto.setId(boardId);
         dto.setUserId(userId);
-
         if(boardlikeService.modifyBoardLike(dto))
         {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));

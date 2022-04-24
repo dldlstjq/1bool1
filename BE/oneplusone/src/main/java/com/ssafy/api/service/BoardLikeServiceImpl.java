@@ -34,6 +34,7 @@ public class BoardLikeServiceImpl implements BoardLikeService {
     public boolean modifyBoardLike(BoardDto.BoardLikeGetRequest dto) {
         Board board;
         board = boardRepository.findById(dto.getId()).orElseGet(() -> null);
+
         if(board == null){
             return false;
         }

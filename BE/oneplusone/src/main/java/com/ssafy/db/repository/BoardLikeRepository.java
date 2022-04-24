@@ -19,6 +19,6 @@ public interface BoardLikeRepository extends JpaRepository<BoardLikeManagement,L
 
     BoardLikeManagement findByBoardAndUser(Board board, User user);
 
-    @Query(value = "select b.board_id,count(*) as cnt from board_like_management b group by b.board_id order by b.cnt desc;",nativeQuery = true)
+    @Query(value = "select b.board_id,count(*) as cnt from board_like_management b group by b.board_id order by cnt desc;",nativeQuery = true)
     List<BoardLike> findAllOrderBySQL();
 }
