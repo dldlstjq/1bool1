@@ -106,11 +106,10 @@ def CU_Crawling(request):
                 time.sleep(20)
             except:
                 pass
+            
                 
     total()
     return HttpResponse('CU Success')
-
-
 
 @require_http_methods(["GET"])
 def GS_Crawling(request):
@@ -147,38 +146,154 @@ def GS_Crawling(request):
         driver.get(url)
         element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "prod_list")))
 
+        category = 1
         for i in range(final_page_num):
             html = driver.page_source
             soup = BeautifulSoup(html, 'html.parser')
             items = soup.find("ul", "prod_list").find_all("div", "prod_box")
             for item in items:
+                
+                #이미지 태그 가져오는 부분
                 try:
-                    #이미지 태그 가져오는 부분
                     img = item.find("img")
                     img_src = img.get("src")
-                    #이름 가져오는 부분
-                    name = item.find("p", "tit").text
-                    # 가격 가져오는 부분
-                    price = item.find("span", "cost").text
-                    # # 행사 카테고리 가져오는 부분
-                    item_promotion = item.find("p","flg01").find("span").text
                 except:
-                    pass
+                    img_src = ""
+                #이름 가져오는 부분
+                try:
+                    name = item.find("p", "tit").text
+                except:
+                    name = ""
+                # 가격 가져오는 부분
+                try:
+                    price = item.find("span", "cost").text
+                    price = price[:-2]
+                except:
+                    price = ""
+                # # 행사 카테고리 가져오는 부분
+                try:
+                    item_promotion = item.find("p","flg01").find("span").text
+                    event = 1
+                    if item_promotion == "1+1":
+                        event = 2
+                    elif item_promotion == "2+1":
+                        event = 3
+                    elif item_promotion == "3+1":
+                        event = 4
+                    # 덤증정 
+                    else:
+                        event = 5
+                except:
+                    item_promotion = 1
+                # 데이터 저장하는 부분 
+                # gs는 카테고리가 안나뉘어 져있어서 우선은 기본으로 진행 
+                good = Goods(name = name, photo_path=img_src, \
+                price=price, is_sell=1, category=category, event=event, convinence = "GS")
+                good.save()
+
+                
+                    
             element = driver.find_element_by_xpath("//*[@id=\"contents\"]/div[2]/div[3]/div/div/div[1]/div/a[3]")
             driver.execute_script("arguments[0].click();", element)
             time.sleep(5)
     
-    if category == "promotion":
-        promotion()
-    elif category == "total":
-        total()
     promotion()
-    def total():
-        pass
     return HttpResponse('GS Success')
 
+@require_http_methods(["GET"])
+def SE_Crawling(request):
+    SE_BUTTON = [
+        # 1+1 패스해야함
+        "",
+        # 2+1
+        "//*[@id=\"actFrm\"]/div[3]/div[1]/ul/li[2]/a",
+        # 증정행사
+        "//*[@id=\"actFrm\"]/div[3]/div[1]/ul/li[3]/a",
+        # 할인행사
+        "//*[@id=\"actFrm\"]/div[3]/div[1]/ul/li[4]/a"
+    ]
+    options = webdriver.ChromeOptions()
+    options.add_experimental_option('excludeSwitches', ['enable-logging'])
+    # 편의점 이름 설정
+    convinence = "SE"
+    driver = webdriver.Chrome('C:/Users/SSAFY/Desktop/SSAFY/자율PJT/CODE/chromedriver_win32/chromedriver.exe', options=options)
+    # 암묵적으로 웹 자원 로드를 위해 3초까지 기다린다
+    driver.get("https://www.7-eleven.co.kr/product/presentList.asp")
+    element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "btn_product_01")))
 
+    def promotion():
+        # 페이지 옮겨다니면서 이벤트 상품들 가져오기
+        for idx in range(4):
+            while True:
+                # 첫 페이지 더보기
+                try: 
+                # //*[@id="moreImg"]/a
+                # //*[@id="listUl"]/li[15]/a
+                #//*[@id="listUl"]/li[15]/a
+                    # 최초랑 두번째부터가 다름 첫 실행 이후 가져오도록
+                    driver.find_element_by_xpath("//*[@id=\"listUl\"]/li[15]/a").click()
+                    time.sleep(15)
+                except:
+                    # 첫페이지가 없으면 두번째 페이지로 진행\
+                    pass
+                try:
+                    driver.find_element_by_xpath("//*[@id=\"moreImg\"]/a").click()
+                    time.sleep(15)
+                    # 더 이상 넘길게 없으면 break
+                except Exception as e:
+                    break
+            html = driver.page_source
+            soup = BeautifulSoup(html, 'html.parser')
+            items = soup.find_all("div", "pic_product")
+            # 크롤링 코드가 이상해 이전과 같은 부분을 가져오면 패스하도록 구현
+            before_name = ""
+            for item in items:
+                    #이미지 태그 가져오는 부분
+                    try:
+                        img = item.find("img")
+                        img_src = img.get("src")
+                    except:
+                        img_src = ""
+                    # 이름 가져오는 부분
+                    try:
+                        name = item.find("div", "name").text
+                        if name == before_name:
+                            continue
+                        before_name = name
+                    except:
+                        name = ""
+                    # 가격 가져오는 부분
+                    try:
+                        price = item.find("div", "price").find("span").text
+                    except:
+                        price = ""
+                    # 행사 카테고리 가져오는 부분
+                    try:
+                        if idx == 0:
+                            event = 2
+                        elif idx == 1:
+                            event = 3
+                        elif idx == 2:
+                            event = 6
+                        elif idx == 4:
+                            event =5
+                    except:
+                        event = 1
+                    good = Goods(name = name, photo_path=img_src, \
+                    price=price, is_sell=1, category=0, event=event, convinence = "SE")
+                    good.save()
+            print("FINISH")
+            #다음 카테고리 넘어가기
+            try:
+                button = SE_BUTTON[idx + 1]
+                element = driver.find_element_by_xpath(button)
+                driver.execute_script("arguments[0].click();", element)
+                time.sleep(20)
+            except:
+                pass
+    promotion()
 
+    return HttpResponse('SE Success')
 
 
 
