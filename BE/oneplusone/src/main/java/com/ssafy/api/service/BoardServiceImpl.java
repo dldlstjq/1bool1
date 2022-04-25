@@ -82,6 +82,7 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public List<Board> findBySearchBoard(String search) {
-        return boardRepository.findByTitleOrContent(search,search).orElseGet(() -> null);
+        List<Board> list = boardRepository.findByTitleContainingOrContentContaining(search,search);
+        return list;
     }
 }

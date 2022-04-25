@@ -3,17 +3,20 @@ package com.ssafy.api.service;
 import com.ssafy.api.dto.RecipeDto;
 import com.ssafy.db.entity.Recipe;
 import org.springframework.data.domain.Page;
+import com.ssafy.db.entity.RecipeGoodsSelect;
 
 import java.util.List;
 
 public interface RecipeService {
-    Recipe createRecipe(RecipeDto.RecipePostRequest recipePostRequest);
+    boolean createRecipe(RecipeDto.RecipePostRequest recipePostRequest);
 
     Page<Recipe> findRecipe(Integer page, Integer size);
 
     List<Recipe> findBySearchRecipe(String search);
 
     Recipe findRecipeDetail(Long id);
+
+    public List<RecipeGoodsSelect> findRecipeDetailGoods(Long id);
 
     boolean modifyRecipe(RecipeDto.RecipePutRequest recipePutRequest);
 

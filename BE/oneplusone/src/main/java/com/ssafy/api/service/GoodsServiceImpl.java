@@ -17,4 +17,9 @@ public class GoodsServiceImpl implements GoodsService{
     public List<Goods> findGoods() {
         return goodsRepository.findTop10ByOrderByStartDateAsc();
     }
+
+    @Override
+    public Goods findGoodsDetail(Long goodsId) {
+        return goodsRepository.findById(goodsId).orElseGet(() -> null);
+    }
 }
