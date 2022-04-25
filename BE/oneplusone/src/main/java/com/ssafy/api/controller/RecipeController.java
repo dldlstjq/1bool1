@@ -140,7 +140,7 @@ public class RecipeController {
 
 
     @GetMapping("/goods/{id}")
-    @ApiOperation(value = "레시피 상세 조회", notes = "<strong>레시피의 정보를 가져온다.</strong>")
+    @ApiOperation(value = "레시피 재료 사진 상세 조회", notes = "<strong>해당 레시피의 재료 정보를 가져온다.</strong>")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),

@@ -38,8 +38,8 @@ public class RecipeDto {
         String password;
         @ApiModelProperty(name="사진 경로", example="123232.jpg")
         String photo;
-        @ApiModelProperty(name="시작 시간", example="2022-02-01")
-        Date startDate;
+//        @ApiModelProperty(name="시작 시간", example="2022-02-01")
+//        Date startDate;
         @ApiModelProperty(name="GoodsId", example="1,2,3,4")
         String GoodsId;
     }
