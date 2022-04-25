@@ -6,6 +6,9 @@ import com.ssafy.db.entity.Recipe;
 import com.ssafy.db.repository.BoardRepository;
 import com.ssafy.db.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,14 +30,15 @@ public class RecipeServiceImpl implements RecipeService{
         recipe.setPhoto(recipePostRequest.getPhoto());
         recipe.setTitle(recipePostRequest.getTitle());
         Date date = new Date();
-        recipePostRequest.setStartDate(date);
-        recipe.setStartDate(recipePostRequest.getStartDate());
+//        recipePostRequest.setStartDate(date);
+//        recipe.setStartDate(recipePostRequest.getStartDate());
         return recipeRepository.save(recipe);
     }
 
     @Override
-    public List<Recipe> findRecipe() {
-        return recipeRepository.findAll();
+    public Page<Recipe> findRecipe(Integer page, Integer size) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("createdDate").descending());
+        return recipeRepository.findAll(pageRequest);
     }
 
     @Override
@@ -58,8 +62,9 @@ public class RecipeServiceImpl implements RecipeService{
             recipe.setContent(recipePutRequest.getContent());
             recipe.setPhoto(recipePutRequest.getPhoto());
             Date date = new Date();
-            recipe.setStartDate(date);
-            recipe.update(recipePutRequest.getTitle(), recipePutRequest.getContent(),recipePutRequest.getPassword() ,recipePutRequest.getUpdateDate(), recipePutRequest.getPhoto(), recipePutRequest.getNickname());
+//            recipe.setStartDate(date);
+            recipe.update(recipePutRequest.getTitle(), recipePutRequest.getContent(),recipePutRequest.getPassword() , recipePutRequest.getPhoto(), recipePutRequest.getNickname());
+//            recipe.update(recipePutRequest.getTitle(), recipePutRequest.getContent(),recipePutRequest.getPassword() ,recipePutRequest.getUpdateDate(), recipePutRequest.getPhoto(), recipePutRequest.getNickname());
             return true;
         }
         return false;

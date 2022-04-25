@@ -2,13 +2,14 @@ package com.ssafy.api.service;
 
 import com.ssafy.api.dto.RecipeDto;
 import com.ssafy.db.entity.Recipe;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface RecipeService {
     Recipe createRecipe(RecipeDto.RecipePostRequest recipePostRequest);
 
-    List<Recipe> findRecipe();
+    Page<Recipe> findRecipe(Integer page, Integer size);
 
     List<Recipe> findBySearchRecipe(String search);
 
