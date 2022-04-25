@@ -227,21 +227,26 @@ def SE_Crawling(request):
             while True:
                 # 첫 페이지 더보기
                 try: 
+                # //*[@id="moreImg"]/a
+                # //*[@id="listUl"]/li[15]/a
+                #//*[@id="listUl"]/li[15]/a
                     # 최초랑 두번째부터가 다름 첫 실행 이후 가져오도록
                     driver.find_element_by_xpath("//*[@id=\"listUl\"]/li[15]/a").click()
                     time.sleep(15)
                 except:
-                    # 첫페이지가 없으면 두번째 페이지로 진행
-                    try:
-                        driver.find_element_by_xpath("//*[@id=\"moreImg\"]/a").click()
-                        # 안전한 페이지 로딩을 위해 30초의 대기시간
-                        time.sleep(15)
-                        break
-                    except Exception as e:
-                        break
+                    # 첫페이지가 없으면 두번째 페이지로 진행\
+                    pass
+                try:
+                    driver.find_element_by_xpath("//*[@id=\"moreImg\"]/a").click()
+                    time.sleep(15)
+                    # 더 이상 넘길게 없으면 break
+                except Exception as e:
+                    break
             html = driver.page_source
             soup = BeautifulSoup(html, 'html.parser')
             items = soup.find_all("div", "pic_product")
+            # 크롤링 코드가 이상해 이전과 같은 부분을 가져오면 패스하도록 구현
+            before_name = ""
             for item in items:
                     #이미지 태그 가져오는 부분
                     try:
@@ -252,6 +257,9 @@ def SE_Crawling(request):
                     # 이름 가져오는 부분
                     try:
                         name = item.find("div", "name").text
+                        if name == before_name:
+                            continue
+                        before_name = name
                     except:
                         name = ""
                     # 가격 가져오는 부분
@@ -271,19 +279,21 @@ def SE_Crawling(request):
                             event =5
                     except:
                         event = 1
-                    print(img_src, name, price)
-
+                    good = Goods(name = name, photo_path=img_src, \
+                    price=price, is_sell=1, category=0, event=event, convinence = "SE")
+                    good.save()
             print("FINISH")
             #다음 카테고리 넘어가기
             try:
                 button = SE_BUTTON[idx + 1]
-                driver.find_element_by_xpath(button).click()
+                element = driver.find_element_by_xpath(button)
+                driver.execute_script("arguments[0].click();", element)
                 time.sleep(20)
-            except Exception as e:
-                print(e)
+            except:
+                pass
     promotion()
 
-    return HttpResponse('GS Success')
+    return HttpResponse('SE Success')
 
 
 
