@@ -9,6 +9,6 @@ import java.util.Optional;
 
 public interface RecipeRepository extends JpaRepository<Recipe,Long> {
     Optional<Recipe> findByPasswordAndId(String password, Long Id);
-    Optional<List<Recipe>> findByTitleOrContent(String title, String content);
+    List<Recipe> findByTitleContainingOrContentContaining(String title, String content);
 
 }

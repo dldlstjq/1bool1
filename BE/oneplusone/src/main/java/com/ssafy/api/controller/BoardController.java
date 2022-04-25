@@ -74,7 +74,6 @@ public class BoardController {
         boardPostRequest.setContent(boardPostRealRequest.getContent());
         boardPostRequest.setTitle(boardPostRealRequest.getTitle());
         boardPostRequest.setPassword(boardPostRealRequest.getPassword());
-        //임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
         Board board = boardService.createBoard(boardPostRequest);
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
@@ -102,11 +101,11 @@ public class BoardController {
     })
     public ResponseEntity<? extends BaseResponseBody> findBySearchBoard(@RequestParam("search") String search) {
         List<Board> board = boardService.findBySearchBoard(search);
-        if(board != null)
+        if(board.size() > 0)
         {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", board));
         }else{
-            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail", board));
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "제목과 내용 모두 찾아 봤지만 존재 하지 않습니다.", board));
         }
     }
 
@@ -129,7 +128,7 @@ public class BoardController {
 
 
     @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @ApiOperation(value = "해당 글 수정", notes = "<strong>글의 목록을 가져온다.</strong>")
+    @ApiOperation(value = "해당 글 수정", notes = "<strong>POSTMAN 이용 부탁드립니다.</strong>")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),

@@ -12,6 +12,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.Column;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
@@ -37,6 +40,8 @@ public class RecipeDto {
         String photo;
         @ApiModelProperty(name="시작 시간", example="2022-02-01")
         Date startDate;
+        @ApiModelProperty(name="GoodsId", example="1,2,3,4")
+        String GoodsId;
     }
     /*
      * Board 등록 사진 제대로
@@ -55,6 +60,8 @@ public class RecipeDto {
         String nickname;
         @ApiModelProperty(name="비밀번호", example="a1234!@")
         String password;
+        @ApiModelProperty(name="GoodsId", example="1,2,3,4")
+        String GoodsId;
 
     }
     @Getter
@@ -73,6 +80,8 @@ public class RecipeDto {
         String password;
         @ApiModelProperty(name="사진 경로", example="123232.jpg")
         String photo;
+        @ApiModelProperty(name="GoodsId", example="1,2,3,4")
+        String GoodsId;
         @ApiModelProperty(name="현 시간", example="2022-02-01")
         Date updateDate;
     }
@@ -93,7 +102,8 @@ public class RecipeDto {
         String nickname;
         @ApiModelProperty(name="비밀번호", example="a1234!@")
         String password;
-
+        @ApiModelProperty(name="GoodsId", example="1,2,3,4")
+        String GoodsId;
     }
 
     @Getter
@@ -114,6 +124,17 @@ public class RecipeDto {
         Recipe recipe;
         @ApiModelProperty(name="카운트 값", example="1")
         Long cnt;
+    }
+    
+    @Getter
+    @Setter
+    @ApiModel("RecipeGetDetail")
+    public static class RecipeGetDetail{
+        @ApiModelProperty(name="recipe_id", example="1")
+        Long recipeId;
+        @ApiModelProperty(name="goodsPhoto", example="1.jpg")
+        String goodsPhoto;
+
     }
 
 }

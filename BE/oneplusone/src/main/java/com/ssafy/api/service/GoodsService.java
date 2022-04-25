@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface GoodsService {
     List<Goods> findGoods();
+
+    Goods findGoodsDetail(Long goodsId);
 }

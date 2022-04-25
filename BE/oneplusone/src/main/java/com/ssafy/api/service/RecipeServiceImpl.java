@@ -1,14 +1,19 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.dto.RecipeDto;
-import com.ssafy.db.entity.Board;
+import com.ssafy.db.entity.Goods;
 import com.ssafy.db.entity.Recipe;
-import com.ssafy.db.repository.BoardRepository;
+import com.ssafy.db.entity.RecipeGoods;
+import com.ssafy.db.entity.RecipeGoodsSelect;
+import com.ssafy.db.repository.GoodsRepository;
+import com.ssafy.db.repository.RecipeGoodsRepository;
+import com.ssafy.db.repository.RecipeLikeRepository;
 import com.ssafy.db.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -17,19 +22,38 @@ public class RecipeServiceImpl implements RecipeService{
     @Autowired
     RecipeRepository recipeRepository;
 
+    @Autowired
+    GoodsRepository goodsRepository;
+
+    @Autowired
+    RecipeGoodsRepository recipeGoodsRepository;
     @Override
     @Transactional
-    public Recipe createRecipe(RecipeDto.RecipePostRequest recipePostRequest) {
+    public boolean createRecipe(RecipeDto.RecipePostRequest recipePostRequest) {
         Recipe recipe = new Recipe();
         recipe.setNickname(recipePostRequest.getNickname());
         recipe.setPassword(recipePostRequest.getPassword());
         recipe.setContent(recipePostRequest.getContent());
         recipe.setPhoto(recipePostRequest.getPhoto());
         recipe.setTitle(recipePostRequest.getTitle());
+        List<String> list = Arrays.asList(recipePostRequest.getGoodsId().split(","));
+
         Date date = new Date();
         recipePostRequest.setStartDate(date);
         recipe.setStartDate(recipePostRequest.getStartDate());
-        return recipeRepository.save(recipe);
+        recipeRepository.save(recipe);
+        RecipeGoods recipeGoods;
+        for(int i = 0; i < list.size(); i++) {
+            recipeGoods = new RecipeGoods();
+            Goods goods = goodsRepository.findById(Long.valueOf(list.get(i))).orElseGet(() -> null);
+            if(goods == null){
+                return false;
+            }
+            recipeGoods.setGoods(goods);
+            recipeGoods.setRecipe(recipe);
+            recipeGoodsRepository.save(recipeGoods); //등록
+        }
+        return true;
     }
 
     @Override
@@ -37,9 +61,11 @@ public class RecipeServiceImpl implements RecipeService{
         return recipeRepository.findAll();
     }
 
+
+
     @Override
     public List<Recipe> findBySearchRecipe(String search) {
-        return recipeRepository.findByTitleOrContent(search,search).orElseGet(() -> null);
+        return recipeRepository.findByTitleContainingOrContentContaining(search,search);
     }
 
     @Override
@@ -47,10 +73,33 @@ public class RecipeServiceImpl implements RecipeService{
         return recipeRepository.findById(id).orElseGet(() -> null);
     }
 
+    public List<RecipeGoodsSelect> findRecipeDetailGoods(Long id){
+        return recipeGoodsRepository.findBySQL(id);
+    }
+
     @Override
     @Transactional
     public boolean modifyRecipe(RecipeDto.RecipePutRequest recipePutRequest) {
         Recipe recipe = recipeRepository.findByPasswordAndId(recipePutRequest.getPassword(),recipePutRequest.getId()).orElseGet(() -> null);
+        List<String> list = Arrays.asList(recipePutRequest.getGoodsId().split(","));
+
+        List<RecipeGoods> recipelist = recipeGoodsRepository.findByRecipe(recipe);
+        if(recipelist.size() > 0) {
+            for(int j = 0; j < recipelist.size(); j++) { //레시피 아이디로 등록 된 것 다 지우고
+                recipeGoodsRepository.delete(recipelist.get(j));
+            }
+        }
+        for(int i = 0; i < list.size(); i++) {
+            RecipeGoods recipeGoods = new RecipeGoods();
+            Goods goods = goodsRepository.findById(Long.valueOf(list.get(i))).orElseGet(()->null);
+            if(goods == null){ //goods 가 없는 번호
+                return false;
+            }
+            recipeGoods.setRecipe(recipe);
+            recipeGoods.setGoods(goods);
+
+            recipeGoodsRepository.save(recipeGoods);
+        }
         if(recipe != null) {
             recipe.setPassword(recipePutRequest.getPassword());
             recipe.setNickname(recipePutRequest.getNickname());
