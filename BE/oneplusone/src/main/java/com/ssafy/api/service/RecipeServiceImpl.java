@@ -27,8 +27,8 @@ public class RecipeServiceImpl implements RecipeService{
         recipe.setPhoto(recipePostRequest.getPhoto());
         recipe.setTitle(recipePostRequest.getTitle());
         Date date = new Date();
-        recipePostRequest.setStartDate(date);
-        recipe.setStartDate(recipePostRequest.getStartDate());
+//        recipePostRequest.setStartDate(date);
+//        recipe.setStartDate(recipePostRequest.getStartDate());
         return recipeRepository.save(recipe);
     }
 
@@ -58,8 +58,9 @@ public class RecipeServiceImpl implements RecipeService{
             recipe.setContent(recipePutRequest.getContent());
             recipe.setPhoto(recipePutRequest.getPhoto());
             Date date = new Date();
-            recipe.setStartDate(date);
-            recipe.update(recipePutRequest.getTitle(), recipePutRequest.getContent(),recipePutRequest.getPassword() ,recipePutRequest.getUpdateDate(), recipePutRequest.getPhoto(), recipePutRequest.getNickname());
+//            recipe.setStartDate(date);
+            recipe.update(recipePutRequest.getTitle(), recipePutRequest.getContent(),recipePutRequest.getPassword() , recipePutRequest.getPhoto(), recipePutRequest.getNickname());
+//            recipe.update(recipePutRequest.getTitle(), recipePutRequest.getContent(),recipePutRequest.getPassword() ,recipePutRequest.getUpdateDate(), recipePutRequest.getPhoto(), recipePutRequest.getNickname());
             return true;
         }
         return false;
