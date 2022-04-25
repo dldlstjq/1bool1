@@ -10,6 +10,8 @@ import com.ssafy.db.entity.BoardLike;
 import com.ssafy.db.entity.BoardLikeManagement;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -80,15 +82,19 @@ public class BoardController {
     }
 
     @GetMapping()
-    @ApiOperation(value = "전체 글 조회", notes = "<strong>글의 목록을 가져온다.</strong>")
+    @ApiOperation(value = "전체 글 조회", notes = "<strong>글의 목록을 가져온다.</strong> " +
+            "<br/> page는 몇 페이지인지를 나타내고 size는 가져올 글의 개수입니다. " +
+            "<br/> page는 0부터 시작이고 데이터가 있으면 리스트가, 가져올 데이터가 없으면 게시글이 없다는 메시지기 반환됩니다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> findBoard() {
-        List<Board> board = boardService.findBoard();
+    public ResponseEntity<? extends BaseResponseBody> findBoard(@RequestParam Integer page, Integer size) {
+//        Page<Board> board = boardService.findBoard(pageable);
+        List<Board> board = boardService.findBoard(page, size).getContent();
+        if(board.isEmpty()) return ResponseEntity.status(200).body(BaseResponseBody.of(200, "해당 페이지에 게시글이 없습니다."));
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", board));
     }
 
