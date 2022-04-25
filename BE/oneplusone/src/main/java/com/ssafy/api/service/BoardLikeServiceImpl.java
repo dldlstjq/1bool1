@@ -1,10 +1,8 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.dto.BoardDto;
-import com.ssafy.db.entity.Board;
-import com.ssafy.db.entity.BoardLike;
-import com.ssafy.db.entity.BoardLikeManagement;
-import com.ssafy.db.entity.User;
+import com.ssafy.api.dto.RecipeDto;
+import com.ssafy.db.entity.*;
 import com.ssafy.db.repository.BoardLikeRepository;
 import com.ssafy.db.repository.BoardRepository;
 import com.ssafy.db.repository.UserRepository;
@@ -62,12 +60,26 @@ public class BoardLikeServiceImpl implements BoardLikeService {
         List<BoardLike> list = boardLikeRepository.findAllOrderBySQL();
         List<BoardDto.BoardLikeGetOrderBy> newOne = new ArrayList<>();
         BoardDto.BoardLikeGetOrderBy temp;
+        List<Board> another;
+        another = boardRepository.findAll();
         for(int i = 0; i < list.size(); i++){
             temp = new BoardDto.BoardLikeGetOrderBy();
             temp.setBoard(boardRepository.findById(list.get(i).getBoard_id()).orElseGet(() -> null));
             temp.setCnt(list.get(i).getCnt());
+            another.remove(boardRepository.findById(list.get(i).getBoard_id()).orElseGet(() -> null)); //삭제 처리
             newOne.add(temp);
         }
+
+        //이 곳은 게시글 좋아요 갯수를 받지 못한 곳 입니다.
+        BoardDto.BoardLikeGetOrderBy t;
+        for(int i = 0; i < another.size(); i++){
+            t = new BoardDto.BoardLikeGetOrderBy();
+            t.setBoard(another.get(i));
+            t.setCnt(0L);
+            newOne.add(t);
+        }
+        //끝 처리
+        
         return newOne;
     }
 }

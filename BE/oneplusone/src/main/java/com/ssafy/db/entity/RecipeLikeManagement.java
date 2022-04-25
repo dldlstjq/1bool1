@@ -23,4 +23,13 @@ public class RecipeLikeManagement extends BaseEntity{
 
     @Column(name = "isLiked")
     Integer isLiked;
+
+    public void update(Integer isLiked) {
+        if(this.isLiked == isLiked) {
+            this.isLiked = 1;
+        }else{
+            this.isLiked = 0;
+        }
+
+    }
 }

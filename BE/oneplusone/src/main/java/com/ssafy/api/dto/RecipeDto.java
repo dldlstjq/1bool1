@@ -1,6 +1,8 @@
 package com.ssafy.api.dto;
 
 import com.ssafy.common.model.response.BaseResponseBody;
+import com.ssafy.db.entity.Board;
+import com.ssafy.db.entity.Recipe;
 import com.ssafy.db.entity.User;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -92,6 +94,26 @@ public class RecipeDto {
         @ApiModelProperty(name="비밀번호", example="a1234!@")
         String password;
 
+    }
+
+    @Getter
+    @Setter
+    @ApiModel("RecipeLikeGetRequest")
+    public static class RecipeLikeGetRequest {
+        @ApiModelProperty(name="id 값", example="1")
+        Long id;
+        @ApiModelProperty(name="userId 값", example="1")
+        Long userId;
+    }
+
+    @Getter
+    @Setter
+    @ApiModel("RecipeLikeGetOrderBy")
+    public static class RecipeLikeGetOrderBy {
+        @ApiModelProperty(name="Recipe", example="객체")
+        Recipe recipe;
+        @ApiModelProperty(name="카운트 값", example="1")
+        Long cnt;
     }
 
 }
