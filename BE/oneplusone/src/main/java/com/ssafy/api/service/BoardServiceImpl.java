@@ -36,14 +36,14 @@ public class BoardServiceImpl implements BoardService{
         board.setPhoto(boardPostRequest.getPhoto());
         board.setTitle(boardPostRequest.getTitle());
         Date date = new Date();
-        boardPostRequest.setStartDate(date);
-        board.setStartDate(boardPostRequest.getStartDate());
+//        boardPostRequest.setStartDate(date);
+//        board.setStartDate(boardPostRequest.getStartDate());
         return boardRepository.save(board);
     }
 
     @Override
     public Page<Board> findBoard(Integer page, Integer size) {
-        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("startDate").descending());
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("createdDate").descending());
         return boardRepository.findAll(pageRequest);
 //        return boardRepository.findAll(pageable);
     }
@@ -60,8 +60,9 @@ public class BoardServiceImpl implements BoardService{
             board.setContent(boardPutRequest.getContent());
             board.setPhoto(boardPutRequest.getPhoto());
             Date date = new Date();
-            board.setStartDate(date);
-            board.update(boardPutRequest.getTitle(), boardPutRequest.getContent(),boardPutRequest.getPassword() ,boardPutRequest.getUpdateDate(), boardPutRequest.getPhoto(), boardPutRequest.getNickname());
+//            board.setStartDate(date);
+            board.update(boardPutRequest.getTitle(), boardPutRequest.getContent(),boardPutRequest.getPassword() , boardPutRequest.getPhoto(), boardPutRequest.getNickname());
+//            board.update(boardPutRequest.getTitle(), boardPutRequest.getContent(),boardPutRequest.getPassword() ,boardPutRequest.getUpdateDate(), boardPutRequest.getPhoto(), boardPutRequest.getNickname());
             return true;
         }
         return false;
