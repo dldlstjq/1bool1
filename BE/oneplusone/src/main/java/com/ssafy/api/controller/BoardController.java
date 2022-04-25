@@ -86,8 +86,10 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> findBoard() {
-        List<Board> board = boardService.findBoard();
+    public ResponseEntity<? extends BaseResponseBody> findBoard(@RequestParam("page") Integer page, @RequestParam("size") Integer size) {
+//        Page<Board> board = boardService.findBoard(pageable);
+        List<Board> board = boardService.findBoard(page, size).getContent();
+        if(board.isEmpty()) return ResponseEntity.status(200).body(BaseResponseBody.of(200, "해당 페이지에 게시글이 없습니다."));
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", board));
     }
 

@@ -89,16 +89,18 @@ public class RecipeServiceImpl implements RecipeService{
                 recipeGoodsRepository.delete(recipelist.get(j));
             }
         }
-        for(int i = 0; i < list.size(); i++) {
-            RecipeGoods recipeGoods = new RecipeGoods();
-            Goods goods = goodsRepository.findById(Long.valueOf(list.get(i))).orElseGet(()->null);
-            if(goods == null){ //goods 가 없는 번호
-                return false;
-            }
-            recipeGoods.setRecipe(recipe);
-            recipeGoods.setGoods(goods);
+        if(!recipePutRequest.getGoodsId().equals("0")) {
+            for (int i = 0; i < list.size(); i++) {
+                RecipeGoods recipeGoods = new RecipeGoods();
+                Goods goods = goodsRepository.findById(Long.valueOf(list.get(i))).orElseGet(() -> null);
+                if (goods == null) { //goods 가 없는 번호
+                    return false;
+                }
+                recipeGoods.setRecipe(recipe);
+                recipeGoods.setGoods(goods);
 
-            recipeGoodsRepository.save(recipeGoods);
+                recipeGoodsRepository.save(recipeGoods);
+            }
         }
         if(recipe != null) {
             recipe.setPassword(recipePutRequest.getPassword());
