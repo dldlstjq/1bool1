@@ -14,7 +14,7 @@ class Board(models.Model):
     nickname = models.CharField(max_length=255)
     password = models.CharField(max_length=255)
     photo = models.CharField(max_length=255, blank=True, null=True)
-    start_date = models.DateTimeField(auto_now=False)
+    start_date = models.DateTimeField()
     title = models.CharField(max_length=255)
     update_date = models.DateTimeField(blank=True, null=True)
 
