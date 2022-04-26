@@ -88,7 +88,8 @@ public class GoodsController {
         goodsPutRequest.setHit(goods.getHit()+1);
         goodsPutRequest.setConvinence(goods.getConvinence());
 
-        if(goodsService.modifyGoodsHit(goodsPutRequest))
+        Goods hitGoods = goodsService.modifyGoodsHit(goodsPutRequest);
+        if(hitGoods != null)
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail"));
     }
