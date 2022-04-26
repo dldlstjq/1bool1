@@ -58,6 +58,19 @@ public class Goods extends BaseEntity{
     @Column(name = "update_date")
     Date updateDate;
 
+    public void update(String name, String price, String photoPath, String description, Integer category, Integer isSell, Integer event, Integer hit, String convinence){
+        this.name=name;
+        this.price=price;
+        this.photoPath=photoPath;
+        this.description=description;
+        this.category=category;
+        this.isSell=isSell;
+        this.event=event;
+        this.hit=hit;
+        this.convinence=convinence;
+
+    }
+
     @Builder
     public Goods(Long id, String name, String price,String photoPath, String description, Integer category,Integer isSell,Integer event,Integer hit,String convinence,Date startDate, Date updateDate){
         this.id = id;
