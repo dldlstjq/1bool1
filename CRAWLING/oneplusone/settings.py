@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     #3rd party app
+    'common',
     'crawling',
     #base app
     'django.contrib.admin',
@@ -40,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #add app
+    'django_crontab',
 ]
 
 MIDDLEWARE = [

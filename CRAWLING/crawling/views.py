@@ -299,7 +299,7 @@ def Ministop_Crawling(request):
         driver.implicitly_wait(time_to_wait=5)
         print('##############################################################')
 
-        driver.switch_to.frame(driver.find_element(By.XPATH,value="//*[@id='menu1']/h2/a")).click
+        driver.switch_to.frame('frame2nd')
         driver.switch_to_default_content
 
         # 행사 분류하기
