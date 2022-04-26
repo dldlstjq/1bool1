@@ -11,5 +11,5 @@ public interface GoodsService {
 
     Goods findGoodsDetail(Long goodsId);
 
-    boolean modifyGoodsHit(GoodsDto.GoodsPutRequest goodsPutRequest);
+    Goods modifyGoodsHit(GoodsDto.GoodsPutRequest goodsPutRequest);
 }
