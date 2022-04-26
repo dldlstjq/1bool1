@@ -429,3 +429,215 @@ def MS_Crawling(request):
                 pass
     promotion()
     return HttpResponse("MS Success")
+
+def EM_Crawling(request):
+    # 행사 상품 Crawling
+    print('start')
+    category = request.GET.get("category")
+    def find_final_page(url, driver, xpath_element):
+        driver.get(url)
+        # 행사 상품으로 이동
+        element = driver.find_element_by_xpath(xpath_element)
+        driver.execute_script("arguments[0].click();", element)
+        time.sleep(2)
+        # 페이지 불러오기 딜레이 타임
+        element = driver.find_element_by_xpath("//*[@id='regForm']/div[2]/div[3]/div[3]/a[14]")
+        driver.execute_script("arguments[0].click();", element)
+        time.sleep(5)
+
+        html = driver.page_source
+        soup = BeautifulSoup(html, 'html.parser')
+        final_page_num = soup.find("div", "paging").find("a", "on").text
+        return int(final_page_num)
+ 
+    def promotion():
+        # Emart 행사페이지 url
+        url = 'https://emart24.co.kr/product/eventProduct.asp'
+        driver = webdriver.Chrome(ChromeDriverManager().install())
+        
+
+        # 행사 분류하기
+        for k in range(2, 7):
+            xpath_element = '//*[@id="tabNew"]/ul/li['+str(k)+']/h4/a'
+            print(xpath_element)
+
+            # 마지막 페이지 찾기
+            final_page_num = find_final_page(url, driver, xpath_element)
+
+            # 암묵적으로 웹 자원 로드를 위해 3초까지 기다린다
+            driver.implicitly_wait(time_to_wait=10)
+            # req지정
+            driver.get(url)
+            element = driver.find_element_by_xpath(xpath_element)
+            driver.execute_script("arguments[0].click();", element)
+            time.sleep(3)
+            
+            for i in range(final_page_num):
+                html = driver.page_source
+                soup = BeautifulSoup(html, 'html.parser')
+                items = soup.find("ul", "categoryListNew").find_all("div", "box")
+                
+
+                for item in items:
+                    try:
+                        # 클래스를 연결해서 사진 지정하기
+                        try:
+                            img = item.find("p", attrs={'class':'productImg'})
+                            # p 안에 있는 img 안에있는 src만 뽑기
+                            img_src = img.find('img').get('src')
+                        except:
+                            img_src = ""
+                        
+                        #이름 가져오는 부분
+                        try:
+                            name = item.find("p", attrs={'class':'productDiv'}).text
+                        except:
+                            name = ""
+                        # 가격 가져오는 부분
+                        try:
+                            price = item.find("p", attrs={'class':'price'}).text
+                        except:
+                            price = ""
+                    except:
+                        pass
+
+
+                    if k == 5:
+                        k = 6
+                    elif k == 6:
+                        k = 5
+                    elif k == 7:
+                        k = 1
+                        
+                    # good = Goods(name = name, photo_path=img_src, \
+                    # price=price, is_sell=1, event=k, convinence = "EMART")
+                    # good.save()
+
+                if (i == final_page_num-1):
+                    time.sleep(10)
+                    break
+                else:
+                    element = driver.find_element_by_xpath('//*[@id="regForm"]/div[2]/div[3]/div[3]/a[13]')
+                    driver.execute_script("arguments[0].click();", element)
+                    time.sleep(10)
+            
+        
+    if category == "promotion":
+        promotion()
+    elif category == "total":
+        total()
+    promotion()
+    def total():
+        pass
+    return HttpResponse('Success')
+
+
+def CS_Crawling(request):
+    # 행사 상품 Crawling
+    print('start')
+    category = request.GET.get("category")
+    def find_final_page(url, driver, xpath_element):
+        driver.get(url)
+        # 행사 상품으로 이동
+        element = driver.find_element_by_xpath(xpath_element)
+        driver.execute_script("arguments[0].click();", element)
+        time.sleep(10)
+        # 페이지 불러오기 딜레이 타임
+        element = driver.find_element_by_xpath("/html/body/section[3]/div/div[4]/div[2]/ul[2]/li[8]/a")
+        driver.execute_script("arguments[0].click();", element)
+        time.sleep(5)
+
+        html = driver.page_source
+        soup = BeautifulSoup(html, 'html.parser')
+        final_page_num = soup.find("ul", "pagination").find("a", "active").text
+        return int(final_page_num)
+ 
+    def promotion():
+        # Emart 행사페이지 url
+        url = 'https://www.cspace.co.kr/service/product.html?prod_name_s=&id_position_move=calSelId'
+        driver = webdriver.Chrome(ChromeDriverManager().install())
+
+        # 행사 분류하기
+        for k in range(2, 6):
+            xpath_element = '/html/body/section[3]/div/div[3]/ul/li['+str(k)+']/button'
+            print(xpath_element)
+            time.sleep(3)
+
+            if k == 4:
+                continue
+
+            # 마지막 페이지 찾기
+            final_page_num = find_final_page(url, driver, xpath_element)
+
+            # 암묵적으로 웹 자원 로드를 위해 3초까지 기다린다
+            driver.implicitly_wait(time_to_wait=10)
+            # req지정
+            driver.get(url)
+            element = driver.find_element_by_xpath(xpath_element)
+            driver.execute_script("arguments[0].click();", element)
+            time.sleep(3)
+            
+            for i in range(final_page_num):
+                html = driver.page_source
+                soup = BeautifulSoup(html, 'html.parser')
+                items = soup.find("ul", "box").find_all("li")
+
+                for item in items:
+                    try:
+                        try:
+                            img = item.find("span")
+                            # p 안에 있는 img 안에있는 src만 뽑기
+                            img_src = img.get('style')
+                            now = ''
+                            st = 0
+                            for j in img_src:
+                                if j == ')':
+                                    st = 0
+                                if st == 1:
+                                    now += i
+                                if j == '(':
+                                    st = 1
+                            
+                        except:
+                            img_src = ""
+                        
+                        #이름 가져오는 부분
+                        try:
+                            name = item.find('dt').text
+                        except:
+                            name = ""
+                        # 가격 가져오는 부분
+                        try:
+                            price = item.find('dd').text
+                        except:
+                            price = ""
+                    except:
+                        pass
+
+
+                    if k == 4:
+                        k = 6
+                    elif k == 5:
+                        k = 5
+                        
+                    good = Goods(name = name, photo_path=img_src, \
+                    price=price, is_sell=1, event=k, convinence = "Cspace")
+                    good.save()
+
+                if (i == final_page_num-1):
+                    time.sleep(10)
+                    break
+                else:
+                    element = driver.find_element_by_xpath('/html/body/section[3]/div/div[4]/div[2]/ul[1]/li[2]/a')
+                    driver.execute_script("arguments[0].click();", element)
+                    time.sleep(10)
+            
+        
+    if category == "promotion":
+        promotion()
+    elif category == "total":
+        total()
+    promotion()
+    def total():
+        pass
+    return HttpResponse('Success')
