@@ -27,7 +27,7 @@ public class GoodsServiceImpl implements GoodsService{
 
     @Override
     @Transactional
-    public boolean modifyGoodsHit(GoodsDto.GoodsPutRequest goodsPutRequest){
+    public Goods modifyGoodsHit(GoodsDto.GoodsPutRequest goodsPutRequest){
         Goods goods = goodsRepository.findById(goodsPutRequest.getId()).orElseGet(()->null);
 
         if(goods != null){
@@ -41,13 +41,13 @@ public class GoodsServiceImpl implements GoodsService{
             goods.setCategory(goodsPutRequest.getCategory());
             goods.setHit(goodsPutRequest.getHit());
             goods.setConvinence(goodsPutRequest.getConvinence());
-            goods.update(goodsPutRequest.getName(), goodsPutRequest.getPrice(), goodsPutRequest.getPhotoPath(), goodsPutRequest.getDescription(),
-                    goodsPutRequest.getCategory(), goodsPutRequest.getIsSell(), goodsPutRequest.getEvent(), goodsPutRequest.getHit(),
-                    goodsPutRequest.getConvinence());
-//            return goodsRepository.save(goodsPutRequest);
-            return true;
+//            goods.update(goodsPutRequest.getName(), goodsPutRequest.getPrice(), goodsPutRequest.getPhotoPath(), goodsPutRequest.getDescription(),
+//                    goodsPutRequest.getCategory(), goodsPutRequest.getIsSell(), goodsPutRequest.getEvent(), goodsPutRequest.getHit(),
+//                    goodsPutRequest.getConvinence());
+            return goodsRepository.save(goods);
+//            return true;
         }
-        return false;
-
+//        return false;
+        return null;
     }
 }
