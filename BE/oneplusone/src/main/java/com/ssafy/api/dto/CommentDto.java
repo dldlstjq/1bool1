@@ -58,5 +58,19 @@ public class CommentDto {
         @ApiModelProperty(name="Id", example="1")
         Long Id;
     }
-
+    @Getter
+    @Setter
+    @ApiModel("CommentGetRequest")
+    public static class CommentGetRequest {
+        @ApiModelProperty(name="비밀번호", example="a1234!@")
+        String password;
+        @ApiModelProperty(name="닉네임", example="nickname")
+        String nickname;
+        @ApiModelProperty(name="내용", example="내용")
+        String content;
+        @ApiModelProperty(name="board Id", example="1")
+        Long boardId;
+        @ApiModelProperty(name="Id", example="1")
+        Long Id;
+    }
 }

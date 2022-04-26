@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -47,7 +48,7 @@ public class BoardController {
             @RequestBody @ApiParam(value="글 정보", required = true) @ModelAttribute BoardDto.BoardPostRealRequest boardPostRealRequest) {
         List<MultipartFile> files = boardPostRealRequest.getFile();
         List<String> ans = new ArrayList<>();
-        if(files.isEmpty() || files == null){
+        if(CollectionUtils.isEmpty(files)){
 
         }
         else {
@@ -58,7 +59,7 @@ public class BoardController {
 
         String photo = "";
 
-        if(ans != null && !ans.isEmpty()) {
+        if(ans != null && !ans.isEmpty() && ans.size() > 0) {
             for (int i = 0; i < ans.size(); i++) {
                 if(i != (ans.size() - 1) )
                 {
