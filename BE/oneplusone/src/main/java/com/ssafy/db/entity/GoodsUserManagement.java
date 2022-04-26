@@ -19,7 +19,7 @@ public class GoodsUserManagement extends BaseEntity{
     User user;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "goods_id",nullable = false)
-    Goods Goods;
+    Goods goods;
 
 
     @Column(name = "isLiked")
