@@ -26,4 +26,11 @@ public class RecipeReview extends BaseEntity{
     @Column(name = "content")
     String content;
 
+    public void update(String nickname,String content, String password) {
+        this.content = content;
+        this.password = password;
+        this.nickname = nickname;
+    }
+
+
 }
