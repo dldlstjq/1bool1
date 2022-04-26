@@ -33,6 +33,7 @@ public class BoardServiceImpl implements BoardService{
         board.setNickname(boardPostRequest.getNickname());
         board.setPassword(boardPostRequest.getPassword());
         board.setContent(boardPostRequest.getContent());
+
         board.setPhoto(boardPostRequest.getPhoto());
         board.setTitle(boardPostRequest.getTitle());
         Date date = new Date();

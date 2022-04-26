@@ -1,10 +1,12 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.dto.CommentDto;
+import com.ssafy.api.dto.GoodsReviewDto;
 import com.ssafy.api.service.CommentService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.Board;
 import com.ssafy.db.entity.Comment;
+import com.ssafy.db.entity.GoodsReview;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Api(value = "댓글 API", tags = {"Comment"})
@@ -32,7 +35,22 @@ public class CommentController {
     })
     public ResponseEntity<? extends BaseResponseBody> findComment(@PathVariable("boardId")Long boardId) {
         List<Comment> comment = commentService.findComment(boardId);
-        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", comment));
+        List<CommentDto.CommentGetRequest> list = new ArrayList<>();
+        CommentDto.CommentGetRequest ans;
+        for(int i = 0; i < comment.size(); i++){
+            ans = new CommentDto.CommentGetRequest();
+            ans.setBoardId(comment.get(i).getBoard().getId());
+            ans.setContent(comment.get(i).getContent());
+            ans.setNickname(comment.get(i).getNickname());
+            ans.setId(comment.get(i).getId());
+            ans.setPassword(comment.get(i).getPassword());
+            list.add(ans);
+        }
+        if(list.size() > 0) {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", list));
+        }else{
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "댓글이 없습니다.", list));
+        }
     }
 
     @PostMapping("{boardId}")
