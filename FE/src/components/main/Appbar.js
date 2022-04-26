@@ -15,7 +15,7 @@ import logo from '../../common/logo.png'
 import { Link } from 'react-router-dom';
 
 
-const pages = ['편의점', '레시피', '커뮤니티', '이벤트'];
+// const pages = ['편의점', '레시피', '커뮤니티', '이벤트'];
 const settings = ['로그인', '회원가입'];
 
 function Appbar() {
@@ -129,7 +129,7 @@ function Appbar() {
                 레시피
               </Button>
             </Link>
-            <Link to='/' style={{ textDecoration:'none', marginRight:'2rem', marginLeft:'2rem', hoverColor:'red'}}>
+            <Link to='/community' style={{ textDecoration:'none', marginRight:'2rem', marginLeft:'2rem', hoverColor:'red'}}>
               <Button style={{ my: 2, color:'black', fontSize:'1.2rem', fontWeight:'bold' }}>
                 커뮤니티
               </Button>
