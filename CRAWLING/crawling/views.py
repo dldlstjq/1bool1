@@ -8,6 +8,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from django.views.decorators.http import require_http_methods
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.keys import Keys
 import time
 from .models import Goods
@@ -46,7 +47,7 @@ def CU_Crawling(request):
         options.add_experimental_option('excludeSwitches', ['enable-logging'])
         # 편의점 이름 설정
         convinence = "cu"
-        driver = webdriver.Chrome('C:/Users/SSAFY/Desktop/SSAFY/자율PJT/CODE/chromedriver_win32/chromedriver.exe', options=options)
+        driver = webdriver.Chrome(ChromeDriverManager().install())
         # 암묵적으로 웹 자원 로드를 위해 3초까지 기다린다
         driver.get("https://cu.bgfretail.com/product/product.do?category=product&depth2=4&depth3=1")
         element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "prod_img")))
@@ -60,6 +61,7 @@ def CU_Crawling(request):
                     driver.find_element_by_xpath("//*[@id=\"dataTable\"]/div/div[1]/a").click()
                     # 안전한 페이지 로딩을 위해 30초의 대기시간
                     time.sleep(30)
+                    break
                 except:
                     break
             html = driver.page_source
