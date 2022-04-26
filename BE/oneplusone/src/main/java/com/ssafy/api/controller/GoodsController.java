@@ -1,18 +1,15 @@
 package com.ssafy.api.controller;
 
+import com.ssafy.api.dto.GoodsDto;
+import com.ssafy.api.service.GoodsLikeService;
 import com.ssafy.api.service.GoodsService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.Board;
 import com.ssafy.db.entity.Goods;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,6 +20,9 @@ public class GoodsController {
 
     @Autowired
     GoodsService goodsService;
+
+    @Autowired
+    GoodsLikeService goodsLikeService;
 
     @GetMapping()
     @ApiOperation(value = "전체 상품 조회", notes = "<strong>상품의 목록을 가져온다.</strong>")
@@ -39,6 +39,56 @@ public class GoodsController {
         }else{
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "DB 내부에 현재 데이터가 없습니다"));
         }
+    }
+
+    @PutMapping("/like/{goodsId}")
+    @ApiOperation(value = "상품 좋아요 등록", notes = "<strong>상품에서 좋아요를 클릭한다.</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> registerGoodsLike(@PathVariable("goodsId") Long goodsId, @RequestParam("user_id")Long userId){
+        GoodsDto.GoodsLikeGetRequest dto = new GoodsDto.GoodsLikeGetRequest();
+        dto.setId(goodsId);
+        dto.setUserId(userId);
+        if(goodsLikeService.modifyGoodsLike(dto)){
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+        }else{
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail"));
+        }
+
+    }
+
+    @PutMapping("/{goodsId}")
+    @ApiOperation(value = "상품 조회수 등록", notes = "<strong>상품을 클릭했을때 조회수를 등록한다.</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> registerGoodsHit(@PathVariable("goodsId") Long goodsId){
+
+        Goods goods = new Goods();
+        goods = goodsService.findGoodsDetail(goodsId);
+
+        GoodsDto.GoodsPutRequest goodsPutRequest = new GoodsDto.GoodsPutRequest();
+        goodsPutRequest.setId(goods.getId());
+        goodsPutRequest.setName(goods.getName());
+        goodsPutRequest.setPrice(goods.getPrice());
+        goodsPutRequest.setPhotoPath(goods.getPhotoPath());
+        goodsPutRequest.setDescription(goods.getDescription());
+        goodsPutRequest.setEvent(goods.getEvent());
+        goodsPutRequest.setIsSell(goods.getIsSell());
+        goodsPutRequest.setCategory(goods.getCategory());
+        goodsPutRequest.setHit(goods.getHit()+1);
+        goodsPutRequest.setConvinence(goods.getConvinence());
+
+        if(goodsService.modifyGoodsHit(goodsPutRequest))
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail"));
     }
 
 
