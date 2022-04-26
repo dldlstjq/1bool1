@@ -13,8 +13,8 @@ import java.util.Date;
 public class GoodsReview extends BaseEntity{
 
     @ManyToOne
-    @JoinColumn(name = "goods_id")
-    Goods Goods;
+    @JoinColumn(name = "goods_id",nullable = false)
+    Goods goods;
 
     //내용
     @Column(name = "nickname", nullable = false)
@@ -27,5 +27,11 @@ public class GoodsReview extends BaseEntity{
     //비밀번호
     @Column(name = "content", nullable = false)
     String content;
+
+    public void update(String nickname,String content, String password) {
+        this.content = content;
+        this.password = password;
+        this.nickname = nickname;
+    }
 
 }
