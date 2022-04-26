@@ -27,4 +27,11 @@ public class GoodsUserManagement extends BaseEntity{
     @Column(name = "is_Notification")
     Integer is_Notification;
 
+    public void update(Integer isLiked){
+        if(this.isLiked == isLiked)
+            this.isLiked = 1;
+        else
+            this.isLiked = 0;
+    }
+
 }
