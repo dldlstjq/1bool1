@@ -64,8 +64,13 @@ def CU_Crawling(request):
                     break
             html = driver.page_source
             soup = BeautifulSoup(html, 'html.parser')
-            items = soup.find_all("a", "prod_item")
-    
+            try:
+                items = soup.find_all("a", "prod_item")
+            except:
+                button = CU_BUTTON[idx + 1]
+                driver.find_element_by_xpath(button).click()
+                time.sleep(20)
+                continue
             for item in items:
                 #이미지 태그 가져오는 부분
                 try:
@@ -150,9 +155,11 @@ def GS_Crawling(request):
         for i in range(final_page_num):
             html = driver.page_source
             soup = BeautifulSoup(html, 'html.parser')
-            items = soup.find("ul", "prod_list").find_all("div", "prod_box")
+            try:
+                items = soup.find("ul", "prod_list").find_all("div", "prod_box")
+            except:
+                continue
             for item in items:
-                
                 #이미지 태그 가져오는 부분
                 try:
                     img = item.find("img")
@@ -244,7 +251,14 @@ def SE_Crawling(request):
                     break
             html = driver.page_source
             soup = BeautifulSoup(html, 'html.parser')
-            items = soup.find_all("div", "pic_product")
+            try:
+                items = soup.find_all("div", "pic_product")
+            except:
+                button = SE_BUTTON[idx + 1]
+                element = driver.find_element_by_xpath(button)
+                driver.execute_script("arguments[0].click();", element)
+                time.sleep(20)
+                continue
             # 크롤링 코드가 이상해 이전과 같은 부분을 가져오면 패스하도록 구현
             before_name = ""
             for item in items:
@@ -252,6 +266,7 @@ def SE_Crawling(request):
                     try:
                         img = item.find("img")
                         img_src = img.get("src")
+                        img_src = "https://www.7-eleven.co.kr" + img_src
                     except:
                         img_src = ""
                     # 이름 가져오는 부분
@@ -296,4 +311,119 @@ def SE_Crawling(request):
     return HttpResponse('SE Success')
 
 
+@require_http_methods(["GET"])
+def MS_Crawling(request):
+    MS_BUTTON = [
+        # 1+1 패스해야함
+        "//*[@id=\"section\"]/div[3]/ul/li[1]/a",
+        # 2+1
+        "//*[@id=\"section\"]/div[3]/ul/li[2]/a",
+        # N+N
+        "//*[@id=\"section\"]/div[3]/ul/li[3]/a",
+        # 덤증정
+        "//*[@id=\"section\"]/div[3]/ul/li[4]/a",
+        # 가격할인
+        "//*[@id=\"section\"]/div[3]/ul/li[5]/a"
 
+    ]
+    options = webdriver.ChromeOptions()
+    options.add_experimental_option('excludeSwitches', ['enable-logging'])
+    # 편의점 이름 설정
+    convinence = "MS"
+    driver = webdriver.Chrome('C:/Users/SSAFY/Desktop/SSAFY/자율PJT/CODE/chromedriver_win32/chromedriver.exe', options=options)
+    # 암묵적으로 웹 자원 로드를 위해 3초까지 기다린다
+    driver.get("https://www.ministop.co.kr/")
+    # 프레임 태그 내부로 이동
+
+    element = driver.find_element_by_xpath("/html/frameset/frame") #iframe 태그 엘리먼트 찾기
+    driver.switch_to.frame(element)
+    element = driver.find_element_by_xpath("/html/frameset/frame[2]") #iframe 태그 엘리먼트 찾기
+    driver.switch_to.frame(element)
+
+    # 이벤트 페이지로 이동
+    element = driver.find_element_by_xpath("//*[@id=\"menu1\"]/h2/a")
+    driver.execute_script("arguments[0].click();", element)
+
+    element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "event_plus_list")))
+    
+    def promotion():
+        # 페이지 옮겨다니면서 이벤트 상품들 가져오기
+        for idx in range(5):
+            cnt = 0
+            while cnt < 10:
+                try:
+                    driver.find_element_by_xpath("//*[@id=\"section\"]/div[3]/div[3]/div/a[1]").click()
+                    time.sleep(2)
+                    cnt += 1
+                    # 더 이상 넘길게 없으면 break
+                except Exception as e:
+                    print(e)
+                    break
+
+            html = driver.page_source
+            soup = BeautifulSoup(html, 'html.parser')
+            try:
+                items = soup.find("div", "event_plus_list").find("ul").find_all("li")
+            except:
+                button = MS_BUTTON[idx + 1]
+                element = driver.find_element_by_xpath(button)
+                driver.execute_script("arguments[0].click();", element)
+                time.sleep(2)
+                continue
+            # 크롤링 코드가 이상해 이전과 같은 부분을 가져오면 패스하도록 구현
+            for item in items:
+                #이미지 태그 가져오는 부분
+                try:
+                    img = item.find("img")
+                    img_src = img.get("src")
+                    img_src = "https://www.ministop.co.kr/MiniStopHomePage/page/" + img_src[2:]
+                except:
+                    img_src = ""
+                # 이름 가져오는 부분
+                try:
+                    # 내부 태그로 되어있어 자식 태그 제거하는 과정을 거치는 동시에 이름도 정제
+                    price = item.find("p").strong.extract()
+                    name = item.find("p").text
+                    name = name[:-1]
+                except Exception as e:
+                    name = ""
+                # 가격 가져오는 부분
+                try:
+                    price = price.text
+                except:
+                    price = ""
+                
+                #행사 카테고리 가져오는 부분
+                try:
+                    # 1 + 1
+                    if idx == 0:
+                        event = 2
+                    # 2 + 1
+                    elif idx == 1:
+                        event = 3
+                    # N + N
+                    elif idx == 2:
+                        event = 4
+                    # 덤증정
+                    elif idx == 3:
+                        event = 6
+                    # 가격할인
+                    elif idx == 4:
+                        event = 5
+                    else:
+                        event = 1
+                except:
+                    event = 1
+                good = Goods(name = name, photo_path=img_src, \
+                price=price, is_sell=1, category=0, event=event, convinence = "MS")
+                good.save()
+            print("FINISH")
+            try:
+                button = MS_BUTTON[idx + 1]
+                element = driver.find_element_by_xpath(button)
+                driver.execute_script("arguments[0].click();", element)
+                time.sleep(2)
+            except:
+                pass
+    promotion()
+    return HttpResponse("MS Success")
