@@ -11,7 +11,17 @@ from django.views.decorators.http import require_http_methods
 from selenium.webdriver.common.keys import Keys
 import time
 from .models import Goods
+from pyvirtualdisplay import Display
 
+
+options = webdriver.ChromeOptions()
+options.add_experimental_option('excludeSwitches', ['enable-logging'])
+options.headless = True
+options.add_argument('--no-sandbox')
+options.add_argument("--single-process")
+options.add_argument("--disable-dev-shm-usage")
+options.add_argument("window-size=1400,1500")
+driver = webdriver.Chrome(r'C:/Users/SSAFY/Desktop/SSAFY/자율PJT/CODE/chromedriver_win32/chromedriver.exe', options=options)
 @require_http_methods(["GET"])
 def CU_Crawling(request):
     CU_BUTTON = [
@@ -42,11 +52,10 @@ def CU_Crawling(request):
     ]
     # 전체 상품 Crawling
     def total():
-        options = webdriver.ChromeOptions()
-        options.add_experimental_option('excludeSwitches', ['enable-logging'])
+
         # 편의점 이름 설정
         convinence = "cu"
-        driver = webdriver.Chrome('C:/Users/SSAFY/Desktop/SSAFY/자율PJT/CODE/chromedriver_win32/chromedriver.exe', options=options)
+        
         # 암묵적으로 웹 자원 로드를 위해 3초까지 기다린다
         driver.get("https://cu.bgfretail.com/product/product.do?category=product&depth2=4&depth3=1")
         element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "prod_img")))
@@ -143,7 +152,6 @@ def GS_Crawling(request):
         options.add_experimental_option('excludeSwitches', ['enable-logging'])
         # Cu 행사페이지 url
         url = 'http://gs25.gsretail.com/gscvs/ko/products/event-goods#;'
-        driver = webdriver.Chrome('C:/Users/SSAFY/Desktop/SSAFY/자율PJT/CODE/chromedriver_win32/chromedriver.exe', options=options)
         # 마지막 페이지 번호 가져옴
         final_page_num = find_final_page(url, driver)
         time.sleep(5)
@@ -223,14 +231,13 @@ def SE_Crawling(request):
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
     # 편의점 이름 설정
     convinence = "SE"
-    driver = webdriver.Chrome('C:/Users/SSAFY/Desktop/SSAFY/자율PJT/CODE/chromedriver_win32/chromedriver.exe', options=options)
     # 암묵적으로 웹 자원 로드를 위해 3초까지 기다린다
     driver.get("https://www.7-eleven.co.kr/product/presentList.asp")
     element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "btn_product_01")))
 
     def promotion():
         # 페이지 옮겨다니면서 이벤트 상품들 가져오기
-        for idx in range(4):
+        for idx in range(len(SE_BUTTON)):
             while True:
                 # 첫 페이지 더보기
                 try: 
@@ -330,7 +337,6 @@ def MS_Crawling(request):
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
     # 편의점 이름 설정
     convinence = "MS"
-    driver = webdriver.Chrome('C:/Users/SSAFY/Desktop/SSAFY/자율PJT/CODE/chromedriver_win32/chromedriver.exe', options=options)
     # 암묵적으로 웹 자원 로드를 위해 3초까지 기다린다
     driver.get("https://www.ministop.co.kr/")
     # 프레임 태그 내부로 이동
@@ -348,13 +354,14 @@ def MS_Crawling(request):
     
     def promotion():
         # 페이지 옮겨다니면서 이벤트 상품들 가져오기
-        for idx in range(5):
+        for idx in range(len(MS_BUTTON)):
             cnt = 0
             while cnt < 10:
                 try:
                     driver.find_element_by_xpath("//*[@id=\"section\"]/div[3]/div[3]/div/a[1]").click()
                     time.sleep(2)
                     cnt += 1
+                    break
                     # 더 이상 넘길게 없으면 break
                 except Exception as e:
                     print(e)
@@ -417,7 +424,6 @@ def MS_Crawling(request):
                 good = Goods(name = name, photo_path=img_src, \
                 price=price, is_sell=1, category=0, event=event, convinence = "MS")
                 good.save()
-            print("FINISH")
             try:
                 button = MS_BUTTON[idx + 1]
                 element = driver.find_element_by_xpath(button)

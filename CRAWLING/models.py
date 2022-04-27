@@ -65,8 +65,8 @@ class Event(models.Model):
 
 class Goods(models.Model):
     id = models.BigAutoField(primary_key=True)
-    created_date = models.DateTimeField(auto_now = True, blank=True, null=True)
-    modified_date = models.DateTimeField(auto_now_add = True, blank=True, null=True)
+    created_date = models.DateTimeField(blank=True, null=True)
+    modified_date = models.DateTimeField(blank=True, null=True)
     category = models.IntegerField(blank=True, null=True)
     convinence = models.CharField(max_length=255, blank=True, null=True)
     description = models.CharField(max_length=255, blank=True, null=True)
@@ -76,8 +76,8 @@ class Goods(models.Model):
     name = models.CharField(max_length=255, db_collation='utf8_bin')
     photo_path = models.CharField(max_length=255, blank=True, null=True)
     price = models.CharField(max_length=255, db_collation='utf8_bin')
-    start_date = models.DateTimeField(auto_now=True)
-    update_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    start_date = models.DateTimeField()
+    update_date = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         managed = False
