@@ -60,22 +60,22 @@ public class GoodsController {
         }
     }
 
-//    @GetMapping("/updateDate")
-//    @ApiOperation(value = "좋아요 TOP10 상품 조회", notes = "<strong>최근 업데이트된 상품 10개 목륵을 가져온다</strong>")
-//    @ApiResponses({
-//            @ApiResponse(code = 200, message = "성공"),
-//            @ApiResponse(code = 401, message = "인증 실패"),
-//            @ApiResponse(code = 404, message = "사용자 없음"),
-//            @ApiResponse(code = 500, message = "서버 오류")
-//    })
-//    public ResponseEntity<? extends BaseResponseBody> findTop10LikeGoods() {
-//        List<Goods> goods = goodsService.findTop10LikeGoods();
-//        if(goods != null && !goods.isEmpty()) {
-//            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", goods));
-//        }else{
-//            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "DB 내부에 현재 데이터가 없습니다"));
-//        }
-//    }
+    @GetMapping("/like")
+    @ApiOperation(value = "좋아요 TOP10 상품 조회", notes = "<strong>좋아요 top10 상품 목륵을 가져온다</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> findTop10LikeGoods() {
+        List<GoodsDto.GoodsLikeGetOrderBy> goods = goodsLikeService.findTop10LikeGoods();
+        if(goods != null && !goods.isEmpty()) {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", goods));
+        }else{
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "좋아요 상품이 없습니다"));
+        }
+    }
 
     @PutMapping("/like/{goodsId}")
     @ApiOperation(value = "상품 좋아요 등록", notes = "<strong>상품에서 좋아요를 클릭한다.</strong>")
