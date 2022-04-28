@@ -4,7 +4,8 @@ import Footer from '../../components/main/Footer'
 import { Button, Container, Grid, TextField, Typography, Box} from '@mui/material';
 import logo from '../../common/logo.png'
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Pagination, Navigation } from "swiper";
+// import SwiperCore, { Pagination, Navigation } from "swiper";
+import { Pagination, Navigation } from "swiper";
 import Card from '@mui/material/Card';
 // import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -30,9 +31,10 @@ function Main() {
   useEffect(() => {
     axios
       .get('http://localhost:8080/api/v1/goods')
+      // .get('https://k6d207.p.ssafy.io/api/api/v1/goods')
       .then(({data}) => {
         setMenus(data.object)
-        console.log(data.object)
+        console.log(data)
 
       })
   }, []);
@@ -233,9 +235,6 @@ function Main() {
 
           
           </Container>
-
-
-
       </div>
       <Footer/>
     </div>
