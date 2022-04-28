@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -23,9 +24,9 @@ public class RecipeGoods extends BaseEntity {
     @JoinColumn(name = "recipe_id",nullable = false)
     Recipe recipe;
 
-//    @Builder
-//    public RoomUser(Room room, User user){
-//        this.room = room;
-//        this.user = user;
-//    }
+    public void update(Goods goods,Recipe recipe) {
+        this.Goods = goods;
+        this.recipe = recipe;
+    }
+
 }

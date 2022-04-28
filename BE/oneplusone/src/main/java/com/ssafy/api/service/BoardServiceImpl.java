@@ -8,6 +8,10 @@ import com.ssafy.db.repository.BoardRepository;
 import com.ssafy.db.repository.UserRepository;
 import com.ssafy.db.repository.UserRepositorySupport;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,17 +33,20 @@ public class BoardServiceImpl implements BoardService{
         board.setNickname(boardPostRequest.getNickname());
         board.setPassword(boardPostRequest.getPassword());
         board.setContent(boardPostRequest.getContent());
+
         board.setPhoto(boardPostRequest.getPhoto());
         board.setTitle(boardPostRequest.getTitle());
         Date date = new Date();
-        boardPostRequest.setStartDate(date);
-        board.setStartDate(boardPostRequest.getStartDate());
+//        boardPostRequest.setStartDate(date);
+//        board.setStartDate(boardPostRequest.getStartDate());
         return boardRepository.save(board);
     }
 
     @Override
-    public List<Board> findBoard() {
-        return boardRepository.findAll();
+    public Page<Board> findBoard(Integer page, Integer size) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("createdDate").descending());
+        return boardRepository.findAll(pageRequest);
+//        return boardRepository.findAll(pageable);
     }
 
     @Override
@@ -54,8 +61,9 @@ public class BoardServiceImpl implements BoardService{
             board.setContent(boardPutRequest.getContent());
             board.setPhoto(boardPutRequest.getPhoto());
             Date date = new Date();
-            board.setStartDate(date);
-            board.update(boardPutRequest.getTitle(), boardPutRequest.getContent(),boardPutRequest.getPassword() ,boardPutRequest.getUpdateDate(), boardPutRequest.getPhoto(), boardPutRequest.getNickname());
+//            board.setStartDate(date);
+            board.update(boardPutRequest.getTitle(), boardPutRequest.getContent(),boardPutRequest.getPassword() , boardPutRequest.getPhoto(), boardPutRequest.getNickname());
+//            board.update(boardPutRequest.getTitle(), boardPutRequest.getContent(),boardPutRequest.getPassword() ,boardPutRequest.getUpdateDate(), boardPutRequest.getPhoto(), boardPutRequest.getNickname());
             return true;
         }
         return false;
@@ -75,6 +83,7 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public List<Board> findBySearchBoard(String search) {
-        return boardRepository.findByTitleOrContent(search,search).orElseGet(() -> null);
+        List<Board> list = boardRepository.findByTitleContainingOrContentContaining(search,search);
+        return list;
     }
 }

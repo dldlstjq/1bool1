@@ -25,7 +25,7 @@ public class Board extends BaseEntity{
     String content;
 
     //사진 경로
-    @Column(name = "photo")
+    @Column(name = "photo",length = 5000)
     String photo;
 
     //비밀번호
@@ -37,33 +37,56 @@ public class Board extends BaseEntity{
     String nickname;
 
     //시작 시간
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "start_date",nullable = false)
-    Date startDate;
-
-    //수정된 시간
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "update_date")
-    Date updateDate;
+//    @Temporal(TemporalType.TIMESTAMP)
+//    @Column(name = "start_date",nullable = false)
+//    Date startDate;
+//
+//    //수정된 시간
+//    @Temporal(TemporalType.TIMESTAMP)
+//    @Column(name = "update_date")
+//    Date updateDate;
 
     @Builder
-    public Board(Long id, String title, String content,String photo, String password, String nickname,Date startDate, Date updateDate){
+    public Board(Long id){
+        this.id = id;
+    }
+
+    @Builder
+    public Board(Long id, String title, String content,String photo, String password, String nickname){
         this.id = id;
         this.title = title;
         this.content = content;
         this.photo = photo;
         this.password = password;
         this.nickname = nickname;
-        this.startDate = startDate;
-        this.updateDate = updateDate;
     }
 
-    public void update(String title, String content, String password,Date updateDate,String photo,String nickname) {
+    public void update(String title, String content, String password,String photo,String nickname) {
         this.title = title;
         this.content = content;
         this.password = password;
-        this.updateDate = new Date();
         this.photo = photo;
         this.nickname = nickname;
     }
+
+//    @Builder
+//    public Board(Long id, String title, String content,String photo, String password, String nickname,Date startDate, Date updateDate){
+//        this.id = id;
+//        this.title = title;
+//        this.content = content;
+//        this.photo = photo;
+//        this.password = password;
+//        this.nickname = nickname;
+//        this.startDate = startDate;
+//        this.updateDate = updateDate;
+//    }
+//
+//    public void update(String title, String content, String password,Date updateDate,String photo,String nickname) {
+//        this.title = title;
+//        this.content = content;
+//        this.password = password;
+//        this.updateDate = new Date();
+//        this.photo = photo;
+//        this.nickname = nickname;
+//    }
 }

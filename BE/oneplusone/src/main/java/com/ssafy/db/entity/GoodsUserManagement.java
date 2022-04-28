@@ -19,12 +19,19 @@ public class GoodsUserManagement extends BaseEntity{
     User user;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "goods_id",nullable = false)
-    Goods Goods;
+    Goods goods;
 
 
     @Column(name = "isLiked")
     Integer isLiked;
     @Column(name = "is_Notification")
     Integer is_Notification;
+
+    public void update(Integer isLiked){
+        if(this.isLiked == isLiked)
+            this.isLiked = 1;
+        else
+            this.isLiked = 0;
+    }
 
 }

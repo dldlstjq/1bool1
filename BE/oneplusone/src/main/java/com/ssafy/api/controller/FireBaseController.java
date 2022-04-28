@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-
+import java.util.List;
+import java.util.ArrayList;
 @Api(value = "firebase API", tags = {"FIREBASE"})
 @RestController
 @RequiredArgsConstructor
@@ -22,12 +23,19 @@ public class FireBaseController {
 
     @ApiOperation(value = "firebase Storage에 업로드", notes = "정상업로드되면 url 반환")
     @PostMapping("/upload")
-    public String uploadFile(@RequestPart("file")MultipartFile file)
-        throws IOException, FirebaseAuthException{
+    public List<String> uploadFile(@RequestPart List<MultipartFile> file)
+            throws IOException, FirebaseAuthException{
+        List<String> ans = new ArrayList<>();
+
         if(file.isEmpty()){
-            return "is empty";
+            ans.add("is empty");
+            return ans;
         }
-        return fireBaseService.upload(file);
+
+        for(MultipartFile one : file){
+            ans.add(fireBaseService.upload(one));
+        }
+        return ans;
     }
 
     @ApiOperation(value = "firebase Storage에 파일 삭제", notes = "정상삭제되면 true 반환")
