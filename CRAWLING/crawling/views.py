@@ -15,6 +15,7 @@ from .models import Goods
 
 @require_http_methods(["GET"])
 def CU_Crawling(request):
+    print('hi cu')
     CU_BUTTON = [
         # 간편 식사
         "//*[@id=\"contents\"]/div[1]/ul/li[1]/a",
@@ -121,6 +122,7 @@ def CU_Crawling(request):
 @require_http_methods(["GET"])
 def GS_Crawling(request):
     # 전체 가져올건지 부분 가져올건지
+    print('hi gs')
     category = request.GET.get("category")
     def find_final_page(url, driver):
         driver.get(url)
