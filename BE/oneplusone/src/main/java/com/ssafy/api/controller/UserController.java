@@ -121,21 +121,23 @@ public class UserController {
 	@GetMapping("/kakao")
 	public ResponseEntity<? extends BaseResponseBody> kakaoCallback(@RequestParam String code) throws Exception {
 		String token = userService.getKakaoAccessToken(code);
-		if(token.equals("")) {
+		if(!token.equals("")) {
 			Long id = userService.createKakaoUser(token);
 			User user = userService.getUserByUserId(String.valueOf(id));
 			if(user != null){
-				return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+				return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success",user));
 			}else {
 				UserRegisterPostReq registerInfo = new UserRegisterPostReq();
 				registerInfo.setEmail(String.valueOf(id));
 				registerInfo.setNickname("KAKAO");
 				registerInfo.setPassword("kakao12!@");
 				registerInfo.setIsWithdrawal(0);
-				userService.createUser(registerInfo);
+				user = userService.createUser(registerInfo);
+				return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success",user));
 			}
 		}
-		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Token 값이 맞지 않습니다."));
+
 	}
 
 //	@ResponseBody
