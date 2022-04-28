@@ -95,6 +95,17 @@ public class UserDto {
     }
 
 
+    @AllArgsConstructor
+    @Getter
+    public class KakaoUserInfo {
+        Long id;
+        String email;
+        String nickname;
+    }
+
+
+
+
     /**
      * 회원 본인 정보 조회 API ([GET] /api/v1/users/me) 요청에 대한 응답값 정의.
      */

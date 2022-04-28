@@ -16,5 +16,9 @@ public interface UserService {
 
 	Boolean update(UserDto.UserPutReq user);
 
+	public String getKakaoAccessToken (String code);
+	public Long createKakaoUser(String token) throws Exception;
+
+//	void getEmailUser(Long id) throws Exception;
 //	Boolean update(UserDto.UserPutReq userPutReq);
 }

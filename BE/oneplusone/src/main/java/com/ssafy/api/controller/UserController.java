@@ -113,6 +113,39 @@ public class UserController {
 			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail"));
 		}
 	}
+	/**
+	 * KAKAO 소셜 로그인 기능
+	 * @return ResponseEntity<AuthResponse>
+	 */
+	@ResponseBody
+	@GetMapping("/kakao")
+	public ResponseEntity<? extends BaseResponseBody> kakaoCallback(@RequestParam String code) throws Exception {
+		String token = userService.getKakaoAccessToken(code);
+		if(token.equals("")) {
+			Long id = userService.createKakaoUser(token);
+			User user = userService.getUserByUserId(String.valueOf(id));
+			if(user != null){
+				return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+			}else {
+				UserRegisterPostReq registerInfo = new UserRegisterPostReq();
+				registerInfo.setEmail(String.valueOf(id));
+				registerInfo.setNickname("KAKAO");
+				registerInfo.setPassword("kakao12!@");
+				registerInfo.setIsWithdrawal(0);
+				userService.createUser(registerInfo);
+			}
+		}
+		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+	}
+
+//	@ResponseBody
+//	@PostMapping("/kakao")
+//	public ResponseEntity<? extends BaseResponseBody> kakaoAccessToken(@RequestParam String token) throws Exception {
+//
+//
+//		userService.getEmailUser(id);
+//		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+//	}
 
 
 	@GetMapping("/me")
@@ -129,7 +162,7 @@ public class UserController {
 		 * 액세스 토큰이 없이 요청하는 경우, 403 에러({"error": "Forbidden", "message": "Access Denied"}) 발생.
 		 */
 		SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
-		String userId = userDetails.getUsername();
+		String userId = userDetails.getUsername(); //Email
 		User user = userService.getUserByUserId(userId);
 
 		return ResponseEntity.status(200).body(UserRes.of(user));
