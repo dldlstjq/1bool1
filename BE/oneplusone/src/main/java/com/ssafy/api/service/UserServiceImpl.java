@@ -62,11 +62,12 @@ public class UserServiceImpl implements UserService {
 		String email = userPutReq.getEmail();
 		String password = userPutReq.getPassword();
 		String nickname = userPutReq.getNickname();
+		Integer isWtihdrawal = userPutReq.getIsWithdrawal();
 		User user = userRepository.findByEmail(email).orElseGet(()-> null);
 
 		if(user != null && passwordEncoder.matches(password,user.getPassword())){
 			user.setNickname(nickname);
-			user.update(user.getEmail(),user.getPassword(),nickname);
+			user.update(user.getEmail(),user.getPassword(),nickname,isWtihdrawal);
 			return true;
 		}
 		return false;
