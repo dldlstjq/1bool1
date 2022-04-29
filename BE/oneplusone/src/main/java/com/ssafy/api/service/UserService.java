@@ -7,6 +7,7 @@ import com.ssafy.db.entity.User;
 /**
  *	유저 관련 비즈니스 로직 처리를 위한 서비스 인터페이스 정의.
  */
+
 public interface UserService {
 	User createUser(UserRegisterPostReq userRegisterInfo);
 
@@ -16,8 +17,8 @@ public interface UserService {
 
 	Boolean update(UserDto.UserPutReq user);
 
-	public String getKakaoAccessToken (String code);
-	public Long createKakaoUser(String token) throws Exception;
+//	public String getKakaoAccessToken (String code);
+//	public Long createKakaoUser(String token) throws Exception;
 
 //	void getEmailUser(Long id) throws Exception;
 //	Boolean update(UserDto.UserPutReq userPutReq);

@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  *	유저 관련 비즈니스 로직 처리를 위한 서비스 구현 정의.
  */
+
 @Service("userService")
 public class UserServiceImpl implements UserService {
 	@Autowired
@@ -73,7 +74,7 @@ public class UserServiceImpl implements UserService {
 		return false;
 	}
 
-
+/*
 	@Override
 	public String getKakaoAccessToken (String code) {
 		String access_Token = "";
@@ -181,7 +182,7 @@ public class UserServiceImpl implements UserService {
 			e.printStackTrace();
 		}
 		return id;
-	}
+	}*/
 
 //	@Override
 //	public void getEmailUser(Long id) throws Exception{
