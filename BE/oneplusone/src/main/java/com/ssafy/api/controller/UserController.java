@@ -31,7 +31,7 @@ import javax.validation.Valid;
 /**
  * 유저 관련 API 요청 처리를 위한 컨트롤러 정의.
  */
-/*
+
 @Api(value = "유저 API", tags = {"User"})
 @RestController
 @RequestMapping("/api/v1/users")
@@ -119,7 +119,7 @@ public class UserController {
 	 * @return ResponseEntity<AuthResponse>
 	 *     다시 풀어줘야 함
 	 */
-	/*@ResponseBody
+	@ResponseBody
 	@GetMapping("/kakao")
 	public ResponseEntity<? extends BaseResponseBody> kakaoCallback(@RequestParam String code) throws Exception {
 		String token = userService.getKakaoAccessToken(code);
@@ -143,7 +143,7 @@ public class UserController {
 			}
 		}
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "로그인 불가능"));
-	}*/
+	}
 
 //	@ResponseBody
 //	@PostMapping("/kakao")
@@ -176,4 +176,4 @@ public class UserController {
 //	}
 
 
-//}
+}

@@ -11,14 +11,13 @@ import com.ssafy.db.entity.User;
 public interface UserService {
 	User createUser(UserRegisterPostReq userRegisterInfo);
 
-
 	Boolean checkIdDuplicate(String userId);
 	User getUserByUserId(String userId);
 
 	Boolean update(UserDto.UserPutReq user);
 
-//	public String getKakaoAccessToken (String code);
-//	public Long createKakaoUser(String token) throws Exception;
+	public String getKakaoAccessToken (String code);
+	public Long createKakaoUser(String token) throws Exception;
 
 //	void getEmailUser(Long id) throws Exception;
 //	Boolean update(UserDto.UserPutReq userPutReq);

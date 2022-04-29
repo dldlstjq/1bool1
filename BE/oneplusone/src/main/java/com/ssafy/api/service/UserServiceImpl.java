@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService {
 		return false;
 	}
 
-/*
+
 	@Override
 	public String getKakaoAccessToken (String code) {
 		String access_Token = "";
@@ -182,7 +182,7 @@ public class UserServiceImpl implements UserService {
 			e.printStackTrace();
 		}
 		return id;
-	}*/
+	}
 
 //	@Override
 //	public void getEmailUser(Long id) throws Exception{
