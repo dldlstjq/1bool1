@@ -1,6 +1,17 @@
+import { useRef } from "react";
+
 function Searchbar() {
+  const ref = useRef();
+
+  function activate() {
+    ref.current.classList.toggle("active", true);
+  }
+  function deactivate() {
+    ref.current.classList.toggle("active", false);
+  }
+
   return (
-    <div class="search">
+    <div className="search">
       <select
         name="_searchType"
         data-val="true"
@@ -18,10 +29,12 @@ function Searchbar() {
           placeholder="검색어를 입력해 주세요."
           id="searchText"
           type="text"
-          value=""
+          // value=""
+          onFocus={activate}
+          onBlur={deactivate}
         />
-        <button class="btn_search">
-          <i class="blind">검색</i>
+        <button className="search-icon" ref={ref}>
+          <i className="blind">검색</i>
         </button>
       </span>
     </div>

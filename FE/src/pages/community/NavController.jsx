@@ -9,7 +9,7 @@ function NavController() {
         className="nav-controller"
         onClick={() => setDialog((curr) => !curr)}
       >
-        전체글
+        카테고리
         <button className="nav-controller-btn">
           <i className="icon icon-arrow"></i>
         </button>
@@ -27,18 +27,15 @@ function NavDialog({ dialog, setDialog }) {
   return (
     <div>
       <div className="nav-dialog-background" />
-      <div className="nav-dialog-block">
-        <Link to="/" className="nav-link">
+      <div className="nav-dialog-block" onClick={() => setDialog(false)}>
+        <Link to="all" className="nav-link">
           전체글
         </Link>
-        <Link to="/" className="nav-link">
+        <Link to="recipe" className="nav-link">
           레시피
         </Link>
-        <Link to="/" className="nav-link">
-          자유게시판
-        </Link>
-        <Link to="/" className="nav-link">
-          자유게시판
+        <Link to="free" className="nav-link">
+          자유
         </Link>
       </div>
     </div>
