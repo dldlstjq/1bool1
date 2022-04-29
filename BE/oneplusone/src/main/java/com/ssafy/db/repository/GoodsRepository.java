@@ -7,5 +7,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface GoodsRepository extends JpaRepository<Goods, Long> {
-    List<Goods> findTop10ByOrderByStartDateAsc();
+    List<Goods> findTop10ByOrderByUpdateDateDesc();
+
+    List<Goods> findTop10ByOrderByHitDesc();
+
+//    List<Goods> findTop10ByOrderByLikeDesc();
 }
