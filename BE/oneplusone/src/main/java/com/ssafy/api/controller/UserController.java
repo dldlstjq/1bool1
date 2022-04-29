@@ -116,8 +116,9 @@ public class UserController {
 	/**
 	 * KAKAO 소셜 로그인 기능
 	 * @return ResponseEntity<AuthResponse>
+	 *     다시 풀어줘야 함
 	 */
-	@ResponseBody
+	/*@ResponseBody
 	@GetMapping("/kakao")
 	public ResponseEntity<? extends BaseResponseBody> kakaoCallback(@RequestParam String code) throws Exception {
 		String token = userService.getKakaoAccessToken(code);
@@ -141,8 +142,7 @@ public class UserController {
 			}
 		}
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "로그인 불가능"));
-
-	}
+	}*/
 
 //	@ResponseBody
 //	@PostMapping("/kakao")
