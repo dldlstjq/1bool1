@@ -24,7 +24,7 @@ function Articles() {
     }
   }
 
-  function renderPopover(x, y, author) {}
+  // function renderPopover(x, y, author) {}
 
   return (
     <div
