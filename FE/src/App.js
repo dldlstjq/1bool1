@@ -12,7 +12,9 @@ import Detail from "./pages/community/Detail";
 
 function App() {
   return (
+    
     <Routes>
+      <Route path="/" element={<Main> </Main>} />
       <Route path="/store/:word" element={<Store />}></Route>
       <Route path="community" element={<Community />}>
         <Route path=":category" element={<Articles />}></Route>
