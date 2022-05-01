@@ -13,9 +13,8 @@ from selenium.webdriver.common.keys import Keys
 import time
 from .models import Goods
 
-@require_http_methods(["GET"])
+# @require_http_methods(["GET"])
 def CU_Crawling(request):
-    print('hi cu')
     CU_BUTTON = [
         # 간편 식사
         "//*[@id=\"contents\"]/div[1]/ul/li[1]/a",
@@ -119,7 +118,7 @@ def CU_Crawling(request):
     total()
     return HttpResponse('CU Success')
 
-@require_http_methods(["GET"])
+# @require_http_methods(["GET"])
 def GS_Crawling(request):
     # 전체 가져올건지 부분 가져올건지
     print('hi gs')
@@ -211,7 +210,7 @@ def GS_Crawling(request):
     promotion()
     return HttpResponse('GS Success')
 
-@require_http_methods(["GET"])
+# @require_http_methods(["GET"])
 def SE_Crawling(request):
     SE_BUTTON = [
         # 1+1 패스해야함
@@ -315,7 +314,7 @@ def SE_Crawling(request):
     return HttpResponse('SE Success')
 
 
-@require_http_methods(["GET"])
+# @require_http_methods(["GET"])
 def MS_Crawling(request):
     MS_BUTTON = [
         # 1+1 패스해야함
@@ -435,7 +434,6 @@ def MS_Crawling(request):
 def EM_Crawling(request):
     # 행사 상품 Crawling
     print('start')
-    category = request.GET.get("category")
     def find_final_page(url, driver, xpath_element):
         driver.get(url)
         # 행사 상품으로 이동
@@ -454,6 +452,7 @@ def EM_Crawling(request):
  
     def promotion():
         # Emart 행사페이지 url
+        print('em1')
         url = 'https://emart24.co.kr/product/eventProduct.asp'
         driver = webdriver.Chrome(ChromeDriverManager().install())
         
@@ -516,18 +515,13 @@ def EM_Crawling(request):
                     # good.save()
 
                 if (i == final_page_num-1):
-                    time.sleep(10)
+                    time.sleep(5)
                     break
                 else:
                     element = driver.find_element_by_xpath('//*[@id="regForm"]/div[2]/div[3]/div[3]/a[13]')
                     driver.execute_script("arguments[0].click();", element)
-                    time.sleep(10)
+                    time.sleep(5)
             
-        
-    if category == "promotion":
-        promotion()
-    elif category == "total":
-        total()
     promotion()
     def total():
         pass
@@ -536,8 +530,7 @@ def EM_Crawling(request):
 
 def CS_Crawling(request):
     # 행사 상품 Crawling
-    print('start')
-    category = request.GET.get("category")
+    print('hi cs')
     def find_final_page(url, driver, xpath_element):
         driver.get(url)
         # 행사 상품으로 이동
@@ -634,12 +627,10 @@ def CS_Crawling(request):
                     driver.execute_script("arguments[0].click();", element)
                     time.sleep(10)
             
-        
-    if category == "promotion":
-        promotion()
-    elif category == "total":
-        total()
     promotion()
     def total():
         pass
     return HttpResponse('Success')
+
+def asddd():
+    print('hihihi')
