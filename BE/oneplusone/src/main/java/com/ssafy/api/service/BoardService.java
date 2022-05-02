@@ -16,7 +16,7 @@ public interface BoardService {
 
     boolean modifyBoard(BoardDto.BoardPutRequest boardPutRequest);
 
-    boolean removeBoard(Long id);
+    boolean removeBoard(BoardDto.BoardDeleteRequest dto);
 
     Board findBoardDetail(Long id);
 

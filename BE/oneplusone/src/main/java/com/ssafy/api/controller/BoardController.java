@@ -24,7 +24,7 @@ import java.util.List;
 
 @Api(value = "게시물 API", tags = {"Board"})
 @RestController
-@RequestMapping("/api/v1/board")
+@RequestMapping("/v1/board")
 public class BoardController {
 
     @Autowired
@@ -186,8 +186,11 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> modifyBoard(@PathVariable("id") Long id) {
-        if(boardService.removeBoard(id)) {
+    public ResponseEntity<? extends BaseResponseBody> modifyBoard(@PathVariable("id") Long id,@RequestParam("pw")String pw) {
+        BoardDto.BoardDeleteRequest dto = new BoardDto.BoardDeleteRequest();
+        dto.setId(id);
+        dto.setPassword(pw);
+        if(boardService.removeBoard(dto)) {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         }else{
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail"));

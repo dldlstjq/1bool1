@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import classNames from "classnames";
 
 function Article({ id, title, nickname, date, password }) {

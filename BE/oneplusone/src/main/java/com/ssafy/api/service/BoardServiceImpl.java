@@ -71,9 +71,13 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean removeBoard(Long id) {
-        boardRepository.deleteById(id);
-        return true;
+    public boolean removeBoard(BoardDto.BoardDeleteRequest dto) {
+        Board board = boardRepository.findByPasswordAndId(dto.getPassword(),dto.getId()).orElseGet(() -> null);
+        if(board != null){
+            boardRepository.deleteById(dto.getId());
+            return true;
+        }
+        return false;
     }
 
     @Override

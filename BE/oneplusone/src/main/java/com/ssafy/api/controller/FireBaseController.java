@@ -15,7 +15,7 @@ import java.util.ArrayList;
 @Api(value = "firebase API", tags = {"FIREBASE"})
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/firebase")
+@RequestMapping(value = "/firebase")
 public class FireBaseController {
 
     @Autowired
