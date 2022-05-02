@@ -10,7 +10,7 @@ import java.util.List;
 public interface GoodsService {
     List<Goods> findTop10UpdateGoods();
 
-    List<Goods> findTop10HitGoods();
+    List<GoodsDto.GoodsPutRequest> findTop10HitGoods();
 
 //    List<Goods> findTop10LikeGoods();
 

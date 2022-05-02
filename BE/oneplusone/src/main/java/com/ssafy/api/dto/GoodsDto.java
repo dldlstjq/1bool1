@@ -4,6 +4,7 @@ import com.ssafy.db.entity.Board;
 import com.ssafy.db.entity.Goods;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -63,6 +64,21 @@ public class GoodsDto {
         Integer hit;
         @ApiModelProperty(name="편의점", example="CU")
         String convinence;
+
+        @Builder
+        public GoodsPutRequest(Long Id, String name, String price, String photoPath, String description, Integer category, Integer isSell, Integer event, Integer hit, String convinence){
+            this.Id=Id;
+            this.name=name;
+            this.price=price;
+            this.photoPath=photoPath;
+            this.description=description;
+            this.category=category;
+            this.isSell=isSell;
+            this.event=event;
+            this.hit=hit;
+            this.convinence=convinence;
+        }
+
     }
 
     @Getter

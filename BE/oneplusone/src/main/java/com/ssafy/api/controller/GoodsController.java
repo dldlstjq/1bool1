@@ -52,11 +52,11 @@ public class GoodsController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<? extends BaseResponseBody> findTop10HitGoods() {
-        List<Goods> goods = goodsService.findTop10HitGoods();
+        List<GoodsDto.GoodsPutRequest> goods = goodsService.findTop10HitGoods();
         if(goods != null && !goods.isEmpty()) {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", goods));
         }else{
-            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "DB 내부에 현재 데이터가 없습니다"));
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "조회수 등록된 상품이 없습니다."));
         }
     }
 
@@ -110,16 +110,30 @@ public class GoodsController {
         Goods goods = new Goods();
         goods = goodsService.findGoodsDetail(goodsId);
 
-        GoodsDto.GoodsPutRequest goodsPutRequest = new GoodsDto.GoodsPutRequest();
-        goodsPutRequest.setId(goods.getId());
-        goodsPutRequest.setName(goods.getName());
-        goodsPutRequest.setPrice(goods.getPrice());
-        goodsPutRequest.setPhotoPath(goods.getPhotoPath());
-        goodsPutRequest.setDescription(goods.getDescription());
-        goodsPutRequest.setEvent(goods.getEvent());
-        goodsPutRequest.setIsSell(goods.getIsSell());
-        goodsPutRequest.setCategory(goods.getCategory());
-        goodsPutRequest.setHit(goods.getHit()+1);
+        GoodsDto.GoodsPutRequest goodsPutRequest = new GoodsDto.GoodsPutRequest(
+                goods.getId(),
+                goods.getName(),
+                goods.getPrice(),
+                goods.getPhotoPath(),
+                goods.getDescription(),
+                goods.getCategory(),
+                goods.getIsSell(),
+                goods.getEvent(),
+                goods.getHit(),
+                goods.getConvinence()
+        );
+//        goodsPutRequest.setId(goods.getId());
+//        goodsPutRequest.setName(goods.getName());
+//        goodsPutRequest.setPrice(goods.getPrice());
+//        goodsPutRequest.setPhotoPath(goods.getPhotoPath());
+//        goodsPutRequest.setDescription(goods.getDescription());
+//        goodsPutRequest.setEvent(goods.getEvent());
+//        goodsPutRequest.setIsSell(goods.getIsSell());
+//        goodsPutRequest.setCategory(goods.getCategory());
+        if(goods.getHit() == null)
+            goodsPutRequest.setHit(1);
+        else
+            goodsPutRequest.setHit(goods.getHit()+1);
         goodsPutRequest.setConvinence(goods.getConvinence());
 
         Goods hitGoods = goodsService.modifyGoodsHit(goodsPutRequest);
