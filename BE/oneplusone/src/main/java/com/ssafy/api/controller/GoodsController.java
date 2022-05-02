@@ -146,4 +146,24 @@ public class GoodsController {
         }
     }
 
+    @GetMapping("/{convinenceName}/{event}")
+    @ApiOperation(value = "해당 편의점의 행사 상품을 가져온다", notes = "<strong>해당 편의점의 행사 상품을 가져온다</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> findGoodsByConvinenceNameEvent(@PathVariable("convinenceName") String convinenceName, @PathVariable("event") Long event) {
+        GoodsDto.GoodsEventGetRequest dto = new GoodsDto.GoodsEventGetRequest();
+        dto.setConvinenceName(convinenceName);
+        dto.setEvent(event);
+        List<Goods> goods = goodsService.findGoodsByConvinenceEvent(dto);
+        if(goods != null) {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", goods));
+        }else{
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "DB 내부에 현재 데이터가 없습니다"));
+        }
+    }
+
 }

@@ -84,4 +84,14 @@ public class GoodsDto {
         @ApiModelProperty(name="카운트 값", example="1")
         Long cnt;
     }
+
+    @Getter
+    @Setter
+    @ApiModel("GoodsEventGetRequest")
+    public static class GoodsEventGetRequest {
+        @ApiModelProperty(name="편의점 이름", example="cu")
+        String convinenceName;
+        @ApiModelProperty(name="userId 값", example="1")
+        Long event;
+    }
 }
