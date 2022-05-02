@@ -53,7 +53,7 @@ function Main() {
             <Grid item xs={12} md={6} >
           <Box style={{margin:40}}>  
               <Typography variant="h4" style={{fontWeight:'bold',}} >
-                오늘의 할인은?
+                오늘의 할인은? 테스트용 !!!
               </Typography>
               <Typography variant="h6" style={{fontWeight:'bold', }}>
                 편의점의 할인 상품들을 알려드려요!
