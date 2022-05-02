@@ -60,4 +60,11 @@ public class GoodsServiceImpl implements GoodsService{
 //        return false;
         return null;
     }
+
+    @Override
+    public List<Goods> findGoodsByConvinenceEvent(GoodsDto.GoodsEventGetRequest goodsEventGetRequest){
+        String convinenceName = goodsEventGetRequest.getConvinenceName();
+        Long event = goodsEventGetRequest.getEvent();
+        return goodsRepository.findGoodsEventByConvinence(convinenceName, event);
+    }
 }
