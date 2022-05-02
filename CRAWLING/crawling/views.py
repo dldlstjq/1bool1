@@ -122,7 +122,7 @@ def CU_Crawling(request):
 def GS_Crawling(request):
     # 전체 가져올건지 부분 가져올건지
     print('hi gs')
-    category = request.GET.get("category")
+    # category = request.GET.get("category")
     def find_final_page(url, driver):
         driver.get(url)
         # 전체 페이지로 이동
@@ -146,7 +146,7 @@ def GS_Crawling(request):
         options.add_experimental_option('excludeSwitches', ['enable-logging'])
         # Cu 행사페이지 url
         url = 'http://gs25.gsretail.com/gscvs/ko/products/event-goods#;'
-        driver = webdriver.Chrome('C:/Users/SSAFY/Desktop/SSAFY/자율PJT/CODE/chromedriver_win32/chromedriver.exe', options=options)
+        driver = webdriver.Chrome(ChromeDriverManager().install())
         # 마지막 페이지 번호 가져옴
         final_page_num = find_final_page(url, driver)
         time.sleep(5)
@@ -154,7 +154,7 @@ def GS_Crawling(request):
         driver.get(url)
         element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "prod_list")))
 
-        category = 1
+        # category = 1
         for i in range(final_page_num):
             html = driver.page_source
             soup = BeautifulSoup(html, 'html.parser')
@@ -226,7 +226,7 @@ def SE_Crawling(request):
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
     # 편의점 이름 설정
     convinence = "SE"
-    driver = webdriver.Chrome('C:/Users/SSAFY/Desktop/SSAFY/자율PJT/CODE/chromedriver_win32/chromedriver.exe', options=options)
+    driver = webdriver.Chrome(ChromeDriverManager().install())
     # 암묵적으로 웹 자원 로드를 위해 3초까지 기다린다
     driver.get("https://www.7-eleven.co.kr/product/presentList.asp")
     element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "btn_product_01")))
@@ -333,7 +333,7 @@ def MS_Crawling(request):
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
     # 편의점 이름 설정
     convinence = "MS"
-    driver = webdriver.Chrome('C:/Users/SSAFY/Desktop/SSAFY/자율PJT/CODE/chromedriver_win32/chromedriver.exe', options=options)
+    driver = webdriver.Chrome(ChromeDriverManager().install())
     # 암묵적으로 웹 자원 로드를 위해 3초까지 기다린다
     driver.get("https://www.ministop.co.kr/")
     # 프레임 태그 내부로 이동
