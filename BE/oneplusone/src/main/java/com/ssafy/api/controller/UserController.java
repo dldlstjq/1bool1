@@ -34,7 +34,7 @@ import javax.validation.Valid;
 
 @Api(value = "유저 API", tags = {"User"})
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping("/v1/users")
 public class UserController {
 
 	@Autowired
