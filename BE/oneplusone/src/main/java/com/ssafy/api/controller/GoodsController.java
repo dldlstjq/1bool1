@@ -119,7 +119,10 @@ public class GoodsController {
         goodsPutRequest.setEvent(goods.getEvent());
         goodsPutRequest.setIsSell(goods.getIsSell());
         goodsPutRequest.setCategory(goods.getCategory());
-        goodsPutRequest.setHit(goods.getHit()+1);
+        if(goods.getHit() == null)
+            goodsPutRequest.setHit(1);
+        else
+            goodsPutRequest.setHit(goods.getHit()+1);
         goodsPutRequest.setConvinence(goods.getConvinence());
 
         Goods hitGoods = goodsService.modifyGoodsHit(goodsPutRequest);
