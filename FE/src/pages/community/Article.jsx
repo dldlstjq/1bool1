@@ -1,28 +1,30 @@
 import { Link } from "react-router-dom";
 import classNames from "classnames";
 
-function Article({ articleId, noti }) {
+function Article({ id, title, nickname, date, password }) {
   return (
-    <li className={classNames({ noti }, "article")}>
-      <div className="updown-wrap">
-        <div className="like-item">
-          <i className="icon-up"></i>
-          <i className="icon-down"></i>
+    <li className={classNames("article", "relative")}>
+      <div className="updown-wrap left-0 top-5 absolute">
+        <div className="icon-updown-box relative bottom-2">
+          <i
+            className="icon-box icon-info icon-up w-5 h-4 top-2 relative"
+            style={{ display: "block" }}
+          ></i>
+          <i
+            className="icon-box icon-info icon-down w-5 h-4 top-2 relative bottom-1"
+            style={{ display: "block" }}
+          ></i>
         </div>
-        <div>5</div>
+        5
       </div>
-      {/* <Link to={`${articleId}`}>첫번째 공지사항은 두둥 힘내라!</Link> */}
-      <h3 className="article-title">첫번째 공지사항은 두둥 힘내라!</h3>
-      {noti && <span className="gm-label"></span>}
+      <h3 className="article-title" id={id}>
+        {title}
+      </h3>
       <div className="icons">
-        <span className="icon-and-number">
-          <i className="icon icon-comment"></i>22
-        </span>
-        <span className="icon-and-number">
-          <i className="icon icon-view"></i>21
-        </span>
-        <span className="author">[매니저]루아</span>
-        <div className="date">4일 전</div>
+        <i className="icon-box icon-info icon-comment w-5 h-4"></i> 22
+        <i className="icon-box icon-info icon-views w-5 h-4 ml-1"></i> 21
+        <span className="author ml-1">{nickname}</span>
+        <span className="ml-1">{date}</span>
       </div>
     </li>
   );

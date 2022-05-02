@@ -1,5 +1,8 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import axios from "axios";
+import { BASE_URL } from "../../index";
 
 import Article from "./Article";
 import Pagination from "./Pagination";
@@ -8,14 +11,27 @@ import Popover from "./Popover";
 
 function Articles() {
   const { category } = useParams();
-  const navigate = useNavigate();
   const [popover, setpopover] = useState(false);
   const [coord, setcoord] = useState([0, 0]);
+  const [articles, setarticles] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log("rendered");
+    axios({
+      method: "get",
+      url: BASE_URL + "board",
+      params: { page: 0, size: 10 },
+    })
+      .then((res) => setarticles(res.data.object))
+      .catch((err) => console.log(err));
+    // return () => {};
+  }, []);
 
   function handleClick({ target, clientX, clientY }) {
     // console.log(target);
     if (target.matches(".article-title")) {
-      navigate("detail");
+      navigate(target.id);
     } else if (target.matches(".author")) {
       setcoord(() => [clientX, clientY]);
       setpopover(true);
@@ -23,8 +39,6 @@ function Articles() {
       setpopover(false);
     }
   }
-
-  function renderPopover(x, y, author) {}
 
   return (
     <div
@@ -57,8 +71,14 @@ function Articles() {
         </>
       )}
 
-      {category && category !== "all" && (
+      {category === "free" && (
         <Link className="head write-btn" to="/community/write">
+          글쓰기
+        </Link>
+      )}
+
+      {category === "recipe" && (
+        <Link className="head write-btn" to="/community/writeRecipe">
           글쓰기
         </Link>
       )}
@@ -71,7 +91,8 @@ function Articles() {
           value="email"
         />
         <label htmlFor="order-by-date" style={{ marginLeft: "1rem" }}>
-          <i className="icon icon-filter"></i>등록일순
+          <i className="icon-box icon-info icon-down w-5 h-4 top-2 relative"></i>
+          등록일순
         </label>
 
         <input
@@ -82,7 +103,8 @@ function Articles() {
           className="blind"
         />
         <label htmlFor="order-by-views">
-          <i className="icon icon-filter"></i>조회순
+          <i className="icon-box icon-info icon-down w-5 h-4 top-2 relative"></i>
+          조회순
         </label>
 
         <input
@@ -93,7 +115,8 @@ function Articles() {
           className="blind"
         />
         <label htmlFor="order-by-comments">
-          <i className="icon icon-filter"></i>댓글순
+          <i className="icon-box icon-info icon-down w-5 h-4 top-2 relative"></i>
+          댓글순
         </label>
 
         <input
@@ -104,23 +127,39 @@ function Articles() {
           className="blind"
         />
         <label htmlFor="order-by-likes">
-          <i className="icon icon-filter"></i>공감순
+          <i className="icon-box icon-info icon-down w-5 h-4 top-2 relative"></i>
+          공감순
         </label>
       </div>
 
       <ul>
-        <Article noti />
-        <Article />
+        {articles.map(({ id, title, nickname, password, modifiedDate }) => {
+          const date = modifiedDate.split(".")[0];
+          return (
+            <Article
+              id={id}
+              key={id}
+              title={title}
+              nickname={nickname}
+              password={password}
+              date={date}
+            />
+          );
+        })}
       </ul>
 
       <Pagination />
 
-      {category && category !== "all" && (
+      {category === "free" && (
         <Link className="head write-btn" to="/community/write">
           글쓰기
         </Link>
       )}
-
+      {category === "recipe" && (
+        <Link className="head write-btn" to="/community/writeRecipe">
+          글쓰기
+        </Link>
+      )}
       <Searchbar />
       {popover && <Popover x={coord[0]} y={coord[1]}></Popover>}
     </div>

@@ -9,7 +9,7 @@ function Community() {
     <div className="community">
       <div className="temp-navbar"></div>
       <NavController />
-      <div style={{ padding: "1rem" }}>
+      <div className="p-4">
         <Outlet />
       </div>
     </div>

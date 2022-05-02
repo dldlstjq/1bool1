@@ -1,7 +1,7 @@
 export default function WritingPage() {
   return (
-    <>
-      <select className="nav-controller select">
+    <div className="flex flex-col items-center">
+      <select className="nav-controller select w-full h-16">
         <option value="">자유 게시판</option>
         <option value="dog">Dog</option>
         <option value="cat">Cat</option>
@@ -9,29 +9,20 @@ export default function WritingPage() {
         <option value="parrot">Parrot</option>
         <option value="spider">Spider</option>
         <option value="goldfish">Goldfish</option>
-        <button className="nav-controller-btn">
-          <i className="icon icon-arrow"></i>
-        </button>
       </select>
       <input
         type="text"
-        className="title-input"
+        className="w-full h-16 mt-4 border border-slate-300 px-4 "
         placeholder="제목을 입력해주세요"
       />
       <textarea
-        name=""
-        id=""
+        // name=""
+        // id=""
         cols="30"
         rows="10"
-        className="content-textarea"
+        className="w-full mt-4 border border-slate-300"
       ></textarea>
-
-      <button
-        className="head write-btn"
-        style={{ width: "50%", margin: "0.8rem auto", height: "2.8rem" }}
-      >
-        작성완료
-      </button>
-    </>
+      <button className="w-32 h-12 bg-32 m-4 text-white ">작성완료</button>
+    </div>
   );
 }
