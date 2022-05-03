@@ -66,7 +66,7 @@ public class GoodsDto {
         String convinence;
 
         @Builder
-        public GoodsPutRequest(Long Id, String name, String price, String photoPath, String description, Integer category, Integer isSell, Integer event, Integer hit, String convinence){
+        public GoodsPutRequest(Long Id, String name, Long price, String photoPath, String description, Integer category, Integer isSell, Integer event, Integer hit, String convinence){
             this.Id=Id;
             this.name=name;
             this.price=price;
