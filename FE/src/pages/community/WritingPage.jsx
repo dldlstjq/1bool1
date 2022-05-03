@@ -20,7 +20,7 @@ export default function WritingPage() {
         // id=""
         cols="30"
         rows="10"
-        className="w-full mt-4 border border-slate-300"
+        className="w-full mt-4 px-2 border border-slate-300"
       ></textarea>
       <button className="w-32 h-12 bg-32 m-4 text-white ">작성완료</button>
     </div>

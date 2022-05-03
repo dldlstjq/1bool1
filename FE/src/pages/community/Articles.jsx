@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -161,7 +163,11 @@ function Articles() {
         </Link>
       )}
       <Searchbar />
-      {popover && <Popover x={coord[0]} y={coord[1]}></Popover>}
+      {popover && (
+        <Popover x={coord[0]} y={coord[1]}>
+          응응
+        </Popover>
+      )}
     </div>
   );
 }

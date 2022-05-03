@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import "./input.scss";
 // import { useState } from "react";
 import { Outlet } from "react-router-dom";

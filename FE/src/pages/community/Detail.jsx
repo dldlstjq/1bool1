@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import { useParams } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 
@@ -18,10 +20,10 @@ function Detail() {
     title,
     content,
     modifiedDate,
-    id,
+    // id,
     nickname,
-    password,
-    photo,
+    // password,
+    // photo,
     createdDate,
   } = data;
 
@@ -34,7 +36,7 @@ function Detail() {
     // return () => {
     //   second;
     // };
-  }, []);
+  }, [articleId]);
   // console.log(articleId);
 
   function handleClick({ target, clientX, clientY }) {
