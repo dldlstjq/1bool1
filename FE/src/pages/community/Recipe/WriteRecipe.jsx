@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-function WriteRecipePage() {
+function WriteRecipe() {
   return <div></div>;
 }
 
-export default WriteRecipePage;
+export default WriteRecipe;
