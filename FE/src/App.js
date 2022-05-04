@@ -14,6 +14,7 @@ import WritingPage from "./pages/community/WritingPage";
 import Detail from "./pages/community/Detail";
 import WriteRecipePage from "./pages/community/Recipe/WriteRecipePage";
 import Recipes from "./pages/community/Recipe/Recipes";
+import RecipeDetail from "./pages/community/Recipe/Detail";
 
 function App() {
   return (
@@ -26,9 +27,9 @@ function App() {
           <Route path="write" element={<WritingPage />} />
           <Route path=":articleId" element={<Detail />}></Route>
         </Route>
-        <Route path="recipe" element={<Recipes />}>
-          <Route path="write" element={<WriteRecipePage />} />
-        </Route>
+        <Route path="recipe" element={<Recipes />} />
+        <Route path="recipe/:recipeId" element={<RecipeDetail />} />
+        <Route path="recipe/write" element={<WriteRecipePage />} />
       </Route>
     </Routes>
   );
