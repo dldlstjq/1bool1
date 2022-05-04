@@ -2,6 +2,8 @@
 import Comment from "./Comment";
 import axios from "axios";
 
+import { BASE_URL } from "../../..";
+
 function Comments({ comments }) {
   function handleClick({ target }) {
     axios({
