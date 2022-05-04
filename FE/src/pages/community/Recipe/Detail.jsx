@@ -52,7 +52,7 @@ function Detail() {
         </span>
       </div>
       소요시간 : 100분
-      <div id="main" className="mt-20 border-t border-stone-400">
+      <div id="main" className="mt-10 border-t border-stone-400">
         {content}
       </div>
     </div>

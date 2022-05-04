@@ -9,12 +9,12 @@ import Store from "./pages/store/Store";
 
 //community
 import Community from "./pages/community/Community";
-import Articles from "./pages/community/Articles";
-import WritingPage from "./pages/community/WritingPage";
-import Detail from "./pages/community/Detail";
-import WriteRecipePage from "./pages/community/Recipe/WriteRecipePage";
-import Recipes from "./pages/community/Recipe/Recipes";
-import RecipeDetail from "./pages/community/Recipe/Detail";
+import Articles from "./pages/community/free/Articles";
+import WritePage from "./pages/community/free/WritingPage";
+import Detail from "./pages/community/free/Detail";
+import WriteRecipePage from "./pages/community/recipe/WriteRecipePage";
+import Recipes from "./pages/community/recipe/Recipes";
+import RecipeDetail from "./pages/community/recipe/Detail";
 
 function App() {
   return (
@@ -23,10 +23,9 @@ function App() {
       <Route path="/store/:word" element={<Store />}></Route>
       <Route path="community" element={<Navigate replace to="free" />} />
       <Route path="community" element={<Community></Community>}>
-        <Route path="free" element={<Articles />}>
-          <Route path="write" element={<WritingPage />} />
-          <Route path=":articleId" element={<Detail />}></Route>
-        </Route>
+        <Route path="free" element={<Articles />}></Route>
+        <Route path="free/:articleId" element={<Detail />}></Route>
+        <Route path="free/write" element={<WritePage />} />
         <Route path="recipe" element={<Recipes />} />
         <Route path="recipe/:recipeId" element={<RecipeDetail />} />
         <Route path="recipe/write" element={<WriteRecipePage />} />

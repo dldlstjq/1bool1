@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -44,10 +45,10 @@ function NavDialog({ dialog, setDialog, setcateg }) {
           clickHandler(e, setcateg);
         }}
       >
-        <Link to="recipe" className="nav-link">
+        <Link to="recipe" className="nav-link text-sm">
           레시피 게시판
         </Link>
-        <Link to="free" className="nav-link">
+        <Link to="free" className="nav-link text-sm">
           자유 게시판
         </Link>
       </div>

@@ -23,20 +23,16 @@
 .nav-dialog-block {
   max-height: 50vh;
   background: white;
-  padding-bottom: 1rem;
-  transition: max-height 2s cubic-bezier(0.09, 0.55, 0.25, 1);
+  // transition: max-height 2s cubic-bezier(0.09, 0.55, 0.25, 1);
   visibility: visible;
   overflow-y: scroll;
   z-index: 1;
+  border-bottom: 1px solid #ccc;
 
   .nav-link {
-    font-size: 1.15rem;
-    line-height: 2.3rem;
+    line-height: 2rem;
     display: block;
     padding-left: 1.3rem;
-    &:active {
-      color: #a38348;
-    }
   }
 }
 
