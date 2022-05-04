@@ -13,17 +13,13 @@ from selenium.webdriver.common.keys import Keys
 import time
 from .models import Goods
 
-def checkproduct(convinence, name):
-    if(Goods.objects.filter(convinence=convinence) & Goods.objects.filter(name=name)):
-        Goods.price = price
-    else:
-        good = Goods(name = name, photo_path=img_src, \
-                price=price, is_sell=1, category=category, event=event, convinence = convinence)
-                good.save()
-
-    
-
-
+# def checkproduct(convinence, name):
+#     if(Goods.objects.filter(convinence=convinence) & Goods.objects.filter(name=name)):
+#         Goods.price = price
+#     else:
+#         good = Goods(name = name, photo_path=img_src, \
+#                 price=price, is_sell=1, category=category, event=event, convinence = convinence)
+#                 good.save()
 
 # @require_http_methods(["GET"])
 def CU_Crawling(request):
