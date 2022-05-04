@@ -24,6 +24,7 @@ import java.util.List;
 
 @Api(value = "레시피 API", tags = {"Recipe"})
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/v1/recipe")
 public class RecipeController {
 

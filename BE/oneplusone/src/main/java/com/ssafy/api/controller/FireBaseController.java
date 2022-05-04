@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.ArrayList;
 @Api(value = "firebase API", tags = {"FIREBASE"})
 @RestController
+@CrossOrigin("*")
 @RequiredArgsConstructor
 @RequestMapping(value = "/firebase")
 public class FireBaseController {
