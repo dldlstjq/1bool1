@@ -24,6 +24,7 @@ import java.util.List;
 
 @Api(value = "게시물 API", tags = {"Board"})
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/v1/board")
 public class BoardController {
 

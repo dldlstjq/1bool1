@@ -34,6 +34,7 @@ import javax.validation.Valid;
 
 @Api(value = "유저 API", tags = {"User"})
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/v1/users")
 public class UserController {
 
