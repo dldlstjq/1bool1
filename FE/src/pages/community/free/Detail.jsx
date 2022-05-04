@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 
 import { BASE_URL } from "../../..";
@@ -8,6 +8,7 @@ import axios from "axios";
 
 import Pagination from "../common/Pagination";
 import Popover from "../common/Popover";
+import Comments from "../common/Comments";
 
 function Detail() {
   const { articleId } = useParams();
@@ -20,10 +21,10 @@ function Detail() {
     title,
     content,
     modifiedDate,
-    // id,
+    id,
     nickname,
-    // password,
-    // photo,
+    password,
+    photo,
     createdDate,
   } = data;
 
@@ -32,12 +33,14 @@ function Detail() {
       .get(BASE_URL + `board/${articleId}`)
       .then((res) => setdata(res.data.object))
       .catch((err) => console.log(err));
-
-    // return () => {
-    //   second;
-    // };
   }, [articleId]);
-  // console.log(articleId);
+
+  useEffect(() => {
+    axios
+      .get(BASE_URL + `comment/${articleId}`)
+      .then((res) => setcomments(res.data.object))
+      .catch((err) => console.log(err));
+  }, [articleId]);
 
   function handleClick({ target, clientX, clientY }) {
     if (target.matches("#show-comments")) {
@@ -71,7 +74,7 @@ function Detail() {
           22
         </div>
       </div>
-      <div className="relative">
+      <div className="relative mt-1">
         <i className="icon-box icon-sns w-20 h-6 absolute right-0"></i>
       </div>
       <div className="content-box">
@@ -121,30 +124,11 @@ function Detail() {
           </div>
         </div>
       </div>
-      {comments.length > 0 && (
-        <div id="comment-box" className="bd-df p-4">
-          <div className="flex justify-between">
-            <div>
-              <i className="icon-box icon-etc icon-user w-9 h-9"></i>{" "}
-              <span className="relative bottom-3">[GM]루아</span>
-            </div>
-            <div>
-              <button className="w-16 h-8 ml-3 bd-df">
-                <i className="icon-box icon-info icon-up  w-5 h-5"></i> 0
-              </button>
-              <button className="w-16 h-8 ml-3 bd-df">
-                <i className="icon-box icon-info icon-down  w-5 h-5"></i> 0
-              </button>
-            </div>
-          </div>
-          <div id="comment-content">달려라~ 우헹ㄶ메야훈메ㅑ웨ㅑㅇㅎ</div>
-          <div id="comment-date" className="text-slate-500">
-            2022-05-02 11:39
-          </div>
-        </div>
-      )}
-      <Pagination />
-      <button className="w-20 h-10 mt-10 bg-32 text-white">목록보기</button>
+      <Comments comments={comments} />
+      <Pagination mb="mb-10" />
+      <Link to="/community/free" className="py-2 px-4 mt-20 bg-32 text-white">
+        목록보기
+      </Link>
       {popover && (
         <Popover x={coordRef.current[0]} y={coordRef.current[1]}>
           <h6>ㅇㅇ</h6>

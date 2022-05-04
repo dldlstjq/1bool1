@@ -1,19 +1,3 @@
-#app { height: 100% }
-html,
-body {
-  position: relative;
-  height: 100%;
-}
-
-body {
-  background: #ffffff;
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  /* font-size: 14px; */
-  /* color: #000; */
-  margin: 0;
-  padding: 0;
-}
-
 .swiper {
   width: 100%;
   height: 100%;
@@ -53,29 +37,30 @@ body {
   text-align: center;
   line-height: 20px;
   font-size: 10px;
-  color: #F93D59;
+  color: #f93d59;
   opacity: 1;
   background: rgba(0, 0, 0, 0.2);
-  
 }
 
 .swiper-pagination-bullet-active {
   color: #fff;
-  background: #F93D59;
+  background: #f93d59;
 }
 
-.swiper-button-prev, .swiper-button-next {
-  color: #F93D59;
+.swiper-button-prev,
+.swiper-button-next {
+  color: #f93d59;
 }
 
 .swiper-button-next {
-  color: #F93D59;
+  color: #f93d59;
 }
 
 /* .mysyper {
   width: 100px;
 } */
 
-.MuiPaper-root, .MuiCard-root {
+.MuiPaper-root,
+.MuiCard-root {
   box-shadow: 0;
 }
