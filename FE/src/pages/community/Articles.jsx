@@ -48,42 +48,17 @@ function Articles() {
       onClick={handleClick}
       onWheel={() => setpopover(false)}
     >
-      {category === "all" && (
-        <>
-          <div className="title">전체글</div>
-        </>
-      )}
-      {category === "free" && (
-        <>
-          <div className="title">자유 게시판</div>
-          <span>
-            여러 모험가님들과 다양한 주제에 대해 자유롭게 소통하는 공간입니다.
-          </span>
-        </>
-      )}
-      {category === "recipe" && (
-        <>
-          <div className="title">레시피</div>
-          <span>편의점 레시피를 공유하는 게시판입니다</span>
-        </>
-      )}
-      {!category && (
-        <>
-          <div className="title">전체글</div>
-        </>
-      )}
+      <>
+        <div className="title">자유 게시판</div>
+        <span>
+          여러 모험가님들과 다양한 주제에 대해 자유롭게 소통하는 공간입니다.
+        </span>
+      </>
 
-      {category === "free" && (
-        <Link className="head write-btn" to="/community/write">
-          글쓰기
-        </Link>
-      )}
+      <Link className="head write-btn" to="/community/write">
+        글쓰기
+      </Link>
 
-      {category === "recipe" && (
-        <Link className="head write-btn" to="/community/writeRecipe">
-          글쓰기
-        </Link>
-      )}
       <div className="head">
         <input
           type="radio"
@@ -152,16 +127,9 @@ function Articles() {
 
       <Pagination />
 
-      {category === "free" && (
-        <Link className="head write-btn" to="/community/write">
-          글쓰기
-        </Link>
-      )}
-      {category === "recipe" && (
-        <Link className="head write-btn" to="/community/writeRecipe">
-          글쓰기
-        </Link>
-      )}
+      <Link className="head write-btn" to="/community/write">
+        글쓰기
+      </Link>
       <Searchbar />
       {popover && (
         <Popover x={coord[0]} y={coord[1]}>
