@@ -22,6 +22,7 @@ import { minHeight } from '@mui/system';
 // import AuthSocial from '../../components/login/AuthSocial';
 // import setAuthorizationToken from '../../utils/setAuthorizationToken';
 // import Title from '../../components/Home/Title';
+import Appbar from '../../components/main/Appbar';
 
 function Copyright(props) {
   return (
@@ -149,13 +150,14 @@ export default function SignInSide() {
   return (
     <Section>
       <ThemeProvider theme={theme}>
+        <Appbar />
         <Container component='main' maxWidth='xs'>
-          {/* <Grid container component='main' sx={{ height: '100vh' }}> */}
+          {/* <Grid container component='main' sx={{ height: '50vh' }}> */}
           <CssBaseline />
           <Box
             component={Paper}
             sx={{
-              // marginTop: 8,
+              marginTop: 8,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -287,6 +289,7 @@ export default function SignInSide() {
               </Grid>
             </Box>
           </Box>
+          {/* </Grid> */}
         </Container>
       </ThemeProvider>
     </Section>
