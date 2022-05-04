@@ -155,7 +155,7 @@ export default function SignInSide() {
           <Box
             component={Paper}
             sx={{
-              marginTop: 8,
+              // marginTop: 8,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -245,8 +245,18 @@ export default function SignInSide() {
 
                   {/* <Grid item xs={2}></Grid> */}
 
-                  <Grid container spacing={2}>
-                    {/* <Grid item xs={4}>
+                  {/* <Grid item xs={2}></Grid> */}
+                </Grid>
+              </Box>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                }}
+              >
+                <Grid container spacing={2} columns={16} sx={{ ml: 12 }}>
+                  {/* <Grid item xs={4}>
                       <Link href='/findemail' variant='body2'>
                         아이디 찾기
                       </Link>
@@ -256,28 +266,25 @@ export default function SignInSide() {
                         비밀번호 찾기
                       </Link>
                     </Grid> */}
-                    <Grid item xs={8}>
-                      <p>계정이 없으신가요?</p>
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Link href='/signup' variant='body2' sx={{ mt: 2 }}>
-                        {'가입하기'}
-                      </Link>
-                    </Grid>
-                    {/* <Grid item md={12}>
+                  <Grid item xs={6} md={8}>
+                    <span>계정이 없으신가요?</span>
+                  </Grid>
+                  <Grid item xs={6} md={4}>
+                    <Link href='/signup' variant='body2'>
+                      가입하기
+                    </Link>
+                  </Grid>
+                  {/* <Grid item md={12}>
                       <Link href='/signup' variant='body2' sx={{ mt: 2, mx: 4 }}>
                         {'회원가입'}
                       </Link>
                     </Grid> */}
-                  </Grid>
-
-                  {/* <Grid item xs={2}></Grid> */}
-
-                  <Grid item xs={12}>
-                    <Copyright sx={{ mt: 2 }} />
-                  </Grid>
                 </Grid>
               </Box>
+
+              <Grid item xs={12}>
+                <Copyright sx={{ mt: 2 }} />
+              </Grid>
             </Box>
           </Box>
         </Container>
