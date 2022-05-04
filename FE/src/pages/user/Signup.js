@@ -21,6 +21,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 // import './signup.css';
 // import Title from '../../components/Home/Title';
+import Appbar from '../../components/main/Appbar';
 
 function Copyright(props) {
   return (
@@ -246,6 +247,7 @@ export default function SignUp() {
       </div>
       <Title value='SIGNUP' /> */}
       <ThemeProvider theme={theme}>
+        <Appbar />
         <Container component='main' maxWidth='xs'>
           <CssBaseline />
           <Box
