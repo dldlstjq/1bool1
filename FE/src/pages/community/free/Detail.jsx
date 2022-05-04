@@ -125,13 +125,18 @@ function Detail() {
                 id="report"
               ></i>
             </span>
-            <button className="bg-32 text-white w-20 h-10 ml-4">댓글</button>
+            <button className="bg-gray-700 text-white w-20 h-10 ml-4">
+              댓글
+            </button>
           </div>
         </div>
       </div>
       {showcomments && <Comments comments={comments} />}
       <Pagination mb="mb-10" />
-      <Link to="/community/free" className="py-2 px-4 mt-20 bg-32 text-white">
+      <Link
+        to="/community/free"
+        className="py-2 px-4 mt-20 bg-gray-700 text-white"
+      >
         목록보기
       </Link>
       {popover && (
