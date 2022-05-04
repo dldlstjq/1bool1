@@ -15,6 +15,7 @@ function Detail() {
   const [data, setdata] = useState({});
   const [comments, setcomments] = useState([]);
   const [popover, setpopover] = useState(false);
+  const [showcomments, setshowcomments] = useState(true);
   const coordRef = useRef([0, 0]);
 
   const {
@@ -44,10 +45,7 @@ function Detail() {
 
   function handleClick({ target, clientX, clientY }) {
     if (target.matches("#show-comments")) {
-      axios
-        .get(BASE_URL + "comment/" + articleId)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
+      setshowcomments((prev) => !prev);
     }
     if (target.matches("#report")) {
       coordRef.current = [clientX, clientY];
@@ -105,10 +103,17 @@ function Detail() {
         <div className="flex justify-between">
           <span id="show-comments" className="cursor-pointer">
             <div className="mt-2" id="show-comments">
-              <i
-                className="icon-box icon-info icon-down w-5 h-5"
-                id="show-comments"
-              ></i>
+              {showcomments ? (
+                <i
+                  className="icon-box icon-info icon-up w-5 h-5"
+                  id="show-comments"
+                ></i>
+              ) : (
+                <i
+                  className="icon-box icon-info icon-down w-5 h-5"
+                  id="show-comments"
+                ></i>
+              )}
               댓글 {comments.length}
             </div>
           </span>
@@ -124,7 +129,7 @@ function Detail() {
           </div>
         </div>
       </div>
-      <Comments comments={comments} />
+      {showcomments && <Comments comments={comments} />}
       <Pagination mb="mb-10" />
       <Link to="/community/free" className="py-2 px-4 mt-20 bg-32 text-white">
         목록보기

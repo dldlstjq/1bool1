@@ -12,7 +12,7 @@ import Community from "./pages/community/Community";
 import Articles from "./pages/community/free/Articles";
 import WritePage from "./pages/community/free/WritingPage";
 import Detail from "./pages/community/free/Detail";
-import WriteRecipe from "./pages/community/recipe/WriteRecipe";
+// import WriteRecipe from "./pages/community/recipe/WriteRecipe";
 import Recipes from "./pages/community/recipe/Recipes";
 import RecipeDetail from "./pages/community/recipe/Detail";
 
@@ -28,7 +28,7 @@ function App() {
         <Route path="free/write" element={<WritePage />} />
         <Route path="recipe" element={<Recipes />} />
         <Route path="recipe/:recipeId" element={<RecipeDetail />} />
-        <Route path="recipe/write" element={<WriteRecipe />} />
+        {/* <Route path="recipe/write" element={<WriteRecipe />} /> */}
       </Route>
     </Routes>
   );
