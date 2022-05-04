@@ -23,7 +23,7 @@ public class GoodsDto {
         @ApiModelProperty(name="제목", example="제목")
         String name;
         @ApiModelProperty(name="가격", example="5,000")
-        String price;
+        Long price;
         @ApiModelProperty(name="사진", example="https:api//.../")
         String photoPath;
         @ApiModelProperty(name="설명", example="컵라면")
@@ -49,7 +49,7 @@ public class GoodsDto {
         @ApiModelProperty(name="제목", example="제목")
         String name;
         @ApiModelProperty(name="가격", example="5,000")
-        String price;
+        Long price;
         @ApiModelProperty(name="사진", example="https:api//.../")
         String photoPath;
         @ApiModelProperty(name="설명", example="컵라면")
@@ -66,7 +66,7 @@ public class GoodsDto {
         String convinence;
 
         @Builder
-        public GoodsPutRequest(Long Id, String name, String price, String photoPath, String description, Integer category, Integer isSell, Integer event, Integer hit, String convinence){
+        public GoodsPutRequest(Long Id, String name, Long price, String photoPath, String description, Integer category, Integer isSell, Integer event, Integer hit, String convinence){
             this.Id=Id;
             this.name=name;
             this.price=price;

@@ -67,7 +67,7 @@ class Goods(models.Model):
     is_sell = models.IntegerField(blank=True, null=True)
     name = models.CharField(max_length=255)
     photo_path = models.CharField(max_length=255, blank=True, null=True)
-    price = models.CharField(max_length=255)
+    price = models.IntegerField()
     start_date = models.DateTimeField(auto_now_add = True)
     update_date = models.DateTimeField(auto_now = True, blank=True, null=True)
 
