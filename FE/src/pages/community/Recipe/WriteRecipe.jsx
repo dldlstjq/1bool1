@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 function WriteRecipe() {
-  return <div></div>;
+  return <div>123</div>;
 }
 
 export default WriteRecipe;
