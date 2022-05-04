@@ -37,10 +37,11 @@ public class User extends BaseEntity{
     Integer isWithdrawal;
 
 
-    public void update(String email, String password, String nickname) {
+    public void update(String email, String password, String nickname,Integer isWithdrawal) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
+        this.isWithdrawal = isWithdrawal;
     }
 
     @Builder

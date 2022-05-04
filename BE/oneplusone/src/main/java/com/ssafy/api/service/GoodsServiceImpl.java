@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public class GoodsServiceImpl implements GoodsService{
@@ -16,9 +17,42 @@ public class GoodsServiceImpl implements GoodsService{
     GoodsRepository goodsRepository;
 
     @Override
-    public List<Goods> findGoods() {
-        return goodsRepository.findTop10ByOrderByStartDateAsc();
+    public List<Goods> findTop10UpdateGoods() {
+        return goodsRepository.findTop10ByOrderByUpdateDateDesc();
     }
+
+    @Override
+    public List<GoodsDto.GoodsPutRequest> findTop10HitGoods() {
+        List<Goods> list = goodsRepository.findTop10ByOrderByHitDesc();
+
+        List<GoodsDto.GoodsPutRequest> hitList = new ArrayList<>();
+
+        for(int i=0; i<list.size(); ++i){
+            Goods goods = list.get(i);
+
+            if(goods.getHit() == null) continue;
+            GoodsDto.GoodsPutRequest tmp = new GoodsDto.GoodsPutRequest(
+                    goods.getId(),
+                    goods.getName(),
+                    goods.getPrice(),
+                    goods.getPhotoPath(),
+                    goods.getDescription(),
+                    goods.getCategory(),
+                    goods.getIsSell(),
+                    goods.getEvent(),
+                    goods.getHit(),
+                    goods.getConvinence()
+            );
+            hitList.add(tmp);
+        }
+        return hitList;
+//        return goodsRepository.findTop10ByOrderByHitDesc();
+    }
+
+//    @Override
+//    public List<Goods> findTop10LikeGoods() {
+//        return goodsRepository.findTop10ByOrderByLikeDesc();
+//    }
 
     @Override
     public Goods findGoodsDetail(Long goodsId) {
@@ -27,7 +61,7 @@ public class GoodsServiceImpl implements GoodsService{
 
     @Override
     @Transactional
-    public boolean modifyGoodsHit(GoodsDto.GoodsPutRequest goodsPutRequest){
+    public Goods modifyGoodsHit(GoodsDto.GoodsPutRequest goodsPutRequest){
         Goods goods = goodsRepository.findById(goodsPutRequest.getId()).orElseGet(()->null);
 
         if(goods != null){
@@ -41,13 +75,20 @@ public class GoodsServiceImpl implements GoodsService{
             goods.setCategory(goodsPutRequest.getCategory());
             goods.setHit(goodsPutRequest.getHit());
             goods.setConvinence(goodsPutRequest.getConvinence());
-            goods.update(goodsPutRequest.getName(), goodsPutRequest.getPrice(), goodsPutRequest.getPhotoPath(), goodsPutRequest.getDescription(),
-                    goodsPutRequest.getCategory(), goodsPutRequest.getIsSell(), goodsPutRequest.getEvent(), goodsPutRequest.getHit(),
-                    goodsPutRequest.getConvinence());
-//            return goodsRepository.save(goodsPutRequest);
-            return true;
+//            goods.update(goodsPutRequest.getName(), goodsPutRequest.getPrice(), goodsPutRequest.getPhotoPath(), goodsPutRequest.getDescription(),
+//                    goodsPutRequest.getCategory(), goodsPutRequest.getIsSell(), goodsPutRequest.getEvent(), goodsPutRequest.getHit(),
+//                    goodsPutRequest.getConvinence());
+            return goodsRepository.save(goods);
+//            return true;
         }
-        return false;
+//        return false;
+        return null;
+    }
 
+    @Override
+    public List<Goods> findGoodsByConvinenceEvent(GoodsDto.GoodsEventGetRequest goodsEventGetRequest){
+        String convinenceName = goodsEventGetRequest.getConvinenceName();
+        Long event = goodsEventGetRequest.getEvent();
+        return goodsRepository.findGoodsEventByConvinence(convinenceName, event);
     }
 }

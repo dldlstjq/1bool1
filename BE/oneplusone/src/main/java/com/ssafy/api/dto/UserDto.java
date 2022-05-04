@@ -38,7 +38,7 @@ public class UserDto {
      */
     @Getter
     @Setter
-    @ApiModel("UserPostRequest")
+    @ApiModel("UserPutReq")
     public static class UserPutReq {
         @ApiModelProperty(name="유저 Email", example="ssafy_web")
         String email;
@@ -46,6 +46,9 @@ public class UserDto {
         String password;
         @ApiModelProperty(name="유저 Nickname", example="your_password")
         String nickname;
+        @NotNull(message = "탈퇴 여부를 입력하세요 0 : 활동 / 1 : 탈퇴")
+        @ApiModelProperty(name="유저 탈퇴 여부", example="0", required = true)
+        Integer isWithdrawal;
     }
     
     /**
@@ -93,6 +96,17 @@ public class UserDto {
             return res;
         }
     }
+
+
+    @AllArgsConstructor
+    @Getter
+    public class KakaoUserInfo {
+        Long id;
+        String email;
+        String nickname;
+    }
+
+
 
 
     /**
