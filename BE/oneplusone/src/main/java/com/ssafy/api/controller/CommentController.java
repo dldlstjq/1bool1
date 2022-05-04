@@ -20,7 +20,7 @@ import java.util.List;
 
 @Api(value = "댓글 API", tags = {"Comment"})
 @RestController
-@RequestMapping("/api/v1/comment")
+@RequestMapping("/v1/comment")
 public class CommentController {
     @Autowired
     private CommentService commentService;

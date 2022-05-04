@@ -37,6 +37,14 @@ public class BoardDto {
 //        @ApiModelProperty(name="시작 시간", example="2022-02-01")
 //        Date startDate;
     }
+    @Data
+    @ApiModel("BoardDeleteRequest")
+    public static class BoardDeleteRequest {
+        @ApiModelProperty(name="글 번호", example="글 번호")
+        Long Id;
+        @ApiModelProperty(name="비밀번호", example="a1234!@")
+        String password;
+    }
     /*
     * Board 등록 사진 제대로
     * */

@@ -24,7 +24,7 @@ import java.util.List;
 
 @Api(value = "레시피 리뷰글 API", tags = {"RecipeReview"})
 @RestController
-@RequestMapping("/api/v1/recipereview")
+@RequestMapping("/v1/recipereview")
 public class RecipeReviewController {
     @Autowired
     private RecipeReviewService recipeReviewService;

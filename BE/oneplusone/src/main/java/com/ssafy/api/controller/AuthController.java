@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.api.dto.UserDto.UserLoginPostReq;
 import com.ssafy.api.dto.UserDto.UserLoginPostRes;
-import com.ssafy.api.service.UserService;
+//import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.common.util.JwtTokenUtil;
 import com.ssafy.db.entity.User;
@@ -25,7 +25,7 @@ import io.swagger.annotations.ApiResponse;
 /**
  * 인증 관련 API 요청 처리를 위한 컨트롤러 정의.
  */
-@Api(value = "인증 API", tags = {"Auth."})
+/*@Api(value = "인증 API", tags = {"Auth."})
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
@@ -57,3 +57,4 @@ public class AuthController {
 		return ResponseEntity.status(401).body(UserLoginPostRes.of(401, "Invalid Password", null));
 	}
 }
+*/

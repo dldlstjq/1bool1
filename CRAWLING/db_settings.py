@@ -2,9 +2,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'oneplusone',
-        'USER':'root',
-        'PASSWORD':'1234',
-        'HOST':'localhost',
+        'USER':'oneplusone',
+        'PASSWORD':'oneplusone',
+        'HOST':'13.124.118.100',
         'PORT':'3306',
     }
 }
