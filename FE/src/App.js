@@ -18,12 +18,13 @@ import Recipes from './pages/community/Recipe/Recipes';
 // signin, signup
 import Signin from './pages/user/Signin';
 import Signup from './pages/user/Signup';
+import Kakao from './pages/user/KakaoLogin';
 
 function App() {
   return (
     <Routes>
       <Route path='/' element={<Main></Main>} />
-      <Route path='signin' element={<Signin />}></Route>
+      <Route path='signin' element={<Kakao />}></Route>
       <Route path='signup' element={<Signup />}></Route>
       <Route path='/store/:word' element={<Store />}></Route>
       <Route path='community' element={<Navigate replace to='free' />} />
