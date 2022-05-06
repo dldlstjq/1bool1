@@ -147,7 +147,7 @@ public class UserController {
 	}*/
 
 	@ResponseBody
-	@PostMapping("/kakao")
+	@GetMapping("/kakao")
 	public ResponseEntity<? extends BaseResponseBody> kakaoAccessToken(@RequestParam String token) throws Exception {
 		if(!token.equals("")) {
 			Long id = userService.createKakaoUser(token);
