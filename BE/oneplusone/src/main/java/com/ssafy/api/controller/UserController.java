@@ -146,33 +146,11 @@ public class UserController {
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "로그인 불가능"));
 	}*/
 
-//	@ResponseBody
-//	@PostMapping("/kakao")
-//	public ResponseEntity<? extends BaseResponseBody> kakaoAccessToken(@RequestParam("token") String token) throws Exception {
-//		if(!token.equals("")) {
-//			Long id = userService.createKakaoUser(token);
-//			User user = userService.getUserByUserId(String.valueOf(id));
-//			if(user != null){
-//				if(user.getIsWithdrawal() == 1){
-//					return ResponseEntity.status(200).body(BaseResponseBody.of(200, "탈퇴한 사용자 입니다."));
-//				}
-//				return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success",user));
-//			}else {
-//				UserRegisterPostReq registerInfo = new UserRegisterPostReq();
-//				registerInfo.setEmail(String.valueOf(id));
-//				registerInfo.setNickname("KAKAO");
-//				registerInfo.setPassword("kakao12!@");
-//				registerInfo.setIsWithdrawal(0);
-//				user = userService.createUser(registerInfo);
-//				return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success",user));
-//			}
-//		}
-//		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "token 값이 일치하지 않습니다."));
-//	}
-
 	@ResponseBody
 	@PostMapping("/kakao")
-	public ResponseEntity<? extends BaseResponseBody> kakaoCreateID(@RequestParam("id") String id) throws Exception {
+	public ResponseEntity<? extends BaseResponseBody> kakaoAccessToken(@RequestParam("token") String token) throws Exception {
+		if(!token.equals("")) {
+			Long id = userService.createKakaoUser(token);
 			User user = userService.getUserByUserId(String.valueOf(id));
 			if(user != null){
 				if(user.getIsWithdrawal() == 1){
@@ -188,7 +166,29 @@ public class UserController {
 				user = userService.createUser(registerInfo);
 				return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success",user));
 			}
+		}
+		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "token 값이 일치하지 않습니다."));
 	}
+
+//	@ResponseBody
+//	@PostMapping("/kakao")
+//	public ResponseEntity<? extends BaseResponseBody> kakaoCreateID(@RequestParam("id") String id) throws Exception {
+//			User user = userService.getUserByUserId(String.valueOf(id));
+//			if(user != null){
+//				if(user.getIsWithdrawal() == 1){
+//					return ResponseEntity.status(200).body(BaseResponseBody.of(200, "탈퇴한 사용자 입니다."));
+//				}
+//				return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success",user));
+//			}else {
+//				UserRegisterPostReq registerInfo = new UserRegisterPostReq();
+//				registerInfo.setEmail(String.valueOf(id));
+//				registerInfo.setNickname("KAKAO");
+//				registerInfo.setPassword("kakao12!@");
+//				registerInfo.setIsWithdrawal(0);
+//				user = userService.createUser(registerInfo);
+//				return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success",user));
+//			}
+//	}
 
 //	@GetMapping("/me")
 //	@ApiOperation(value = "회원 본인 정보 조회", notes = "로그인한 회원 본인의 정보를 응답한다.")
