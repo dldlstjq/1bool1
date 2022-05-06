@@ -138,16 +138,9 @@ def CU_Crawling(request):
                 except:
                     event = 1
                 # 데이터 저장하는 부분 
-<<<<<<< HEAD
 
                 checkproduct(name, img_src, price, event, convinence)
             
-=======
-                good = Goods(name = name, photo_path=img_src, \
-                price=price, is_sell=1, category=category, event=event, convinence = "CU")
-                good.save()
-                print("cu저장")
->>>>>>> 2d817bce7faddc9d3666769d95c02ae9c1b3f926
             # 한번하고 버튼 넘어감
             # 카테고리 넘어가는 버튼
             try:
@@ -241,15 +234,6 @@ def GS_Crawling(request):
                         event = 5
                 except:
                     item_promotion = 1
-<<<<<<< HEAD
-=======
-                # 데이터 저장하는 부분 
-                # gs는 카테고리가 안나뉘어 져있어서 우선은 기본으로 진행 
-                good = Goods(name = name, photo_path=img_src, \
-                price=price, is_sell=1, category=category, event=event, convinence = "GS")
-                good.save()
-                print("gs저장")
->>>>>>> 2d817bce7faddc9d3666769d95c02ae9c1b3f926
 
                 # 데이터 저장하는 부분 
                 checkproduct(name, img_src, price, event, convinence)
@@ -352,17 +336,10 @@ def SE_Crawling(request):
                             event =5
                     except:
                         event = 1
-<<<<<<< HEAD
 
                     checkproduct(name, img_src, price, event, convinence)
 
             print("FINISH")
-=======
-                    good = Goods(name = name, photo_path=img_src, \
-                    price=price, is_sell=1, category=0, event=event, convinence = "SE")
-                    good.save()
-                    print("se저장")
->>>>>>> 2d817bce7faddc9d3666769d95c02ae9c1b3f926
             #다음 카테고리 넘어가기
             try:
                 button = SE_BUTTON[idx + 1]
@@ -483,17 +460,9 @@ def MS_Crawling(request):
                         event = 1
                 except:
                     event = 1
-<<<<<<< HEAD
     
                 checkproduct(name, img_src, price, event, convinence)
 
-=======
-                good = Goods(name = name, photo_path=img_src, \
-                price=price, is_sell=1, category=0, event=event, convinence = "MS")
-                good.save()
-                print("ms저장")
-            print("FINISH")
->>>>>>> 2d817bce7faddc9d3666769d95c02ae9c1b3f926
             try:
                 button = MS_BUTTON[idx + 1]
                 element = driver.find_element_by_xpath(button)
