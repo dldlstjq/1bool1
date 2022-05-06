@@ -11,12 +11,11 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import logo from '../../common/logo.png'
+import logo from '../../common/logo.png';
 import { Link } from 'react-router-dom';
 
-
 // const pages = ['편의점', '레시피', '커뮤니티', '이벤트'];
-const settings = ['로그인', '회원가입'];
+const settings = ['로그인'];
 
 function Appbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -37,28 +36,31 @@ function Appbar() {
     setAnchorElUser(null);
   };
   return (
-    <AppBar position="static" style={{backgroundColor:'white', boxShadow:'rgb(249, 61, 89) 0px 2px' }}>
-      <Container maxWidth="xl">
+    <AppBar
+      position='static'
+      style={{ backgroundColor: 'white', boxShadow: 'rgb(249, 61, 89) 0px 2px' }}
+    >
+      <Container maxWidth='xl'>
         <Toolbar disableGutters>
-          <Box sx={{ mr: 2, mt:1,  display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ mr: 2, mt: 1, display: { xs: 'none', md: 'flex' } }}>
             <Link to='/'>
-              <img src={logo} alt="logo" style={{height: '5rem'}}/>
+              <img src={logo} alt='logo' style={{ height: '5rem' }} />
             </Link>
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
+              size='large'
+              aria-label='account of current user'
+              aria-controls='menu-appbar'
+              aria-haspopup='true'
               onClick={handleOpenNavMenu}
               // color="inherit"
             >
               <MenuIcon />
             </IconButton>
             <Menu
-              id="menu-appbar"
+              id='menu-appbar'
               anchorEl={anchorElNav}
               anchorOrigin={{
                 vertical: 'bottom',
@@ -75,86 +77,117 @@ function Appbar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Link to='/store' style={{ textDecoration:'none'}}>
-                    <Button style={{ color:'black', fontSize:'1rem', fontWeight:'bold' }}>
-                      편의점
-                    </Button>
-                  </Link>
-                  </MenuItem>
-                  <MenuItem onClick={handleCloseNavMenu}>
-                  <Link to='/' style={{ textDecoration:'none'}}>
-                    <Button style={{color:'black', fontSize:'1rem', fontWeight:'bold' }}>
-                      레시피
-                    </Button>
-                  </Link>
-                  </MenuItem>
-                  <MenuItem onClick={handleCloseNavMenu}>
-                  <Link to='/' style={{ textDecoration:'none'}}>
-                    <Button style={{color:'black', fontSize:'1rem', fontWeight:'bold' }}>
-                      커뮤니티
-                    </Button>
-                  </Link>
-                  </MenuItem>
-                  <MenuItem onClick={handleCloseNavMenu}>
-                  <Link to='/' style={{ textDecoration:'none'}}>
-                    <Button style={{ color:'black', fontSize:'1rem', fontWeight:'bold' }}>
-                      이벤트
-                    </Button>
-                  </Link>
-                  </MenuItem>
-                  <MenuItem onClick={handleCloseNavMenu}>
-                  <Link to='/' style={{ textDecoration:'none'}}>
-                    <Button style={{color:'black', fontSize:'1rem', fontWeight:'bold' }}>
-                      공지사항
-                    </Button>
-                  </Link>
-                </MenuItem>
-
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Link to='/store' style={{ textDecoration: 'none' }}>
+                  <Button style={{ color: 'black', fontSize: '1rem', fontWeight: 'bold' }}>
+                    편의점
+                  </Button>
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Link to='/' style={{ textDecoration: 'none' }}>
+                  <Button style={{ color: 'black', fontSize: '1rem', fontWeight: 'bold' }}>
+                    레시피
+                  </Button>
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Link to='/' style={{ textDecoration: 'none' }}>
+                  <Button style={{ color: 'black', fontSize: '1rem', fontWeight: 'bold' }}>
+                    커뮤니티
+                  </Button>
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Link to='/' style={{ textDecoration: 'none' }}>
+                  <Button style={{ color: 'black', fontSize: '1rem', fontWeight: 'bold' }}>
+                    이벤트
+                  </Button>
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Link to='/' style={{ textDecoration: 'none' }}>
+                  <Button style={{ color: 'black', fontSize: '1rem', fontWeight: 'bold' }}>
+                    공지사항
+                  </Button>
+                </Link>
+              </MenuItem>
             </Menu>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <Link to='/'>
-              <img src={logo} alt="logo" style={{height: '4rem'}}/>
+              <img src={logo} alt='logo' style={{ height: '4rem' }} />
             </Link>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <Link to='/store' style={{ textDecoration:'none', marginRight:'2rem', marginLeft:'6rem', hoverColor:'red'}}>
-              <Button style={{ my: 2, color:'black', fontSize:'1.2rem', fontWeight:'bold' }}>
+            <Link
+              to='/store'
+              style={{
+                textDecoration: 'none',
+                marginRight: '2rem',
+                marginLeft: '6rem',
+                hoverColor: 'red',
+              }}
+            >
+              <Button style={{ my: 2, color: 'black', fontSize: '1.2rem', fontWeight: 'bold' }}>
                 편의점
               </Button>
             </Link>
-            <Link to='/' style={{ textDecoration:'none', marginRight:'2rem', marginLeft:'2rem', hoverColor:'red'}}>
-              <Button style={{ my: 2, color:'black', fontSize:'1.2rem', fontWeight:'bold' }}>
+            <Link
+              to='/'
+              style={{
+                textDecoration: 'none',
+                marginRight: '2rem',
+                marginLeft: '2rem',
+                hoverColor: 'red',
+              }}
+            >
+              <Button style={{ my: 2, color: 'black', fontSize: '1.2rem', fontWeight: 'bold' }}>
                 레시피
               </Button>
             </Link>
-            <Link to='/community' style={{ textDecoration:'none', marginRight:'2rem', marginLeft:'2rem', hoverColor:'red'}}>
-              <Button style={{ my: 2, color:'black', fontSize:'1.2rem', fontWeight:'bold' }}>
+            <Link
+              to='/community'
+              style={{
+                textDecoration: 'none',
+                marginRight: '2rem',
+                marginLeft: '2rem',
+                hoverColor: 'red',
+              }}
+            >
+              <Button style={{ my: 2, color: 'black', fontSize: '1.2rem', fontWeight: 'bold' }}>
                 커뮤니티
               </Button>
             </Link>
-            <Link to='/' style={{ textDecoration:'none', marginRight:'2rem', marginLeft:'2rem', hoverColor:'red'}}>
-              <Button style={{ my: 2, color:'black', fontSize:'1.2rem', fontWeight:'bold' }}>
+            <Link
+              to='/'
+              style={{
+                textDecoration: 'none',
+                marginRight: '2rem',
+                marginLeft: '2rem',
+                hoverColor: 'red',
+              }}
+            >
+              <Button style={{ my: 2, color: 'black', fontSize: '1.2rem', fontWeight: 'bold' }}>
                 이벤트
               </Button>
             </Link>
-            <Link to='/' style={{ textDecoration:'none', marginLeft:'2rem', hoverColor:'red'}}>
-              <Button style={{ my: 2, color:'black', fontSize:'1.2rem', fontWeight:'bold' }}>
+            <Link to='/' style={{ textDecoration: 'none', marginLeft: '2rem', hoverColor: 'red' }}>
+              <Button style={{ my: 2, color: 'black', fontSize: '1.2rem', fontWeight: 'bold' }}>
                 공지사항
               </Button>
             </Link>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            <Tooltip title='Open settings'>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt='Remy Sharp' src='/static/images/avatar/2.jpg' />
               </IconButton>
             </Tooltip>
             <Menu
               sx={{ mt: '45px' }}
-              id="menu-appbar"
+              id='menu-appbar'
               anchorEl={anchorElUser}
               anchorOrigin={{
                 vertical: 'top',
@@ -170,7 +203,16 @@ function Appbar() {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                  {setting === '로그인' && (
+                    <Link to='/signin' style={{ textDecoration: 'none' }}>
+                      <Typography textAlign='center'>{setting}</Typography>
+                    </Link>
+                  )}
+                  {/* {setting === '회원가입' && (
+                    <Link to='/signup' style={{ textDecoration: 'none' }}>
+                      <Typography textAlign='center'>{setting}</Typography>
+                    </Link>
+                  )} */}
                 </MenuItem>
               ))}
             </Menu>
