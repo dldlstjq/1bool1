@@ -19,8 +19,8 @@ const OAuth2RedirectHandler = (props) => {
   useEffect(() => {
     let params = new URL(document.location.href).searchParams;
     let code = params.get('code'); // 인가코드 받는 부분
-    let grant_type = 'authorization_code';
-    let client_id = '036e9cc127f3c0b11192c751fab0d62b';
+    // let grant_type = 'authorization_code';
+    // let client_id = '036e9cc127f3c0b11192c751fab0d62b';
     axios({
       method: 'GET',
       url: `https://k6d207.p.ssafy.io/api/v1/user/kakao?code=${code}`,

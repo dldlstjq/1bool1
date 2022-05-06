@@ -2,8 +2,8 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+// import FormControlLabel from '@mui/material/FormControlLabel';
+// import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -13,12 +13,12 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 // import Navbar from '../../components/Navbar';
 import styled from 'styled-components';
 // import home from '../../assets/home.png';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 // import { useCookies } from 'react-cookie';
 import axios from 'axios';
 import Container from '@mui/material/Container';
-import { minHeight } from '@mui/system';
+// import { minHeight } from '@mui/system';
 // import AuthSocial from '../../components/login/AuthSocial';
 // import setAuthorizationToken from '../../utils/setAuthorizationToken';
 // import Title from '../../components/Home/Title';
@@ -38,33 +38,33 @@ function Copyright(props) {
 }
 
 // 쿠키에서 JWT 읽어오는 함수
-function getCookie(cname) {
-  const name = cname + '=';
-  const decodedCookie = decodeURIComponent(document.cookie);
+// function getCookie(cname) {
+//   const name = cname + '=';
+//   const decodedCookie = decodeURIComponent(document.cookie);
 
-  const ca = decodedCookie.split(';');
+//   const ca = decodedCookie.split(';');
 
-  for (let i = 0; i < ca.length; i++) {
-    const c = ca[i];
+//   for (let i = 0; i < ca.length; i++) {
+//     const c = ca[i];
 
-    while (c.charAt(0) === ' ') {
-      c = c.substring(1);
-    }
+//     while (c.charAt(0) === ' ') {
+//       c = c.substring(1);
+//     }
 
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
+//     if (c.indexOf(name) == 0) {
+//       return c.substring(name.length, c.length);
+//     }
+//   }
 
-  return '';
-}
+//   return '';
+// }
 
 const theme = createTheme();
 
 export default function SignInSide() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isRemember, setIsRemember] = useState(false);
+  // const [isRemember, setIsRemember] = useState(false);
   //   const [cookies, setCookie, removeCookie] = useCookies(['rememberEmail']);
   // const [token, setToken] = useState('');
 
@@ -130,8 +130,8 @@ export default function SignInSide() {
           if (res.status === 200 && res.data.output === 1) {
             alert('로그인 성공!!');
             // setToken(getCookie('JWT'));
-            const token = getCookie('JWT');
-            localStorage.setItem('JWT', token);
+            // const token = getCookie('JWT');
+            // localStorage.setItem('JWT', token);
             localStorage.setItem('name', res.data.data.name);
             localStorage.setItem('email', res.data.data.email);
             // setAuthorizationToken(token);

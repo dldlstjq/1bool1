@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect, useCallback } from 'react';
-import Button from '@mui/material/Button';
+// import { useState, useEffect, useCallback } from 'react';
+// import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 
 import { BASE_URL } from '../../index';
-import axios from 'axios';
+// import axios from 'axios';
 import styled from 'styled-components';
 import Appbar from '../../components/main/Appbar';
 
@@ -15,16 +15,16 @@ const { Kakao } = window;
 
 export default function KakaoLogin() {
   const navigate = useNavigate();
-  const CLIENT_ID = '036e9cc127f3c0b11192c751fab0d62b';
-  const REDIRECT_URI = 'http://k6d207.p.ssafy.io/api/v1/users/kakao';
+  // const CLIENT_ID = '036e9cc127f3c0b11192c751fab0d62b';
+  // const REDIRECT_URI = 'http://k6d207.p.ssafy.io/api/v1/users/kakao';
   // const REDIRECT_URI = 'http://localhost:3000/oauth/callback/kakao';
   // const REDIRECT_URI = 'http://localhost:3000/signin';
   //   https://kauth.kakao.com/oauth/authorize?client_id=036e9cc127f3c0b11192c751fab0d62b&redirect_uri=http://k6d207.p.ssafy.io/api/v1/users/kakao&response_type=code
-  const KAKAO_LOGIN_API_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  // const KAKAO_LOGIN_API_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   // const KAKAO_LOGIN_API_URL = `https://kauth.kakao.com/oauth/authorize?client_id=036e9cc127f3c0b11192c751fab0d62b&redirect_uri=http://k6d207.p.ssafy.io/api/v1/users/kakao&response_type=code`;
 
-  const [user_id, setUserId] = useState();
-  const [email, setEmail] = useState();
+  // const [user_id, setUserId] = useState();
+  // const [email, setEmail] = useState();
 
   const kakaoLoginClickHandler = () => {
     Kakao.Auth.login({
@@ -148,15 +148,3 @@ const Section = styled.section`
   background-position: center;
   position: relative;
 `;
-
-{
-  /* <Button className='btn kakao' onClick={kakaoLoginClickHandler}>
-              hahaha
-            </Button> */
-}
-
-{
-  /* <article className='socialLogin'>
-        <Button className='btn kakao'></Button>
-      </article> */
-}
