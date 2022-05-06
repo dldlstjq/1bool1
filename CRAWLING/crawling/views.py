@@ -21,7 +21,7 @@ options.add_argument("--single-process")
 options.add_argument("--disable-dev-shm-usage")
 options.add_argument("window-size=1400,1500")
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
-driver = webdriver.Chrome(r'C:/Users/SSAFY/Desktop/SSAFY/자율PJT/CODE/chromedriver_win32/chromedriver.exe', options=options)
+driver = webdriver.Chrome(r'/home/ubuntu/crawling/chromedriver', options=options)
 
 def checkproduct(name, img_src, price, event, convinence):
     # 데이터 베이스에 있으면 가격 업데이트 시켜주기
