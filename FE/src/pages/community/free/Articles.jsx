@@ -1,6 +1,11 @@
 /* eslint-disable no-unused-vars */
 
-import { Link, useParams, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useParams,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import axios from "axios";
@@ -8,25 +13,27 @@ import { BASE_URL } from "../../..";
 
 import Article from "./Article";
 import Pagination from "../common/Pagination";
-import Searchbar from "./Searchbar";
+import Searchbar from "../common/Searchbar";
 import Popover from "../common/Popover";
 
 function Articles() {
   const [popover, setpopover] = useState(false);
   const [coord, setcoord] = useState([0, 0]);
   const [articles, setarticles] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
   const navigate = useNavigate();
-
+  const page = searchParams.get("page");
   useEffect(() => {
-    // console.log("rendered");
     axios({
       method: "get",
       url: BASE_URL + "board",
-      params: { page: 0, size: 10 },
+      params: { page: page - 1, size: 5 },
     })
-      .then((res) => setarticles(res.data.object))
+      .then((res) => {
+        if (res.data.object?.length > 0) setarticles(res.data.object);
+      })
       .catch((err) => console.log(err));
-  }, []);
+  }, [page]);
 
   function handleClick({ target, clientX, clientY }) {
     // console.log(target);
@@ -136,7 +143,11 @@ function Articles() {
         })}
       </ul>
 
-      <Pagination />
+      <Pagination
+        setSearchParams={setSearchParams}
+        cols="col-span-2"
+        my="my-5"
+      />
 
       <Link className="head write-btn" to="/community/free/write">
         글쓰기

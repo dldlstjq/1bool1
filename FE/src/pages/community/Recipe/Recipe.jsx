@@ -1,9 +1,14 @@
 /* eslint-disable no-unused-vars */
 function Recipe({ data }) {
-  const photos = data.photo.split(",");
+  const photos = data.photo?.split(",");
   return (
     <div className="">
-      <img src={photos[1]} alt="" id={data.id} className="main-photo" />
+      <img
+        src={photos && photos[1]}
+        alt=""
+        id={data.id}
+        className="main-photo"
+      />
       <h1 className="text-center keep-all" id={data.id}>
         {data.nickname}님의 {data.title}
       </h1>

@@ -17,6 +17,7 @@ function Detail() {
   const [popover, setpopover] = useState(false);
   const [showcomments, setshowcomments] = useState(true);
   const coordRef = useRef([0, 0]);
+  const textareaRef = useRef();
 
   const {
     title,
@@ -32,14 +33,16 @@ function Detail() {
   useEffect(() => {
     axios
       .get(BASE_URL + `board/${articleId}`)
-      .then((res) => setdata(res.data.object))
+      .then((res) => {
+        setdata(res.data.object);
+      })
       .catch((err) => console.log(err));
-  }, [articleId]);
-
-  useEffect(() => {
     axios
       .get(BASE_URL + `comment/${articleId}`)
-      .then((res) => setcomments(res.data.object))
+      .then((res) => {
+        console.log(res.data.object);
+        setcomments(res.data.object);
+      })
       .catch((err) => console.log(err));
   }, [articleId]);
 
@@ -52,6 +55,12 @@ function Detail() {
       setpopover(true);
     } else {
       setpopover(false);
+    }
+    if (target.matches("#focus")) {
+      setshowcomments((prev) => true);
+      setTimeout(() => {
+        textareaRef.current.focus();
+      }, 500);
     }
   }
 
@@ -125,13 +134,16 @@ function Detail() {
                 id="report"
               ></i>
             </span>
-            <button className="bg-gray-700 text-white w-20 h-10 ml-4">
+            <button
+              className="bg-gray-700 text-white w-20 h-10 ml-4"
+              id="focus"
+            >
               댓글
             </button>
           </div>
         </div>
       </div>
-      {showcomments && <Comments comments={comments} />}
+      {showcomments && <Comments comments={comments} ref={textareaRef} />}
       <Pagination mb="mb-10" />
       <Link
         to="/community/free"
