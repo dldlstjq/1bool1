@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
+import classNames from "classnames";
 
-function Pagination() {
+function Pagination(props) {
   return (
-    <nav aria-label="pagination" className="pagination-nav">
+    <nav
+      aria-label="pagination"
+      className={classNames("pagination-nav", props.mb)}
+    >
       <ul className="pagination">
         <li>
           <Link to="">

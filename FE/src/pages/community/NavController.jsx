@@ -1,9 +1,12 @@
+/* eslint-disable no-unused-vars */
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 
 function NavController() {
+  const { category } = useParams();
   const [dialog, setDialog] = useState(false);
-  const [category, setcategory] = useState("전체글");
+  const [categ, setcateg] = useState(category);
 
   return (
     <div>
@@ -11,27 +14,23 @@ function NavController() {
         className="nav-controller relative"
         onClick={() => setDialog((curr) => !curr)}
       >
-        {category}
+        카테고리
         <div className="absolute right-1 top-3 ">
           <div className="icon-box icon-arrow w-5 h-5"></div>
         </div>
       </div>
-      <NavDialog
-        dialog={dialog}
-        setDialog={setDialog}
-        setcategory={setcategory}
-      />
+      <NavDialog dialog={dialog} setDialog={setDialog} setcateg={setcateg} />
     </div>
   );
 }
 
-function clickHandler({ target }, setcategory) {
+function clickHandler({ target }, setcateg) {
   if (target.matches("a")) {
-    setcategory(target.textContent);
+    setcateg(target.textContent);
   }
 }
 
-function NavDialog({ dialog, setDialog, setcategory }) {
+function NavDialog({ dialog, setDialog, setcateg }) {
   if (!dialog) {
     return null;
   }
@@ -43,16 +42,13 @@ function NavDialog({ dialog, setDialog, setcategory }) {
         className="nav-dialog-block"
         onClick={(e) => {
           setDialog(false);
-          clickHandler(e, setcategory);
+          clickHandler(e, setcateg);
         }}
       >
-        <Link to="all" className="nav-link">
-          전체글
-        </Link>
-        <Link to="recipe" className="nav-link">
+        <Link to="recipe" className="nav-link text-sm">
           레시피 게시판
         </Link>
-        <Link to="free" className="nav-link">
+        <Link to="free" className="nav-link text-sm">
           자유 게시판
         </Link>
       </div>

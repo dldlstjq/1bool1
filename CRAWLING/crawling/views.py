@@ -45,6 +45,8 @@ def event_check(convinence):
             Goods.objects.filter(convinence=i.convinence, name=i.name).update(is_sell=0)
 
 # @require_http_methods(["GET"])
+driver = webdriver.Chrome(r'/home/ubuntu/crawling/chromedriver', options=options)
+@require_http_methods(["GET"])
 def CU_Crawling(request):
     convinence = 'CU'
     CU_BUTTON = [
@@ -75,8 +77,7 @@ def CU_Crawling(request):
     ]
     # 전체 상품 Crawling
     def total():
-        options = webdriver.ChromeOptions()
-        options.add_experimental_option('excludeSwitches', ['enable-logging'])
+        print("cu start")
         # 편의점 이름 설정
         convinence = "cu"
         # 암묵적으로 웹 자원 로드를 위해 3초까지 기다린다
@@ -92,7 +93,7 @@ def CU_Crawling(request):
                     driver.find_element_by_xpath("//*[@id=\"dataTable\"]/div/div[1]/a").click()
                     # 안전한 페이지 로딩을 위해 30초의 대기시간
                     time.sleep(30)
-                    break
+                    print("nextpage")
                 except:
                     break
             html = driver.page_source
@@ -118,9 +119,14 @@ def CU_Crawling(request):
                     name = ""
                 # 가격 가져오는 부분
                 try:
-                    price = item.find("div", "price").find("strong").text
+                    text = item.find("div", "price").find("strong").text
+                    temp = ""
+                    for i in text:
+                        if i.isdigit():
+                            temp = temp + i
+                    price = temp
                 except:
-                    price = ""
+                    price = 0
                 # 행사 카테고리 가져오는 부분
                 try:
                     item_promotion = item.find("div","badge").find("span").text
@@ -132,9 +138,16 @@ def CU_Crawling(request):
                 except:
                     event = 1
                 # 데이터 저장하는 부분 
+<<<<<<< HEAD
 
                 checkproduct(name, img_src, price, event, convinence)
             
+=======
+                good = Goods(name = name, photo_path=img_src, \
+                price=price, is_sell=1, category=category, event=event, convinence = "CU")
+                good.save()
+                print("cu저장")
+>>>>>>> 2d817bce7faddc9d3666769d95c02ae9c1b3f926
             # 한번하고 버튼 넘어감
             # 카테고리 넘어가는 버튼
             try:
@@ -173,11 +186,8 @@ def GS_Crawling(request):
         
     # 행사 상품 Crawling
     def promotion():
-        options = webdriver.ChromeOptions()
-        options.add_experimental_option('excludeSwitches', ['enable-logging'])
         # Cu 행사페이지 url
         url = 'http://gs25.gsretail.com/gscvs/ko/products/event-goods#;'
-        driver = webdriver.Chrome(ChromeDriverManager().install())
         # 마지막 페이지 번호 가져옴
         final_page_num = find_final_page(url, driver)
         time.sleep(5)
@@ -207,10 +217,15 @@ def GS_Crawling(request):
                     name = ""
                 # 가격 가져오는 부분
                 try:
-                    price = item.find("span", "cost").text
-                    price = price[:-2]
+                    text = item.find("span", "cost").text
+                    text = text[:-1]
+                    temp = ""
+                    for i in text:
+                        if i.isdigit():
+                            temp = temp + i
+                    price = temp
                 except:
-                    price = ""
+                    price = 0
                 # # 행사 카테고리 가져오는 부분
                 try:
                     item_promotion = item.find("p","flg01").find("span").text
@@ -226,6 +241,15 @@ def GS_Crawling(request):
                         event = 5
                 except:
                     item_promotion = 1
+<<<<<<< HEAD
+=======
+                # 데이터 저장하는 부분 
+                # gs는 카테고리가 안나뉘어 져있어서 우선은 기본으로 진행 
+                good = Goods(name = name, photo_path=img_src, \
+                price=price, is_sell=1, category=category, event=event, convinence = "GS")
+                good.save()
+                print("gs저장")
+>>>>>>> 2d817bce7faddc9d3666769d95c02ae9c1b3f926
 
                 # 데이터 저장하는 부분 
                 checkproduct(name, img_src, price, event, convinence)
@@ -250,11 +274,8 @@ def SE_Crawling(request):
         # 할인행사
         "//*[@id=\"actFrm\"]/div[3]/div[1]/ul/li[4]/a"
     ]
-    options = webdriver.ChromeOptions()
-    options.add_experimental_option('excludeSwitches', ['enable-logging'])
     # 편의점 이름 설정
     convinence = "SE"
-    driver = webdriver.Chrome(ChromeDriverManager().install())
     # 암묵적으로 웹 자원 로드를 위해 3초까지 기다린다
     driver.get("https://www.7-eleven.co.kr/product/presentList.asp")
     element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "btn_product_01")))
@@ -310,9 +331,15 @@ def SE_Crawling(request):
                         name = ""
                     # 가격 가져오는 부분
                     try:
-                        price = item.find("div", "price").find("span").text
+                        text = item.find("div", "price").find("span").text
+                        temp = ""
+                        for i in text:
+                            if i.isdigit():
+                                temp = temp + i
+                        price = temp
                     except:
-                        price = ""
+                        price = 0                       
+
                     # 행사 카테고리 가져오는 부분
                     try:
                         if idx == 0:
@@ -325,10 +352,17 @@ def SE_Crawling(request):
                             event =5
                     except:
                         event = 1
+<<<<<<< HEAD
 
                     checkproduct(name, img_src, price, event, convinence)
 
             print("FINISH")
+=======
+                    good = Goods(name = name, photo_path=img_src, \
+                    price=price, is_sell=1, category=0, event=event, convinence = "SE")
+                    good.save()
+                    print("se저장")
+>>>>>>> 2d817bce7faddc9d3666769d95c02ae9c1b3f926
             #다음 카테고리 넘어가기
             try:
                 button = SE_BUTTON[idx + 1]
@@ -361,7 +395,6 @@ def MS_Crawling(request):
 
     # 편의점 이름 설정
     convinence = "MS"
-    driver = webdriver.Chrome(ChromeDriverManager().install())
     # 암묵적으로 웹 자원 로드를 위해 3초까지 기다린다
     driver.get("https://www.ministop.co.kr/")
     # 프레임 태그 내부로 이동
@@ -420,9 +453,14 @@ def MS_Crawling(request):
                     name = ""
                 # 가격 가져오는 부분
                 try:
-                    price = price.text
+                    text = price.text
+                    temp = ""
+                    for i in text:
+                        if i.isdigit():
+                            temp = temp + i
+                    price = temp
                 except:
-                    price = ""
+                    price = 0     
                 
                 #행사 카테고리 가져오는 부분
                 try:
@@ -445,9 +483,17 @@ def MS_Crawling(request):
                         event = 1
                 except:
                     event = 1
+<<<<<<< HEAD
     
                 checkproduct(name, img_src, price, event, convinence)
 
+=======
+                good = Goods(name = name, photo_path=img_src, \
+                price=price, is_sell=1, category=0, event=event, convinence = "MS")
+                good.save()
+                print("ms저장")
+            print("FINISH")
+>>>>>>> 2d817bce7faddc9d3666769d95c02ae9c1b3f926
             try:
                 button = MS_BUTTON[idx + 1]
                 element = driver.find_element_by_xpath(button)

@@ -19,6 +19,6 @@ public interface UserService {
 	public String getKakaoAccessToken (String code);
 	public Long createKakaoUser(String token) throws Exception;
 
-//	void getEmailUser(Long id) throws Exception;
+	User getEmailUser(String id) throws Exception;
 //	Boolean update(UserDto.UserPutReq userPutReq);
 }

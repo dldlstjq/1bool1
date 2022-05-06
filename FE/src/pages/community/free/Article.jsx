@@ -1,4 +1,4 @@
-// import { Link } from "react-router-dom";
+/* eslint-disable no-unused-vars */
 import classNames from "classnames";
 
 function Article({ id, title, nickname, date, password }) {
@@ -24,7 +24,7 @@ function Article({ id, title, nickname, date, password }) {
         <i className="icon-box icon-info icon-comment w-5 h-4"></i> 22
         <i className="icon-box icon-info icon-views w-5 h-4 ml-1"></i> 21
         <span className="author ml-1">{nickname}</span>
-        <span className="ml-1">{date}</span>
+        <div className="">{date}</div>
       </div>
     </li>
   );
