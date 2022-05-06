@@ -12,9 +12,9 @@ import Community from './pages/community/Community';
 import Articles from './pages/community/free/Articles';
 import WritePage from './pages/community/free/WritingPage';
 import Detail from './pages/community/free/Detail';
-import WriteRecipe from './pages/community/recipe/WriteRecipe';
-import Recipes from './pages/community/recipe/Recipes';
-import RecipeDetail from './pages/community/recipe/Detail';
+import WriteRecipe from './pages/community/Recipe/WriteRecipe';
+import Recipes from './pages/community/Recipe/Recipes';
+import RecipeDetail from './pages/community/Recipe/Detail';
 
 // signin, signup
 import Signin from './pages/user/Signin';
