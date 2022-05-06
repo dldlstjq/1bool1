@@ -80,6 +80,9 @@ public class RecipeController {
         recipePostRequest.setTitle(recipePostRealRequest.getTitle());
         recipePostRequest.setPassword(recipePostRealRequest.getPassword());
         recipePostRequest.setGoodsId(recipePostRealRequest.getGoodsId());
+        recipePostRequest.setDescription(recipePostRealRequest.getDescription());
+        recipePostRequest.setMinute(recipePostRealRequest.getMinute());
+        recipePostRequest.setStar(recipePostRealRequest.getStar());
         if(recipeService.createRecipe(recipePostRequest)) {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         }else{
@@ -106,7 +109,7 @@ public class RecipeController {
     }
 
     @GetMapping("/search")
-    @ApiOperation(value = "검색 리ㅔ시피 조회", notes = "<strong>검색된 레시피의 목록을 가져온다.</strong>")
+    @ApiOperation(value = "검색 레시피 조회", notes = "<strong>검색된 레시피의 목록을 가져온다.</strong>")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),
@@ -169,7 +172,7 @@ public class RecipeController {
     public ResponseEntity<? extends BaseResponseBody> modifyRecipe(@ModelAttribute RecipeDto.RecipePutTempRequest recipeTempPutRequest) {
         List<MultipartFile> files = recipeTempPutRequest.getFile();
         List<String> ans = new ArrayList<>();
-        if(files.isEmpty() || files == null){
+        if(CollectionUtils.isEmpty(files)){
         }
         else {
             for (MultipartFile one : files) {
@@ -196,6 +199,9 @@ public class RecipeController {
         recipePutRequest.setPassword(recipeTempPutRequest.getPassword());
         recipePutRequest.setId(recipeTempPutRequest.getId());
         recipePutRequest.setGoodsId(recipeTempPutRequest.getGoodsId());
+        recipePutRequest.setStar(recipeTempPutRequest.getStar());
+        recipePutRequest.setDescription(recipeTempPutRequest.getDescription());
+        recipePutRequest.setMinute(recipeTempPutRequest.getMinute());
         if(recipeService.modifyRecipe(recipePutRequest)) {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         }else{
@@ -210,11 +216,15 @@ public class RecipeController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> modifyBoard(@PathVariable("id") Long id) {
-        if(recipeService.removeRecipe(id)) {
+    public ResponseEntity<? extends BaseResponseBody> modifyBoard(@PathVariable("id") Long id,@RequestParam("nickname") String nickname,@RequestParam("password")String pw) {
+        RecipeDto.RecipeDeleteRequest dto = new RecipeDto.RecipeDeleteRequest();
+        dto.setId(id);
+        dto.setNickname(nickname);
+        dto.setPassword(pw);
+        if(recipeService.removeRecipe(dto)) {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         }else{
-            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail"));
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "nickname 또는 password 값이 틀렸거나 존재하지 않는 레시피 ID 입니다."));
         }
     }
 

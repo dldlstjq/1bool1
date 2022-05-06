@@ -20,5 +20,5 @@ public interface RecipeService {
 
     boolean modifyRecipe(RecipeDto.RecipePutRequest recipePutRequest);
 
-    boolean removeRecipe(Long id);
+    boolean removeRecipe(RecipeDto.RecipeDeleteRequest dto);
 }

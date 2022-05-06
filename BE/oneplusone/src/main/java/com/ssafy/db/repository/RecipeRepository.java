@@ -11,4 +11,5 @@ public interface RecipeRepository extends JpaRepository<Recipe,Long> {
     Optional<Recipe> findByPasswordAndId(String password, Long Id);
     List<Recipe> findByTitleContainingOrContentContaining(String title, String content);
 
+    Optional<Recipe> findByPasswordAndIdAndNickname(String password, Long Id, String nickname);
 }
