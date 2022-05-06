@@ -38,6 +38,12 @@ public class RecipeDto {
         String password;
         @ApiModelProperty(name="사진 경로", example="123232.jpg")
         String photo;
+        @ApiModelProperty(name="설명", example="이 요리는 맛있다")
+        String description;
+        @ApiModelProperty(name="시간", example="60")
+        Integer minute;
+        @ApiModelProperty(name="난이도", example="1")
+        Integer star;
 //        @ApiModelProperty(name="시작 시간", example="2022-02-01")
 //        Date startDate;
         @ApiModelProperty(name="GoodsId", example="1,2,3,4")
@@ -60,6 +66,12 @@ public class RecipeDto {
         String nickname;
         @ApiModelProperty(name="비밀번호", example="a1234!@")
         String password;
+        @ApiModelProperty(name="설명", example="이 요리는 맛있다")
+        String description;
+        @ApiModelProperty(name="시간", example="60")
+        Integer minute;
+        @ApiModelProperty(name="난이도", example="1")
+        Integer star;
         @ApiModelProperty(name="GoodsId", example="1,2,3,4")
         String GoodsId;
 
@@ -82,6 +94,12 @@ public class RecipeDto {
         String photo;
         @ApiModelProperty(name="GoodsId", example="1,2,3,4")
         String GoodsId;
+        @ApiModelProperty(name="설명", example="이 요리는 맛있다")
+        String description;
+        @ApiModelProperty(name="시간", example="60")
+        Integer minute;
+        @ApiModelProperty(name="난이도", example="1")
+        Integer star;
         // @ApiModelProperty(name="현 시간", example="2022-02-01")
         // Date updateDate;
     }
@@ -104,6 +122,12 @@ public class RecipeDto {
         String password;
         @ApiModelProperty(name="GoodsId", example="1,2,3,4")
         String GoodsId;
+        @ApiModelProperty(name="설명", example="이 요리는 맛있다")
+        String description;
+        @ApiModelProperty(name="시간", example="60")
+        Integer minute;
+        @ApiModelProperty(name="난이도", example="1")
+        Integer star;
     }
 
     @Getter
@@ -114,6 +138,19 @@ public class RecipeDto {
         Long id;
         @ApiModelProperty(name="userId 값", example="1")
         Long userId;
+    }
+
+
+    @Getter
+    @Setter
+    @ApiModel("RecipeDeleteRequest")
+    public static class RecipeDeleteRequest {
+        @ApiModelProperty(name="id 값", example="1")
+        Long id;
+        @ApiModelProperty(name="nickname", example="nickname")
+        String nickname;
+        @ApiModelProperty(name="비밀번호", example="a1234!@")
+        String password;
     }
 
     @Getter

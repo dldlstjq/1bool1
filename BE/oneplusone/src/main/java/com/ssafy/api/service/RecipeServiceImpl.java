@@ -39,11 +39,11 @@ public class RecipeServiceImpl implements RecipeService{
         recipe.setContent(recipePostRequest.getContent());
         recipe.setPhoto(recipePostRequest.getPhoto());
         recipe.setTitle(recipePostRequest.getTitle());
+        recipe.setDescription(recipePostRequest.getDescription());
+        recipe.setMinute(recipePostRequest.getMinute());
+        recipe.setStar(recipePostRequest.getStar());
         List<String> list = Arrays.asList(recipePostRequest.getGoodsId().split(","));
 
-        Date date = new Date();
-        // recipePostRequest.setStartDate(date);
-        // recipe.setStartDate(recipePostRequest.getStartDate());
         recipeRepository.save(recipe);
         RecipeGoods recipeGoods;
         for(int i = 0; i < list.size(); i++) {
@@ -112,9 +112,12 @@ public class RecipeServiceImpl implements RecipeService{
             recipe.setTitle(recipePutRequest.getTitle());
             recipe.setContent(recipePutRequest.getContent());
             recipe.setPhoto(recipePutRequest.getPhoto());
+            recipe.setStar(recipePutRequest.getStar());
+            recipe.setDescription(recipePutRequest.getDescription());
+            recipe.setMinute(recipePutRequest.getMinute());
             Date date = new Date();
 //            recipe.setStartDate(date);
-            recipe.update(recipePutRequest.getTitle(), recipePutRequest.getContent(),recipePutRequest.getPassword() , recipePutRequest.getPhoto(), recipePutRequest.getNickname());
+            recipe.update(recipePutRequest.getTitle(), recipePutRequest.getContent(),recipePutRequest.getPassword() , recipePutRequest.getPhoto(), recipePutRequest.getNickname(),recipePutRequest.getDescription(), recipePutRequest.getMinute(), recipePutRequest.getStar());
 //            recipe.update(recipePutRequest.getTitle(), recipePutRequest.getContent(),recipePutRequest.getPassword() ,recipePutRequest.getUpdateDate(), recipePutRequest.getPhoto(), recipePutRequest.getNickname());
             return true;
         }
@@ -124,8 +127,15 @@ public class RecipeServiceImpl implements RecipeService{
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean removeRecipe(Long id) {
-        recipeRepository.deleteById(id);
-        return true;
+    public boolean removeRecipe(RecipeDto.RecipeDeleteRequest dto) {
+        Recipe recipe = recipeRepository.findByPasswordAndIdAndNickname(dto.getPassword(), dto.getId(), dto.getNickname()).orElseGet(() -> null);
+        if(recipe != null)
+        {
+            recipeRepository.deleteById(dto.getId());
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

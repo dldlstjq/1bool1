@@ -34,7 +34,16 @@ public class Recipe extends BaseEntity{
     //닉네임
     @Column(name = "nickname", nullable = false)
     String nickname;
-    
+
+    @Column(name = "description")
+    String description;
+
+    @Column(name = "minute")
+    Integer minute;
+
+    @Column(name = "star")
+    Integer star;
+
     //시작 시간
 //    @Temporal(TemporalType.TIMESTAMP)
 //    @Column(name = "start_date", nullable = false)
@@ -45,23 +54,29 @@ public class Recipe extends BaseEntity{
 //    @Column(name = "update_date")
 //    Date updateDate;
 
-    public void update(String title, String content, String password,String photo,String nickname) {
+    public void update(String title, String content, String password,String photo,String nickname,String description,Integer minute,Integer star) {
         this.title = title;
         this.content = content;
         this.password = password;
 //        this.updateDate = new Date();
         this.photo = photo;
         this.nickname = nickname;
+        this.description = description;
+        this.minute = minute;
+        this.star = star;
     }
 
     @Builder
-    public Recipe(Long id, String title, String content,String photo, String password, String nickname){
+    public Recipe(Long id, String title, String content,String photo, String password, String nickname,String description,Integer minute,Integer star){
         this.id = id;
         this.title = title;
         this.content = content;
         this.photo = photo;
         this.password = password;
         this.nickname = nickname;
+        this.description = description;
+        this.minute = minute;
+        this.star = star;
 //        this.startDate = startDate;
 //        this.updateDate = updateDate;
     }
