@@ -19,12 +19,14 @@ import Recipes from './pages/community/Recipe/Recipes';
 import Signin from './pages/user/Signin';
 import Signup from './pages/user/Signup';
 import Kakao from './pages/user/KakaoLogin';
+import OAuth2RedirectHandler from './pages/user/OAuth2RedirectHandler';
 
 function App() {
   return (
     <Routes>
       <Route path='/' element={<Main></Main>} />
       <Route path='signin' element={<Kakao />}></Route>
+      <Route path='oauth/callback/kakao' element={<OAuth2RedirectHandler />}></Route>
       <Route path='signup' element={<Signup />}></Route>
       <Route path='/store/:word' element={<Store />}></Route>
       <Route path='community' element={<Navigate replace to='free' />} />
