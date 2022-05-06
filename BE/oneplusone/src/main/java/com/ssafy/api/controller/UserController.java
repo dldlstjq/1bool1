@@ -120,7 +120,7 @@ public class UserController {
 	 * @return ResponseEntity<AuthResponse>
 	 *     다시 풀어줘야 함
 	 */
-	@ResponseBody
+	/*@ResponseBody
 	@GetMapping("/kakao")
 	public ResponseEntity<? extends BaseResponseBody> kakaoCallback(@RequestParam String code) throws Exception {
 		String token = userService.getKakaoAccessToken(code);
@@ -128,6 +128,30 @@ public class UserController {
 			Long id = userService.createKakaoUser(token);
 			User user = userService.getUserByUserId(String.valueOf(id));
 
+			if(user != null){
+				if(user.getIsWithdrawal() == 1){
+					return ResponseEntity.status(200).body(BaseResponseBody.of(200, "탈퇴한 사용자 입니다."));
+				}
+				return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success",token));
+			}else {
+				UserRegisterPostReq registerInfo = new UserRegisterPostReq();
+				registerInfo.setEmail(String.valueOf(id));
+				registerInfo.setNickname("KAKAO");
+				registerInfo.setPassword("kakao12!@");
+				registerInfo.setIsWithdrawal(0);
+				user = userService.createUser(registerInfo);
+				return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success",token));
+			}
+		}
+		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "로그인 불가능"));
+	}*/
+
+	@ResponseBody
+	@PostMapping("/kakao")
+	public ResponseEntity<? extends BaseResponseBody> kakaoAccessToken(@RequestParam String token) throws Exception {
+		if(!token.equals("")) {
+			Long id = userService.createKakaoUser(token);
+			User user = userService.getUserByUserId(String.valueOf(id));
 			if(user != null){
 				if(user.getIsWithdrawal() == 1){
 					return ResponseEntity.status(200).body(BaseResponseBody.of(200, "탈퇴한 사용자 입니다."));
@@ -143,17 +167,8 @@ public class UserController {
 				return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success",user));
 			}
 		}
-		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "로그인 불가능"));
+		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "token 값이 일치하지 않습니다."));
 	}
-
-//	@ResponseBody
-//	@PostMapping("/kakao")
-//	public ResponseEntity<? extends BaseResponseBody> kakaoAccessToken(@RequestParam String token) throws Exception {
-//
-//
-//		userService.getEmailUser(id);
-//		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
-//	}
 
 
 //	@GetMapping("/me")

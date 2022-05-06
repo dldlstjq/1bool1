@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService {
 			StringBuilder sb = new StringBuilder();
 			sb.append("grant_type=authorization_code");
 			sb.append("&client_id=036e9cc127f3c0b11192c751fab0d62b"); // TODO REST_API_KEY 입력
-			sb.append("&redirect_uri=http://k6d207.p.ssafy.io/api/v1/users/kakao"); // TODO 인가코드 받은 redirect_uri 입력
+			sb.append("&redirect_uri=http://localhost:8080/v1/users/kakao"); // TODO 인가코드 받은 redirect_uri 입력
 			sb.append("&code=" + code);
 			bw.write(sb.toString());
 			bw.flush();
@@ -184,6 +184,11 @@ public class UserServiceImpl implements UserService {
 		return id;
 	}
 
+	@Override
+	public User getEmailUser(String id) throws Exception {
+		return userRepository.findByEmail(id).orElseGet(()->null);
+	}
+
 //	@Override
 //	public void getEmailUser(Long id) throws Exception{
 //		String reqURL = "https://kapi.kakao.com/v2/user/me";
@@ -223,10 +228,10 @@ public class UserServiceImpl implements UserService {
 //			String nickname = properties.getAsJsonObject().get("nickname").getAsString();
 //			String email = kakao_account.getAsJsonObject().get("email").getAsString();
 //
-////			boolean hasEmail = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("has_email").getAsBoolean();
-////			if(hasEmail){
-////				email = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("email").getAsString();
-////			}
+//			boolean hasEmail = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("has_email").getAsBoolean();
+//			if(hasEmail){
+//				email = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("email").getAsString();
+//			}
 //
 //			System.out.println("nickname : " + nickname);
 //			System.out.println("email : " + email);
