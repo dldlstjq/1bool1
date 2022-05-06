@@ -37,7 +37,7 @@ function App() {
       <Route path="community" element={<Community></Community>}>
         <Route path="free" element={<Articles />}></Route>
         <Route path="free/:articleId" element={<Detail />}></Route>
-        <Route path="free/write" element={<WritePage />} />
+        <Route path="free/write" element={<WriteFree />} />
         <Route path="recipe" element={<Recipes />} />
         <Route path="recipe/:recipeId" element={<RecipeDetail />} />
         <Route path="recipe/write" element={<WriteRecipe />} />
