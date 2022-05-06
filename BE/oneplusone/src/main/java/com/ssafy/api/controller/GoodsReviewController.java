@@ -21,7 +21,7 @@ import java.util.List;
 
 @Api(value = "상품 리뷰글 API", tags = {"Goodsreview"})
 @RestController
-@RequestMapping("/api/v1/goodsreview")
+@RequestMapping("/v1/goodsreview")
 public class GoodsReviewController {
     @Autowired
     private GoodsReviewService goodsReviewService;

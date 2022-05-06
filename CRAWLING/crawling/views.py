@@ -8,7 +8,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from django.views.decorators.http import require_http_methods
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.keys import Keys
 import time
 from .models import Goods
@@ -70,7 +69,6 @@ def CU_Crawling(request):
         options.add_experimental_option('excludeSwitches', ['enable-logging'])
         # 편의점 이름 설정
         convinence = "cu"
-        driver = webdriver.Chrome(ChromeDriverManager().install())
         # 암묵적으로 웹 자원 로드를 위해 3초까지 기다린다
         driver.get("https://cu.bgfretail.com/product/product.do?category=product&depth2=4&depth3=1")
         element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "prod_img")))
@@ -350,8 +348,7 @@ def MS_Crawling(request):
         "//*[@id=\"section\"]/div[3]/ul/li[5]/a"
 
     ]
-    options = webdriver.ChromeOptions()
-    options.add_experimental_option('excludeSwitches', ['enable-logging'])
+
     # 편의점 이름 설정
     convinence = "MS"
     driver = webdriver.Chrome(ChromeDriverManager().install())
@@ -475,7 +472,6 @@ def EM_Crawling(request):
         # Emart 행사페이지 url
         print('em1')
         url = 'https://emart24.co.kr/product/eventProduct.asp'
-        driver = webdriver.Chrome(ChromeDriverManager().install())
         
 
         # 행사 분류하기
@@ -578,7 +574,6 @@ def CS_Crawling(request):
     def promotion():
         # Emart 행사페이지 url
         url = 'https://www.cspace.co.kr/service/product.html?prod_name_s=&id_position_move=calSelId'
-        driver = webdriver.Chrome(ChromeDriverManager().install())
 
         # 행사 분류하기
         for k in range(2, 6):

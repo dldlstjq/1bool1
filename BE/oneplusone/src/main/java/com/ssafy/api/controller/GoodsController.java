@@ -17,7 +17,7 @@ import java.util.List;
 
 @Api(value = "상품 API", tags = {"Goods"})
 @RestController
-@RequestMapping("/api/v1/goods")
+@RequestMapping("/v1/goods")
 public class GoodsController {
 
     @Autowired
@@ -26,20 +26,54 @@ public class GoodsController {
     @Autowired
     GoodsLikeService goodsLikeService;
 
-    @GetMapping()
-    @ApiOperation(value = "전체 상품 조회", notes = "<strong>상품의 목록을 가져온다.</strong>")
+    @GetMapping("/updateDate")
+    @ApiOperation(value = "최근 업데이트 상품 조회", notes = "<strong>최근 업데이트된 상품 10개 목륵을 가져온다</strong>")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> findGoods() {
-        List<Goods> goods = goodsService.findGoods();
+    public ResponseEntity<? extends BaseResponseBody> findTop10UpdateGoods() {
+        List<Goods> goods = goodsService.findTop10UpdateGoods();
         if(goods != null && !goods.isEmpty()) {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", goods));
         }else{
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "DB 내부에 현재 데이터가 없습니다"));
+        }
+    }
+
+    @GetMapping("/hit")
+    @ApiOperation(value = "조회수 TOP10 상품 조회", notes = "<strong>최근 업데이트된 상품 10개 목륵을 가져온다</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> findTop10HitGoods() {
+        List<GoodsDto.GoodsPutRequest> goods = goodsService.findTop10HitGoods();
+        if(goods != null && !goods.isEmpty()) {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", goods));
+        }else{
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "조회수 등록된 상품이 없습니다."));
+        }
+    }
+
+    @GetMapping("/like")
+    @ApiOperation(value = "좋아요 TOP10 상품 조회", notes = "<strong>좋아요 top10 상품 목륵을 가져온다</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> findTop10LikeGoods() {
+        List<GoodsDto.GoodsLikeGetOrderBy> goods = goodsLikeService.findTop10LikeGoods();
+        if(goods != null && !goods.isEmpty()) {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", goods));
+        }else{
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "좋아요 상품이 없습니다"));
         }
     }
 
@@ -76,19 +110,34 @@ public class GoodsController {
         Goods goods = new Goods();
         goods = goodsService.findGoodsDetail(goodsId);
 
-        GoodsDto.GoodsPutRequest goodsPutRequest = new GoodsDto.GoodsPutRequest();
-        goodsPutRequest.setId(goods.getId());
-        goodsPutRequest.setName(goods.getName());
-        goodsPutRequest.setPrice(goods.getPrice());
-        goodsPutRequest.setPhotoPath(goods.getPhotoPath());
-        goodsPutRequest.setDescription(goods.getDescription());
-        goodsPutRequest.setEvent(goods.getEvent());
-        goodsPutRequest.setIsSell(goods.getIsSell());
-        goodsPutRequest.setCategory(goods.getCategory());
-        goodsPutRequest.setHit(goods.getHit()+1);
+        GoodsDto.GoodsPutRequest goodsPutRequest = new GoodsDto.GoodsPutRequest(
+                goods.getId(),
+                goods.getName(),
+                goods.getPrice(),
+                goods.getPhotoPath(),
+                goods.getDescription(),
+                goods.getCategory(),
+                goods.getIsSell(),
+                goods.getEvent(),
+                goods.getHit(),
+                goods.getConvinence()
+        );
+//        goodsPutRequest.setId(goods.getId());
+//        goodsPutRequest.setName(goods.getName());
+//        goodsPutRequest.setPrice(goods.getPrice());
+//        goodsPutRequest.setPhotoPath(goods.getPhotoPath());
+//        goodsPutRequest.setDescription(goods.getDescription());
+//        goodsPutRequest.setEvent(goods.getEvent());
+//        goodsPutRequest.setIsSell(goods.getIsSell());
+//        goodsPutRequest.setCategory(goods.getCategory());
+        if(goods.getHit() == null)
+            goodsPutRequest.setHit(1);
+        else
+            goodsPutRequest.setHit(goods.getHit()+1);
         goodsPutRequest.setConvinence(goods.getConvinence());
 
-        if(goodsService.modifyGoodsHit(goodsPutRequest))
+        Goods hitGoods = goodsService.modifyGoodsHit(goodsPutRequest);
+        if(hitGoods != null)
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail"));
     }
@@ -104,6 +153,26 @@ public class GoodsController {
     })
     public ResponseEntity<? extends BaseResponseBody> findGoodsDetail(@PathVariable("goodsId") Long goodsId) {
         Goods goods = goodsService.findGoodsDetail(goodsId);
+        if(goods != null) {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", goods));
+        }else{
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "DB 내부에 현재 데이터가 없습니다"));
+        }
+    }
+
+    @GetMapping("/{convinenceName}/{event}")
+    @ApiOperation(value = "해당 편의점의 행사 상품을 가져온다", notes = "<strong>해당 편의점의 행사 상품을 가져온다</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> findGoodsByConvinenceNameEvent(@PathVariable("convinenceName") String convinenceName, @PathVariable("event") Long event) {
+        GoodsDto.GoodsEventGetRequest dto = new GoodsDto.GoodsEventGetRequest();
+        dto.setConvinenceName(convinenceName);
+        dto.setEvent(event);
+        List<Goods> goods = goodsService.findGoodsByConvinenceEvent(dto);
         if(goods != null) {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", goods));
         }else{
