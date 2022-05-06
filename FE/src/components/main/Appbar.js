@@ -35,6 +35,12 @@ function Appbar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  function logout(e) {
+    e.preventDefault();
+    localStorage.removeItem('email');
+    localStorage.removeItem('user_id');
+  }
   return (
     <AppBar
       position='static'
@@ -185,6 +191,7 @@ function Appbar() {
                 <Avatar alt='Remy Sharp' src='/static/images/avatar/2.jpg' />
               </IconButton>
             </Tooltip>
+
             <Menu
               sx={{ mt: '45px' }}
               id='menu-appbar'
@@ -203,10 +210,15 @@ function Appbar() {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  {setting === '로그인' && (
+                  {setting === '로그인' && localStorage.getItem('email') === null && (
                     <Link to='/signin' style={{ textDecoration: 'none' }}>
                       <Typography textAlign='center'>{setting}</Typography>
                     </Link>
+                  )}
+                  {localStorage.getItem('email') && (
+                    <Typography textAlign='center' onClick={logout}>
+                      로그아웃
+                    </Typography>
                   )}
                   {/* {setting === '회원가입' && (
                     <Link to='/signup' style={{ textDecoration: 'none' }}>
@@ -217,6 +229,11 @@ function Appbar() {
               ))}
             </Menu>
           </Box>
+          {/* <Box>
+            {localStorage.getItem('email') && (
+              <p style={{ color: 'black' }}>{localStorage.getItem('email')}</p>
+            )}
+          </Box> */}
         </Toolbar>
       </Container>
     </AppBar>
