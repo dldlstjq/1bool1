@@ -11,16 +11,8 @@ from django.views.decorators.http import require_http_methods
 from selenium.webdriver.common.keys import Keys
 import time
 from .models import Goods
+from datetime import datetime
 
-# def checkproduct(convinence, name):
-#     if(Goods.objects.filter(convinence=convinence) & Goods.objects.filter(name=name)):
-#         Goods.price = price
-#     else:
-#         good = Goods(name = name, photo_path=img_src, \
-#                 price=price, is_sell=1, category=category, event=event, convinence = convinence)
-#                 good.save()
-
-# @require_http_methods(["GET"])
 options = webdriver.ChromeOptions()
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
 options.headless = True
@@ -29,9 +21,34 @@ options.add_argument("--single-process")
 options.add_argument("--disable-dev-shm-usage")
 options.add_argument("window-size=1400,1500")
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
+driver = webdriver.Chrome(r'C:/Users/SSAFY/Desktop/SSAFY/자율PJT/CODE/chromedriver_win32/chromedriver.exe', options=options)
+
+def checkproduct(name, img_src, price, event, convinence):
+    # 데이터 베이스에 있으면 가격 업데이트 시켜주기
+    if(Goods.objects.filter(convinence=convinence).filter(name=name)):
+        Goods.objects.filter(convinence=convinence, name=name).update(price=price)
+
+    # 데이터 베이스에 없으면 새로 넣어준다
+    else:
+        good = Goods(name = name, photo_path=img_src, \
+                price=price, is_sell=1, event=event, convinence = convinence)
+        good.save()
+
+# 이벤트가 아직 진행중인지 끝났는지 여부 확인
+def event_check(convinence):
+    # 현재 편의점의 모든 상품들 가져오기
+    goods_list = Goods.objects.filter(convinence=convinence).all()
+
+    # 상품들을 가져와서 update날짜가 오늘과 다르면 sell을 0으로 바꾸기
+    for i in goods_list:
+        if(i.update != datetime.today().strftime("%Y%m%d")):
+            Goods.objects.filter(convinence=i.convinence, name=i.name).update(is_sell=0)
+
+# @require_http_methods(["GET"])
 driver = webdriver.Chrome(r'/home/ubuntu/crawling/chromedriver', options=options)
 @require_http_methods(["GET"])
 def CU_Crawling(request):
+    convinence = 'CU'
     CU_BUTTON = [
         # 간편 식사
         "//*[@id=\"contents\"]/div[1]/ul/li[1]/a",
@@ -121,10 +138,9 @@ def CU_Crawling(request):
                 except:
                     event = 1
                 # 데이터 저장하는 부분 
-                good = Goods(name = name, photo_path=img_src, \
-                price=price, is_sell=1, category=category, event=event, convinence = "CU")
-                good.save()
-                print("cu저장")
+
+                checkproduct(name, img_src, price, event, convinence)
+            
             # 한번하고 버튼 넘어감
             # 카테고리 넘어가는 버튼
             try:
@@ -136,10 +152,12 @@ def CU_Crawling(request):
             
                 
     total()
+    event_check(convinence)
     return HttpResponse('CU Success')
 
 # @require_http_methods(["GET"])
 def GS_Crawling(request):
+    convinence = 'GS'
     # 전체 가져올건지 부분 가져올건지
     # category = request.GET.get("category")
     def find_final_page(url, driver):
@@ -216,20 +234,16 @@ def GS_Crawling(request):
                         event = 5
                 except:
                     item_promotion = 1
-                # 데이터 저장하는 부분 
-                # gs는 카테고리가 안나뉘어 져있어서 우선은 기본으로 진행 
-                good = Goods(name = name, photo_path=img_src, \
-                price=price, is_sell=1, category=category, event=event, convinence = "GS")
-                good.save()
-                print("gs저장")
 
-                
+                # 데이터 저장하는 부분 
+                checkproduct(name, img_src, price, event, convinence)
                     
             element = driver.find_element_by_xpath("//*[@id=\"contents\"]/div[2]/div[3]/div/div/div[1]/div/a[3]")
             driver.execute_script("arguments[0].click();", element)
             time.sleep(5)
     
     promotion()
+    event_check(convinence)
     return HttpResponse('GS Success')
 
 # @require_http_methods(["GET"])
@@ -322,10 +336,10 @@ def SE_Crawling(request):
                             event =5
                     except:
                         event = 1
-                    good = Goods(name = name, photo_path=img_src, \
-                    price=price, is_sell=1, category=0, event=event, convinence = "SE")
-                    good.save()
-                    print("se저장")
+
+                    checkproduct(name, img_src, price, event, convinence)
+
+            print("FINISH")
             #다음 카테고리 넘어가기
             try:
                 button = SE_BUTTON[idx + 1]
@@ -335,12 +349,13 @@ def SE_Crawling(request):
             except:
                 pass
     promotion()
-
+    event_check(convinence)
     return HttpResponse('SE Success')
 
 
 # @require_http_methods(["GET"])
 def MS_Crawling(request):
+    convinence = 'MS'
     MS_BUTTON = [
         # 1+1 패스해야함
         "//*[@id=\"section\"]/div[3]/ul/li[1]/a",
@@ -445,11 +460,9 @@ def MS_Crawling(request):
                         event = 1
                 except:
                     event = 1
-                good = Goods(name = name, photo_path=img_src, \
-                price=price, is_sell=1, category=0, event=event, convinence = "MS")
-                good.save()
-                print("ms저장")
-            print("FINISH")
+    
+                checkproduct(name, img_src, price, event, convinence)
+
             try:
                 button = MS_BUTTON[idx + 1]
                 element = driver.find_element_by_xpath(button)
@@ -458,9 +471,11 @@ def MS_Crawling(request):
             except:
                 pass
     promotion()
+    event_check(convinence)
     return HttpResponse("MS Success")
 
 def EM_Crawling(request):
+    convinence = 'EM'
     # 행사 상품 Crawling
     def find_final_page(url, driver, xpath_element):
         driver.get(url)
@@ -544,7 +559,7 @@ def EM_Crawling(request):
                         k = 1
                     
                     good = Goods(name = name, photo_path=img_src, \
-                    price=price, is_sell=1, event=k, convinence = "EMART")
+                    price=price, is_sell=1, event=k, convinence = convinence)
                     good.save()
 
                 if (i == final_page_num-1):
@@ -556,12 +571,14 @@ def EM_Crawling(request):
                     time.sleep(5)
             
     promotion()
+    event_check(convinence)
     def total():
         pass
     return HttpResponse('Success')
 
 
 def CS_Crawling(request):
+    convinence = "CS"
     # 행사 상품 Crawling
     def find_final_page(url, driver, xpath_element):
         driver.get(url)
@@ -614,18 +631,24 @@ def CS_Crawling(request):
                             img = item.find("span")
                             # p 안에 있는 img 안에있는 src만 뽑기
                             img_src = img.get('style')
-                            now = ''
+                            img_src_now = 'https://www.cspace.co.kr'
                             st = 0
                             for j in img_src:
                                 if j == ')':
                                     st = 0
+                                if j == '"':
+                                    continue
                                 if st == 1:
-                                    now += i
+                                    img_src_now += j
                                 if j == '(':
                                     st = 1
                             
                         except:
                             img_src = ""
+
+                        img_src = img_src_now
+
+                        print(img_src)
                         
                         #이름 가져오는 부분
                         try:
@@ -635,13 +658,13 @@ def CS_Crawling(request):
                         # 가격 가져오는 부분
                         try:
                             price = item.find('dd').text
-                            now = ''
+                            price_now = ''
                             for j in price:
                                 if j == '원':
                                     break
                                 else:
-                                    now += j
-                            price = now
+                                    price_now += j
+                            price = price_now
                         except:
                             price = 0
                     except:
@@ -653,10 +676,7 @@ def CS_Crawling(request):
                     elif k == 5:
                         k = 5
                     
-                    print(price)
-                    good = Goods(name = name, photo_path=img_src, \
-                    price=price, is_sell=1, event=k, convinence = "Cspace")
-                    good.save()
+                    checkproduct(name, img_src, price, k,convinence)
 
                 if (i == final_page_num-1):
                     time.sleep(10)
@@ -665,10 +685,12 @@ def CS_Crawling(request):
                     element = driver.find_element_by_xpath('/html/body/section[3]/div/div[4]/div[2]/ul[1]/li[2]/a')
                     driver.execute_script("arguments[0].click();", element)
                     time.sleep(10)
-            
+    
+
     promotion()
-    def total():
-        pass
+
+    event_check(convinence)
+    
     return HttpResponse('Success')
 
 def asddd():

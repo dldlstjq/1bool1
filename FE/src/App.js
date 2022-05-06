@@ -16,16 +16,28 @@ import WriteRecipe from "./pages/community/recipe/WriteRecipe";
 import Recipes from "./pages/community/recipe/Recipes";
 import RecipeDetail from "./pages/community/recipe/Detail";
 
+// signin, signup
+import Signin from "./pages/user/Signin";
+import Signup from "./pages/user/Signup";
+import Kakao from "./pages/user/KakaoLogin";
+import OAuth2RedirectHandler from "./pages/user/OAuth2RedirectHandler";
+
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Main></Main>} />
+      <Route path="signin" element={<Kakao />}></Route>
+      <Route
+        path="oauth/callback/kakao"
+        element={<OAuth2RedirectHandler />}
+      ></Route>
+      <Route path="signup" element={<Signup />}></Route>
       <Route path="/store/:word" element={<Store />}></Route>
       <Route path="community" element={<Navigate replace to="free" />} />
       <Route path="community" element={<Community></Community>}>
         <Route path="free" element={<Articles />}></Route>
         <Route path="free/:articleId" element={<Detail />}></Route>
-        <Route path="free/write" element={<WriteFree />} />
+        <Route path="free/write" element={<WritePage />} />
         <Route path="recipe" element={<Recipes />} />
         <Route path="recipe/:recipeId" element={<RecipeDetail />} />
         <Route path="recipe/write" element={<WriteRecipe />} />
