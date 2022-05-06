@@ -10,7 +10,7 @@ function Community() {
     <div className="community">
       <div className="temp-navbar"></div>
       <NavController />
-      <div className="p-4">
+      <div className="p-2">
         <Outlet />
       </div>
     </div>
