@@ -19,4 +19,8 @@ public interface GoodsService {
     Goods findGoodsDetail(Long goodsId);
 
     Goods modifyGoodsHit(GoodsDto.GoodsPutRequest goodsPutRequest);
+
+    List<Goods> findGoods();
+
+    List<Goods> findBySearchGoods(String search);
 }

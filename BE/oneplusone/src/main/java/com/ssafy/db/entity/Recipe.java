@@ -20,7 +20,7 @@ public class Recipe extends BaseEntity{
     String title;
 
     //내용
-    @Column(name = "content")
+    @Column(name = "content", length = 5000)
     String content;
 
     //사진 경로

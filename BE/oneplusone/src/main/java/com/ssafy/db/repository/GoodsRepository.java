@@ -15,6 +15,8 @@ public interface GoodsRepository extends JpaRepository<Goods, Long> {
     @Query(value = "select * from goods as g where g.convinence = :convinenceName and g.event = :event", nativeQuery = true)
     List<Goods> findGoodsEventByConvinence(String convinenceName, Long event);
 
+    List<Goods> findByNameContaining(String name);
+
 //    List<Goods> findTop10ByOrderByLikeDesc();
 //@Query(value = "select * from room as ru where ru.room_id IN ( select r.room_id from room_user as r where r.user_id = :userId )", nativeQuery = true)
 //List<Room> searchUserHasRoom(Long userId);

@@ -6,6 +6,7 @@ import com.ssafy.api.service.GoodsService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.Board;
 import com.ssafy.db.entity.Goods;
+import com.ssafy.db.entity.Recipe;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +44,44 @@ public class GoodsController {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "DB 내부에 현재 데이터가 없습니다"));
         }
     }
+
+
+    @GetMapping("")
+    @ApiOperation(value = "전체 상품 조회", notes = "<strong>전체 물품 목록을 모두 가져온다</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> findGoods() {
+        List<Goods> goods = goodsService.findGoods();
+        if(goods != null && !goods.isEmpty()) {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", goods));
+        }else{
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "DB 내부에 현재 데이터가 없습니다"));
+        }
+    }
+
+    @GetMapping("/search")
+    @ApiOperation(value = "검색 내용 조회", notes = "<strong>검색된 상품 목록을 가져온다.</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> findBySearchGoods(@RequestParam("search") String search) {
+        List<Goods> goods = goodsService.findBySearchGoods(search);
+        if(goods.size() > 0)
+        {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", goods));
+        }else{
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "제목과 내용 모두 찾아 봤지만 존재 하지 않습니다."));
+        }
+    }
+
+
 
     @GetMapping("/hit")
     @ApiOperation(value = "조회수 TOP10 상품 조회", notes = "<strong>최근 업데이트된 상품 10개 목륵을 가져온다</strong>")
