@@ -1,10 +1,18 @@
 import * as React from 'react';
+// import Button from '@mui/material/Button';
+// import CssBaseline from '@mui/material/CssBaseline';
+// import TextField from '@mui/material/TextField';
+// import FormControlLabel from '@mui/material/FormControlLabel';
+// import Checkbox from '@mui/material/Checkbox';
+// import Link from '@mui/material/Link';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+// import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 // import { useState, useEffect, useCallback } from 'react';
 // import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 
 import { BASE_URL } from '../../index';
 import axios from 'axios';
@@ -29,6 +37,7 @@ export default function KakaoLogin() {
       success: function (authObj) {
         // 카카오 계정 이메일을 가져옴.
         // 카카오 이메일은 ok. but 좋아요 등록 시 user_id를 어떻게 가져오나?
+        console.log(authObj);
         Kakao.API.request({
           url: '/v2/user/me',
           success: function (res) {
@@ -54,10 +63,10 @@ export default function KakaoLogin() {
           console.log(res);
           localStorage.setItem('user_id', res.data.object.id);
           // console.log('성공했나');
-          // if (res.data.statusCode === 200) {
-          //   alert('1bool1에 오신걸 환영합니다!');
-          //   navigate('/');
-          // }
+          if (res.data.statusCode === 200) {
+            alert('1bool1에 오신걸 환영합니다!');
+            navigate('/');
+          }
         });
       },
       fail: function (err) {
@@ -87,8 +96,68 @@ export default function KakaoLogin() {
               height='auto'
             ></img>
           </a> */}
+          <img src={require('../../common/logo.png')} alt='1bool1'></img>
+          <Box component='form' noValidate sx={{ mt: 1, marginTop: 4 }}>
+            <Grid container spacing={2}>
+              <Grid item xs={1}></Grid>
+              <Grid item xs={10} md={10}>
+                <img
+                  src={require('../../common/kakao_logo.png')}
+                  alt='카카오 로그인'
+                  width='225px'
+                  height='auto'
+                  style={{ marginLeft: 40 }}
+                  onClick={kakaoLoginClickHandler}
+                ></img>
+                {/* <TextField
+                  required
+                  fullWidth
+                  id='email'
+                  label='Email Address'
+                  name='email'
+                  autoComplete='email'
+                  type='email'
+                  // value={email}
+                  // onChange={onChangeEmail}
+                /> */}
+              </Grid>
+              <Grid item xs={1}></Grid>
 
-          <div className='App'>
+              <Grid item xs={1}></Grid>
+              {/* <Grid item xs={10}>
+                <TextField
+                  margin='normal'
+                  required
+                  fullWidth
+                  name='password'
+                  label='Password'
+                  type='password'
+                  id='password'
+                  autoComplete='current-password'
+                  // onChange={(e) => {
+                  //   setPassword(e.target.value);
+                  // }}
+                />
+              </Grid> */}
+              <Grid item xs={1}></Grid>
+
+              <Grid item xs={2}></Grid>
+
+              <Grid item xs={2}></Grid>
+
+              {/* <Grid item md={10}>
+                <img
+                  src={require('../../common/kakao_logo.png')}
+                  alt='카카오 로그인'
+                  width='225px'
+                  height='auto'
+                  sx={{ mb: 3, mx: 4 }}
+                  onClick={kakaoLoginClickHandler}
+                ></img>
+              </Grid> */}
+            </Grid>
+          </Box>
+          {/* <div className='App'>
             <img
               src={require('../../common/kakao_logo.png')}
               alt='카카오 로그인'
@@ -96,7 +165,7 @@ export default function KakaoLogin() {
               height='auto'
               onClick={kakaoLoginClickHandler}
             ></img>
-          </div>
+          </div> */}
         </Box>
       </Container>
     </Section>
