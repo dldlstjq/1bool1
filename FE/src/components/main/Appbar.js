@@ -11,15 +11,24 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import Grid from '@mui/material/MenuItem';
 import logo from '../../common/logo.png';
-import { Link } from 'react-router-dom';
+import kakaoLogo from '../../common/kakao_k.png';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+
+import { BASE_URL } from '../../index';
+import axios from 'axios';
 
 // const pages = ['편의점', '레시피', '커뮤니티', '이벤트'];
 const settings = ['로그인'];
+const { Kakao } = window;
 
 function Appbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -36,10 +45,53 @@ function Appbar() {
     setAnchorElUser(null);
   };
 
+  function kakaoLoginClickHandler(e) {
+    e.preventDefault();
+    Kakao.Auth.login({
+      success: function (authObj) {
+        // 카카오 계정 이메일을 가져옴.
+        // 카카오 이메일은 ok. but 좋아요 등록 시 user_id를 어떻게 가져오나?
+        // console.log(authObj);
+        Kakao.API.request({
+          url: '/v2/user/me',
+          success: function (res) {
+            localStorage.setItem('email', res.kakao_account.email);
+            // console.log(res);
+          },
+          fail: function (error) {
+            alert(
+              'login success, but failed to request user information: ' + JSON.stringify(error)
+            );
+          },
+        });
+
+        // accessToken을 kakaoCallback에 날렸지만 로그인 불가능 답이 옴
+        axios({
+          method: 'post',
+          url: BASE_URL + 'users/kakao',
+          params: {
+            token: authObj.access_token,
+          },
+        }).then((res) => {
+          // console.log(res);
+          localStorage.setItem('user_id', res.data.object.id);
+          if (res.data.statusCode === 200) {
+            alert('1bool1에 오신걸 환영합니다!');
+            navigate(location.pathname);
+          }
+        });
+      },
+      fail: function (err) {
+        alert(JSON.stringify(err));
+      },
+    });
+  }
+
   function logout(e) {
     e.preventDefault();
     localStorage.removeItem('email');
     localStorage.removeItem('user_id');
+    window.location.replace(location.pathname);
   }
   return (
     <AppBar
@@ -188,7 +240,11 @@ function Appbar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title='Open settings'>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt='Remy Sharp' src='/static/images/avatar/2.jpg' />
+                {localStorage.getItem('email') ? (
+                  <Avatar alt='Remy Sharp' src={kakaoLogo} />
+                ) : (
+                  <Avatar alt='Remy Sharp' src={'/static/images/avatar/1.jpg'} />
+                )}
               </IconButton>
             </Tooltip>
 
@@ -212,13 +268,22 @@ function Appbar() {
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   {setting === '로그인' && localStorage.getItem('email') === null && (
                     <Link to='/signin' style={{ textDecoration: 'none' }}>
-                      <Typography textAlign='center'>{setting}</Typography>
+                      <Typography textAlign='center' onClick={kakaoLoginClickHandler}>
+                        {setting}
+                      </Typography>
                     </Link>
                   )}
                   {localStorage.getItem('email') && (
-                    <Typography textAlign='center' onClick={logout}>
-                      로그아웃
-                    </Typography>
+                    <Grid container spacing={2} colums={16}>
+                      <Grid item xs={8}>
+                        <p style={{ color: 'black' }}>{localStorage.getItem('email')}</p>
+                      </Grid>
+                      <Grid item xs={8}>
+                        <Typography textAlign='center' onClick={logout}>
+                          로그아웃
+                        </Typography>
+                      </Grid>
+                    </Grid>
                   )}
                   {/* {setting === '회원가입' && (
                     <Link to='/signup' style={{ textDecoration: 'none' }}>
