@@ -42,8 +42,8 @@ def schedule_api():
     except:
         print('EM크롤링에 문제가 있습니다')
 
-    # cspace 크롤링 시작
-    try:
+    cspace 크롤링 시작
+    try: 
         print('cs시작')
         request = '/crawling/cs'
         views.CS_Crawling(request)

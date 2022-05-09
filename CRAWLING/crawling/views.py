@@ -12,6 +12,7 @@ from selenium.webdriver.common.keys import Keys
 import time
 from .models import Goods
 from datetime import datetime
+from webdriver_manager.chrome import ChromeDriverManager
 
 options = webdriver.ChromeOptions()
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
@@ -21,7 +22,7 @@ options.add_argument("--single-process")
 options.add_argument("--disable-dev-shm-usage")
 options.add_argument("window-size=1400,1500")
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
-driver = webdriver.Chrome(r'/home/ubuntu/crawling/chromedriver', options=options)
+# driver = webdriver.Chrome(r'/home/ubuntu/crawling/chromedriver', options=options)
 
 def checkproduct(name, img_src, price, event, convinence):
     # 데이터 베이스에 있으면 가격 업데이트 시켜주기
@@ -41,13 +42,16 @@ def event_check(convinence):
 
     # 상품들을 가져와서 update날짜가 오늘과 다르면 sell을 0으로 바꾸기
     for i in goods_list:
-        if(i.update != datetime.today().strftime("%Y%m%d")):
-            Goods.objects.filter(convinence=i.convinence, name=i.name).update(is_sell=0)
+        if(i.update_date != datetime.today().strftime("%Y%m%d")):
+            good = Goods.objects.filter(convinence=i.convinence, name=i.name).update(price=i.price)
+
+# def web_driver():
+#     # driver = webdriver.Chrome(r'/home/ubuntu/crawling/chromedriver', options=options)
+#     driver = webdriver.Chrome(ChromeDriverManager().install())
 
 # @require_http_methods(["GET"])
-driver = webdriver.Chrome(r'/home/ubuntu/crawling/chromedriver', options=options)
-@require_http_methods(["GET"])
 def CU_Crawling(request):
+    # web_driver()
     convinence = 'CU'
     CU_BUTTON = [
         # 간편 식사
@@ -77,10 +81,10 @@ def CU_Crawling(request):
     ]
     # 전체 상품 Crawling
     def total():
-        print("cu start")
         # 편의점 이름 설정
         convinence = "cu"
         # 암묵적으로 웹 자원 로드를 위해 3초까지 기다린다
+        driver = webdriver.Chrome(r'/home/ubuntu/crawling/chromedriver', options=options)
         driver.get("https://cu.bgfretail.com/product/product.do?category=product&depth2=4&depth3=1")
         element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "prod_img")))
         # 전체 URL을 돌벼 데이터 크롤링
@@ -93,7 +97,6 @@ def CU_Crawling(request):
                     driver.find_element_by_xpath("//*[@id=\"dataTable\"]/div/div[1]/a").click()
                     # 안전한 페이지 로딩을 위해 30초의 대기시간
                     time.sleep(30)
-                    print("nextpage")
                 except:
                     break
             html = driver.page_source
@@ -138,8 +141,7 @@ def CU_Crawling(request):
                 except:
                     event = 1
                 # 데이터 저장하는 부분 
-
-                checkproduct(name, img_src, price, event, convinence)
+                checkproduct(name, img_src, int(price), event, convinence)
             
             # 한번하고 버튼 넘어감
             # 카테고리 넘어가는 버튼
@@ -157,6 +159,8 @@ def CU_Crawling(request):
 
 # @require_http_methods(["GET"])
 def GS_Crawling(request):
+    driver = webdriver.Chrome(r'/home/ubuntu/crawling/chromedriver', options=options)
+
     convinence = 'GS'
     # 전체 가져올건지 부분 가져올건지
     # category = request.GET.get("category")
@@ -180,6 +184,8 @@ def GS_Crawling(request):
     # 행사 상품 Crawling
     def promotion():
         # Cu 행사페이지 url
+        driver = webdriver.Chrome(ChromeDriverManager().install())
+
         url = 'http://gs25.gsretail.com/gscvs/ko/products/event-goods#;'
         # 마지막 페이지 번호 가져옴
         final_page_num = find_final_page(url, driver)
@@ -236,7 +242,7 @@ def GS_Crawling(request):
                     item_promotion = 1
 
                 # 데이터 저장하는 부분 
-                checkproduct(name, img_src, price, event, convinence)
+                checkproduct(name, img_src, int(price), event, convinence)
                     
             element = driver.find_element_by_xpath("//*[@id=\"contents\"]/div[2]/div[3]/div/div/div[1]/div/a[3]")
             driver.execute_script("arguments[0].click();", element)
@@ -248,6 +254,8 @@ def GS_Crawling(request):
 
 # @require_http_methods(["GET"])
 def SE_Crawling(request):
+    driver = webdriver.Chrome(r'/home/ubuntu/crawling/chromedriver', options=options)
+
     SE_BUTTON = [
         # 1+1 패스해야함
         "",
@@ -337,9 +345,8 @@ def SE_Crawling(request):
                     except:
                         event = 1
 
-                    checkproduct(name, img_src, price, event, convinence)
+                    checkproduct(name, img_src, int(price), event, convinence)
 
-            print("FINISH")
             #다음 카테고리 넘어가기
             try:
                 button = SE_BUTTON[idx + 1]
@@ -355,7 +362,6 @@ def SE_Crawling(request):
 
 # @require_http_methods(["GET"])
 def MS_Crawling(request):
-    convinence = 'MS'
     MS_BUTTON = [
         # 1+1 패스해야함
         "//*[@id=\"section\"]/div[3]/ul/li[1]/a",
@@ -369,13 +375,14 @@ def MS_Crawling(request):
         "//*[@id=\"section\"]/div[3]/ul/li[5]/a"
 
     ]
-
+    driver = webdriver.Chrome(r'/home/ubuntu/crawling/chromedriver', options=options)
+    
     # 편의점 이름 설정
     convinence = "MS"
     # 암묵적으로 웹 자원 로드를 위해 3초까지 기다린다
     driver.get("https://www.ministop.co.kr/")
     # 프레임 태그 내부로 이동
-
+    
     element = driver.find_element_by_xpath("/html/frameset/frame") #iframe 태그 엘리먼트 찾기
     driver.switch_to.frame(element)
     element = driver.find_element_by_xpath("/html/frameset/frame[2]") #iframe 태그 엘리먼트 찾기
@@ -398,7 +405,6 @@ def MS_Crawling(request):
                     cnt += 1
                     # 더 이상 넘길게 없으면 break
                 except Exception as e:
-                    print(e)
                     break
 
             html = driver.page_source
@@ -460,8 +466,8 @@ def MS_Crawling(request):
                         event = 1
                 except:
                     event = 1
-    
-                checkproduct(name, img_src, price, event, convinence)
+
+                checkproduct(name, img_src, int(price), event, convinence)
 
             try:
                 button = MS_BUTTON[idx + 1]
@@ -495,14 +501,12 @@ def EM_Crawling(request):
  
     def promotion():
         # Emart 행사페이지 url
-        print('em1')
         url = 'https://emart24.co.kr/product/eventProduct.asp'
-        
+        driver = webdriver.Chrome(r'/home/ubuntu/crawling/chromedriver', options=options)
 
         # 행사 분류하기
         for k in range(2, 7):
             xpath_element = '//*[@id="tabNew"]/ul/li['+str(k)+']/h4/a'
-            print(xpath_element)
 
             # 마지막 페이지 찾기
             final_page_num = find_final_page(url, driver, xpath_element)
@@ -513,8 +517,8 @@ def EM_Crawling(request):
             driver.get(url)
             element = driver.find_element_by_xpath(xpath_element)
             driver.execute_script("arguments[0].click();", element)
-            time.sleep(3)
-            
+            time.sleep(5)
+
             for i in range(final_page_num):
                 html = driver.page_source
                 soup = BeautifulSoup(html, 'html.parser')
@@ -543,6 +547,8 @@ def EM_Crawling(request):
                             for j in price:
                                 if j == '원':
                                     break
+                                if j == ',':
+                                    continue
                                 else:
                                     now += j
                             price = now
@@ -557,18 +563,16 @@ def EM_Crawling(request):
                         k = 5
                     elif k == 7:
                         k = 1
-                    
-                    good = Goods(name = name, photo_path=img_src, \
-                    price=price, is_sell=1, event=k, convinence = convinence)
-                    good.save()
+
+                    checkproduct(name, img_src, int(price), k, convinence)
 
                 if (i == final_page_num-1):
-                    time.sleep(5)
+                    time.sleep(10)
                     break
                 else:
                     element = driver.find_element_by_xpath('//*[@id="regForm"]/div[2]/div[3]/div[3]/a[13]')
                     driver.execute_script("arguments[0].click();", element)
-                    time.sleep(5)
+                    time.sleep(10)
             
     promotion()
     event_check(convinence)
@@ -578,9 +582,11 @@ def EM_Crawling(request):
 
 
 def CS_Crawling(request):
+    
     convinence = "CS"
     # 행사 상품 Crawling
     def find_final_page(url, driver, xpath_element):
+        
         driver.get(url)
         # 행사 상품으로 이동
         element = driver.find_element_by_xpath(xpath_element)
@@ -598,14 +604,15 @@ def CS_Crawling(request):
  
     def promotion():
         # Emart 행사페이지 url
+        driver = webdriver.Chrome(r'/home/ubuntu/crawling/chromedriver', options=options)
+
         url = 'https://www.cspace.co.kr/service/product.html?prod_name_s=&id_position_move=calSelId'
 
         # 행사 분류하기
         for k in range(2, 6):
             xpath_element = '/html/body/section[3]/div/div[3]/ul/li['+str(k)+']/button'
-            print(xpath_element)
             time.sleep(3)
-
+            
             if k == 4:
                 continue
 
@@ -647,8 +654,6 @@ def CS_Crawling(request):
                             img_src = ""
 
                         img_src = img_src_now
-
-                        print(img_src)
                         
                         #이름 가져오는 부분
                         try:
@@ -662,6 +667,8 @@ def CS_Crawling(request):
                             for j in price:
                                 if j == '원':
                                     break
+                                if j == ',':
+                                    continue
                                 else:
                                     price_now += j
                             price = price_now
@@ -676,7 +683,8 @@ def CS_Crawling(request):
                     elif k == 5:
                         k = 5
                     
-                    checkproduct(name, img_src, price, k,convinence)
+                    
+                    checkproduct(name, img_src, int(price), k,convinence)
 
                 if (i == final_page_num-1):
                     time.sleep(10)
@@ -692,6 +700,3 @@ def CS_Crawling(request):
     event_check(convinence)
     
     return HttpResponse('Success')
-
-def asddd():
-    print('hihihi')
