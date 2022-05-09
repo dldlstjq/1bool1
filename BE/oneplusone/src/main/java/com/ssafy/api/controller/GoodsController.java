@@ -81,6 +81,23 @@ public class GoodsController {
         }
     }
 
+    @GetMapping("/convinence")
+    @ApiOperation(value = "해당 편의점 검색 결과 조회", notes = "<strong>검색된 편의점의 상품 목록을 가져온다.</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> findBySearchConGoods(@RequestParam("con") String search) {
+        List<Goods> goods = goodsService.findBySearchConGoods(search);
+        if(goods.size() > 0)
+        {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", goods));
+        }else{
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "제목과 내용 모두 찾아 봤지만 존재 하지 않습니다."));
+        }
+    }
 
 
     @GetMapping("/hit")

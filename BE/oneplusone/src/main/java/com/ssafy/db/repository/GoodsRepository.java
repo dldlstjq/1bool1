@@ -17,6 +17,8 @@ public interface GoodsRepository extends JpaRepository<Goods, Long> {
 
     List<Goods> findByNameContaining(String name);
 
+    List<Goods> findByConvinenceContaining(String convienence);
+
 //    List<Goods> findTop10ByOrderByLikeDesc();
 //@Query(value = "select * from room as ru where ru.room_id IN ( select r.room_id from room_user as r where r.user_id = :userId )", nativeQuery = true)
 //List<Room> searchUserHasRoom(Long userId);
