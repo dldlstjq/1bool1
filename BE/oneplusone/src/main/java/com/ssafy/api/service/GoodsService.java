@@ -23,4 +23,6 @@ public interface GoodsService {
     List<Goods> findGoods();
 
     List<Goods> findBySearchGoods(String search);
+
+    List<Goods> findBySearchConGoods(String search);
 }

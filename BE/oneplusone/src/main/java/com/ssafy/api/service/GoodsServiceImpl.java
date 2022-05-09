@@ -96,6 +96,12 @@ public class GoodsServiceImpl implements GoodsService{
     }
 
     @Override
+    public List<Goods> findBySearchConGoods(String search) {
+        return goodsRepository.findByConvinenceContaining(search);
+    }
+
+
+    @Override
     public List<Goods> findGoodsByConvinenceEvent(GoodsDto.GoodsEventGetRequest goodsEventGetRequest){
         String convinenceName = goodsEventGetRequest.getConvinenceName();
         Long event = goodsEventGetRequest.getEvent();
