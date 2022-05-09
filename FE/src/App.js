@@ -20,7 +20,6 @@ import RecipeDetail from './pages/community/Recipe/Detail';
 import Signin from './pages/user/Signin';
 import Signup from './pages/user/Signup';
 import Kakao from './pages/user/KakaoLogin';
-import OAuth2RedirectHandler from './pages/user/OAuth2RedirectHandler';
 
 function App() {
   return (
