@@ -1,7 +1,7 @@
-# **1bool1**
+<h1 style="text-align:center;">1bool1</h1>
 
-![png_1](./exec/로고/로고.png)
-
+<p align="center"><img src="./로고/로고.png" alt="alternate text">
+</p>
 
 ## 📝 프로젝트 개요
 ---
@@ -39,11 +39,11 @@
 # ✈ 기획
 ## 📣ERD
 ---
-![png_1](./exec/ERD/ERD.png)
+![png_1](./ERD/ERD.png)
 
 ## 🎇WireFrame
 ---
-![png_2](./exec/와이어프레임/와이어프레임.png)
+![png_2](./와이어프레임/와이어프레임.png)
 
 <br/><br/>
 
