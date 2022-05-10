@@ -184,6 +184,55 @@ public class UserServiceImpl implements UserService {
 		return id;
 	}
 
+
+	public int createKakaoAlarm(String token) throws Exception {
+		String reqURL = "https://kapi.kakao.com/v2/api/talk/memo/default/send";
+		Long id =0L;
+		int result_code = 0;
+		//access_token을 이용하여 사용자 정보 조회
+		try {
+			URL url = new URL(reqURL);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+			conn.setRequestMethod("POST");
+			conn.setDoOutput(true);
+			conn.setRequestProperty("Authorization", "Bearer " + token); //전송할 header 작성, access_token전송
+			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); // 데이터 형식
+
+			//POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+			StringBuilder sb = new StringBuilder();
+
+			// 알림 보내는 body
+			sb.append("template_object=");
+			sb.append("{\"object_type\": \"text\",        " +
+					" \"text\": \"액세스토큰 테스트  \",        " +
+					" \"link\": {           " +
+					"  \"web_url\": \"https://k6d207.p.ssafy.io/\",     " +
+					"  \"mobile_web_url\": \"https://k6d207.p.ssafy.io/\"         " +
+					"},         " +
+					"\"button_title\": \"바로 확인\"" +
+					"}");
+
+			bw.write(sb.toString());
+			bw.flush();
+
+			//결과 코드가 200이라면 성공
+			int responseCode = conn.getResponseCode();
+			String content = conn.getResponseMessage();
+			System.out.println("content : " + content);
+			System.out.println("responseCode : " + responseCode);
+			if(responseCode == 200)
+				result_code  = 0;
+			else
+				result_code = -1;
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result_code;
+	}
+
 	@Override
 	public User getEmailUser(String id) throws Exception {
 		return userRepository.findByEmail(id).orElseGet(()->null);
