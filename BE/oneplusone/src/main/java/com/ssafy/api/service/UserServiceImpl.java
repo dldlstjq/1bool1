@@ -197,21 +197,22 @@ public class UserServiceImpl implements UserService {
 			conn.setRequestMethod("POST");
 			conn.setDoOutput(true);
 			conn.setRequestProperty("Authorization", "Bearer " + token); //전송할 header 작성, access_token전송
-			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); // 데이터 형식
+//			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); // 데이터 형식
 
 			//POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
-			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "utf-8"));
 			StringBuilder sb = new StringBuilder();
+
 
 			// 알림 보내는 body
 			sb.append("template_object=");
 			sb.append("{\"object_type\": \"text\",        " +
-					" \"text\": \"액세스토큰 테스트  \",        " +
+					" \"text\": \"1boo1에 로그인 하셨습니다!  \",        " +
 					" \"link\": {           " +
 					"  \"web_url\": \"https://k6d207.p.ssafy.io/\",     " +
 					"  \"mobile_web_url\": \"https://k6d207.p.ssafy.io/\"         " +
 					"},         " +
-					"\"button_title\": \"바로 확인\"" +
+					"\"button_title\": \"사이트 바로가기\"" +
 					"}");
 
 			bw.write(sb.toString());
