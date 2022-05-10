@@ -4,11 +4,12 @@ import Footer from '../../components/main/Footer';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
+// import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import { Button, Container, Grid, TextField, Typography, Box} from '@mui/material';
-import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
+// import { Button, Container, Grid, TextField, Typography, Box} from '@mui/material';
+import { Container, Grid, Typography, Box} from '@mui/material';
+// import Pagination from '@mui/material/Pagination';
+// import Stack from '@mui/material/Stack';
 
 function Store() {
   const [menus, setMenus] = useState([]);

@@ -24,10 +24,11 @@ import Kakao from './pages/user/KakaoLogin';
 function App() {
   return (
     <Routes>
-      <Route path='/' element={<Main></Main>} />
+      <Route path='' element={<Main></Main>} />
+      <Route path="/store" element={<Store />}></Route>
+      <Route path="/store:word" element={<Store />}></Route>
       <Route path='signin' element={<Kakao />}></Route>
       <Route path='signup' element={<Signup />}></Route>
-      <Route path='/store/:word' element={<Store />}></Route>
       <Route path='community' element={<Navigate replace to='free' />} />
       <Route path='community' element={<Community></Community>}>
         <Route path='free' element={<Articles />}></Route>
@@ -36,7 +37,7 @@ function App() {
         <Route path='recipe' element={<Recipes />} />
         <Route path='recipe/:recipeId' element={<RecipeDetail />} />
         <Route path='recipe/write' element={<WriteRecipe />} />
-      <Route path="/store" element={<Store />}></Route>
+      {/* <Route path="store/:word" element={<Store />}></Route> */}
       {/* <Route path="community" element={<Community />}> */}
         {/* <Route path=":category" element={<Articles />}></Route> */}
         {/* <Route path=":category/:articleId" element={<Detail></Detail>}></Route> */}
