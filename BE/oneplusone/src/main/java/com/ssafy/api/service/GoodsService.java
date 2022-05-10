@@ -2,6 +2,7 @@ package com.ssafy.api.service;
 
 import com.ssafy.api.dto.GoodsDto;
 import com.ssafy.db.entity.Board;
+import com.ssafy.db.entity.Convinence;
 import com.ssafy.db.entity.Goods;
 
 
@@ -25,4 +26,6 @@ public interface GoodsService {
     List<Goods> findBySearchGoods(String search);
 
     List<Goods> findBySearchConGoods(String search);
+
+    List<Convinence> findBySearchCon();
 }
