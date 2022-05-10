@@ -36,6 +36,12 @@ function App() {
         <Route path='recipe' element={<Recipes />} />
         <Route path='recipe/:recipeId' element={<RecipeDetail />} />
         <Route path='recipe/write' element={<WriteRecipe />} />
+      <Route path="/store" element={<Store />}></Route>
+      {/* <Route path="community" element={<Community />}> */}
+        {/* <Route path=":category" element={<Articles />}></Route> */}
+        {/* <Route path=":category/:articleId" element={<Detail></Detail>}></Route> */}
+        {/* <Route path="write" element={<WritingPage />} /> */}
+        {/* <Route index element={<Articles />} /> */}
       </Route>
     </Routes>
   );
