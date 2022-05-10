@@ -12,38 +12,46 @@ import axios from "axios";
 import { BASE_URL } from "../../..";
 
 import Article from "./Article";
-import Pagination from "../common/Pagination";
-import Searchbar from "../common/Searchbar";
+import { Pagination } from "../common/Pagination";
+import { Searchbar, useSearchBar } from "../common/Searchbar";
 import Popover from "../common/Popover";
+import { articleOptions } from "../common/Searchbar";
+import { useFetch } from "../common/hooks";
 
 function Articles() {
-  const [popover, setpopover] = useState(false);
-  const [coord, setcoord] = useState([0, 0]);
-  const [articles, setarticles] = useState([]);
+  const [popover, setPopover] = useState(false);
+  const [coord, setCoord] = useState([0, 0]);
+  // const [articles, setArticles] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
+
+  const [filter, setFilter] = useState({ category: "title", content: "" });
+  const { category, content } = filter;
+
   const navigate = useNavigate();
   const page = searchParams.get("page");
-  useEffect(() => {
-    axios({
-      method: "get",
-      url: BASE_URL + "board",
-      params: { page: page - 1, size: 5 },
-    })
-      .then((res) => {
-        if (res.data.object?.length > 0) setarticles(res.data.object);
-      })
-      .catch((err) => console.log(err));
-  }, [page]);
+
+  // useEffect(() => {
+  //   axios({
+  //     method: "get",
+  //     url: BASE_URL + "board",
+  //     params: { page: page - 1, size: 5 },
+  //   })
+  //     .then((res) => {
+  //       if (res.data.object?.length > 0) setArticles(res.data.object);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, [page]);
+  const articles = useFetch("board", page, 10);
 
   function handleClick({ target, clientX, clientY }) {
     // console.log(target);
     if (target.matches(".article-title")) {
       navigate(target.id);
     } else if (target.matches(".author")) {
-      setcoord(() => [clientX, clientY]);
-      setpopover(true);
+      setCoord(() => [clientX, clientY]);
+      setPopover(true);
     } else {
-      setpopover(false);
+      setPopover(false);
     }
   }
 
@@ -51,7 +59,7 @@ function Articles() {
     <div
       className="articles"
       onClick={handleClick}
-      onWheel={() => setpopover(false)}
+      onWheel={() => setPopover(false)}
     >
       <>
         <div className="title">자유 게시판</div>
@@ -128,19 +136,23 @@ function Articles() {
       </div>
 
       <ul>
-        {articles.map(({ id, title, nickname, password, modifiedDate }) => {
-          const date = modifiedDate.split(".")[0];
-          return (
-            <Article
-              id={id}
-              key={id}
-              title={title}
-              nickname={nickname}
-              password={password}
-              date={date}
-            />
-          );
-        })}
+        {articles
+          .filter((article) => {
+            return article[category].search(content) > -1;
+          })
+          .map(({ id, title, nickname, password, modifiedDate }) => {
+            const date = modifiedDate.split(".")[0];
+            return (
+              <Article
+                id={id}
+                key={id}
+                title={title}
+                nickname={nickname}
+                password={password}
+                date={date}
+              />
+            );
+          })}
       </ul>
 
       <Pagination
@@ -152,7 +164,7 @@ function Articles() {
       <Link className="head write-btn" to="/community/free/write">
         글쓰기
       </Link>
-      <Searchbar />
+      <Searchbar setFilter={setFilter} options={articleOptions} />
       {popover && (
         <Popover x={coord[0]} y={coord[1]}>
           응응

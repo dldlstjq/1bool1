@@ -16,6 +16,8 @@ function Detail() {
   const [comments, setcomments] = useState([]);
   const [popover, setpopover] = useState(false);
   const [showcomments, setshowcomments] = useState(true);
+  const [invokeUseEffect, setInvokeUseEffect] = useState(0);
+
   const coordRef = useRef([0, 0]);
   const textareaRef = useRef();
 
@@ -37,16 +39,19 @@ function Detail() {
         setdata(res.data.object);
       })
       .catch((err) => console.log(err));
+  }, [articleId]);
+
+  useEffect(() => {
     axios
       .get(BASE_URL + `comment/${articleId}`)
       .then((res) => {
-        console.log(res.data.object);
         setcomments(res.data.object);
       })
       .catch((err) => console.log(err));
-  }, [articleId]);
+  }, [articleId, invokeUseEffect]);
 
-  function handleClick({ target, clientX, clientY }) {
+  function handleClick(e) {
+    const { target, clientX, clientY } = e;
     if (target.matches("#show-comments")) {
       setshowcomments((prev) => !prev);
     }
@@ -62,6 +67,44 @@ function Detail() {
         textareaRef.current.focus();
       }, 500);
     }
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(e.target);
+    const method = "abc";
+    const data = new FormData(e.target);
+    if (data.get("password") !== password) {
+      alert("비밀번호가 다릅니다");
+      return;
+    }
+    axios({
+      method,
+      url: BASE_URL + "board/" + articleId,
+      data: {
+        nickname: data.get("nickname"),
+        password: data.get("password"),
+        content: data.get("content"),
+        boardId: articleId,
+      },
+    });
+  }
+
+  function handleCommentSubmit(e) {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    axios({
+      method: "post",
+      url: BASE_URL + "comment/" + articleId,
+      data: {
+        nickname: data.get("nickname"),
+        password: data.get("password"),
+        content: data.get("content"),
+        boardId: articleId,
+      },
+    })
+      .then(() => setInvokeUseEffect((prev) => prev + 1))
+      .catch((err) => console.log(err));
   }
 
   return (
@@ -109,6 +152,29 @@ function Detail() {
             </div>
           </div>
         </div>
+        <form className="grid grid-cols-3 gap-2 my-4" onSubmit={handleSubmit}>
+          <input
+            type="password"
+            className="bg-gray-700 text-white h-10"
+            placeholder="비밀번호"
+            required
+            name="password"
+          />
+          <button
+            id="delete"
+            className="bg-gray-700 text-white h-10"
+            type="submit"
+          >
+            삭제
+          </button>
+          <button
+            id="modify"
+            className="bg-gray-700 text-white h-10"
+            type="submit"
+          >
+            수정
+          </button>
+        </form>
         <div className="flex justify-between">
           <span id="show-comments" className="cursor-pointer">
             <div className="mt-2" id="show-comments">
@@ -143,14 +209,17 @@ function Detail() {
           </div>
         </div>
       </div>
-      {showcomments && <Comments comments={comments} ref={textareaRef} />}
-      <Pagination mb="mb-10" />
-      <Link
-        to="/community/free"
-        className="py-2 px-4 mt-20 bg-gray-700 text-white"
-      >
-        목록보기
-      </Link>
+      {showcomments && (
+        <Comments
+          comments={comments}
+          articleId={articleId}
+          ref={textareaRef}
+          handleCommentSubmit={handleCommentSubmit}
+        />
+      )}
+
+      <button className="bg-gray-700 text-white h-10 w-1/3">목록보기</button>
+
       {popover && (
         <Popover x={coordRef.current[0]} y={coordRef.current[1]}>
           <h6>ㅇㅇ</h6>

@@ -6,26 +6,29 @@ import axios from "axios";
 import Recipe from "./Recipe";
 import { BASE_URL } from "../../..";
 
-import Searchbar from "../common/Searchbar";
-import Pagination from "../common/Pagination";
+import { Searchbar, articleOptions } from "../common/Searchbar";
+import { Pagination } from "../common/Pagination";
+import { useFetch } from "../common/hooks";
 
 function Recipes() {
-  // const [recipes, setrecipes] = useState([]);
-  const [recipes, setrecipes] = useState(Array(10).fill(0));
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
+  const [filter, setFilter] = useState({ category: "title", content: "" });
+  const { category, content } = filter;
 
   const page = searchParams.get("page");
 
-  useEffect(() => {
-    axios({
-      method: "get",
-      url: BASE_URL + "recipe",
-      params: { page: page - 1, size: 5 },
-    }).then((res) => {
-      if (res.data.object?.length) setrecipes(res.data.object);
-    });
-  }, [page]);
+  const recipes = useFetch("recipe", page, 10);
+
+  // useEffect(() => {
+  //   axios({
+  //     method: "get",
+  //     url: BASE_URL + "recipe",
+  //     params: { page: page - 1, size: 5 },
+  //   }).then((res) => {
+  //     if (res.data.object?.length) setrecipes(res.data.object);
+  //   });
+  // }, [page]);
 
   function handleClick({ target }) {
     if (target.matches(".main-photo") || target.matches(".keep-all")) {
@@ -47,7 +50,7 @@ function Recipes() {
         className="grid gap-1 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4"
       >
         <button
-          className="h-10 border-b border-slate-300 bg-slate-100"
+          className="h-10 border-b border-slate-300 bg-slate-100 sm:col-span-2"
           id="write"
         >
           작성하기
@@ -55,16 +58,20 @@ function Recipes() {
         <select
           name="order"
           id="order"
-          className="h-10 border-b border-slate-300 bg-slate-100 text-center"
+          className="h-10 border-b border-slate-300 bg-slate-100 text-center lg:col-span-2"
         >
           <option value="recent"> 최신순 </option>
           <option value="popular"> 인기순 </option>
         </select>
-        {recipes.map((data, idx) => {
-          return <Recipe key={idx} data={data} />;
-        })}
+        {recipes
+          .filter((recipe) => {
+            return recipe[category]?.search(content) > -1;
+          })
+          .map((data, idx) => {
+            return <Recipe key={idx} data={data} />;
+          })}
         <Pagination
-          cols="col-span-2"
+          cols="col-span-2 sm:col-span-3 lg:col-span-4"
           my="my-5"
           setSearchParams={setSearchParams}
         />
@@ -78,7 +85,7 @@ function Recipes() {
         </button>
       </div>
 
-      <Searchbar />
+      <Searchbar setFilter={setFilter} options={articleOptions} />
     </div>
   );
 }

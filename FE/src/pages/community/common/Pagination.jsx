@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import classNames from "classnames";
+import axios from "axios";
 
-function Pagination({ setSearchParams, ...rest }) {
+import { BASE_URL } from "../../..";
+
+export function Pagination({ setSearchParams, ...rest }) {
   const [i, seti] = useState(1);
   function handleClick({ target }) {
     if (target.matches(".back") && i >= 5) {
@@ -19,21 +22,21 @@ function Pagination({ setSearchParams, ...rest }) {
       onClick={handleClick}
     >
       <code className={classNames(customclass, "back")}>&lt;&lt;</code>
-      <div className={classNames(customclass, "page")} id={i}>
+      <button className={classNames(customclass, "page")} id={i}>
         {i}
-      </div>
-      <div className={classNames(customclass, "page")} id={i + 1}>
+      </button>
+      <button className={classNames(customclass, "page")} id={i + 1}>
         {i + 1}
-      </div>
-      <div className={classNames(customclass, "page")} id={i + 2}>
+      </button>
+      <button className={classNames(customclass, "page")} id={i + 2}>
         {i + 2}
-      </div>
-      <div className={classNames(customclass, "page")} id={i + 3}>
+      </button>
+      <button className={classNames(customclass, "page")} id={i + 3}>
         {i + 3}
-      </div>
-      <div className={classNames(customclass, "page")} id={i + 4}>
+      </button>
+      <button className={classNames(customclass, "page")} id={i + 4}>
         {i + 4}
-      </div>
+      </button>
       <code
         className={classNames(customclass, "forth")}
         onClick={() => seti(i + 5)}
@@ -43,5 +46,3 @@ function Pagination({ setSearchParams, ...rest }) {
     </nav>
   );
 }
-
-export default Pagination;

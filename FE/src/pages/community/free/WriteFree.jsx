@@ -7,13 +7,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function WriteFree() {
-  // const [inputs, setinputs] = useState({});
   const navigate = useNavigate();
-
-  // function handleChange({ target }) {
-  //   const { name, value } = target;
-  //   setinputs({ ...inputs, [name]: value });
-  // }
 
   function submit(e) {
     e.preventDefault();

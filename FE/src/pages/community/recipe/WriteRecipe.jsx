@@ -1,5 +1,12 @@
 /* eslint-disable no-unused-vars */
+import { useState } from "react";
+
+import { Searchbar } from "../common/Searchbar";
+import { storeOptions } from "../common/Searchbar";
+
 function WriteRecipe() {
+  const [filter, setFilter] = useState({ category: "cu", content: "" });
+
   return (
     <div>
       <h1 className="text-xl text-center my-8">| 레시피 등록 |</h1>
@@ -29,7 +36,10 @@ function WriteRecipe() {
           <option value="3">3</option>
         </select>
       </div>
-      <div className="bg-green-200">123123</div>
+      <div className="bg-green-200 p-4">
+        <h1 className="text-gray-500 text-center">재료</h1>
+        <Searchbar options={storeOptions} setFilter={setFilter} />
+      </div>
     </div>
   );
 }
