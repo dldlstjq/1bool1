@@ -170,6 +170,19 @@ public class UserController {
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "token 값이 일치하지 않습니다."));
 	}
 
+	@ResponseBody
+	@PostMapping("/kakaoAlarm")
+	public ResponseEntity<? extends BaseResponseBody> kakaoAlarm(@RequestParam("token") String token) throws Exception {
+		if (!token.equals("")) {
+			int code = userService.createKakaoAlarm(token);
+			if (code == 0)
+				return ResponseEntity.status(200).body(BaseResponseBody.of(200, "알림 성공!!"));
+			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "알림이 안와요ㅠㅠ"));
+		}
+		else
+			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "토큰이 없음"));
+	}
+
 //	@ResponseBody
 //	@PostMapping("/kakao")
 //	public ResponseEntity<? extends BaseResponseBody> kakaoCreateID(@RequestParam("id") String id) throws Exception {
