@@ -43,7 +43,7 @@ def event_check(convinence):
     # 상품들을 가져와서 update날짜가 오늘과 다르면 sell을 0으로 바꾸기
     for i in goods_list:
         if(i.update_date != datetime.today().strftime("%Y%m%d")):
-            good = Goods.objects.filter(convinence=i.convinence, name=i.name).update(price=i.price)
+            good = Goods.objects.filter(convinence=i.convinence, name=i.name).update(is_sell=0)
 
 # def web_driver():
 #     # driver = webdriver.Chrome(r'/home/ubuntu/crawling/chromedriver', options=options)
