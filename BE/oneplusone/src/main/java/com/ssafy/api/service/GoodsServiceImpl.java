@@ -1,6 +1,7 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.dto.GoodsDto;
+import com.ssafy.db.entity.Convinence;
 import com.ssafy.db.entity.Goods;
 import com.ssafy.db.repository.GoodsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,6 +99,11 @@ public class GoodsServiceImpl implements GoodsService{
     @Override
     public List<Goods> findBySearchConGoods(String search) {
         return goodsRepository.findByConvinenceContaining(search);
+    }
+
+    @Override
+    public List<Convinence> findBySearchCon() {
+        return goodsRepository.findByNameSQL();
     }
 
 

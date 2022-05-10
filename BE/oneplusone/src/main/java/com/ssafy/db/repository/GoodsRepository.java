@@ -1,5 +1,6 @@
 package com.ssafy.db.repository;
 
+import com.ssafy.db.entity.Convinence;
 import com.ssafy.db.entity.Goods;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,6 +19,8 @@ public interface GoodsRepository extends JpaRepository<Goods, Long> {
     List<Goods> findByNameContaining(String name);
 
     List<Goods> findByConvinenceContaining(String convienence);
+    @Query(value = "SELECT g.convinence FROM goods g group BY(g.convinence)", nativeQuery = true)
+    List<Convinence> findByNameSQL();
 
 //    List<Goods> findTop10ByOrderByLikeDesc();
 //@Query(value = "select * from room as ru where ru.room_id IN ( select r.room_id from room_user as r where r.user_id = :userId )", nativeQuery = true)
