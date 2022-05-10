@@ -31,7 +31,7 @@ function Main() {
   useEffect(() => {
     axios
       .get('http://localhost:8080/api/v1/goods')
-      // .get('https://k6d207.p.ssafy.io/api/api/v1/goods')
+      // .get('https://k6d207.p.ssafy.io/api/v1/goods/hit')
       .then(({data}) => {
         setMenus(data.object)
         console.log(data)
@@ -71,7 +71,7 @@ function Main() {
 
           </Grid>
           <Typography variant="h4" style={{fontWeight:'bold', display: 'flex', justifyContent:'center', marginTop:'8rem'}}>
-                새로운 상품
+              조회수 TOP 10
           </Typography>
           <Typography variant="h6" style={{color: 'grey', display: 'flex', justifyContent:'end'}}>
                 상품 모두 보기 {'>'}
