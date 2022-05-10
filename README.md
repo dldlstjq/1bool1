@@ -1,7 +1,7 @@
-<h1 style="text-align:center;">1bool1</h1>
+# **1bool1**
 
-<p align="center"><img src="./exec/로고/로고.png" alt="alternate text">
-</p>
+![png_1](./exec/로고/로고.png)
+
 
 ## 📝 프로젝트 개요
 ---
