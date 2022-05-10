@@ -125,4 +125,19 @@ public class UserDto {
             return res;
         }
     }
+
+    @Getter
+    @Setter
+    public static class Message {
+        @NotNull
+        private Long GoodsId;
+        @NotBlank
+        private String message;
+
+        public Message(Long GoodsId, String message) {
+            this.GoodsId = GoodsId;
+            this.message = message;
+        }
+    }
+
 }
