@@ -52,6 +52,7 @@ function Appbar() {
         // 카카오 계정 이메일을 가져옴.
         // 카카오 이메일은 ok. but 좋아요 등록 시 user_id를 어떻게 가져오나?
         // console.log(authObj);
+        // console.log(authObj.access_token);
         Kakao.API.request({
           url: '/v2/user/me',
           success: function (res) {
@@ -63,6 +64,21 @@ function Appbar() {
               'login success, but failed to request user information: ' + JSON.stringify(error)
             );
           },
+        });
+
+        // accessToken을 kakaoCallback에 날렸지만 로그인 불가능 답이 옴
+        axios({
+          method: 'post',
+          url: BASE_URL + 'users/kakaoAlarm',
+          params: {
+            token: authObj.access_token,
+          },
+        }).then((res) => {
+          // console.log(res);
+          // localStorage.setItem('user_id', res.data.object.id);
+          if (res.data.statusCode === 200) {
+            console.log('알림 보내기 성공!!');
+          }
         });
 
         // accessToken을 kakaoCallback에 날렸지만 로그인 불가능 답이 옴
