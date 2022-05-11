@@ -105,9 +105,12 @@ public class GoodsDto {
     @Setter
     @ApiModel("GoodsEventGetRequest")
     public static class GoodsEventGetRequest {
-        @ApiModelProperty(name="편의점 이름", example="cu")
+        @ApiModelProperty(name="편의점 이름", example="cu_gs")
         String convinenceName;
-        @ApiModelProperty(name="userId 값", example="1")
-        Long event;
+        @ApiModelProperty(name="userId 값", example="3_4")
+        String event;
+        @ApiModelProperty(name="goods 이름", example="제로")
+        String goods;
+
     }
 }

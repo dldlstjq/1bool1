@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
+
 @Service
 public class GoodsServiceImpl implements GoodsService{
 
@@ -110,7 +112,82 @@ public class GoodsServiceImpl implements GoodsService{
     @Override
     public List<Goods> findGoodsByConvinenceEvent(GoodsDto.GoodsEventGetRequest goodsEventGetRequest){
         String convinenceName = goodsEventGetRequest.getConvinenceName();
-        Long event = goodsEventGetRequest.getEvent();
-        return goodsRepository.findGoodsEventByConvinence(convinenceName, event);
+        StringTokenizer tk = new StringTokenizer(convinenceName,"_");
+        List<Goods> list = new ArrayList<Goods>();
+        String event = goodsEventGetRequest.getEvent();
+        StringTokenizer tkevent = new StringTokenizer(event,"_");
+        String goodsName = goodsEventGetRequest.getGoods();
+        ArrayList<String> e = new ArrayList<>();
+        ArrayList<String> c = new ArrayList<>();
+        int size = tk.countTokens();
+        for(int i = 0; i < size;i++){
+            c.add(tk.nextToken());
+        }
+        if(convinenceName.equals("all")){
+            if(event.equals("0")) {
+                if (goodsName.equals("0")) {
+                    for (int i = 0; i < size; i++) {
+                        list.addAll(goodsRepository.findAll());
+                    }
+                }else{
+                    for (int i = 0; i < size; i++) {
+                        list.addAll(goodsRepository.findByNameContaining(goodsName));
+                    }
+                }
+            }else if(goodsName.equals("0")) {
+                int eventSize = tkevent.countTokens();
+                for (int i = 0; i < eventSize; i++) {
+                    e.add(tkevent.nextToken()); //이벤트 이름들
+                }
+                for (int i = 0; i < size; i++) {
+                    for (int j = 0; j < eventSize; j++) {
+                        list.addAll(goodsRepository.findByEvent(Integer.parseInt(e.get(j))));
+                    }
+                }
+            }else{
+                int eventSize = tkevent.countTokens();
+                for (int i = 0; i < eventSize; i++) {
+                    e.add(tkevent.nextToken()); //이벤트 이름들
+                }
+                for (int i = 0; i < size; i++) {
+                    for (int j = 0; j < eventSize; j++) {
+                        list.addAll(goodsRepository.findByEventAndNameContaining(Integer.parseInt(e.get(j)), goodsName));
+                    }
+                }
+            }
+        }else {
+            if (event.equals("0")) {
+                if (goodsName.equals("0")) {
+                    for (int i = 0; i < size; i++) {
+                        list.addAll(goodsRepository.findByConvinence(c.get(i)));
+                    }
+                } else {
+                    for (int i = 0; i < size; i++) {
+                        list.addAll(goodsRepository.findByConvinenceAndNameContaining(c.get(i), goodsName));
+                    }
+                }
+            } else if (goodsName.equals("0")) {
+                int eventSize = tkevent.countTokens();
+                for (int i = 0; i < eventSize; i++) {
+                    e.add(tkevent.nextToken()); //이벤트 이름들
+                }
+                for (int i = 0; i < size; i++) {
+                    for (int j = 0; j < eventSize; j++) {
+                        list.addAll(goodsRepository.findByConvinenceAndEvent(c.get(i), Integer.parseInt(e.get(j))));
+                    }
+                }
+            } else {
+                int eventSize = tkevent.countTokens();
+                for (int i = 0; i < eventSize; i++) {
+                    e.add(tkevent.nextToken()); //이벤트 이름들
+                }
+                for (int i = 0; i < size; i++) {
+                    for (int j = 0; j < eventSize; j++) {
+                        list.addAll(goodsRepository.findByConvinenceAndEventAndNameContaining(c.get(i), Integer.parseInt(e.get(j)), goodsName));
+                    }
+                }
+            }
+        }
+        return list;
     }
 }
