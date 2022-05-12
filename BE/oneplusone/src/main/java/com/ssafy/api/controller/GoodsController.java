@@ -83,7 +83,7 @@ public class GoodsController {
     }
 
     @GetMapping("/convinence")
-    @ApiOperation(value = "해당 편의점 검색 결과 조회", notes = "<strong>검색된 편의점의 상품 목록을 가져온다.</strong>")
+    @ApiOperation(value = "해당 편의점 검색 결과 조회", notes = "<strong>cs = 시스페이스 , cu = CU , em = 이마트 , gs = GS25 , ms = 미니스톱, se = 세븐일레븐 </strong>")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),
