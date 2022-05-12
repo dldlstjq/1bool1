@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 import Main from './pages/main/Main';
 import Store from './pages/store/Store';
+import StoreDetail from './pages/store/StoreDetail';
 
 //community
 import Community from './pages/community/Community';
@@ -28,6 +29,7 @@ function App() {
       <Route path='signin' element={<Kakao />}></Route>
       <Route path='signup' element={<Signup />}></Route>
       <Route path='/store' element={<Store />}></Route>
+      <Route path='/store/:goodsId' element={<StoreDetail />}></Route>
       <Route path='community' element={<Navigate replace to='free' />} />
       <Route path='community' element={<Community></Community>}>
         <Route path='free' element={<Articles />}></Route>
