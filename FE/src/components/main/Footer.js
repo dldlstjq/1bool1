@@ -8,7 +8,7 @@ import {  Container, Grid, } from '@mui/material';
 function Footer() {
   return (
     // <div style={{ background:'#F93D5933'}}>
-    <div style={{ background:'#ffe2e180', marginTop: 'auto'}}>
+    <div style={{ background:'#ffe2e180', marginTop: '3rem'}}>
       <Container >
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
