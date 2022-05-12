@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -111,82 +112,107 @@ public class GoodsServiceImpl implements GoodsService{
 
     @Override
     public List<Goods> findGoodsByConvinenceEvent(GoodsDto.GoodsEventGetRequest goodsEventGetRequest){
-        String convinenceName = goodsEventGetRequest.getConvinenceName();
-        StringTokenizer tk = new StringTokenizer(convinenceName,"_");
-        List<Goods> list = new ArrayList<Goods>();
-        String event = goodsEventGetRequest.getEvent();
-        StringTokenizer tkevent = new StringTokenizer(event,"_");
-        String goodsName = goodsEventGetRequest.getGoods();
-        ArrayList<String> e = new ArrayList<>();
-        ArrayList<String> c = new ArrayList<>();
-        int size = tk.countTokens();
-        for(int i = 0; i < size;i++){
-            c.add(tk.nextToken());
+        List<Goods> list;
+        if(goodsEventGetRequest.getGoods().equals("0")) {
+            list = goodsRepository.findAll();
         }
-        if(convinenceName.equals("all")){
-            if(event.equals("0")) {
-                if (goodsName.equals("0")) {
-                    for (int i = 0; i < size; i++) {
-                        list.addAll(goodsRepository.findAll());
-                    }
-                }else{
-                    for (int i = 0; i < size; i++) {
-                        list.addAll(goodsRepository.findByNameContaining(goodsName));
-                    }
-                }
-            }else if(goodsName.equals("0")) {
-                int eventSize = tkevent.countTokens();
-                for (int i = 0; i < eventSize; i++) {
-                    e.add(tkevent.nextToken()); //이벤트 이름들
-                }
-                for (int i = 0; i < size; i++) {
-                    for (int j = 0; j < eventSize; j++) {
-                        list.addAll(goodsRepository.findByEvent(Integer.parseInt(e.get(j))));
-                    }
-                }
-            }else{
-                int eventSize = tkevent.countTokens();
-                for (int i = 0; i < eventSize; i++) {
-                    e.add(tkevent.nextToken()); //이벤트 이름들
-                }
-                for (int i = 0; i < size; i++) {
-                    for (int j = 0; j < eventSize; j++) {
-                        list.addAll(goodsRepository.findByEventAndNameContaining(Integer.parseInt(e.get(j)), goodsName));
-                    }
-                }
-            }
-        }else {
-            if (event.equals("0")) {
-                if (goodsName.equals("0")) {
-                    for (int i = 0; i < size; i++) {
-                        list.addAll(goodsRepository.findByConvinence(c.get(i)));
-                    }
-                } else {
-                    for (int i = 0; i < size; i++) {
-                        list.addAll(goodsRepository.findByConvinenceAndNameContaining(c.get(i), goodsName));
-                    }
-                }
-            } else if (goodsName.equals("0")) {
-                int eventSize = tkevent.countTokens();
-                for (int i = 0; i < eventSize; i++) {
-                    e.add(tkevent.nextToken()); //이벤트 이름들
-                }
-                for (int i = 0; i < size; i++) {
-                    for (int j = 0; j < eventSize; j++) {
-                        list.addAll(goodsRepository.findByConvinenceAndEvent(c.get(i), Integer.parseInt(e.get(j))));
-                    }
-                }
-            } else {
-                int eventSize = tkevent.countTokens();
-                for (int i = 0; i < eventSize; i++) {
-                    e.add(tkevent.nextToken()); //이벤트 이름들
-                }
-                for (int i = 0; i < size; i++) {
-                    for (int j = 0; j < eventSize; j++) {
-                        list.addAll(goodsRepository.findByConvinenceAndEventAndNameContaining(c.get(i), Integer.parseInt(e.get(j)), goodsName));
+        else{
+            list = goodsRepository.findByNameContaining(goodsEventGetRequest.getGoods());
+        }
+        List<Goods> ans = new ArrayList<Goods>();
+        String convinenceName = goodsEventGetRequest.getConvinenceName();
+        String event = goodsEventGetRequest.getEvent();
+        String goodsName = goodsEventGetRequest.getGoods();
+        StringTokenizer tk = new StringTokenizer(convinenceName,"_");
+        StringTokenizer tkevent = new StringTokenizer(event,"_");
+        int size = tk.countTokens();
+        int eventSize = tkevent.countTokens();
+        int [] eve = new int[eventSize];
+        String[] con = new String[size];
+        for(int j = 0; j < eventSize; j++) {
+            eve[j] = Integer.parseInt(tkevent.nextToken());
+        }
+        for(int j = 0; j < size; j++) {
+            con[j] = tk.nextToken();
+        }
+
+
+        if(convinenceName.equals("all") && event.equals("0") && goodsName.equals("0")){
+            return list;
+        }
+
+        if(convinenceName.equals("all") && event.equals("0") && !goodsName.equals("0")){
+            return list;
+        }
+
+        if(convinenceName.equals("all") && !event.equals("0") && goodsName.equals("0")){
+            for(int j = 0; j < eventSize; j++) {
+                for (int i = 0; i < list.size(); i++) {
+                    if(list.get(i).getEvent() == (eve[j])) {
+                        ans.add(list.get(i));
                     }
                 }
             }
+            return ans;
+        }
+
+        if(convinenceName.equals("all") && !event.equals("0") && !goodsName.equals("0")){
+            for(int j = 0; j < eventSize; j++) {
+                for (int i = 0; i < list.size(); i++) {
+                    if(list.get(i).getEvent() == (eve[j]))
+                    {
+                        ans.add(list.get(i));
+                    }
+                }
+            }
+            return ans;
+        }
+
+        if(!convinenceName.equals("all") && event.equals("0") && goodsName.equals("0")){
+            for(int k = 0; k < size; k++) {
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i).getConvinence().toUpperCase().equals(con[k].toUpperCase())) {
+                        ans.add(list.get(i));
+                    }
+                }
+            }
+            return ans;
+        }
+
+        if(!convinenceName.equals("all") && !event.equals("0") && goodsName.equals("0")){
+            for(int k = 0; k < size; k++) {
+                for (int j = 0; j < eventSize; j++) {
+                    for (int i = 0; i < list.size(); i++) {
+                        if (list.get(i).getEvent() == eve[j] && list.get(i).getConvinence().toUpperCase().equals(con[k].toUpperCase())) {
+                            ans.add(list.get(i));
+                        }
+                    }
+                }
+            }
+            return ans;
+        }
+
+        if(!convinenceName.equals("all") && event.equals("0") && !goodsName.equals("0")){
+            for(int k = 0; k < size; k++) {
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i).getConvinence().toUpperCase().equals(con[k].toUpperCase())) {
+                        ans.add(list.get(i));
+                    }
+                }
+            }
+            return ans;
+        }
+        if(!convinenceName.equals("all") && !event.equals("0") && !goodsName.equals("0")){
+            for(int k = 0; k < size; k++) {
+                for (int j = 0; j < eventSize; j++) {
+                    for (int i = 0; i < list.size(); i++) {
+                        if (list.get(i).getEvent() == eve[j] && list.get(i).getConvinence().toUpperCase().equals(con[k].toUpperCase())) {
+                            ans.add(list.get(i));
+                        }
+                    }
+                }
+            }
+            return ans;
         }
         return list;
     }
