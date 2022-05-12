@@ -6,11 +6,22 @@ import { useParams } from "react-router-dom";
 
 import { BASE_URL } from "../../..";
 import Step from "./Step";
+import Star from "../common/Star";
 
 function Detail() {
   const { recipeId } = useParams();
   const [recipe, setrecipe] = useState({});
-  const { photo, title, nickname, password, modifiedDate, content } = recipe;
+  const {
+    photo,
+    title,
+    nickname,
+    password,
+    modifiedDate,
+    content,
+    star,
+    minute,
+    description,
+  } = recipe;
   const re = /(?<=step\d:).+?(?=,step\d)/g;
   const steps = content?.match(re);
   console.log(steps);
@@ -47,17 +58,11 @@ function Detail() {
       </div>
       <div className="inline-block w-1/2">
         난이도
-        <span className="inline-block w-4">
-          <img src="/star.png" alt="" />
-        </span>
-        <span className="inline-block w-4">
-          <img src="/star.png" alt="" />
-        </span>
-        <span className="inline-block w-4">
-          <img src="/star.png" alt="" />
-        </span>
+        {[...Array(star)].map((e, i) => (
+          <Star key={i} />
+        ))}
       </div>
-      소요시간 : 100분
+      소요시간 : {minute}분
       <div id="main" className="mt-10 border-t border-stone-400">
         {steps?.map((step, idx) => (
           <Step key={idx} step={step} img={photos[idx + 1]} />
