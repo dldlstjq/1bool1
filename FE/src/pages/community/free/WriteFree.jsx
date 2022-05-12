@@ -13,8 +13,6 @@ import { axiosRequest } from "../common/functions";
 
 export default function WriteFree() {
   const navigate = useNavigate();
-  // const formData = useFetchIfUpdate(`board/${articleId}`, Boolean(articleId));
-  // const { nickname, password, content, title } = formData;
 
   const [init, setInit] = useInputs({
     id: "",
@@ -29,7 +27,7 @@ export default function WriteFree() {
     if (state) {
       setInit(state);
     }
-  }, []);
+  }, [setInit, state]);
 
   async function submit(e) {
     // put or post
