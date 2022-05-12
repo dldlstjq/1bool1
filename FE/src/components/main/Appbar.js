@@ -159,14 +159,14 @@ function Appbar() {
                 </Link>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-                <Link to='/' style={{ textDecoration: 'none' }}>
+                <Link to='/community/recipe' style={{ textDecoration: 'none' }}>
                   <Button style={{ color: 'black', fontSize: '1rem', fontWeight: 'bold' }}>
                     레시피
                   </Button>
                 </Link>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-                <Link to='/' style={{ textDecoration: 'none' }}>
+                <Link to='/community' style={{ textDecoration: 'none' }}>
                   <Button style={{ color: 'black', fontSize: '1rem', fontWeight: 'bold' }}>
                     커뮤니티
                   </Button>
@@ -208,7 +208,7 @@ function Appbar() {
               </Button>
             </Link>
             <Link
-              to='/'
+              to='/community/recipe'
               style={{
                 textDecoration: 'none',
                 marginRight: '2rem',
