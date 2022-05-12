@@ -5,11 +5,16 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 import { BASE_URL } from "../../..";
+import Step from "./Step";
 
 function Detail() {
   const { recipeId } = useParams();
   const [recipe, setrecipe] = useState({});
   const { photo, title, nickname, password, modifiedDate, content } = recipe;
+  const re = /(?<=step\d:).+?(?=,step\d)/g;
+  const steps = content?.match(re);
+  console.log(steps);
+
   const photos = photo?.split(",");
   useEffect(() => {
     axios({
@@ -22,6 +27,7 @@ function Detail() {
       })
       .catch((err) => console.log(err));
   }, [recipeId]);
+
   return (
     <div>
       <img src={photos && photos[0]} alt="" />
@@ -53,7 +59,9 @@ function Detail() {
       </div>
       소요시간 : 100분
       <div id="main" className="mt-10 border-t border-stone-400">
-        {content}
+        {steps?.map((step, idx) => (
+          <Step key={idx} step={step} img={photos[idx + 1]} />
+        ))}
       </div>
     </div>
   );

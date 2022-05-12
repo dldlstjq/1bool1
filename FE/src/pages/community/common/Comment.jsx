@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { DeleteOrUpdate } from "./DeleteOrUpdate";
 
 import {} from "./functions";
 
@@ -27,7 +28,13 @@ function Comment(props) {
         </div>
       </div>
       <div id="comment-content">{content}</div>
-      {/* <Delete setPw={setCommentPw} /> */}
+      <DeleteOrUpdate
+        setPw={setCommentPw}
+        inputPw={commentPw}
+        url={"comment/" + boardId}
+        id={id}
+        pw={password}
+      />
     </div>
   );
 }
