@@ -6,7 +6,7 @@ import {
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 import axios from "axios";
 import { BASE_URL } from "../../..";
@@ -16,32 +16,22 @@ import { Pagination } from "../common/Pagination";
 import { Searchbar, useSearchBar } from "../common/Searchbar";
 import Popover from "../common/Popover";
 import { articleOptions } from "../common/Searchbar";
-import { useFetch } from "../common/hooks";
+import { useFetchPage } from "../common/hooks";
 
 function Articles() {
+  // console.log("articles render");
   const [popover, setPopover] = useState(false);
   const [coord, setCoord] = useState([0, 0]);
-  // const [articles, setArticles] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
+  const [size, setSize] = useState(10);
 
   const [filter, setFilter] = useState({ category: "title", content: "" });
   const { category, content } = filter;
 
   const navigate = useNavigate();
-  const page = searchParams.get("page");
+  const page = searchParams.get("page") ? searchParams.get("page") - 1 : 0;
 
-  // useEffect(() => {
-  //   axios({
-  //     method: "get",
-  //     url: BASE_URL + "board",
-  //     params: { page: page - 1, size: 5 },
-  //   })
-  //     .then((res) => {
-  //       if (res.data.object?.length > 0) setArticles(res.data.object);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, [page]);
-  const articles = useFetch("board", page, 10);
+  const articles = useFetchPage("board", page, size);
 
   function handleClick({ target, clientX, clientY }) {
     // console.log(target);
@@ -52,6 +42,9 @@ function Articles() {
       setPopover(true);
     } else {
       setPopover(false);
+    }
+    if (target.matches("#write")) {
+      navigate("write");
     }
   }
 
@@ -67,11 +60,28 @@ function Articles() {
           여러 모험가님들과 다양한 주제에 대해 자유롭게 소통하는 공간입니다.
         </span>
       </>
-
-      <Link className="head write-btn" to="/community/free/write">
-        글쓰기
-      </Link>
-
+      <div className="grid grid-cols-2 gap-2 mt-10">
+        <button
+          className="h-10 border-b border-slate-300 bg-slate-100 sm:col-span-2"
+          id="write"
+        >
+          글쓰기
+        </button>
+        <select
+          name="order"
+          id="order"
+          className="h-10 border-b border-slate-300 bg-slate-100 text-center lg:col-span-2"
+          onChange={(e) => setSize(e.target.value)}
+        >
+          <option value="">목록개수</option>
+          <option value="10"> 10 </option>
+          <option value="20"> 20 </option>
+          <option value="30"> 30 </option>
+          <option value="40"> 40 </option>
+          <option value="50"> 50 </option>
+          <option value="100"> 100 </option>
+        </select>
+      </div>
       <div className="head">
         <input
           type="radio"
@@ -137,7 +147,7 @@ function Articles() {
 
       <ul>
         {articles
-          .filter((article) => {
+          ?.filter((article) => {
             return article[category].search(content) > -1;
           })
           .map(({ id, title, nickname, password, modifiedDate }) => {

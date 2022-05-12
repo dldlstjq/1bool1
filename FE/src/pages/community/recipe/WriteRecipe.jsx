@@ -1,14 +1,27 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 import { Searchbar } from "../common/Searchbar";
 import { storeOptions } from "../common/Searchbar";
+import Step from "./Write/Step";
 
 function WriteRecipe() {
   const [filter, setFilter] = useState({ category: "cu", content: "" });
+  const [steps, setSteps] = useState([1]);
+  const [dialog, setDialog] = useState(false);
+
+  const handleCancel = useCallback(() => {
+    setDialog(true);
+  }, []);
 
   return (
     <div>
+      <dialog open={dialog}>
+        <p>Greetings, one and all!</p>
+        <form method="dialog">
+          <button onClick={() => setDialog(false)}>OK</button>
+        </form>
+      </dialog>
       <h1 className="text-xl text-center my-8">| 레시피 등록 |</h1>
       <div className="grid grid-cols-2 gap-2 border-b border-slate-300 p-4 bg-green-100 ">
         <input
@@ -37,8 +50,40 @@ function WriteRecipe() {
         </select>
       </div>
       <div className="bg-green-200 p-4">
-        <h1 className="text-gray-500 text-center">재료</h1>
+        <h1 className="text-lg">재료</h1>
         <Searchbar options={storeOptions} setFilter={setFilter} />
+      </div>
+      <div className=" p-4 bg-green-100 ">
+        <h1 className="text-lg">요리순서</h1>
+        {Array.from(steps, (x) => (
+          <Step step={x} key={x} />
+        ))}
+        <button
+          className="h-10 w-20 mt-5 bg-lime-500 rounded text-white"
+          onClick={() => setSteps([...steps, steps.length + 1])}
+        >
+          Step 추가
+        </button>
+        <button
+          className="h-10 w-20 mt-5 bg-red-500 rounded text-white ml-2"
+          onClick={() => setSteps(steps.slice(0, -1))}
+        >
+          Step 제거
+        </button>
+      </div>
+      <div className="flex gap-2 mt-5">
+        <button
+          className="h-10  bg-lime-500 rounded text-white w-1/2"
+          type="submit"
+        >
+          작성완료
+        </button>
+        <button
+          className="h-10  bg-red-500 rounded text-white w-1/2"
+          onClick={handleCancel}
+        >
+          취소
+        </button>
       </div>
     </div>
   );

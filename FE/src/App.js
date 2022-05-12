@@ -37,11 +37,6 @@ function App() {
         <Route path="recipe/:recipeId" element={<RecipeDetail />} />
         <Route path="recipe/write" element={<WriteRecipe />} />
       </Route>
-      <Route path="" element={<Main></Main>} />
-      <Route path="/store" element={<Store />}></Route>
-      <Route path="/store:word" element={<Store />}></Route>
-      <Route path="signin" element={<Kakao />}></Route>
-      <Route path="signup" element={<Signup />}></Route>
     </Routes>
   );
 }

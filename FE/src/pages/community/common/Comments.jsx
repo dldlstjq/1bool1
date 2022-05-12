@@ -40,7 +40,7 @@ const Comments = React.forwardRef(({ comments, handleCommentSubmit }, ref) => {
           등록
         </button>
       </form>
-      {comments.map(({ content, nickname, password, id, boardId }, idx) => (
+      {comments?.map(({ content, nickname, password, id, boardId }, idx) => (
         <Comment
           key={idx}
           content={content}

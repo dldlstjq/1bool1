@@ -1,24 +1,52 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BASE_URL } from "../../..";
 
 import axios from "axios";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useFetchIfUpdate, useInputs } from "../common/hooks";
+import { axiosRequest } from "../common/functions";
+
+// 수정을 위해 useEffect 사용하여 데이타를 가져와 state에 저장 -> input들에 반영.
+// useEffect 내에서 조건문으로 수정이면 요청, 처음이면 리턴
 
 export default function WriteFree() {
   const navigate = useNavigate();
+  // const formData = useFetchIfUpdate(`board/${articleId}`, Boolean(articleId));
+  // const { nickname, password, content, title } = formData;
 
-  function submit(e) {
+  const [init, setInit] = useInputs({
+    id: "",
+    nickname: "",
+    password: "",
+    title: "",
+    content: "",
+  });
+
+  const { state } = useLocation();
+  useEffect(() => {
+    if (state) {
+      setInit(state);
+    }
+  }, []);
+
+  async function submit(e) {
+    // put or post
     e.preventDefault();
     const data = new FormData(e.target);
-    axios({
-      method: "post",
-      url: BASE_URL + "board",
-      data,
-    }).then(navigate("/community/free"));
+
+    if (state) {
+      data.append("id", init.id);
+      await axiosRequest("board", "put", null, data);
+      setTimeout(() => navigate("/community/free"), 1000);
+    } else {
+      await axiosRequest("board", "post", null, data);
+      setTimeout(() => navigate("/community/free"), 1000);
+    }
   }
 
+  function handleChange(e) {}
   return (
     <div className="grid grid-cols-2 gap-4">
       <select className="nav-controller select col-span-2 h-16">
@@ -36,7 +64,9 @@ export default function WriteFree() {
           className="h-16 border border-slate-300 px-4 col-span-2"
           placeholder="제목을 입력해주세요"
           name="title"
+          value={init.title}
           required
+          onChange={setInit}
         />
 
         <input
@@ -45,6 +75,8 @@ export default function WriteFree() {
           name="nickname"
           className="h-16 border border-slate-300"
           required
+          value={init.nickname}
+          onChange={setInit}
         />
         <input
           type="password"
@@ -52,6 +84,8 @@ export default function WriteFree() {
           name="password"
           className="h-16 border border-slate-300"
           required
+          value={init.password}
+          onChange={setInit}
         />
         <textarea
           cols="30"
@@ -60,6 +94,8 @@ export default function WriteFree() {
           name="content"
           placeholder="내용"
           required
+          value={init.content}
+          onChange={setInit}
         ></textarea>
         <input
           type="file"

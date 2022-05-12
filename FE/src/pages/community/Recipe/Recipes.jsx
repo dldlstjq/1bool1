@@ -8,27 +8,18 @@ import { BASE_URL } from "../../..";
 
 import { Searchbar, articleOptions } from "../common/Searchbar";
 import { Pagination } from "../common/Pagination";
-import { useFetch } from "../common/hooks";
+import { useFetchPage } from "../common/hooks";
 
 function Recipes() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
   const [filter, setFilter] = useState({ category: "title", content: "" });
+  const [size, setSize] = useState(10);
   const { category, content } = filter;
 
-  const page = searchParams.get("page");
+  const page = searchParams.get("page") ? searchParams.get("page") - 1 : 0;
 
-  const recipes = useFetch("recipe", page, 10);
-
-  // useEffect(() => {
-  //   axios({
-  //     method: "get",
-  //     url: BASE_URL + "recipe",
-  //     params: { page: page - 1, size: 5 },
-  //   }).then((res) => {
-  //     if (res.data.object?.length) setrecipes(res.data.object);
-  //   });
-  // }, [page]);
+  const recipes = useFetchPage("recipe", page, size);
 
   function handleClick({ target }) {
     if (target.matches(".main-photo") || target.matches(".keep-all")) {
@@ -59,12 +50,17 @@ function Recipes() {
           name="order"
           id="order"
           className="h-10 border-b border-slate-300 bg-slate-100 text-center lg:col-span-2"
+          onChange={(e) => setSize(e.target.value)}
         >
-          <option value="recent"> 최신순 </option>
-          <option value="popular"> 인기순 </option>
+          <option value="">목록개수</option>
+          <option value="10"> 10개씩 </option>
+          <option value="20"> 20개씩 </option>
+          <option value="30"> 30개씩 </option>
+          <option value="40"> 40개씩 </option>
+          <option value="50"> 50개씩 </option>
         </select>
         {recipes
-          .filter((recipe) => {
+          ?.filter((recipe) => {
             return recipe[category]?.search(content) > -1;
           })
           .map((data, idx) => {

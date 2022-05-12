@@ -1,6 +1,14 @@
+import { useState } from "react";
+
+import {} from "./functions";
+
+// import { Delete } from "./DeleteOrUpdate";
+
 /* eslint-disable no-unused-vars */
 function Comment(props) {
   const { content, nickname, password, id, boardId } = props;
+  const [commentPw, setCommentPw] = useState("");
+
   return (
     <div className="p-1 border border-stone-300">
       <div className="flex justify-between">
@@ -19,9 +27,7 @@ function Comment(props) {
         </div>
       </div>
       <div id="comment-content">{content}</div>
-      <div id="comment-date" className="text-slate-500">
-        2022-05-02 11:39 -- 데이타에 없어요
-      </div>
+      {/* <Delete setPw={setCommentPw} /> */}
     </div>
   );
 }

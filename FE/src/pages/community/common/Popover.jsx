@@ -2,7 +2,6 @@
 import { Link } from "react-router-dom";
 
 function Popover({ x, y, children }) {
-  console.log(x);
   return (
     <div
       className="popover"
