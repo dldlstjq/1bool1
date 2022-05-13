@@ -12,21 +12,13 @@ import { useFetchIfUpdate, useInputs } from "../common/hooks";
 
 export default function WriteFree() {
   const navigate = useNavigate();
-
-  const [init, setInit] = useInputs({
-    id: "",
-    nickname: "",
-    password: "",
-    title: "",
-    content: "",
-  });
-
   const { state } = useLocation();
-  useEffect(() => {
-    if (state) {
-      setInit(state);
-    }
-  }, [setInit, state]);
+  let id = "",
+    nickname = "",
+    password = "",
+    title = "",
+    content = "";
+  if (state) ({ id, nickname, password, title, content } = state);
 
   function submit(e) {
     // put or post
@@ -34,7 +26,7 @@ export default function WriteFree() {
     const data = new FormData(e.target);
     let method = "post";
     if (state) {
-      data.append("id", init.id);
+      data.append("id", id);
       method = "put";
     }
     axios({
@@ -50,7 +42,7 @@ export default function WriteFree() {
   return (
     <div className="grid grid-cols-2 gap-4">
       <select className="nav-controller select col-span-2 h-16">
-        <option value="">자유 게시판</option>
+        <option defaultValue="">자유 게시판</option>
       </select>
       <form
         action={BASE_URL + "board"}
@@ -64,9 +56,8 @@ export default function WriteFree() {
           className="h-16 border border-slate-300 px-4 col-span-2"
           placeholder="제목을 입력해주세요"
           name="title"
-          value={init.title}
+          defaultValue={title}
           required
-          onChange={setInit}
         />
 
         <input
@@ -75,8 +66,7 @@ export default function WriteFree() {
           name="nickname"
           className="h-16 border border-slate-300"
           required
-          value={init.nickname}
-          onChange={setInit}
+          defaultValue={nickname}
         />
         <input
           type="password"
@@ -84,8 +74,7 @@ export default function WriteFree() {
           name="password"
           className="h-16 border border-slate-300"
           required
-          value={init.password}
-          onChange={setInit}
+          defaultValue={password}
         />
         <textarea
           cols="30"
@@ -94,8 +83,7 @@ export default function WriteFree() {
           name="content"
           placeholder="내용"
           required
-          value={init.content}
-          onChange={setInit}
+          defaultValue={content}
         ></textarea>
         <input
           type="file"

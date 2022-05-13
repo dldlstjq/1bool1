@@ -1,27 +1,29 @@
 /* eslint-disable no-unused-vars */
-function Recipe({ data }) {
-  const photos = data.photo?.split(",");
+function Recipe({ recipe }) {
+  const { id, title, photo, nickname, minute, star } = recipe;
+
+  const photos = photo?.split(",");
   return (
-    <div className="">
+    <div className="text-center">
       <img
         src={photos && photos[0]}
         alt=""
-        id={data.id}
-        className="main-photo"
+        id={id}
+        className="main-photo w-2/3 mx-auto"
       />
-      <h1 className="text-center keep-all" id={data.id}>
-        {data.nickname}님의 {data.title}
+      <h1 className="text-center keep-all" id={id}>
+        {nickname}님의 {title}
       </h1>
-      <p className="text-center">평가:10/10</p>
+      {/* <p className="text-center">평가:10/10</p> */}
       <div className="flex justify-center">
         <div className="w-7">
-          <img src="/level.png" alt="" className="" />
+          <img src="/images/level.png" alt="" className="" />
         </div>
-        초급
+        {star}
         <div className="w-5 ml-3">
-          <img src="/clock.png" alt="" className="" />
+          <img src="/images/clock.png" alt="" className="" />
         </div>
-        30분
+        {minute}
       </div>
     </div>
   );

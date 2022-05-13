@@ -13,27 +13,17 @@ import IngredientSelect from "./IngredientSelect";
 function WriteRecipe() {
   const [dialog, setDialog] = useState(false);
   const [selected, setSelected] = useState([]);
-  const [inputs, setInputs] = useInputs({
-    content: "",
-    description: "",
-    file: "",
-    goodsId: "",
-    minute: "",
-    nickname: "",
-    password: "",
-    star: "",
-    title: "",
-  });
   const navi = useNavigate();
   const { state } = useLocation();
-  const { content, description, minute, nickname, password, star, title } =
-    inputs;
-
-  useEffect(() => {
-    if (state) {
-      setInputs(state);
-    }
-  }, [setInputs, state]);
+  let content = "",
+    description = "",
+    minute = "",
+    nickname = "",
+    password = "",
+    star = "",
+    title = "";
+  if (state)
+    ({ content, description, minute, nickname, password, star, title } = state);
 
   const handleCancel = useCallback(() => {
     navi("/community/recipe");
@@ -86,7 +76,6 @@ function WriteRecipe() {
         description={description}
         minute={minute}
         star={star}
-        setInputs={setInputs}
         title={title}
       />
 

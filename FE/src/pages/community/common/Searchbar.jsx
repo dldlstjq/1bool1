@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useRef, useState } from "react";
 
-export function Searchbar({ setFilter, options }) {
+export function Searchbar({ applyFilter, options }) {
   const buttonRef = useRef();
   const imgRef = useRef();
   const [inputs, setinputs] = useState({ category: "title", content: "" });
@@ -47,13 +47,13 @@ export function Searchbar({ setFilter, options }) {
           value={inputs.content}
           onChange={handleChange}
           onKeyDown={(e) => {
-            if (e.key === "Enter") setFilter(inputs);
+            if (e.key === "Enter") applyFilter(inputs);
           }}
         />
         <button
           className="h-12 w-12 md:h-14 md:w-14 absolute right-0"
           ref={buttonRef}
-          onClick={() => setFilter(inputs)}
+          onClick={() => applyFilter(inputs)}
         >
           <img src="/images/search.png" alt="" ref={imgRef} />
         </button>

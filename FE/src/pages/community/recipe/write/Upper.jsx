@@ -1,13 +1,5 @@
 /* eslint-disable no-unused-vars */
-function Upper({
-  nickname,
-  password,
-  description,
-  minute,
-  star,
-  setInputs,
-  title,
-}) {
+function Upper({ nickname, password, description, minute, star, title }) {
   return (
     <>
       <h1 className="text-xl text-center my-8">| 레시피 등록 |</h1>
@@ -15,15 +7,15 @@ function Upper({
         <input
           type="text"
           name="nickname"
-          value={nickname}
-          onChange={setInputs}
+          defaultValue={nickname}
+          // onChange={setInputs}
           required
         />
         <input
           type="password"
           name="password"
-          value={password}
-          onChange={setInputs}
+          defaultValue={password}
+          // onChange={setInputs}
           required
         />
         <input
@@ -31,36 +23,36 @@ function Upper({
           className=" bg-slate-200 border border-slate-300 h-12 rounded col-span-2 focus:bg-white"
           placeholder="레시피 제목"
           name="title"
-          value={title}
-          onChange={setInputs}
+          defaultValue={title}
+          // onChange={setInputs}
           required
         />
         <textarea
           name="description"
           className="bg-slate-200 border border-slate-300 h-24 rounded col-span-2 focus:bg-white"
           placeholder="요리소개"
-          value={description}
-          onChange={setInputs}
+          defaultValue={description}
+          // onChange={setInputs}
         ></textarea>
         <input
           type="text"
           className=" bg-slate-200 border border-slate-300 h-12 rounded focus:bg-white"
           placeholder="요리시간(분)"
           name="minute"
-          value={minute}
-          onChange={setInputs}
+          defaultValue={minute}
+          // onChange={setInputs}
         />
         <select
           className="text-slate-400 bg-slate-200 border border-slate-300 h-12 rounded focus:bg-white"
           placeholder="난이도"
           name="star"
-          value={star}
-          onChange={setInputs}
+          defaultValue={star}
+          // onChange={setInputs}
         >
-          <option value="">난이도</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
+          <option defaultValue="">난이도</option>
+          <option defaultValue="1">1</option>
+          <option defaultValue="2">2</option>
+          <option defaultValue="3">3</option>
         </select>
         메인사진
         <input type="file" name="file" required />

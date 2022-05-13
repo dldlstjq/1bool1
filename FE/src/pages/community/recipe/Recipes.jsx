@@ -12,7 +12,7 @@ import { useFetchPage } from "../common/hooks";
 function Recipes() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
-  const [filter, setFilter] = useState({ category: "title", content: "" });
+  const [filter, applyFilter] = useState({ category: "title", content: "" });
   const [size, setSize] = useState(10);
   const { category, content } = filter;
 
@@ -62,8 +62,8 @@ function Recipes() {
           ?.filter((recipe) => {
             return recipe[category]?.search(content) > -1;
           })
-          .map((data, idx) => {
-            return <Recipe key={idx} data={data} />;
+          .map((recipe, idx) => {
+            return <Recipe key={idx} recipe={recipe} />;
           })}
         <Pagination
           cols="col-span-2 sm:col-span-3 lg:col-span-4"
@@ -80,7 +80,7 @@ function Recipes() {
         </button>
       </div>
 
-      <Searchbar setFilter={setFilter} options={articleOptions} />
+      <Searchbar applyFilter={applyFilter} options={articleOptions} />
     </div>
   );
 }

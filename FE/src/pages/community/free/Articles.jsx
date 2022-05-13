@@ -25,7 +25,7 @@ function Articles() {
   const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
   const [size, setSize] = useState(10);
 
-  const [filter, setFilter] = useState({ category: "title", content: "" });
+  const [filter, applyFilter] = useState({ category: "title", content: "" });
   const { category, content } = filter;
 
   const navigate = useNavigate();
@@ -34,7 +34,6 @@ function Articles() {
   const articles = useFetchPage("board", page, size);
 
   function handleClick({ target, clientX, clientY }) {
-    // console.log(target);
     if (target.matches(".article-title")) {
       navigate(target.id);
     } else if (target.matches(".author")) {
@@ -174,7 +173,7 @@ function Articles() {
       <Link className="head write-btn" to="/community/free/write">
         글쓰기
       </Link>
-      <Searchbar setFilter={setFilter} options={articleOptions} />
+      <Searchbar applyFilter={applyFilter} options={articleOptions} />
       {popover && (
         <Popover x={coord[0]} y={coord[1]}>
           응응
