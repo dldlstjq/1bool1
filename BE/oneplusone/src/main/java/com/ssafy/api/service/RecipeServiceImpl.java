@@ -102,7 +102,6 @@ public class RecipeServiceImpl implements RecipeService{
                 }
                 recipeGoods.setRecipe(recipe);
                 recipeGoods.setGoods(goods);
-
                 recipeGoodsRepository.save(recipeGoods);
             }
         }
