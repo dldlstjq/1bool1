@@ -187,10 +187,10 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> modifyBoard(@PathVariable("id") Long id,@RequestParam("pw")String pw) {
+    public ResponseEntity<? extends BaseResponseBody> modifyBoard(@PathVariable("id") Long id,@RequestParam("password")String password) {
         BoardDto.BoardDeleteRequest dto = new BoardDto.BoardDeleteRequest();
         dto.setId(id);
-        dto.setPassword(pw);
+        dto.setPassword(password);
         if(boardService.removeBoard(dto)) {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         }else{

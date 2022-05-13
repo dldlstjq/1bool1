@@ -83,7 +83,7 @@ public class GoodsController {
     }
 
     @GetMapping("/convinence")
-    @ApiOperation(value = "해당 편의점 검색 결과 조회", notes = "<strong>검색된 편의점의 상품 목록을 가져온다.</strong>")
+    @ApiOperation(value = "해당 편의점 검색 결과 조회", notes = "<strong>cs = 시스페이스 , cu = CU , em = 이마트 , gs = GS25 , ms = 미니스톱, se = 세븐일레븐 </strong>")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),
@@ -234,7 +234,7 @@ public class GoodsController {
         }
     }
 
-    @GetMapping("/{convinenceName}/{event}/{goods}")
+    @GetMapping("/conGoods")
     @ApiOperation(value = "해당 편의점의 행사 상품을 가져온다", notes = "<strong>해당 편의점의 행사 상품을 가져온다</strong>")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -242,7 +242,7 @@ public class GoodsController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> findGoodsByConvinenceNameEvent(@PathVariable("convinenceName") String convinenceName, @PathVariable("event") String event,@PathVariable("goods") String goods) {
+    public ResponseEntity<? extends BaseResponseBody> findGoodsByConvinenceNameEvent(@RequestParam("convinenceName") String convinenceName, @RequestParam("event") String event,@RequestParam("goods") String goods) {
         GoodsDto.GoodsEventGetRequest dto = new GoodsDto.GoodsEventGetRequest();
         dto.setConvinenceName(convinenceName);
         dto.setEvent(event);

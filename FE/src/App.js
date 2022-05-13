@@ -27,7 +27,7 @@ function App() {
       <Route path="/" element={<Main></Main>} />
       <Route path="signin" element={<Kakao />}></Route>
       <Route path="signup" element={<Signup />}></Route>
-      <Route path="/store/:word" element={<Store />}></Route>
+      <Route path="/store" element={<Store />}></Route>
       <Route path="community" element={<Navigate replace to="free" />} />
       <Route path="community" element={<Community></Community>}>
         <Route path="free" element={<Articles />}></Route>

@@ -21,11 +21,11 @@ public class CommentDto {
     @Setter
     @ApiModel("CommentPostRequest")
     public static class CommentPostRequest {
-        @ApiModelProperty(name="내용", example="내용")
+        @ApiModelProperty(name="content", example="내용")
         String content;
-        @ApiModelProperty(name="닉네임", example="닉네임")
+        @ApiModelProperty(name="nickname", example="닉네임")
         String nickname;
-        @ApiModelProperty(name="비밀번호", example="a1234!@")
+        @ApiModelProperty(name="password", example="a1234!@")
         String password;
         @ApiModelProperty(name="board Id", example="1")
         Long boardId;

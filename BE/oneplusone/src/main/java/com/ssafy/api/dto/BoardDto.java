@@ -69,17 +69,17 @@ public class BoardDto {
     @Setter
     @ApiModel("BoardPutTempRequest")
     public static class BoardPutTempRequest {
-        @ApiModelProperty(name="id 값", example="1")
+        @ApiModelProperty(name="id", example="1")
         Long Id;
-        @ApiModelProperty(name="사진", example="사진")
+        @ApiModelProperty(name="file", example="사진")
         List<MultipartFile> file;
-        @ApiModelProperty(name="제목", example="제목")
+        @ApiModelProperty(name="title", example="제목")
         String title;
-        @ApiModelProperty(name="내용", example="내용")
+        @ApiModelProperty(name="content", example="내용")
         String content;
-        @ApiModelProperty(name="닉네임", example="닉네임")
+        @ApiModelProperty(name="nickname", example="닉네임")
         String nickname;
-        @ApiModelProperty(name="비밀번호", example="a1234!@")
+        @ApiModelProperty(name="password", example="a1234!@")
         String password;
 
     }
