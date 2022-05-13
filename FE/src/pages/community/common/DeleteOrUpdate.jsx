@@ -2,40 +2,35 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-import { axiosRequest } from "./functions";
-
 export function DeleteOrUpdate({
-  setPw,
-  pw,
-  inputPw,
+  setPassword,
+  password,
+  inputPassword,
   afterUrl,
   state,
-  id,
   updatePageUrl,
+  url,
+  params,
 }) {
   const navi = useNavigate();
 
   function handleDelete() {
-    if (inputPw === pw) {
-      axiosRequest(`board/${id}`, "delete", { pw }, null);
-      setTimeout(() => navi(afterUrl), 1000);
+    if (inputPassword === password) {
+      axios({
+        method: "delete",
+        url,
+        params,
+      })
+        .then(setTimeout(() => navi(afterUrl), 1000))
+        .catch((err) => console.log(err));
       return;
     }
     alert("비밀번호가 다릅니다");
   }
 
   function toUpdatePage() {
-    if (inputPw === pw) {
+    if (inputPassword === password) {
       navi(updatePageUrl, { state });
-      return;
-    }
-    alert("비밀번호가 다릅니다");
-  }
-
-  function handleUpdate() {
-    if (inputPw === pw) {
-      axiosRequest(`board`);
-      navi(afterUrl, { state });
       return;
     }
     alert("비밀번호가 다릅니다");
@@ -48,7 +43,7 @@ export function DeleteOrUpdate({
         className="bg-gray-700 text-white h-10"
         placeholder="비밀번호"
         name="articlePw"
-        onChange={(e) => setPw(e.target.value)}
+        onChange={(e) => setPassword(e.target.value)}
       />
       <button
         id="delete"

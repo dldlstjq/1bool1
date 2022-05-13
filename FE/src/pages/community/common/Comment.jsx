@@ -1,10 +1,6 @@
 import { useState } from "react";
 import { DeleteOrUpdate } from "./DeleteOrUpdate";
 
-import {} from "./functions";
-
-// import { Delete } from "./DeleteOrUpdate";
-
 /* eslint-disable no-unused-vars */
 function Comment(props) {
   const { content, nickname, password, id, boardId } = props;

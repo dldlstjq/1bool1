@@ -4,7 +4,7 @@ function Recipe({ data }) {
   return (
     <div className="">
       <img
-        src={photos && photos[1]}
+        src={photos && photos[0]}
         alt=""
         id={data.id}
         className="main-photo"

@@ -9,8 +9,6 @@ import axios from "axios";
 export const BASE_URL = "https://k6d207.p.ssafy.io/api/v1/";
 
 axios.defaults.baseURL = "https://k6d207.p.ssafy.io/api/v1/";
-axios.defaults.headers.post["Content-Type"] =
-  "application/x-www-form-urlencoded";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

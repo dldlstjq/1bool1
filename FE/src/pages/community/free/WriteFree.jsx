@@ -6,7 +6,6 @@ import axios from "axios";
 
 import { useNavigate, useLocation } from "react-router-dom";
 import { useFetchIfUpdate, useInputs } from "../common/hooks";
-import { axiosRequest } from "../common/functions";
 
 // 수정을 위해 useEffect 사용하여 데이타를 가져와 state에 저장 -> input들에 반영.
 // useEffect 내에서 조건문으로 수정이면 요청, 처음이면 리턴
@@ -34,14 +33,14 @@ export default function WriteFree() {
     e.preventDefault();
     const data = new FormData(e.target);
 
-    if (state) {
-      data.append("id", init.id);
-      await axiosRequest("board", "put", null, data);
-      setTimeout(() => navigate("/community/free"), 1000);
-    } else {
-      await axiosRequest("board", "post", null, data);
-      setTimeout(() => navigate("/community/free"), 1000);
-    }
+    if (state) data.append("id", init.id);
+    axios({
+      method: "put",
+      url: "board",
+      data,
+    })
+      .then(setTimeout(() => navigate("/community/free"), 1000))
+      .catch((err) => console.log(err));
   }
 
   function handleChange(e) {}

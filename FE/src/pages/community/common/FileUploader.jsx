@@ -1,7 +1,7 @@
 import React, { useRef, useState, useCallback } from "react";
 
 /* eslint-disable no-unused-vars */
-export const FileUploader = ({ step }) => {
+export const FileUploader = ({ content }) => {
   const fileInput = useRef(null);
   const [imageUrl, setImageUrl] = useState("/images/add.gif");
 
@@ -25,8 +25,10 @@ export const FileUploader = ({ step }) => {
   return (
     <div className="flex gap-2">
       <textarea
-        name={"desc" + step}
+        name="step"
         className="border-black h-40 grow resize-none"
+        defaultValue={content}
+        required
       ></textarea>
       <div className="inline-block h-40 w-40 cursor-pointer">
         <img
@@ -40,9 +42,10 @@ export const FileUploader = ({ step }) => {
         type="file"
         className="hidden"
         ref={fileInput}
-        accept="image/png, image/jpeg, image/gif"
+        accept=".png, .jpeg, .gif"
         onChange={handleFileChange}
-        name={"image" + step}
+        name="file"
+        required
       />
     </div>
   );

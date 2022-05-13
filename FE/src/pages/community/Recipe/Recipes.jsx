@@ -4,7 +4,6 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 
 import axios from "axios";
 import Recipe from "./Recipe";
-import { BASE_URL } from "../../..";
 
 import { Searchbar, articleOptions } from "../common/Searchbar";
 import { Pagination } from "../common/Pagination";

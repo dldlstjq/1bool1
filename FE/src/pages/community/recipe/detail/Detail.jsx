@@ -4,13 +4,18 @@ import axios from "axios";
 
 import { useParams } from "react-router-dom";
 
-import { BASE_URL } from "../../..";
+import { useFetchListAndUpdate } from "../../common/hooks";
+
 import Step from "./Step";
-import Star from "../common/Star";
+import Star from "../../common/Star";
+import Goods from "./Goods";
+import { DeleteOrUpdate } from "../../common/DeleteOrUpdate";
 
 function Detail() {
   const { recipeId } = useParams();
-  const [recipe, setrecipe] = useState({});
+  const [recipe, setRecipe] = useState({});
+  const [inputPassword, setInputPassword] = useState("");
+
   const {
     photo,
     title,
@@ -22,27 +27,27 @@ function Detail() {
     minute,
     description,
   } = recipe;
-  const re = /(?<=step\d:).+?(?=,step\d)/g;
-  const steps = content?.match(re);
-  console.log(steps);
+  const re = /(?<=<s>).+?(?=<s>)/g;
+  const steps = content && content?.match(re);
 
   const photos = photo?.split(",");
   useEffect(() => {
     axios({
       method: "get",
-      url: BASE_URL + "recipe/" + recipeId,
+      url: "recipe/" + recipeId,
     })
       .then((res) => {
-        console.log(res.data.object);
-        setrecipe(res.data.object);
+        setRecipe(res.data.object);
       })
       .catch((err) => console.log(err));
   }, [recipeId]);
 
+  const goods = useFetchListAndUpdate("recipe/goods/" + recipeId);
+
   return (
     <div>
       <img src={photos && photos[0]} alt="" />
-      <div className="flex justify-between mb-7">
+      <div className="flex justify-between mb-3">
         <div>
           <h1>{nickname}님의 </h1>
           <h1 className="keep-all font-bold text-xl mt-1">{title}</h1>
@@ -62,12 +67,25 @@ function Detail() {
           <Star key={i} />
         ))}
       </div>
-      소요시간 : {minute}분
-      <div id="main" className="mt-10 border-t border-stone-400">
+      소요시간 : {minute}분<p> 수정일자 {modifiedDate?.split(".")[0]}</p>
+      <div id="main" className="mt-5 border-t border-stone-400">
+        <h1 className="text-xl"> 이 요리는...</h1>
+        <p> {description}</p>
+        <Goods goods={goods} />
         {steps?.map((step, idx) => (
           <Step key={idx} step={step} img={photos[idx + 1]} />
         ))}
       </div>
+      <DeleteOrUpdate
+        setPassword={setInputPassword}
+        inputPassword={inputPassword}
+        afterUrl="/community/recipe"
+        params={{ nickname, password }}
+        password={password}
+        state={recipe}
+        updatePageUrl="/community/recipe/write"
+        url={`recipe/${recipeId}`}
+      />
     </div>
   );
 }

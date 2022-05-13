@@ -10,7 +10,6 @@ import axios from "axios";
 import Popover from "../common/Popover";
 import Comments from "../common/Comments";
 import { DeleteOrUpdate } from "../common/DeleteOrUpdate";
-import { axiosRequest } from "../common/functions";
 
 function Detail() {
   const { articleId } = useParams();
@@ -57,57 +56,11 @@ function Detail() {
         textareaRef.current.focus();
       }, 500);
     }
-    // if (target.matches("#delete")) {
-    //   if (articlePw === password) {
-    //     deleteReq(`board/${id}`, articlePw);
-    //     navi("/community/free");
-    //     return;
-    //   }
-    //   alert("비밀번호가 다릅니다");
-    // }
-    // if (target.matches("#update")) {
-    //   if (articlePw === password) {
-    //     navi("/community/free/write", {
-    //       state: {
-    //         articleId,
-    //         nickname,
-    //         password,
-    //         title,
-    //         content,
-    //       },
-    //     });
-    //     return;
-    //   }
-    //   alert("비밀번호가 다릅니다");
-    // }
   }
-
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-  //   console.log(e.target);
-  //   const method = "abc";
-  //   const data = new FormData(e.target);
-  //   if (data.get("password") !== password) {
-  //     alert("비밀번호가 다릅니다");
-  //     return;
-  //   }
-  //   axios({
-  //     method,
-  //     url: BASE_URL + "board/" + articleId,
-  //     data.append('boardId',articleId)
-  //     data: {
-  //       nickname: data.get("nickname"),
-  //       password: data.get("password"),
-  //       content: data.get("content"),
-  //       boardId: articleId,
-  //     },
-  //   });
-  // }
 
   function handleCommentSubmit(e) {
     e.preventDefault();
     const data = new FormData(e.target);
-    console.log("hi");
     axios({
       method: "post",
       url: BASE_URL + "comment/" + id,
@@ -121,20 +74,6 @@ function Detail() {
       .then(() => setInvokeUseEffect((prev) => prev + 1))
       .catch((err) => console.log(err));
   }
-
-  // async function handleCommentSubmit(e) {
-  //   e.preventDefault();
-  //   const data = new FormData(e.target);
-  //   data.append("boardId", id);
-  //   const res = await axiosRequest(
-  //     `comment/${id}`,
-  //     "post",
-  //     null,
-  //     data,
-  //     "application/json"
-  //   );
-  //   console.log(res);
-  // }
 
   return (
     <div onClick={handleClick} onWheel={() => setpopover(false)}>
@@ -186,13 +125,14 @@ function Detail() {
           </div>
         </div>
         <DeleteOrUpdate
-          setPw={setarticlePw}
-          inputPw={articlePw}
-          pw={password}
-          id={articleId}
+          setPassword={setarticlePw}
+          inputPassword={articlePw}
+          password={password}
+          url={"board/" + id}
           afterUrl="/community"
           updatePageUrl="/community/free/write"
           state={articleData}
+          params={{ password }}
         />
         <div className="flex justify-between">
           <span id="show-comments" className="cursor-pointer">
@@ -232,9 +172,8 @@ function Detail() {
         <Comments
           comments={comments}
           articleId={articleId}
-          ref={textareaRef}
-          handleCommentSubmit={handleCommentSubmit}
           boardId={id}
+          ref={textareaRef}
         />
       )}
 

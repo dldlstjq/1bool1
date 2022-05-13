@@ -25,30 +25,28 @@ export function useFetchItem(url) {
   useEffect(() => {
     axios({
       method: "get",
-      url: BASE_URL + url,
+      url,
     })
       .then((res) => {
         setData(res.data.object);
       })
       .catch((err) => console.log(err));
   }, [url]);
-  // console.log(data);
   return data;
 }
 
-export function useFetchListAndUpdate(url, updateFlag) {
+export function useFetchListAndUpdate(url, deps) {
   const [data, setData] = useState([]);
-
   useEffect(() => {
     axios({
       method: "get",
-      url: BASE_URL + url,
+      url,
     })
       .then((res) => {
         setData(res.data.object);
       })
       .catch((err) => console.log(err));
-  }, [url, updateFlag]);
+  }, deps || []);
   return data;
 }
 

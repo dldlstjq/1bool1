@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useRef, useReducer, useState } from "react";
+import { useRef, useState } from "react";
 
 export function Searchbar({ setFilter, options }) {
   const buttonRef = useRef();
