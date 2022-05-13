@@ -9,7 +9,7 @@ import { useFetchListAndUpdate } from "../../common/hooks";
 import Step from "./Step";
 import Star from "../../common/Star";
 import Goods from "./Goods";
-import { DeleteOrUpdate } from "../../common/DeleteOrUpdate";
+import { DeleteOrUpdate } from "./DeleteOrUpdate";
 
 function Detail() {
   const { recipeId } = useParams();

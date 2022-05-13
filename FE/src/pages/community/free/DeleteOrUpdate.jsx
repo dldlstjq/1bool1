@@ -1,27 +1,33 @@
 /* eslint-disable no-unused-vars */
+import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export function DeleteOrUpdate({
-  setPassword,
   password,
-  inputPassword,
   afterUrl,
   state,
   updatePageUrl,
   url,
   params,
+  refresh,
 }) {
+  const [inputPw, setInputPw] = useState("");
   const navi = useNavigate();
 
   function handleDelete() {
-    if (inputPassword === password) {
+    if (inputPw === password) {
       axios({
         method: "delete",
         url,
         params,
       })
-        .then(setTimeout(() => navi(afterUrl), 1000))
+        .then(() => {
+          if (afterUrl) setTimeout(() => navi(afterUrl), 1000);
+          else {
+            setTimeout(() => refresh((prev) => (prev += 1)), 1000);
+          }
+        })
         .catch((err) => console.log(err));
       return;
     }
@@ -29,7 +35,7 @@ export function DeleteOrUpdate({
   }
 
   function toUpdatePage() {
-    if (inputPassword === password) {
+    if (inputPw === password) {
       navi(updatePageUrl, { state });
       return;
     }
@@ -43,7 +49,7 @@ export function DeleteOrUpdate({
         className="bg-gray-700 text-white h-10"
         placeholder="비밀번호"
         name="articlePw"
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={(e) => setInputPw(e.target.value)}
       />
       <button
         id="delete"

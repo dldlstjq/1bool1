@@ -4,18 +4,17 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { useFetchItem, useFetchListAndUpdate } from "../common/hooks";
 
-import { BASE_URL } from "../../..";
 import axios from "axios";
 
 import Popover from "../common/Popover";
-import Comments from "../common/Comments";
-import { DeleteOrUpdate } from "../common/DeleteOrUpdate";
+import Comments from "../common/comment/Comments";
+import { DeleteOrUpdate } from "./DeleteOrUpdate";
 
 function Detail() {
   const { articleId } = useParams();
   const [popover, setpopover] = useState(false);
   const [showcomments, setshowcomments] = useState(true);
-  const [invokeUseEffect, setInvokeUseEffect] = useState(0);
+  const [foo, refresh] = useState(0);
   const [articlePw, setarticlePw] = useState("");
 
   const coordRef = useRef([0, 0]);
@@ -23,10 +22,7 @@ function Detail() {
   const navi = useNavigate();
 
   const articleData = useFetchItem(`board/${articleId}`);
-  const comments = useFetchListAndUpdate(
-    `comment/${articleId}`,
-    invokeUseEffect
-  );
+  const comments = useFetchListAndUpdate(`comment/${articleId}`, [foo]);
 
   const {
     title,
@@ -58,22 +54,22 @@ function Detail() {
     }
   }
 
-  function handleCommentSubmit(e) {
-    e.preventDefault();
-    const data = new FormData(e.target);
-    axios({
-      method: "post",
-      url: BASE_URL + "comment/" + id,
-      data: {
-        nickname: data.get("nickname"),
-        password: data.get("password"),
-        content: data.get("content"),
-        boardId: id,
-      },
-    })
-      .then(() => setInvokeUseEffect((prev) => prev + 1))
-      .catch((err) => console.log(err));
-  }
+  // function handleCommentSubmit(e) {
+  //   e.preventDefault();
+  //   const data = new FormData(e.target);
+  //   axios({
+  //     method: "post",
+  //     url: BASE_URL + "comment/" + id,
+  //     data: {
+  //       nickname: data.get("nickname"),
+  //       password: data.get("password"),
+  //       content: data.get("content"),
+  //       boardId: id,
+  //     },
+  //   })
+  //     .then(() => setInvokeUseEffect((prev) => prev + 1))
+  //     .catch((err) => console.log(err));
+  // }
 
   return (
     <div onClick={handleClick} onWheel={() => setpopover(false)}>
@@ -174,6 +170,8 @@ function Detail() {
           articleId={articleId}
           boardId={id}
           ref={textareaRef}
+          url={"/comment/" + id}
+          refresh={refresh}
         />
       )}
 
