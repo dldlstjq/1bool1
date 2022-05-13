@@ -54,23 +54,6 @@ function Detail() {
     }
   }
 
-  // function handleCommentSubmit(e) {
-  //   e.preventDefault();
-  //   const data = new FormData(e.target);
-  //   axios({
-  //     method: "post",
-  //     url: BASE_URL + "comment/" + id,
-  //     data: {
-  //       nickname: data.get("nickname"),
-  //       password: data.get("password"),
-  //       content: data.get("content"),
-  //       boardId: id,
-  //     },
-  //   })
-  //     .then(() => setInvokeUseEffect((prev) => prev + 1))
-  //     .catch((err) => console.log(err));
-  // }
-
   return (
     <div onClick={handleClick} onWheel={() => setpopover(false)}>
       <strong className="detail-title">{title}</strong>

@@ -10,11 +10,13 @@ import Step from "./Step";
 import Star from "../../common/Star";
 import Goods from "./Goods";
 import { DeleteOrUpdate } from "./DeleteOrUpdate";
+import Comments from "../../common/comment/Comments";
 
 function Detail() {
   const { recipeId } = useParams();
   const [recipe, setRecipe] = useState({});
   const [inputPassword, setInputPassword] = useState("");
+  const [foo, refresh] = useState(0);
 
   const {
     photo,
@@ -43,6 +45,7 @@ function Detail() {
   }, [recipeId]);
 
   const goods = useFetchListAndUpdate("recipe/goods/" + recipeId);
+  const comments = useFetchListAndUpdate("recipereview/" + recipeId, [foo]);
 
   return (
     <div>
@@ -85,6 +88,12 @@ function Detail() {
         state={recipe}
         updatePageUrl="/community/recipe/write"
         url={`recipe/${recipeId}`}
+      />
+      <Comments
+        url={"recipereview/" + recipeId}
+        comments={comments}
+        recipeId={recipeId}
+        refresh={refresh}
       />
     </div>
   );

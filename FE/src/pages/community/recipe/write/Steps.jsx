@@ -9,7 +9,7 @@ function Steps({ content }) {
     if (content) {
       const re = /(?<=<s>).+?(?=<s>)/g;
       const temp = content.match(re);
-      setStepContent(temp.concat(""));
+      setStepContent([...temp, ""]);
     }
   }, [content]);
 

@@ -12,22 +12,23 @@ function Comment({
   id,
   boardId,
   recipeId,
-  url,
   refresh,
 }) {
   const [inputMode, setInputMode] = useState(false);
+  const data = { id, nickname, password };
+  let url = "comment/" + boardId;
+  if (recipeId) {
+    url = "recipereview/" + recipeId;
+    data["recipeId"] = recipeId;
+  } else {
+    data["boardId"] = boardId;
+  }
   function handleSubmit(e) {
     if (e.key === "Enter") {
       axios({
         method: "put",
-        url: "comment/" + boardId,
-        data: {
-          boardId,
-          content: e.target.value,
-          id,
-          nickname,
-          password,
-        },
+        url,
+        data: { ...data, content: e.target.value },
       })
         .then(() => {
           setInputMode(false);
@@ -68,9 +69,10 @@ function Comment({
       <DeleteOrUpdate
         id={id}
         password={password}
-        boardId={boardId}
         setInputMode={setInputMode}
         refresh={refresh}
+        boardId={boardId}
+        recipeId={recipeId}
       />
     </div>
   );

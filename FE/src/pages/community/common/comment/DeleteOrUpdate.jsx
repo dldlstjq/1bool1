@@ -5,18 +5,20 @@ import { useNavigate } from "react-router-dom";
 
 export function DeleteOrUpdate({
   password,
-  boardId,
   id,
   refresh,
   setInputMode,
+  boardId,
+  recipeId,
 }) {
   const [inputPw, setInputPw] = useState("");
-
+  let url = "comment/" + boardId;
+  if (recipeId) url = "recipereview/" + recipeId;
   function handleDelete() {
     if (inputPw === password) {
       axios({
         method: "delete",
-        url: "comment/" + boardId,
+        url,
         params: { id, password },
       })
         .then(setTimeout(() => refresh((prev) => (prev += 1)), 1000))

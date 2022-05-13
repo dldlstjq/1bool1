@@ -26,16 +26,8 @@ function WriteRecipe() {
   });
   const navi = useNavigate();
   const { state } = useLocation();
-  const {
-    content,
-    description,
-    goodsId,
-    minute,
-    nickname,
-    password,
-    star,
-    title,
-  } = inputs;
+  const { content, description, minute, nickname, password, star, title } =
+    inputs;
 
   useEffect(() => {
     if (state) {

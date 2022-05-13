@@ -28,14 +28,17 @@ export default function WriteFree() {
     }
   }, [setInit, state]);
 
-  async function submit(e) {
+  function submit(e) {
     // put or post
     e.preventDefault();
     const data = new FormData(e.target);
-
-    if (state) data.append("id", init.id);
+    let method = "post";
+    if (state) {
+      data.append("id", init.id);
+      method = "put";
+    }
     axios({
-      method: "put",
+      method,
       url: "board",
       data,
     })
