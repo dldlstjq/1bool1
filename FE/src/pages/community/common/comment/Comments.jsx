@@ -1,32 +1,65 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useState, useRef } from "react";
 
 import axios from "axios";
 
 import Comment from "./Comment";
 
-const Comments = React.forwardRef(
-  ({ url, comments, boardId, recipeId, refresh }, ref) => {
-    function handleSubmit(e) {
-      e.preventDefault();
-      const form = new FormData(e.target);
-      const data = {};
-      for (var a of form.entries()) {
-        data[a[0]] = a[1];
-      }
-      if (boardId) data["boardId"] = boardId;
-      if (recipeId) data["recipeId"] = recipeId;
-      axios({
-        method: "post",
-        url,
-        data,
-      })
-        .then(setTimeout(() => refresh((prev) => (prev += 1)), 1000))
-        .catch((err) => console.log(err));
-    }
+import Upper from "./Upper";
 
-    return (
-      <>
+const Comments = ({ url, comments, boardId, recipeId, refresh }) => {
+  const [showComments, setShowComments] = useState(true);
+  const textareaRef = useRef();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const form = new FormData(e.target);
+    const data = {};
+    for (var a of form.entries()) {
+      data[a[0]] = a[1];
+    }
+    if (boardId) data["boardId"] = boardId;
+    if (recipeId) data["recipeId"] = recipeId;
+    axios({
+      method: "post",
+      url,
+      data,
+    })
+      .then(() => {
+        e.target.reset();
+        setTimeout(() => refresh((prev) => (prev += 1)), 1000);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  function handleClick(e) {
+    const { target, clientX, clientY } = e;
+    if (target.matches("#show-comments")) {
+      setShowComments((prev) => !prev);
+    }
+    // if (target.matches("#report")) {
+    //   coordRef.current = [clientX, clientY];
+    //   setpopover(true);
+    // } else {
+    //   setpopover(false);
+    // }
+    if (target.matches("#focus")) {
+      setShowComments(true);
+      setTimeout(() => {
+        textareaRef.current.focus();
+      }, 500);
+    }
+  }
+
+  return (
+    <>
+      <Upper
+        comments={comments}
+        setShowComments={setShowComments}
+        showComments={showComments}
+        handleClick={handleClick}
+      />
+      {showComments && (
         <form
           className="p-3 bg-stone-200 border border-stone-300 grid grid-cols-2 gap-2"
           onSubmit={handleSubmit}
@@ -37,7 +70,7 @@ const Comments = React.forwardRef(
             className="h-10"
             placeholder="닉네임"
             required
-            ref={ref}
+            ref={textareaRef}
           />
           <input
             type="password"
@@ -62,7 +95,9 @@ const Comments = React.forwardRef(
             등록
           </button>
         </form>
-        {comments?.map(
+      )}
+      {showComments &&
+        comments?.map(
           ({ content, nickname, password, id, boardId, recipeId }, idx) => (
             <Comment
               key={idx}
@@ -76,9 +111,8 @@ const Comments = React.forwardRef(
             />
           )
         )}
-      </>
-    );
-  }
-);
+    </>
+  );
+};
 
 export default Comments;

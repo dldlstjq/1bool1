@@ -18,7 +18,6 @@ function Detail() {
   const [articlePw, setarticlePw] = useState("");
 
   const coordRef = useRef([0, 0]);
-  const textareaRef = useRef();
   const navi = useNavigate();
 
   const articleData = useFetchItem(`board/${articleId}`);
@@ -35,27 +34,8 @@ function Detail() {
     createdDate,
   } = articleData;
 
-  function handleClick(e) {
-    const { target, clientX, clientY } = e;
-    if (target.matches("#show-comments")) {
-      setshowcomments((prev) => !prev);
-    }
-    if (target.matches("#report")) {
-      coordRef.current = [clientX, clientY];
-      setpopover(true);
-    } else {
-      setpopover(false);
-    }
-    if (target.matches("#focus")) {
-      setshowcomments((prev) => true);
-      setTimeout(() => {
-        textareaRef.current.focus();
-      }, 500);
-    }
-  }
-
   return (
-    <div onClick={handleClick} onWheel={() => setpopover(false)}>
+    <div onWheel={() => setpopover(false)}>
       <strong className="detail-title">{title}</strong>
       <div style={{ padding: "0.5rem 0", borderBottom: "1px solid #323232" }}>
         <div className="author-and-date">
@@ -113,7 +93,7 @@ function Detail() {
           state={articleData}
           params={{ password }}
         />
-        <div className="flex justify-between">
+        {/* <div className="flex justify-between">
           <span id="show-comments" className="cursor-pointer">
             <div className="mt-2" id="show-comments">
               {showcomments ? (
@@ -145,14 +125,13 @@ function Detail() {
               댓글
             </button>
           </div>
-        </div>
+              </div> */}
       </div>
       {showcomments && (
         <Comments
           comments={comments}
           articleId={articleId}
           boardId={id}
-          ref={textareaRef}
           url={"/comment/" + id}
           refresh={refresh}
         />
