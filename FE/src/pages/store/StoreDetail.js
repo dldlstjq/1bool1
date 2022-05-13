@@ -186,7 +186,7 @@ function StoreDetail() {
           <div onClick={handleClick} onWheel={() => setpopover(false)}>
             <strong className='detail-title'>{name}</strong>
             <div style={{ padding: '0.5rem 0', borderBottom: '1px solid #323232' }}>
-              <div className='author-and-date'>최근 수정 일시 | {createdDate?.split('.')[0]}</div>
+              <div className='author-and-date'>최근 수정 일시 | {modifiedDate?.split('.')[0]}</div>
               <div className='icons'>
                 <i className='icon-box icon-info icon-views w-5 h-5 relative top-1'></i>
                 21
@@ -204,16 +204,29 @@ function StoreDetail() {
               <div className='grey'>{convName[convinence]} 상품</div>
               {/* <Grid container spacing={2} columns={16}>
                 <Grid item xs={8}> */}
-              <img
-                style={{
-                  display: ' block',
-                  margin: '0px auto',
-                  width: '30vw',
-                  height: '30vh',
-                }}
-                src={photoPath}
-                alt={name}
-              />
+              <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                <img
+                  style={{
+                    display: 'block',
+                    margin: '0px auto',
+                    width: '28%',
+                    height: '28%',
+                  }}
+                  src={photoPath}
+                  alt={name}
+                />
+              </Box>
+              <Box sx={{ flexGrow: 1, display: { lg: 'none', md: 'none' } }}>
+                <img
+                  style={{
+                    display: 'block',
+                    margin: '0px auto',
+                  }}
+                  src={photoPath}
+                  alt={name}
+                />
+              </Box>
+
               {/* </Grid> */}
               {/* <Grid item xs={8}> */}
               <h1 style={{ margin: '1.8rem 0', textAlign: 'center' }}>{name}</h1>
