@@ -162,7 +162,17 @@ public class RecipeDto {
         @ApiModelProperty(name="카운트 값", example="1")
         Long cnt;
     }
-    
+
+    @Getter
+    @Setter
+    @ApiModel("RecipeLikeGet")
+    public static class RecipeLikeGet {
+        @ApiModelProperty(name="recipeId", example="객체")
+        Long recipeId;
+        @ApiModelProperty(name="cnt", example="1")
+        Long cnt;
+    }
+
     @Getter
     @Setter
     @ApiModel("RecipeGetDetail")

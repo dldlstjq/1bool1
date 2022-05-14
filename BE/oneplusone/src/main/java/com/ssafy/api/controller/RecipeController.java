@@ -258,7 +258,7 @@ public class RecipeController {
     })
     public ResponseEntity<? extends BaseResponseBody> findByRecipeLike() {
 
-        List<RecipeDto.RecipeLikeGetOrderBy> list = recipeLikeService.findByRecipe();
+        List<RecipeDto.RecipeLikeGet> list = recipeLikeService.findByRecipe();
         if(list != null)
         {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", list));

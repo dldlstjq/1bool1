@@ -12,5 +12,5 @@ public interface BoardLikeService {
 
     boolean modifyBoardLike(BoardDto.BoardLikeGetRequest dto);
 
-    List<BoardDto.BoardLikeGetOrderBy> findByBoard();
+    List<BoardDto.BoardLikeGet> findByBoard();
 }

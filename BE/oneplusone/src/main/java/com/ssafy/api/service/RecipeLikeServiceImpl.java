@@ -29,7 +29,7 @@ public class RecipeLikeServiceImpl implements RecipeLikeService{
     }
 
     @Override
-    public List<RecipeDto.RecipeLikeGetOrderBy> findByRecipe() {
+    public List<RecipeDto.RecipeLikeGet> findByRecipe() {
         List<RecipeLike> list = recipeLikeRepository.findAllOrderBySQL();
         List<RecipeDto.RecipeLikeGetOrderBy> newOne = new ArrayList<>();
         RecipeDto.RecipeLikeGetOrderBy temp;
@@ -51,8 +51,18 @@ public class RecipeLikeServiceImpl implements RecipeLikeService{
             newOne.add(t);
         }
         //끝 처리
-        
-        return newOne;
+
+        List<RecipeDto.RecipeLikeGet> ans = new ArrayList<>();
+        //끝 처리
+        RecipeDto.RecipeLikeGet test;
+        for(int i = 0; i < newOne.size(); i++){
+            test = new RecipeDto.RecipeLikeGet();
+            test.setRecipeId(newOne.get(i).getRecipe().getId());
+            test.setCnt(newOne.get(i).getCnt());
+            ans.add(test);
+        }
+
+        return ans;
     }
 
     @Override

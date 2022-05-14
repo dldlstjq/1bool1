@@ -228,7 +228,7 @@ public class BoardController {
     })
     public ResponseEntity<? extends BaseResponseBody> findByBoardLike() {
 
-        List<BoardDto.BoardLikeGetOrderBy> list = boardlikeService.findByBoard();
+        List<BoardDto.BoardLikeGet> list = boardlikeService.findByBoard();
         if(list != null)
         {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", list));

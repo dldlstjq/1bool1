@@ -7,7 +7,7 @@ import java.util.List;
 public interface RecipeLikeService {
     Long findByRecipeId(RecipeDto.RecipeLikeGetRequest dto);
 
-    List<RecipeDto.RecipeLikeGetOrderBy> findByRecipe();
+    List<RecipeDto.RecipeLikeGet> findByRecipe();
 
     boolean modifyRecipeLike(RecipeDto.RecipeLikeGetRequest dto);
 }

@@ -56,7 +56,7 @@ public class BoardLikeServiceImpl implements BoardLikeService {
     }
 
     @Override
-    public List<BoardDto.BoardLikeGetOrderBy> findByBoard() {
+    public List<BoardDto.BoardLikeGet> findByBoard() {
         List<BoardLike> list = boardLikeRepository.findAllOrderBySQL();
         List<BoardDto.BoardLikeGetOrderBy> newOne = new ArrayList<>();
         BoardDto.BoardLikeGetOrderBy temp;
@@ -78,8 +78,15 @@ public class BoardLikeServiceImpl implements BoardLikeService {
             t.setCnt(0L);
             newOne.add(t);
         }
+        List<BoardDto.BoardLikeGet> ans = new ArrayList<>();
         //끝 처리
-        
-        return newOne;
+        BoardDto.BoardLikeGet test;
+        for(int i = 0; i < newOne.size(); i++){
+            test = new BoardDto.BoardLikeGet();
+            test.setBoardId(newOne.get(i).getBoard().getId());
+            test.setCnt(newOne.get(i).getCnt());
+            ans.add(test);
+        }
+        return ans;
     }
 }

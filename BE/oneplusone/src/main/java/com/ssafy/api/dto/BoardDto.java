@@ -122,5 +122,13 @@ public class BoardDto {
         @ApiModelProperty(name="카운트 값", example="1")
         Long cnt;
     }
-
+    @Getter
+    @Setter
+    @ApiModel("BoardLikeGet")
+    public static class BoardLikeGet{
+        @ApiModelProperty(name="BoardId", example="객체")
+        Long boardId;
+        @ApiModelProperty(name="카운트 값", example="1")
+        Long cnt;
+    }
 }
