@@ -13,8 +13,8 @@ import axios from 'axios';
 
 import Popover from '../../pages/community/common/Popover';
 import GoodsComments from '../../pages/community/common/GoodsComments';
-import { DeleteOrUpdate } from '../../pages/community/common/DeleteOrUpdate';
-import { axiosRequest } from '../../pages/community/common/functions';
+import { DeleteOrUpdate } from '../../pages/community/common/comment/DeleteOrUpdate';
+// import { axiosRequest } from '../../pages/community/common/functions';
 
 import Appbar from '../../components/main/Appbar';
 
