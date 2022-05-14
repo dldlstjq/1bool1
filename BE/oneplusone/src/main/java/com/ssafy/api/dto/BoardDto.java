@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -126,6 +127,20 @@ public class BoardDto {
     @Setter
     @ApiModel("BoardLikeGet")
     public static class BoardLikeGet{
+        @ApiModelProperty(name="BoardId", example="객체")
+        String password;
+        @ApiModelProperty(name="BoardId", example="객체")
+        String photo;
+        @ApiModelProperty(name="BoardId", example="객체")
+        String title;
+        @ApiModelProperty(name="BoardId", example="객체")
+        LocalDateTime CreatedDate;
+        @ApiModelProperty(name="BoardId", example="객체")
+        LocalDateTime ModifiedDate;
+        @ApiModelProperty(name="BoardId", example="객체")
+        String nickname;
+        @ApiModelProperty(name="BoardId", example="객체")
+        String content;
         @ApiModelProperty(name="BoardId", example="객체")
         Long boardId;
         @ApiModelProperty(name="카운트 값", example="1")

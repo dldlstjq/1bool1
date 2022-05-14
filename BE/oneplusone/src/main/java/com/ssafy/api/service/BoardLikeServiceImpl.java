@@ -84,6 +84,13 @@ public class BoardLikeServiceImpl implements BoardLikeService {
         for(int i = 0; i < newOne.size(); i++){
             test = new BoardDto.BoardLikeGet();
             test.setBoardId(newOne.get(i).getBoard().getId());
+            test.setContent(newOne.get(i).getBoard().getContent());
+            test.setNickname(newOne.get(i).getBoard().getNickname());
+            test.setPassword(newOne.get(i).getBoard().getPassword());
+            test.setPhoto(newOne.get(i).getBoard().getPhoto());
+            test.setTitle(newOne.get(i).getBoard().getTitle());
+            test.setCreatedDate(newOne.get(i).getBoard().getCreatedDate());
+            test.setModifiedDate(newOne.get(i).getBoard().getModifiedDate());
             test.setCnt(newOne.get(i).getCnt());
             ans.add(test);
         }
