@@ -38,18 +38,21 @@ function StoreDetail() {
   const comments = useFetchListAndUpdate(`goodsreview/${goods.id}`, invokeUseEffect);
 
   const convName = {
-    CM: 'CU',
-    EM: '이마트',
-    GS: 'GS25',
-    MS: '미니스탑',
-    CS: '씨스페이스',
+    cu: 'CU',
+    em: '이마트',
+    gs: 'GS25',
+    ms: '미니스탑',
+    cs: '씨스페이스',
   };
 
   const showEvent = {
-    0: '1+1',
-    1: '2+1',
-    2: '3+1',
-    3: '4+1',
+    1: '행사안함',
+    2: '1+1',
+    3: '2+1',
+    4: '3+1',
+    5: 'SALE',
+    6: '덤증정',
+    7: '균일가',
   };
 
   const {
@@ -234,7 +237,7 @@ function StoreDetail() {
               {/* <Grid item xs={8}> */}
               <h1 style={{ margin: '1.8rem 0', textAlign: 'center' }}>{name}</h1>
               <p style={{ margin: '1.8rem 0', textAlign: 'center' }}>{strPrice}원</p>
-              <p style={{ margin: '1.8rem 0', textAlign: 'center' }}>{showEvent[event]} 행사 중</p>
+              <p style={{ margin: '1.8rem 0', textAlign: 'center' }}>{showEvent[event]} </p>
               {/* </Grid> */}
               {/* </Grid> */}
               {/* <Box style={{ display: 'flex', justifyContent: 'center' }}>
