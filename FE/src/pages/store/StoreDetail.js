@@ -94,10 +94,11 @@ function StoreDetail() {
 
   const convName = {
     cu: 'CU',
-    em: '이마트',
+    em: '이마트24',
     gs: 'GS25',
-    MS: '미니스탑',
+    MS: '미니스톱',
     cs: '씨스페이스',
+    se: '세븐일레븐',
   };
 
   const showEvent = {
@@ -292,9 +293,36 @@ function StoreDetail() {
               <i className='icon-box icon-sns w-20 h-6 absolute right-0'></i>
             </div>
             <div className='content-box'>
-              <div id='title' className='grey'>
-                {convName[convinence]} 상품
-              </div>
+              {convName[convinence] === 'CU' && (
+                <div id='CU' className='grey'>
+                  {convName[convinence]} 상품
+                </div>
+              )}
+              {convName[convinence] === '미니스톱' && (
+                <div id='MS' className='grey'>
+                  {convName[convinence]} 상품
+                </div>
+              )}
+              {convName[convinence] === 'GS25' && (
+                <div id='GS' className='grey'>
+                  {convName[convinence]} 상품
+                </div>
+              )}
+              {convName[convinence] === '이마트24' && (
+                <div id='EM' className='grey'>
+                  {convName[convinence]} 상품
+                </div>
+              )}
+              {convName[convinence] === '씨스페이스' && (
+                <div id='CS' className='grey'>
+                  {convName[convinence]} 상품
+                </div>
+              )}
+              {convName[convinence] === '세븐일레븐' && (
+                <div id='SE' className='grey'>
+                  {convName[convinence]} 상품
+                </div>
+              )}
               {/* <Grid container spacing={2} columns={16}>
                 <Grid item xs={8}> */}
               <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
