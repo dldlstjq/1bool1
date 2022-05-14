@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import React from 'react';
 import { Link, useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
@@ -10,7 +12,7 @@ import { BASE_URL } from '../../index';
 import axios from 'axios';
 
 import Popover from '../../pages/community/common/Popover';
-import Comments from '../../pages/community/common/Comments';
+import GoodsComments from '../../pages/community/common/GoodsComments';
 import { DeleteOrUpdate } from '../../pages/community/common/DeleteOrUpdate';
 import { axiosRequest } from '../../pages/community/common/functions';
 
@@ -24,6 +26,7 @@ function StoreDetail() {
   const { articleId } = useParams();
   const [popover, setpopover] = useState(false);
   const [showcomments, setshowcomments] = useState(true);
+  const [foo, refresh] = useState(0);
   const [invokeUseEffect, setInvokeUseEffect] = useState(0);
   const [articlePw, setarticlePw] = useState('');
 
@@ -146,23 +149,23 @@ function StoreDetail() {
   //   });
   // }
 
-  function handleCommentSubmit(e) {
-    e.preventDefault();
-    const data = new FormData(e.target);
-    console.log('hi');
-    axios({
-      method: 'post',
-      url: BASE_URL + 'comment/' + id,
-      data: {
-        nickname: data.get('nickname'),
-        password: data.get('password'),
-        content: data.get('content'),
-        boardId: id,
-      },
-    })
-      .then(() => setInvokeUseEffect((prev) => prev + 1))
-      .catch((err) => console.log(err));
-  }
+  // function handleCommentSubmit(e) {
+  //   e.preventDefault();
+  //   const data = new FormData(e.target);
+  //   console.log('hi');
+  //   axios({
+  //     method: 'post',
+  //     url: BASE_URL + 'goodsreview/' + id,
+  //     data: {
+  //       nickname: data.get('nickname'),
+  //       password: data.get('password'),
+  //       content: data.get('content'),
+  //       goodsId: id,
+  //     },
+  //   })
+  //     .then(() => setInvokeUseEffect((prev) => prev + 1))
+  //     .catch((err) => console.log(err));
+  // }
 
   // async function handleCommentSubmit(e) {
   //   e.preventDefault();
@@ -294,12 +297,13 @@ function StoreDetail() {
               </div>
             </div>
             {showcomments && (
-              <Comments
+              <GoodsComments
                 comments={comments}
                 articleId={articleId}
+                goodsId={id}
                 ref={textareaRef}
-                handleCommentSubmit={handleCommentSubmit}
-                boardId={id}
+                url={'/goodsreview/' + id}
+                refresh={refresh}
               />
             )}
 
