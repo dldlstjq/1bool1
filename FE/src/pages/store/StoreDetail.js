@@ -27,6 +27,8 @@ import { DeleteOrUpdate } from '../../pages/community/common/comment/DeleteOrUpd
 import Appbar from '../../components/main/Appbar';
 import Footer from '../../components/main/Footer';
 
+import './StoreDetail.css';
+
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 function StoreDetail() {
@@ -290,7 +292,9 @@ function StoreDetail() {
               <i className='icon-box icon-sns w-20 h-6 absolute right-0'></i>
             </div>
             <div className='content-box'>
-              <div className='grey'>{convName[convinence]} 상품</div>
+              <div id='title' className='grey'>
+                {convName[convinence]} 상품
+              </div>
               {/* <Grid container spacing={2} columns={16}>
                 <Grid item xs={8}> */}
               <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -318,9 +322,9 @@ function StoreDetail() {
 
               {/* </Grid> */}
               {/* <Grid item xs={8}> */}
-              <h1 style={{ margin: '1.8rem 0', textAlign: 'center' }}>{name}</h1>
-              <p style={{ margin: '1.8rem 0', textAlign: 'center' }}>{strPrice}원</p>
-              <p style={{ margin: '1.8rem 0', textAlign: 'center' }}>{showEvent[event]} </p>
+              <p id='goodsTitle'>{name}</p>
+              <p id='goodsPrice'>{strPrice}원</p>
+              <p id='goodsEvent'>{showEvent[event]} </p>
               {/* </Grid> */}
               {/* </Grid> */}
               {/* <Box style={{ display: 'flex', justifyContent: 'center' }}>
@@ -384,7 +388,11 @@ function StoreDetail() {
                       id='report'
                     ></i>
                   </span> */}
-                  <button className='bg-gray-700 text-white w-20 h-10 ml-4' id='focus'>
+                  <button
+                    className='bg-gray-700 text-white w-20 h-10 ml-4'
+                    id='focus'
+                    style={{ backgroundColor: '#f93d59' }}
+                  >
                     댓글
                   </button>
                 </div>
@@ -402,8 +410,9 @@ function StoreDetail() {
             )}
 
             <button
-              className='bg-gray-700 text-white h-10 w-1/3 mt-5'
-              onClick={() => navi('/community')}
+              className='bg-gray-700 text-white w-20 h-10 mt-5'
+              style={{ backgroundColor: '#f93d59' }}
+              onClick={() => navi('/store')}
             >
               목록보기
             </button>
