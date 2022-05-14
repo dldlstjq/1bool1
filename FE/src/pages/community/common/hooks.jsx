@@ -37,8 +37,6 @@ export function useFetchItem(url) {
 
 export function useFetchListAndUpdate(url, extra) {
   const [data, setData] = useState([]);
-  const dep = [url];
-  if (extra) dep.push(extra);
   useEffect(() => {
     axios({
       method: "get",
@@ -48,7 +46,22 @@ export function useFetchListAndUpdate(url, extra) {
         setData(res.data.object);
       })
       .catch((err) => console.log(err));
-  }, dep);
+  }, [url, extra]);
+  return data;
+}
+
+export function useFetchList(url) {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    axios({
+      method: "get",
+      url,
+    })
+      .then((res) => {
+        setData(res.data.object);
+      })
+      .catch((err) => console.log(err));
+  }, [url]);
   return data;
 }
 
@@ -63,25 +76,24 @@ export function useInputs(initialForm) {
     const { name, value } = e.target;
     setForm((form) => ({ ...form, [name]: value }));
   }, []);
-  // const reset = useCallback(() => setForm(initialForm), [initialForm]);
   return [form, onChange];
 }
 
-export function useFetchIfUpdate(url, isUpdate) {
-  const [data, setData] = useState({});
+// export function useFetchIfUpdate(url, isUpdate) {
+//   const [data, setData] = useState({});
 
-  useEffect(() => {
-    if (!isUpdate) return;
-    axios({
-      method: "get",
-      url: BASE_URL + url,
-    })
-      .then((res) => {
-        setData(res.data.object);
-      })
-      .catch((err) => console.log(err));
-  }, [url, isUpdate]);
-  return data;
-}
+//   useEffect(() => {
+//     if (!isUpdate) return;
+//     axios({
+//       method: "get",
+//       url: BASE_URL + url,
+//     })
+//       .then((res) => {
+//         setData(res.data.object);
+//       })
+//       .catch((err) => console.log(err));
+//   }, [url, isUpdate]);
+//   return data;
+// }
 
-export function usePost() {}
+// export function usePost() {}

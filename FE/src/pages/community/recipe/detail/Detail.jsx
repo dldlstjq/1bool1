@@ -4,7 +4,7 @@ import axios from "axios";
 
 import { useParams } from "react-router-dom";
 
-import { useFetchListAndUpdate } from "../../common/hooks";
+import { useFetchListAndUpdate, useFetchList } from "../../common/hooks";
 
 import Step from "./Step";
 import Star from "../../common/Star";
@@ -44,7 +44,7 @@ function Detail() {
       .catch((err) => console.log(err));
   }, [recipeId]);
 
-  const goods = useFetchListAndUpdate("recipe/goods/" + recipeId);
+  const goods = useFetchList("recipe/goods/" + recipeId);
   const comments = useFetchListAndUpdate("recipereview/" + recipeId, foo);
 
   return (

@@ -4,8 +4,6 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { useFetchItem, useFetchListAndUpdate } from "../common/hooks";
 
-import axios from "axios";
-
 import Popover from "../common/Popover";
 import Comments from "../common/comment/Comments";
 import { DeleteOrUpdate } from "./DeleteOrUpdate";
