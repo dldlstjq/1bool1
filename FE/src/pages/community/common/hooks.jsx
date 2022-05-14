@@ -35,8 +35,10 @@ export function useFetchItem(url) {
   return data;
 }
 
-export function useFetchListAndUpdate(url, deps) {
+export function useFetchListAndUpdate(url, extra) {
   const [data, setData] = useState([]);
+  const dep = [url];
+  if (extra) dep.push(extra);
   useEffect(() => {
     axios({
       method: "get",
@@ -46,7 +48,7 @@ export function useFetchListAndUpdate(url, deps) {
         setData(res.data.object);
       })
       .catch((err) => console.log(err));
-  }, deps || []);
+  }, dep);
   return data;
 }
 

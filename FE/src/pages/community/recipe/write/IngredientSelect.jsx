@@ -24,7 +24,7 @@ function IngredientSelect({ selected, setSelected }) {
   }
   function handleSelectedClick({ target }) {
     if (target.matches("span"))
-      setSelected(selected.filter((el) => el.goodsId != target.id));
+      setSelected(selected.filter((el) => el.goodsId !== target.id));
   }
 
   return (

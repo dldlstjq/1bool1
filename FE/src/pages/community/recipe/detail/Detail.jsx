@@ -45,7 +45,7 @@ function Detail() {
   }, [recipeId]);
 
   const goods = useFetchListAndUpdate("recipe/goods/" + recipeId);
-  const comments = useFetchListAndUpdate("recipereview/" + recipeId, [foo]);
+  const comments = useFetchListAndUpdate("recipereview/" + recipeId, foo);
 
   return (
     <div>
