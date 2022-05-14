@@ -6,7 +6,15 @@ import { useEffect, useState, useRef } from 'react';
 import { Container, Grid, Typography, Box, Button } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import { useFetchItem, useFetchListAndUpdate } from '../../pages/community/common/hooks';
+import Checkbox from '@mui/material/Checkbox';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import Favorite from '@mui/icons-material/Favorite';
+import { pink } from '@mui/material/colors';
+import {
+  useFetchHit,
+  useFetchItem,
+  useFetchListAndUpdate,
+} from '../../pages/community/common/hooks';
 
 import { BASE_URL } from '../../index';
 import axios from 'axios';
@@ -17,31 +25,76 @@ import { DeleteOrUpdate } from '../../pages/community/common/comment/DeleteOrUpd
 // import { axiosRequest } from '../../pages/community/common/functions';
 
 import Appbar from '../../components/main/Appbar';
+import Footer from '../../components/main/Footer';
+
+const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 function StoreDetail() {
   const location = useLocation();
-  const goods = location.state.data;
-  console.log(location);
+  let goods = {};
+  if (location.state !== null) {
+    goods = location.state.data;
+    localStorage.setItem('goodsId', goods.id);
+  }
+  // console.log(location);
 
+  // const [goodsData, setGoodsData] = useState({});
+  // const [reviewData, setReviewData] = useState([]);
   const { articleId } = useParams();
   const [popover, setpopover] = useState(false);
   const [showcomments, setshowcomments] = useState(true);
   const [foo, refresh] = useState(0);
   const [invokeUseEffect, setInvokeUseEffect] = useState(0);
   const [articlePw, setarticlePw] = useState('');
+  const [isLike, setIsLike] = useState(false);
 
   const coordRef = useRef([0, 0]);
   const textareaRef = useRef();
   const navi = useNavigate();
 
-  const goodsData = useFetchItem(`goods/${goods.id}`);
-  const comments = useFetchListAndUpdate(`goodsreview/${goods.id}`, invokeUseEffect);
+  // useEffect(() => {
+  //   axios({
+  //     method: 'get',
+  //     url: BASE_URL + `goods/${localStorage.getItem('goodsId')}`,
+  //   })
+  //     .then((res) => {
+  //       setGoodsData(res.data.object);
+  //     })
+  //     .catch((err) => console.log(err));
+
+  //   axios({
+  //     method: 'get',
+  //     url: BASE_URL + `goodsreview/${localStorage.getItem('goodsId')}`,
+  //   })
+  //     .then((res) => {
+  //       setReviewData(res.data.object);
+  //     })
+  //     .catch((err) => console.log(err));
+
+  //   axios.put(BASE_URL + `goods/${goods.id}`).then(() => {
+  //     console.log('조회수 등록');
+  //   });
+
+  //   // 지금 로그인한 유저가 좋아요 누른 상품인지 확인하는 기능 필요
+  //   // if(localStorage.getItem('user_id') !== null)
+  //   // axios.get(BASE_URL + `goods/${goods.id}`).then((res) => {
+  //   //  if(res.data === 1) setIsLike(true);
+  //   // });
+  // }, []);
+
+  const goodsData = useFetchItem(`goods/${localStorage.getItem('goodsId')}`);
+  const comments = useFetchListAndUpdate(
+    `goodsreview/${localStorage.getItem('goodsId')}`,
+    invokeUseEffect
+  );
+  const hits = useFetchHit(`goods/${localStorage.getItem('goodsId')}`);
+  // const like = useFetchLike(`goods/${goods.id}`);
 
   const convName = {
     cu: 'CU',
     em: '이마트',
     gs: 'GS25',
-    ms: '미니스탑',
+    MS: '미니스탑',
     cs: '씨스페이스',
   };
 
@@ -184,6 +237,36 @@ function StoreDetail() {
   //   console.log(res);
   // }
 
+  const handleChange = async (e) => {
+    if (localStorage.getItem('user_id') === null) {
+      alert('로그인을 해야 좋아요가 가능합니다!');
+      return;
+    }
+
+    const likeCurrent = e.target.checked;
+    setIsLike(likeCurrent);
+    // e.preventDefault();
+
+    if (likeCurrent) {
+      try {
+        await axios({
+          method: 'put',
+          url: BASE_URL + `goods/like/${localStorage.getItem('goodsId')}`,
+          params: {
+            user_id: localStorage.getItem('user_id'),
+          },
+        }).then((res) => {
+          if (res.data.statusCode === 200) {
+            console.log('좋아요 등록');
+          }
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+    }
+  };
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100%' }}>
       <Appbar />
@@ -197,7 +280,7 @@ function StoreDetail() {
                 <i className='icon-box icon-info icon-views w-5 h-5 relative top-1'></i>
                 21
                 <i className='icon-box icon-comment icon-info w-5 h-5 relative top-1'></i>
-                22
+                {comments.length}
                 <i className='icon-box icon-up icon-info w-5 h-5'></i>22
                 <i className='icon-box icon-down icon-info w-5 h-5 relative top-1'></i>
                 22
@@ -247,11 +330,19 @@ function StoreDetail() {
               </Box> */}
               <div className='text-center my-7'>
                 <button className='btn'>
-                  <i className='icon-box icon-info icon-up  w-5 h-5'></i> 0
+                  <Checkbox
+                    {...label}
+                    icon={<FavoriteBorder />}
+                    checkedIcon={<Favorite />}
+                    checked={isLike}
+                    onChange={handleChange}
+                    color='error'
+                  />
+                  {/* <i className='icon-box icon-info icon-up  w-5 h-5'></i> 0 */}
                 </button>
-                <button className='btn'>
+                {/* <button className='btn'>
                   <i className='icon-box icon-info icon-down  w-5 h-5'></i> 0
-                </button>
+                </button> */}
               </div>
               <div className='userinfo-box'>
                 <i className='icon-box icon-etc icon-user  w-10 h-10'></i>
@@ -261,7 +352,7 @@ function StoreDetail() {
                     <i className='icon-box icon-info icon-article w-5 h-5 relative top-1'></i>
                     21
                     <i className='icon-box icon-comment icon-info w-5 h-5 ml-1 relative top-1'></i>
-                    22
+                    {comments.length}
                   </div>
                 </div>
               </div>
@@ -325,6 +416,7 @@ function StoreDetail() {
           </div>
         </Container>
       </div>
+      <Footer />
     </div>
   );
 }
