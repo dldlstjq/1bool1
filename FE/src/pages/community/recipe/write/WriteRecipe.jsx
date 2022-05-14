@@ -27,7 +27,7 @@ function WriteRecipe() {
 
   const handleCancel = useCallback(() => {
     navi("/community/recipe");
-  }, []);
+  }, [navi]);
 
   function handleSubmit(e) {
     // put or post
@@ -40,7 +40,7 @@ function WriteRecipe() {
     form.delete("conv");
     let content = "";
     for (const x of form) {
-      if (x[0] == "step") {
+      if (x[0] === "step") {
         content = content.concat(`<s>${x[1]}`);
       }
     }

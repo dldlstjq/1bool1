@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import axios from "axios";
+import classNames from "classnames";
 
 import { DeleteOrUpdate } from "./DeleteOrUpdate";
 
@@ -16,6 +17,7 @@ function Comment({
 }) {
   const [inputMode, setInputMode] = useState(false);
   const data = { id, nickname, password };
+  const inputRef = useRef();
   let url = "comment/" + boardId;
   if (recipeId) {
     url = "recipereview/" + recipeId;
@@ -55,24 +57,31 @@ function Comment({
         </div>
       </div>
 
-      {inputMode ? (
-        <input
-          type="text"
-          defaultValue={content}
-          className="w-full border border-purple-900 rounded"
-          onKeyDown={handleSubmit}
-        />
-      ) : (
-        <div id="comment-content">{content}</div>
-      )}
+      {!inputMode && <div id="comment-content">{content}</div>}
+      <input
+        type="text"
+        defaultValue={content}
+        onKeyDown={handleSubmit}
+        ref={inputRef}
+        className={classNames(
+          "w-full",
+          "rounded",
+          inputMode && "border",
+          inputMode && "border-purple-900",
+          inputMode && "h-10",
+          !inputMode && "h-0"
+        )}
+      />
 
       <DeleteOrUpdate
         id={id}
         password={password}
         setInputMode={setInputMode}
+        inputMode={inputMode}
         refresh={refresh}
         boardId={boardId}
         recipeId={recipeId}
+        inputRef={inputRef}
       />
     </div>
   );

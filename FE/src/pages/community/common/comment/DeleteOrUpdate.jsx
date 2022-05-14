@@ -8,8 +8,10 @@ export function DeleteOrUpdate({
   id,
   refresh,
   setInputMode,
+  inputMode,
   boardId,
   recipeId,
+  inputRef,
 }) {
   const [inputPw, setInputPw] = useState("");
   let url = "comment/" + boardId;
@@ -28,9 +30,14 @@ export function DeleteOrUpdate({
     alert("비밀번호가 다릅니다");
   }
 
-  function readyUpdate() {
-    if (inputPw === password) {
-      setInputMode(true);
+  function readyUpdate(e) {
+    if (inputMode === true) {
+      setInputMode(false);
+      return;
+    } else if (inputPw === password) {
+      setInputMode(() => true);
+      inputRef.current.focus();
+      // setTimeout(() => inputRef.current.focus(), 800);
       return;
     }
     alert("비밀번호가 다릅니다");
@@ -57,7 +64,7 @@ export function DeleteOrUpdate({
         className="bg-gray-700 text-white h-10"
         onClick={readyUpdate}
       >
-        수정
+        {inputMode ? "수정취소" : "수정"}
       </button>
     </div>
   );
