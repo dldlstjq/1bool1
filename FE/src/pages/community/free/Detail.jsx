@@ -6,49 +6,30 @@ import { useFetchItem, useFetchListAndUpdate } from "../common/hooks";
 
 import Popover from "../common/Popover";
 import Comments from "../common/comment/Comments";
+import UpperInfo from "./components/UpperInfo";
 import { DeleteOrUpdate } from "./DeleteOrUpdate";
+import classNames from "classnames";
 
 function Detail() {
   const { articleId } = useParams();
   const [popover, setpopover] = useState(false);
-  const [showcomments, setshowcomments] = useState(true);
+  const [showcomments, setShowcomments] = useState(true);
   const [foo, refresh] = useState(0);
   const [articlePw, setarticlePw] = useState("");
 
   const coordRef = useRef([0, 0]);
   const navi = useNavigate();
 
-  const articleData = useFetchItem(`board/${articleId}`);
+  const [articleData] = useFetchItem(`board/${articleId}`, []);
   const comments = useFetchListAndUpdate(`comment/${articleId}`, foo);
+  const [like, setLike] = useFetchItem(`board/like/${articleId}`, 0);
 
-  const {
-    title,
-    content,
-    modifiedDate,
-    id,
-    nickname,
-    password,
-    photo,
-    createdDate,
-  } = articleData;
+  const { title, content, modifiedDate, id, nickname, password, photo } =
+    articleData;
 
   return (
     <div onWheel={() => setpopover(false)}>
-      <strong className="detail-title">{title}</strong>
-      <div style={{ padding: "0.5rem 0", borderBottom: "1px solid #323232" }}>
-        <div className="author-and-date">
-          {nickname} | {createdDate?.split(".")[0]}
-        </div>
-        <div className="icons">
-          <i className="icon-box icon-info icon-views w-5 h-5 relative top-1"></i>
-          21
-          <i className="icon-box icon-comment icon-info w-5 h-5 relative top-1"></i>
-          22
-          <i className="icon-box icon-up icon-info w-5 h-5"></i>22
-          <i className="icon-box icon-down icon-info w-5 h-5 relative top-1"></i>
-          22
-        </div>
-      </div>
+      <UpperInfo nickname={nickname} title={title} />
       <div className="relative mt-1">
         <i className="icon-box icon-sns w-20 h-6 absolute right-0"></i>
       </div>
@@ -63,10 +44,10 @@ function Detail() {
 
         <div className="text-center my-7">
           <button className="btn">
-            <i className="icon-box icon-info icon-up  w-5 h-5"></i> 0
-          </button>
-          <button className="btn">
-            <i className="icon-box icon-info icon-down  w-5 h-5"></i> 0
+            <i
+              className={classNames("icon-box icon-info w-5 h-5", "icon-up")}
+            ></i>
+            {like}
           </button>
         </div>
         <div className="userinfo-box">

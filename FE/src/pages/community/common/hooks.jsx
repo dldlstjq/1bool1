@@ -16,11 +16,11 @@ export function useFetchPage(url, page, size) {
       })
       .catch((err) => console.log(err));
   }, [url, page, size]);
-  return data;
+  return [data, setData];
 }
 
-export function useFetchItem(url) {
-  const [data, setData] = useState({});
+export function useFetchItem(url, initialState) {
+  const [data, setData] = useState(initialState);
 
   useEffect(() => {
     axios({
@@ -32,7 +32,7 @@ export function useFetchItem(url) {
       })
       .catch((err) => console.log(err));
   }, [url]);
-  return data;
+  return [data, setData];
 }
 
 export function useFetchListAndUpdate(url, extra) {
@@ -78,22 +78,3 @@ export function useInputs(initialForm) {
   }, []);
   return [form, onChange];
 }
-
-// export function useFetchIfUpdate(url, isUpdate) {
-//   const [data, setData] = useState({});
-
-//   useEffect(() => {
-//     if (!isUpdate) return;
-//     axios({
-//       method: "get",
-//       url: BASE_URL + url,
-//     })
-//       .then((res) => {
-//         setData(res.data.object);
-//       })
-//       .catch((err) => console.log(err));
-//   }, [url, isUpdate]);
-//   return data;
-// }
-
-// export function usePost() {}
