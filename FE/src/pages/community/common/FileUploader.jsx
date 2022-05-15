@@ -26,18 +26,16 @@ export const FileUploader = ({ content }) => {
     <div className="flex gap-2">
       <textarea
         name="step"
-        className="border-black h-40 grow resize-none"
+        className="bg-lime-400 rounded h-36 grow resize-none"
         defaultValue={content}
         required
       ></textarea>
-      <div className="inline-block h-40 w-40 cursor-pointer">
-        <img
-          src={imageUrl}
-          alt=""
-          className="h-full w-full"
-          onClick={handleClick}
-        />
-      </div>
+      <img
+        src={imageUrl}
+        alt=""
+        className="inline-block h-36 w-36 cursor-pointer rounded"
+        onClick={handleClick}
+      />
       <input
         type="file"
         className="hidden"

@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 function ButtonAndPerPage({ setSize }) {
   return (
-    <div className="gap-2 mt-10">
+    <div className="grid grid-cols-2 gap-2 my-5">
       <button
-        className="h-10 border-b border-slate-300 bg-slate-100 w-1/2"
+        className="h-10 border-b border-slate-300 bg-purple-900 text-lime-400 font-bold text-xl  rounded"
         id="write"
       >
         글쓰기
@@ -11,7 +11,7 @@ function ButtonAndPerPage({ setSize }) {
       <select
         name="order"
         id="order"
-        className="h-10 border-b border-slate-300 bg-slate-100 text-center w-1/2"
+        className="h-10 border-b border-slate-300 bg-purple-900 text-lime-400 font-bold  rounded text-lg text-center"
         onChange={(e) => setSize(e.target.value)}
       >
         <option value="">목록개수</option>

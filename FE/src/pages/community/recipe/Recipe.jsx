@@ -9,19 +9,19 @@ function Recipe({ recipe }) {
         src={photos && photos[0]}
         alt=""
         id={id}
-        className="main-photo w-2/3 mx-auto"
+        className="main-photo w-3/4 mx-auto"
       />
-      <h1 className="text-center keep-all" id={id}>
-        {nickname}님의 {title}
+      <h1 className="text-center" id={id}>
+        <span className="text-purple-900 font-bold">{nickname} </span>님의
+        <span className="text-purple-900 font-bold"> {title}</span>
       </h1>
-      {/* <p className="text-center">평가:10/10</p> */}
       <div className="flex justify-center">
         <div className="w-7">
-          <img src="/images/level.png" alt="" className="" />
+          <img src="/images/level.png" alt="" />
         </div>
         {star}
         <div className="w-5 ml-3">
-          <img src="/images/clock.png" alt="" className="" />
+          <img src="/images/clock.png" alt="" />
         </div>
         {minute}
       </div>

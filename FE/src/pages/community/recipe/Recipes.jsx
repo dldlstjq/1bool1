@@ -47,14 +47,7 @@ function Recipes() {
           setSearchParams={setSearchParams}
         />
       </div>
-      <div className="flex justify-center">
-        <button
-          className="h-11 w-1/3 border-b border-slate-300 bg-slate-300 mx-auto"
-          id="write"
-        >
-          작성하기
-        </button>
-      </div>
+      <ButtonAndPerPage setSize={setSize} />
 
       <Searchbar setState={setRecipes} url="recipe/search" />
     </div>

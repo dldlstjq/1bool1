@@ -81,9 +81,7 @@ function Articles() {
         my="my-5"
       />
 
-      <Link className="head write-btn" to="/community/free/write">
-        글쓰기
-      </Link>
+      <ButtonAndPerPage setSize={setSize} />
       <Searchbar url="board/search" setState={setArticles} />
       {popover && (
         <Popover x={coord[0]} y={coord[1]}>

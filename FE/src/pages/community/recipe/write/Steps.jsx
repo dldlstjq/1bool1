@@ -14,8 +14,8 @@ function Steps({ content }) {
   }, [content]);
 
   return (
-    <div className=" p-4 bg-green-200 ">
-      <h1 className="text-lg">요리순서</h1>
+    <div className=" p-4 bg-purple-900 rounded">
+      <h1 className="text-lg font-bold text-lime-400">요리순서</h1>
       {stepContent.map((content, idx) => (
         <Step content={content} idx={idx} key={idx} />
       ))}

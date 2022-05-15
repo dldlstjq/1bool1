@@ -11,7 +11,7 @@ function Head({ setState }) {
       .catch((err) => console.log(err));
   }
   return (
-    <div className="head">
+    <div className="head ">
       <input
         type="radio"
         id="order-by-date"
@@ -19,11 +19,7 @@ function Head({ setState }) {
         name="contact"
         value="email"
       />
-      <label
-        htmlFor="order-by-date"
-        style={{ marginLeft: "1rem" }}
-        className="tracking-tighter text-white"
-      >
+      <label htmlFor="order-by-date" className="tracking-tighter text-white">
         <i className="icon-box icon-info icon-down w-5 h-4 relative"></i>
         등록일순
       </label>
