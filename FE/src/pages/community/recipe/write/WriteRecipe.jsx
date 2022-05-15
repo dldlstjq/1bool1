@@ -29,6 +29,18 @@ function WriteRecipe() {
     navi("/community/recipe");
   }, [navi]);
 
+  // function handleSubmit(e) {
+  //   e.preventDefault();
+  //   const form = new FormData(e.target);
+  //   axios({
+  //     method: "post",
+  //     url: "www.google.com",
+  //     data: form,
+  //   })
+  //     .then((res) => console.log(res.data.object))
+  //     .catch((err) => console.log(err));
+  // }
+
   function handleSubmit(e) {
     // put or post
     e.preventDefault();
@@ -38,14 +50,11 @@ function WriteRecipe() {
     }
     const form = new FormData(e.target);
     form.delete("conv");
-    let content = "";
-    for (const x of form) {
-      if (x[0] === "step") {
-        content = content.concat(`<s>${x[1]}`);
-      }
+    const content = [];
+    for (const step of form) {
+      if (step[0] === "step") content.push(step[1]);
     }
-    content = content.concat("<s>");
-    form.append("content", content);
+    form.append("content", JSON.stringify(content));
     form.delete("step");
     form.append("goodsId", selected.map(({ goodsId }) => goodsId).join(","));
     if (state) {

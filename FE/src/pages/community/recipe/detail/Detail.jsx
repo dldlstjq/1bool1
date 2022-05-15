@@ -29,10 +29,11 @@ function Detail() {
     minute,
     description,
   } = recipe;
-  const re = /(?<=<s>).+?(?=<s>)/g;
-  const steps = content && content?.match(re);
+
+  const steps = JSON.parse(content);
   const photos = photo?.split(",");
   const navi = useNavigate();
+  console.log(content);
 
   useEffect(() => {
     axios({

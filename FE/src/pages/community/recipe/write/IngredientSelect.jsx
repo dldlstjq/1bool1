@@ -1,14 +1,12 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 
-import { useFetchListAndUpdate } from "../../common/hooks";
+import { useFetchList } from "../../common/hooks";
 
 function IngredientSelect({ selected, setSelected }) {
   const convList = ["CS", "cu", "EM", "GS", "MS", "SE"];
   const [conv, setConv] = useState("CS");
-  const ingredients = useFetchListAndUpdate("goods/convinence?con=" + conv, [
-    conv,
-  ]);
+  const ingredients = useFetchList("goods/convinence?con=" + conv);
 
   function handleInputChange(e) {
     if (e.key === "Enter") {

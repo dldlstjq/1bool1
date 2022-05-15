@@ -40,7 +40,7 @@ export const FileUploader = ({ content }) => {
         type="file"
         className="hidden"
         ref={fileInput}
-        accept=".png, .jpeg, .gif"
+        accept=".png, .jpeg, .gif, .jpg"
         onChange={handleFileChange}
         name="file"
         required
