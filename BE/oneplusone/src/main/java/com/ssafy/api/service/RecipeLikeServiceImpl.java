@@ -59,6 +59,16 @@ public class RecipeLikeServiceImpl implements RecipeLikeService{
             test = new RecipeDto.RecipeLikeGet();
             test.setRecipeId(newOne.get(i).getRecipe().getId());
             test.setCnt(newOne.get(i).getCnt());
+            test.setTitle(newOne.get(i).getRecipe().getTitle());
+            test.setContent(newOne.get(i).getRecipe().getContent());
+            test.setNickname(newOne.get(i).getRecipe().getNickname());
+            test.setPassword(newOne.get(i).getRecipe().getPassword());
+            test.setPhoto(newOne.get(i).getRecipe().getPhoto());
+            test.setCreatedDate(newOne.get(i).getRecipe().getCreatedDate());
+            test.setDescription(newOne.get(i).getRecipe().getDescription());
+            test.setModifiedDate(newOne.get(i).getRecipe().getModifiedDate());
+            test.setStar(newOne.get(i).getRecipe().getStar());
+            test.setMinute(newOne.get(i).getRecipe().getMinute());
             ans.add(test);
         }
 

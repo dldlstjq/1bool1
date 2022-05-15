@@ -17,6 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -167,6 +168,26 @@ public class RecipeDto {
     @Setter
     @ApiModel("RecipeLikeGet")
     public static class RecipeLikeGet {
+        @ApiModelProperty(name="title", example="객체")
+        String title;
+        @ApiModelProperty(name="content", example="객체")
+        String content;
+        @ApiModelProperty(name="nickname", example="객체")
+        String nickname;
+        @ApiModelProperty(name="password", example="객체")
+        String password;
+        @ApiModelProperty(name="photo", example="객체")
+        String photo;
+        @ApiModelProperty(name="CreatedDate", example="객체")
+        LocalDateTime CreatedDate;
+        @ApiModelProperty(name="ModifiedDate", example="객체")
+        LocalDateTime ModifiedDate;
+        @ApiModelProperty(name="description", example="객체")
+        String description;
+        @ApiModelProperty(name="star", example="객체")
+        Integer star;
+        @ApiModelProperty(name="minute", example="객체")
+        Integer minute;
         @ApiModelProperty(name="recipeId", example="객체")
         Long recipeId;
         @ApiModelProperty(name="cnt", example="1")
