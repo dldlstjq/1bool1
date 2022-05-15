@@ -30,8 +30,8 @@ function Main() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:8080/api/v1/goods')
-      // .get('https://k6d207.p.ssafy.io/api/v1/goods/hit')
+      // .get('http://localhost:8080/api/v1/goods')
+      .get('https://k6d207.p.ssafy.io/api/v1/goods/like')
       .then(({ data }) => {
         setMenus(data.object);
         console.log(data);
@@ -166,7 +166,7 @@ function Main() {
                         >
                           <CardMedia
                             component='img'
-                            alt='green iguana'
+                            alt='이미지 준비중'
                             sx={{ width: 160, height: 180 }}
                             image={`${menu.photoPath}`}
                           />
