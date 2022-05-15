@@ -5,7 +5,7 @@ function Upper({ nickname, password, description, minute, star, title }) {
       <h1 className="text-4xl font-bold text-center  my-8 text-purple-900">
         레시피 등록
       </h1>
-      <div className="grid grid-cols-2 gap-2 border-b p-4 bg-purple-900 rounded ">
+      <div className="grid grid-cols-2 gap-6 border-b p-4 bg-purple-900 rounded ">
         <input
           type="text"
           name="nickname"
@@ -54,8 +54,10 @@ function Upper({ nickname, password, description, minute, star, title }) {
           <option defaultValue="2">2</option>
           <option defaultValue="3">3</option>
         </select>
-        <span className="text-lg text-lime-400">메인사진</span>
-        <input type="file" name="file" required />
+        <div>
+          <span className="text-lg text-lime-400">메인사진</span>
+          <input type="file" name="file" required className="inline-block" />
+        </div>
       </div>
     </>
   );

@@ -1,14 +1,17 @@
 /* eslint-disable no-unused-vars */
 
-import { Link, useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState, useRef } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useState, useRef } from "react";
 import { useFetchItem, useFetchListAndUpdate } from "../common/hooks";
+
+import classNames from "classnames";
 
 import Popover from "../common/Popover";
 import Comments from "../common/comment/Comments";
 import UpperInfo from "./components/UpperInfo";
+import UserInfoBox from "./UserInfoBox";
 import { DeleteOrUpdate } from "./DeleteOrUpdate";
-import classNames from "classnames";
+import LikeButton from "../common/LikeButton";
 
 function Detail() {
   const { articleId } = useParams();
@@ -22,7 +25,6 @@ function Detail() {
 
   const [articleData] = useFetchItem(`board/${articleId}`, []);
   const comments = useFetchListAndUpdate(`comment/${articleId}`, foo);
-  const [like, setLike] = useFetchItem(`board/like/${articleId}`, 0);
 
   const { title, content, modifiedDate, id, nickname, password, photo } =
     articleData;
@@ -42,26 +44,8 @@ function Detail() {
           <img src={url} alt="" key={idx} />
         ))}
 
-        <div className="text-center my-7">
-          <button className="btn">
-            <i
-              className={classNames("icon-box icon-info w-5 h-5", "icon-up")}
-            ></i>
-            {like}
-          </button>
-        </div>
-        <div className="userinfo-box">
-          <i className="icon-box icon-etc icon-user  w-10 h-10"></i>
-          <div style={{ marginLeft: "1rem" }}>
-            <span style={{ marginLeft: "5px" }}>{nickname}</span>
-            <div className="icons">
-              <i className="icon-box icon-info icon-article w-5 h-5 relative top-1"></i>
-              21
-              <i className="icon-box icon-comment icon-info w-5 h-5 ml-1 relative top-1"></i>
-              22
-            </div>
-          </div>
-        </div>
+        {id && <LikeButton url={"board/like/" + id} />}
+        <UserInfoBox nickname={nickname} />
         <DeleteOrUpdate
           setPassword={setarticlePw}
           inputPassword={articlePw}

@@ -4,7 +4,7 @@ function Recipe({ recipe }) {
 
   const photos = photo?.split(",");
   return (
-    <div className="text-center border-2 border-purple-900 rounded ">
+    <div className="text-center border-2 border-purple-900 rounded pt-4">
       <img
         src={photos && photos[0]}
         alt=""

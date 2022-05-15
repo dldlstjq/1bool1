@@ -29,18 +29,6 @@ function WriteRecipe() {
     navi("/community/recipe");
   }, [navi]);
 
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-  //   const form = new FormData(e.target);
-  //   axios({
-  //     method: "post",
-  //     url: "www.google.com",
-  //     data: form,
-  //   })
-  //     .then((res) => console.log(res.data.object))
-  //     .catch((err) => console.log(err));
-  // }
-
   function handleSubmit(e) {
     // put or post
     e.preventDefault();

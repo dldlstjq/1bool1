@@ -10,6 +10,7 @@ import Upper from "./Upper";
 const Comments = ({ url, comments, boardId, recipeId, refresh }) => {
   const [showComments, setShowComments] = useState(true);
   const textareaRef = useRef();
+  const buttonRef = useRef();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -27,7 +28,11 @@ const Comments = ({ url, comments, boardId, recipeId, refresh }) => {
     })
       .then(() => {
         e.target.reset();
-        setTimeout(() => refresh((prev) => (prev += 1)), 1000);
+        buttonRef.current.disabled = true;
+        setTimeout(() => {
+          refresh((prev) => (prev += 1));
+          buttonRef.current.disabled = false;
+        }, 1000);
       })
       .catch((err) => console.log(err));
   }
@@ -91,6 +96,7 @@ const Comments = ({ url, comments, boardId, recipeId, refresh }) => {
           <button
             className="bg-gray-700 w-20 h-10 text-white col-span-2 ml-auto"
             type="submit"
+            ref={buttonRef}
           >
             등록
           </button>
