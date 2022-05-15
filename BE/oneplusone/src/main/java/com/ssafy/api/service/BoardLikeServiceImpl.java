@@ -7,6 +7,8 @@ import com.ssafy.db.repository.BoardLikeRepository;
 import com.ssafy.db.repository.BoardRepository;
 import com.ssafy.db.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +17,7 @@ import java.util.List;
 
 @Service
 public class BoardLikeServiceImpl implements BoardLikeService {
+
 
     @Autowired
     private BoardLikeRepository boardLikeRepository;
@@ -55,8 +58,10 @@ public class BoardLikeServiceImpl implements BoardLikeService {
         return true;
     }
 
+
     @Override
-    public List<BoardDto.BoardLikeGet> findByBoard() {
+    public Page<BoardDto.BoardLikeGet> findByBoard(Integer page, Integer size, Pageable pageable) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("createdDate").descending());
         List<BoardLike> list = boardLikeRepository.findAllOrderBySQL();
         List<BoardDto.BoardLikeGetOrderBy> newOne = new ArrayList<>();
         BoardDto.BoardLikeGetOrderBy temp;
@@ -83,7 +88,7 @@ public class BoardLikeServiceImpl implements BoardLikeService {
         BoardDto.BoardLikeGet test;
         for(int i = 0; i < newOne.size(); i++){
             test = new BoardDto.BoardLikeGet();
-            test.setBoardId(newOne.get(i).getBoard().getId());
+            test.setId(newOne.get(i).getBoard().getId());
             test.setContent(newOne.get(i).getBoard().getContent());
             test.setNickname(newOne.get(i).getBoard().getNickname());
             test.setPassword(newOne.get(i).getBoard().getPassword());
@@ -94,6 +99,9 @@ public class BoardLikeServiceImpl implements BoardLikeService {
             test.setCnt(newOne.get(i).getCnt());
             ans.add(test);
         }
-        return ans;
+        final int start = (int)pageable.getOffset();
+        final int end = Math.min((start + pageable.getPageSize()), ans.size());
+        final Page<BoardDto.BoardLikeGet> p = new PageImpl<>(ans.subList(start, end), pageable, ans.size());
+        return p;
     }
 }

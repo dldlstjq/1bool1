@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -226,9 +227,9 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> findByBoardLike() {
+    public ResponseEntity<? extends BaseResponseBody> findByBoardLike(@RequestParam("size") Integer size, @RequestParam("page") Integer page, @ApiIgnore Pageable pageable) {
 
-        List<BoardDto.BoardLikeGet> list = boardlikeService.findByBoard();
+        Page<BoardDto.BoardLikeGet> list = boardlikeService.findByBoard(page,size,pageable);
         if(list != null)
         {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", list));

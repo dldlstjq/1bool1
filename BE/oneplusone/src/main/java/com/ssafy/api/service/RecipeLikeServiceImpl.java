@@ -7,6 +7,9 @@ import com.ssafy.db.repository.RecipeLikeRepository;
 import com.ssafy.db.repository.RecipeRepository;
 import com.ssafy.db.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +32,7 @@ public class RecipeLikeServiceImpl implements RecipeLikeService{
     }
 
     @Override
-    public List<RecipeDto.RecipeLikeGet> findByRecipe() {
+    public Page<RecipeDto.RecipeLikeGet> findByRecipe(Integer page, Integer size, Pageable pageable) {
         List<RecipeLike> list = recipeLikeRepository.findAllOrderBySQL();
         List<RecipeDto.RecipeLikeGetOrderBy> newOne = new ArrayList<>();
         RecipeDto.RecipeLikeGetOrderBy temp;
@@ -57,7 +60,7 @@ public class RecipeLikeServiceImpl implements RecipeLikeService{
         RecipeDto.RecipeLikeGet test;
         for(int i = 0; i < newOne.size(); i++){
             test = new RecipeDto.RecipeLikeGet();
-            test.setRecipeId(newOne.get(i).getRecipe().getId());
+            test.setId(newOne.get(i).getRecipe().getId());
             test.setCnt(newOne.get(i).getCnt());
             test.setTitle(newOne.get(i).getRecipe().getTitle());
             test.setContent(newOne.get(i).getRecipe().getContent());
@@ -71,8 +74,11 @@ public class RecipeLikeServiceImpl implements RecipeLikeService{
             test.setMinute(newOne.get(i).getRecipe().getMinute());
             ans.add(test);
         }
+        final int start = (int)pageable.getOffset();
+        final int end = Math.min((start + pageable.getPageSize()), ans.size());
+        final Page<RecipeDto.RecipeLikeGet> p = new PageImpl<>(ans.subList(start, end), pageable, ans.size());
 
-        return ans;
+        return p;
     }
 
     @Override

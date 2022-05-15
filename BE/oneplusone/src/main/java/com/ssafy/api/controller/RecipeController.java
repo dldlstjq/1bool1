@@ -12,11 +12,14 @@ import com.ssafy.db.entity.Recipe;
 import com.ssafy.db.entity.RecipeGoodsSelect;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -256,9 +259,9 @@ public class RecipeController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> findByRecipeLike() {
+    public ResponseEntity<? extends BaseResponseBody> findByRecipeLike(@RequestParam("page") Integer page,@RequestParam("size") Integer size,@ApiIgnore Pageable pageable) {
 
-        List<RecipeDto.RecipeLikeGet> list = recipeLikeService.findByRecipe();
+        Page<RecipeDto.RecipeLikeGet> list = recipeLikeService.findByRecipe(page,size,pageable);
         if(list != null)
         {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", list));
