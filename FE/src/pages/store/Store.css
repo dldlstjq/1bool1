@@ -1,5 +1,5 @@
 /* CU card & box*/
-.cu {
+.CU {
   /* display: flex;
   justify-content: center; */
   width: 320px;
@@ -7,7 +7,7 @@
   border-width: 2px;
   border-color:#9DC92A;
 }
-.CU {
+.cu {
   /* display: flex;
   justify-content: center;
   width: 3rem;
@@ -17,7 +17,7 @@
   font-weight: bold;
 }
 /* gs25 card & box*/
-.gs {
+.GS {
   /* display: flex;
   justify-content: center; */
   width: 320px;
@@ -26,7 +26,7 @@
   border-color:#009CFF;
   /* border-color:#5EFFE6; */
 }
-.GS {
+.gs {
   /* display: flex;
   justify-content: center;
   width: 5rem;
@@ -56,7 +56,7 @@
   font-weight: bold;
 }
 /* 세븐일레븐 card & box*/
-.se {
+.SE {
   /* display: flex;
   justify-content: center; */
   width: 320px;

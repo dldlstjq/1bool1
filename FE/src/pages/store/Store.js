@@ -44,7 +44,9 @@ function Store() {
   // const [word, setWord] = useState({
   //   goodName : '0',
   // });
-  const [word, setWord] = useState();
+  const [word, setWord] = useState({
+    goodName : '0',
+  });
   const [state, setState] = useState({
     all: false,
     cu : false,
@@ -72,15 +74,17 @@ function Store() {
     // console.log(value)
   };
   const { all, cu, gs, em, se, ms, cs, allEvent, noEvent, one, two, three, sale, dum, noSale } = state;
+
   const searchWord = (event) => {
     console.log(event)
-    setWord(event.target.value);
+    setWord({goodName:event.target.value});
     console.log(word, event)
   }
-  // const { goodName } = word;
+  const { goodName } = word;
   const onSubmit = () => {
     let conv = ''
     let event_type = ''
+    // let goodName = '0'
     if (cu) { conv += 'cu' }
     if (gs) {
       if (conv.length) { conv += '_gs' }
@@ -120,9 +124,9 @@ function Store() {
               if (event_type.length) { event_type += '_7' }
       else { event_type += '7'} }
     if (allEvent || event_type === '') { event_type = '0' } 
-    // console.log('adr확인중', conv, event_type, goodName, goodName.type)
+    console.log('adr확인중', conv, event_type, goodName)
     // let adr = `https://k6d207.p.ssafy.io/api/v1/goods/conGoods?convinenceName=${conv}&event=${event_type}&goods=${goodName}`
-    let adr = `https://k6d207.p.ssafy.io/api/v1/goods/conGoods?convinenceName=${conv}&event=${event_type}&goods=${word}`
+    let adr = `https://k6d207.p.ssafy.io/api/v1/goods/conGoods?convinenceName=${conv}&event=${event_type}&goods=${goodName}`
     
     axios
     .get(adr)
@@ -156,8 +160,8 @@ function Store() {
   }, []);
   
   const eventGoods = {'1':'행사안함', '2':'1+1', '3': '2+1', '4': '3+1', '5': 'SALE', '6': '덤증정', '7': '균일가' }
-  const convName = { 'MS' : 'ministop', 'cu' : 'CU', 'gs': 'GS', 'se':'seleven', 'cs':'cspace', 'EM':'emart' }
-  const conName = { 'MS' : 'MINISTOP', 'cu' : 'CU', 'gs': 'GS25', 'se':'7-ELEVEn', 'cs':'CSPACE24', 'EM':'emart24' }
+  const convName = { 'MS' : 'ministop', 'CU' : 'cu', 'GS': 'gs', 'SE':'seleven', 'CS':'cspace', 'EM':'emart' }
+  const conName = { 'MS' : 'MINISTOP', 'CU' : 'CU', 'GS': 'GS25', 'SE':'7-ELEVEn', 'CS':'CSPACE24', 'EM':'emart24' }
   function changeSet(sen) {
     let conv = convName[sen]
     // console.log(sen,conv,typeof(conv), typeof(sen))
@@ -244,12 +248,15 @@ function Store() {
                   {/* </div> */}
                     {/* <Link to={`/${good.id}`} style={{textDecoration:'none',}}> */}
                   <Box style={{display:'flex'}}>
-                      <CardMedia
-                        component="img"
-                        alt="이미지 준비중"
-                        sx={{ width: '45%', height:'45%' }}
-                        image={`${good.photoPath}`}
-                      />
+                      <Box sx={{width:'160px', height:'120px', marginTop:'1rem'}}>
+                        <CardMedia
+                          component="img"
+                          alt="이미지 준비중"
+                          sx={{ width: '80%', height:'80%' }}
+                          image={`${good.photoPath}`}
+                        />
+
+                      </Box>
                     {/* </Link>
                     <Link to={`/${good.id}`} style={{textDecoration:'none',}}> */}
                       <Box sx={{display:'flex', flexDirection:'column', paddingTop:'1rem', marginLeft:'0.5rem', marginRight:'0.5rem'}}>
