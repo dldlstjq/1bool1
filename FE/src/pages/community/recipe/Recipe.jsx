@@ -11,7 +11,7 @@ function Recipe({ recipe }) {
         id={id}
         className="main-photo w-3/4 mx-auto"
       />
-      <h1 className="text-center" id={id}>
+      <h1 className="text-center" id={id} style={{ wordBreak: "keep-all" }}>
         <span className="text-purple-900 font-bold">{nickname} </span>님의
         <span className="text-purple-900 font-bold"> {title}</span>
       </h1>

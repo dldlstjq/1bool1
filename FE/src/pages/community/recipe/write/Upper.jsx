@@ -12,19 +12,19 @@ function Upper({ nickname, password, description, minute, star, title }) {
           defaultValue={nickname}
           required
           placeholder="닉네임"
-          className="bg-lime-400 h-10 rounded"
+          className=" h-10 rounded"
         />
         <input
           type="password"
           name="password"
           defaultValue={password}
-          className="bg-lime-400 h-10 rounded"
+          className=" h-10 rounded"
           placeholder="비밀번호"
           required
         />
         <input
           type="text"
-          className="bg-lime-400 h-10 rounded col-span-2"
+          className=" h-10 rounded col-span-2"
           placeholder="레시피 제목"
           name="title"
           defaultValue={title}
@@ -32,19 +32,19 @@ function Upper({ nickname, password, description, minute, star, title }) {
         />
         <textarea
           name="description"
-          className="bg-lime-400 h-20 rounded col-span-2"
+          className=" h-20 rounded col-span-2"
           placeholder="요리소개"
           defaultValue={description}
         ></textarea>
         <input
           type="text"
-          className="bg-lime-400 h-10 rounded"
+          className=" h-10 rounded"
           placeholder="요리시간(분)"
           name="minute"
           defaultValue={minute}
         />
         <select
-          className="bg-lime-400 h-10 rounded"
+          className=" h-10 rounded"
           placeholder="난이도"
           name="star"
           defaultValue={star}

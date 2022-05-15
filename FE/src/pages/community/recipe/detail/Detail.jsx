@@ -4,13 +4,14 @@ import axios from "axios";
 
 import { useParams, useNavigate } from "react-router-dom";
 
-import { useFetchListAndUpdate, useFetchList } from "../../common/hooks";
+import { useFetchAndUpdate, useFetchList } from "../../common/hooks";
 
 import Step from "./Step";
 import Goods from "./Goods";
 import { DeleteOrUpdate } from "./DeleteOrUpdate";
 import Comments from "../../common/comment/Comments";
 import UpperInfo from "./components/UpperInfo";
+import LikeButton from "../../common/LikeButton";
 
 function Detail() {
   const { recipeId } = useParams();
@@ -33,6 +34,7 @@ function Detail() {
   const steps = content && JSON.parse(content);
   const photos = photo?.split(",");
   const navi = useNavigate();
+  const user_id = localStorage.getItem("user_id");
 
   useEffect(() => {
     axios({
@@ -46,7 +48,7 @@ function Detail() {
   }, [recipeId]);
 
   const goods = useFetchList("recipe/goods/" + recipeId);
-  const comments = useFetchListAndUpdate("recipereview/" + recipeId, foo);
+  const comments = useFetchAndUpdate("recipereview/" + recipeId, foo, []);
 
   return (
     <div>
@@ -66,6 +68,9 @@ function Detail() {
       {steps?.map((step, idx) => (
         <Step key={idx} step={step} img={photos[idx + 1]} i={idx + 1} />
       ))}
+      {user_id && (
+        <LikeButton url={"recipe/like/" + recipeId} user_id={user_id} />
+      )}
       <DeleteOrUpdate
         setPassword={setInputPassword}
         inputPassword={inputPassword}

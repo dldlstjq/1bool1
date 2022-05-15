@@ -2,12 +2,14 @@
 import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
+import axios from "axios";
+
 import { Searchbar } from "../common/Searchbar";
 import { Pagination } from "../common/Pagination";
 import { useFetchPage } from "../common/hooks";
 
 import Recipe from "./Recipe";
-import ButtonAndPerPage from "../common/ButtonAndPerPage";
+import ButtonAndPerPage from "../common/WriteOrderBtns";
 
 function Recipes() {
   const navigate = useNavigate();
@@ -23,6 +25,13 @@ function Recipes() {
       navigate(target.id);
     } else if (target.matches("#write")) {
       navigate("write");
+    } else if (target.matches("#order-by-like")) {
+      axios({
+        method: "get",
+        url: "recipe/like",
+      })
+        .then((res) => setRecipes(res.data.object))
+        .catch((err) => console.log(err));
     }
   }
 

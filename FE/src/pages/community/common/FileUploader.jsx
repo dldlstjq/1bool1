@@ -26,7 +26,7 @@ export const FileUploader = ({ content }) => {
     <div className="flex gap-2">
       <textarea
         name="step"
-        className="bg-lime-400 rounded h-36 grow resize-none"
+        className=" rounded h-36 grow resize-none"
         defaultValue={content}
         required
       ></textarea>

@@ -6,11 +6,14 @@ import axios from "axios";
 import Comment from "./Comment";
 
 import Upper from "./Upper";
+// import Popover from "../Popover";
 
 const Comments = ({ url, comments, boardId, recipeId, refresh }) => {
   const [showComments, setShowComments] = useState(true);
+  // const [popover, setPopover] = useState(false);
   const textareaRef = useRef();
   const buttonRef = useRef();
+  const coordRef = useRef();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -44,9 +47,9 @@ const Comments = ({ url, comments, boardId, recipeId, refresh }) => {
     }
     // if (target.matches("#report")) {
     //   coordRef.current = [clientX, clientY];
-    //   setpopover(true);
+    //   setPopover(true);
     // } else {
-    //   setpopover(false);
+    //   setPopover(false);
     // }
     if (target.matches("#focus")) {
       setShowComments(true);
@@ -58,6 +61,7 @@ const Comments = ({ url, comments, boardId, recipeId, refresh }) => {
 
   return (
     <>
+      {/* {popover && <Popover x={coordRef[0]} y={coordRef[1]} />} */}
       <Upper
         comments={comments}
         setShowComments={setShowComments}

@@ -231,18 +231,6 @@
   cursor: pointer;
 }
 
-.popover {
-  position: fixed;
-  padding: 10px 15px 8px 10px;
-  box-shadow: 0 3px 6px rgb(0 0 0 / 20%);
-  background: #fff;
-  -webkit-transform: translate3d(0, -15%, 0);
-  transform: translate3d(0, -15%, 0);
-  -webkit-transition: opacity 0.25s ease, transform 0.25s ease;
-  transition: opacity 0.25s ease, transform 0.25s ease;
-  white-space: nowrap;
-}
-
 .popover-link {
   display: block;
   color: #8f8f8f;

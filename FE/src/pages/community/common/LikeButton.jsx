@@ -1,21 +1,24 @@
 /* eslint-disable no-unused-vars */
-import { useFetchItem } from "./hooks";
+import { useState } from "react";
+
+import { useFetchAndUpdate } from "./hooks";
 import classNames from "classnames";
 import axios from "axios";
 
-function LikeButton({ url }) {
-  const [like, setLike] = useFetchItem(url, 0);
-  const user = localStorage.getItem("");
+function LikeButton({ url, user_id }) {
+  const [foo, refresh] = useState(0);
+  const [like, setLike] = useFetchAndUpdate(url, foo);
   function postLike() {
-    if (!user) {
+    if (!user_id) {
       alert("로그인이 필요합니다");
       return;
     }
     axios({
       method: "post",
       url,
+      params: { user_id },
     })
-      .then((res) => console.log(res.data.object))
+      .then(() => refresh(foo + 1))
       .catch((err) => console.log(err));
   }
 

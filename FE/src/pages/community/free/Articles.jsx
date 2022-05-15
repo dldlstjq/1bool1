@@ -10,8 +10,7 @@ import { Pagination } from "../common/Pagination";
 import { Searchbar } from "../common/Searchbar";
 import Popover from "../common/Popover";
 import { useFetchPage } from "../common/hooks";
-import Head from "../common/Head";
-import ButtonAndPerPage from "../common/ButtonAndPerPage";
+import ButtonAndPerPage from "../common/WriteOrderBtns";
 
 function Articles() {
   const [popover, setPopover] = useState(false);
@@ -35,15 +34,14 @@ function Articles() {
     if (target.matches("#write")) {
       navigate("write");
     }
-  }
-
-  function fetchListByLike() {
-    axios({
-      method: "get",
-      url: "board/like",
-    })
-      .then((res) => setArticles(res.object.data))
-      .catch((err) => console.log(err));
+    if (target.matches("#order-by-like")) {
+      axios({
+        method: "get",
+        url: "board/like",
+      })
+        .then((res) => setArticles(res.data.object))
+        .catch((err) => console.log(err));
+    }
   }
 
   return (
@@ -57,22 +55,24 @@ function Articles() {
         여러 모험가님들과 다양한 주제에 대해 자유롭게 소통하는 공간입니다.
       </span>
 
-      <ButtonAndPerPage setSize={setSize} />
-      <Head setState={setArticles} />
+      <ButtonAndPerPage setSize={setSize} setState={setArticles} />
+
       <ul>
-        {articles?.map(({ id, title, nickname, password, modifiedDate }) => {
-          const date = modifiedDate?.split(".")[0];
-          return (
-            <Article
-              id={id}
-              key={id}
-              title={title}
-              nickname={nickname}
-              password={password}
-              date={date}
-            />
-          );
-        })}
+        {articles?.map(
+          ({ id, title, nickname, password, modifiedDate }, idx) => {
+            const date = modifiedDate?.split(".")[0];
+            return (
+              <Article
+                id={id}
+                key={idx}
+                title={title}
+                nickname={nickname}
+                password={password}
+                date={date}
+              />
+            );
+          }
+        )}
       </ul>
 
       <Pagination

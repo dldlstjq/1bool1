@@ -35,7 +35,7 @@ export function useFetchItem(url, initialState) {
   return [data, setData];
 }
 
-export function useFetchListAndUpdate(url, extra) {
+export function useFetchAndUpdate(url, dep) {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios({
@@ -46,7 +46,7 @@ export function useFetchListAndUpdate(url, extra) {
         setData(res.data.object);
       })
       .catch((err) => console.log(err));
-  }, [url, extra]);
+  }, [url, dep]);
   return data;
 }
 

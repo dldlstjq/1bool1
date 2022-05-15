@@ -1,16 +1,22 @@
 /* eslint-disable no-unused-vars */
 function ButtonAndPerPage({ setSize }) {
   return (
-    <div className="grid grid-cols-2 gap-2 my-5">
+    <div className="grid grid-cols-3 gap-2 my-5">
       <button
         className="h-10 border-b border-slate-300 bg-purple-900 text-lime-400 font-bold text-xl  rounded"
         id="write"
       >
         글쓰기
       </button>
+      <button
+        className="h-10 border-b border-slate-300 bg-purple-900 text-lime-400 font-bold text-xl  rounded"
+        id="order-by-like"
+      >
+        좋아요순
+      </button>
       <select
-        name="order"
-        id="order"
+        name="items-per-page"
+        id="items-per-page"
         className="h-10 border-b border-slate-300 bg-purple-900 text-lime-400 font-bold  rounded text-lg text-center"
         onChange={(e) => setSize(e.target.value)}
       >

@@ -2,7 +2,7 @@
 
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
-import { useFetchItem, useFetchListAndUpdate } from "../common/hooks";
+import { useFetchItem, useFetchAndUpdate } from "../common/hooks";
 
 import classNames from "classnames";
 
@@ -24,10 +24,12 @@ function Detail() {
   const navi = useNavigate();
 
   const [articleData] = useFetchItem(`board/${articleId}`, []);
-  const comments = useFetchListAndUpdate(`comment/${articleId}`, foo);
+  const comments = useFetchAndUpdate(`comment/${articleId}`, foo, []);
 
   const { title, content, modifiedDate, id, nickname, password, photo } =
     articleData;
+
+  const user_id = localStorage.getItem("user_id");
 
   return (
     <div onWheel={() => setpopover(false)}>
@@ -44,7 +46,7 @@ function Detail() {
           <img src={url} alt="" key={idx} />
         ))}
 
-        {id && <LikeButton url={"board/like/" + id} />}
+        {user_id && <LikeButton url={"board/like/" + id} user_id={user_id} />}
         <UserInfoBox nickname={nickname} />
         <DeleteOrUpdate
           setPassword={setarticlePw}
