@@ -142,7 +142,7 @@ public class BoardDto {
         @ApiModelProperty(name="BoardId", example="객체")
         String content;
         @ApiModelProperty(name="BoardId", example="객체")
-        Long boardId;
+        Long Id;
         @ApiModelProperty(name="카운트 값", example="1")
         Long cnt;
     }
