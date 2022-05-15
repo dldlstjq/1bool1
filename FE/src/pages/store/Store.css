@@ -119,3 +119,11 @@
   color: #000000;
   font-weight: bold;
 }
+.MuiCheckbox-colorPrimary { 
+  color : 'green'
+
+}
+
+.MuiCheckbox-colorPrimary .hover {
+  background-color:'red'
+}

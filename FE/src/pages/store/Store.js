@@ -26,6 +26,10 @@ import Chip from '@mui/material/Chip';
 import './Store.css';
 import { FcMoneyTransfer } from "react-icons/fc";
 import { FaWonSign, FaCoins } from "react-icons/fa";
+// import { makeStyles } from "@material-ui/core/styles";
+// import { withStyles } from "@material-ui/core";
+// import styled from '@mui/material/styles';
+// import { withStyles } from 'material-ui/styles'
 
 
 function Store() {
@@ -128,7 +132,19 @@ function Store() {
     })
     
   }
-  
+  // const CustomColorCheckbox = withStyles ({
+  // // const CustomColorCheckbox = styled(Checkbox) ({
+  //   root: {
+  //     color: "#F93D59",
+  //     "&$checked": {
+  //       color: "#F93D59"
+  //     }
+  //   },
+  //   checked: {}
+
+  // // });
+  // })((props) => <Checkbox color="default" {...props} />);
+
   
   useEffect(() => {
     axios
@@ -172,45 +188,45 @@ function Store() {
                 {/* <FormLabel component="legend" style={{borderColor:'#F93D59', borderWidth:'1'}}>편의점   </FormLabel> */}
                 <Typography style={{width:'80px', padding:'0.5rem',textAlign: "center", marginRight:'2rem', color:'#F93D59',borderWidth:1, borderColor:'#F93D59', borderRadius:10, fontWeight:'bold'}}>편의점</Typography>
                 <FormControlLabel
-                  control={ <Checkbox checked={all} onChange={handleChange} name="all" sx={{}} /> } label="전체" />
+                  control={ <Checkbox checked={all} onChange={handleChange} name="all" sx={{'&.Mui-checked': { color: "#F93D59" } }} /> } label="전체" />
                 <FormControlLabel
-                  control={ <Checkbox checked={cu} onChange={handleChange} name="cu" />} label="CU" />
+                  control={ <Checkbox checked={cu} onChange={handleChange} name="cu" sx={{'&.Mui-checked': { color: "#F93D59" } }} />} label="CU" />
                 <FormControlLabel
-                  control={<Checkbox checked={gs} onChange={handleChange} name="gs" /> } label="GS25" />
+                  control={<Checkbox checked={gs} onChange={handleChange} name="gs" sx={{'&.Mui-checked': { color: "#F93D59" } }} /> } label="GS25" />
                 <FormControlLabel
-                  control={<Checkbox checked={em} onChange={handleChange} name="em" /> } label="이마트24" />
+                  control={<Checkbox checked={em} onChange={handleChange} name="em" sx={{'&.Mui-checked': { color: "#F93D59" } }} /> } label="이마트24" />
                 <FormControlLabel
-                  control={<Checkbox checked={se} onChange={handleChange} name="se" /> } label="세븐일레븐" />
+                  control={<Checkbox checked={se} onChange={handleChange} name="se" sx={{'&.Mui-checked': { color: "#F93D59" } }} /> } label="세븐일레븐" />
                 <FormControlLabel
-                  control={<Checkbox checked={ms} onChange={handleChange} name="ms" /> } label="미니스톱" />
+                  control={<Checkbox checked={ms} onChange={handleChange} name="ms" sx={{'&.Mui-checked': { color: "#F93D59" } }} /> } label="미니스톱" />
                 <FormControlLabel
-                  control={<Checkbox checked={cs} onChange={handleChange} name="cs" /> } label="씨스페이스" />
+                  control={<Checkbox checked={cs} onChange={handleChange} name="cs" sx={{'&.Mui-checked': { color: "#F93D59" } }} /> } label="씨스페이스" />
 
           </FormGroup>
           <FormGroup aria-label="position" row style={{border:1}}>
           {/* <Typography style={{width:'80px', padding:'0.5rem',textAlign: "center", marginRight:'2rem', backgroundColor:'#F93D59', color:'white', borderRadius:10, fontWeight:'bold'}}>행사</Typography> */}
           <Typography style={{width:'80px', padding:'0.5rem',textAlign: "center", marginRight:'2rem', color:'#F93D59',borderWidth:1, borderColor:'#F93D59', borderRadius:10, fontWeight:'bold'}}>행사</Typography>
               <FormControlLabel
-                control={ <Checkbox checked={allEvent} onChange={handleChange} name="allEvent" sx={{'&:hover': {backgroundColor:'red'}}} /> } label="전체" />
+                control={ <Checkbox checked={allEvent} onChange={handleChange} name="allEvent" sx={{'&.Mui-checked': { color: "#F93D59" } }} /> } label="전체" />
               <FormControlLabel
-                control={ <Checkbox checked={noEvent} onChange={handleChange} name="noEvent" />} label="정가" />
+                control={ <Checkbox checked={noEvent} onChange={handleChange} name="noEvent" sx={{'&.Mui-checked': { color: "#F93D59" } }} />}  label="정가" />
               <FormControlLabel
-                control={<Checkbox checked={one} onChange={handleChange} name="one" /> } label="1+1" />
+                control={<Checkbox checked={one} onChange={handleChange} name="one"  sx={{'&.Mui-checked': { color: "#F93D59" } }}/> }  label="1+1" />
               <FormControlLabel
-                control={<Checkbox checked={two} onChange={handleChange} name="two" /> } label="2+1" />
+                control={<Checkbox checked={two} onChange={handleChange} name="two"  sx={{'&.Mui-checked': { color: "#F93D59" } }}/> }   label="2+1" />
               <FormControlLabel
-                control={<Checkbox checked={three} onChange={handleChange} name="three" /> } label="3+1" />
+                control={<Checkbox checked={three} onChange={handleChange} name="three"  sx={{'&.Mui-checked': { color: "#F93D59" } }}/> }  label="3+1" />
               <FormControlLabel
-                control={<Checkbox checked={sale} onChange={handleChange} name="sale" /> } label="세일" />
+                control={<Checkbox checked={sale} onChange={handleChange} name="sale"  sx={{'&.Mui-checked': { color: "#F93D59" } }}/> }  label="세일" />
               <FormControlLabel
-                control={<Checkbox checked={dum} onChange={handleChange} name="dum" /> } label="덤증정" />
+                control={<Checkbox checked={dum} onChange={handleChange} name="dum"  sx={{'&.Mui-checked': { color: "#F93D59" } }}/> }  label="덤증정" />
               <FormControlLabel
-                control={<Checkbox checked={noSale} onChange={handleChange} name="noSale" /> } label="균일가" />
+                control={<Checkbox checked={noSale} onChange={handleChange} name="noSale"  sx={{'&.Mui-checked': { color: "#F93D59" } }}/> }  label="균일가" />
             
             </FormGroup>
             <Box style={{ display: 'flex', flexDirection:'row',justifyContent:'center', marginTop:'1rem'}}>
                   {/* <input onChange={searchWord} name="goodName" placeholder="상품을 입력하세요" style={{borderBottom :'teal 1px solid', borderLeft:'none',}} ></input> */}
-                  <TextField onChange={searchWord} onKeyPress={onKeyPress} id="standard-basic" label="Standard" variant="standard" />
+                  <TextField onChange={searchWord} onKeyPress={onKeyPress} id="standard-basic" label="상품을 입력하세요" variant="standard" />
             <Button  onClick={onSubmit} style={{backgroundColor:'#F93D59', color:'white', fontWeight:'bold', borderRadius:20, height:'2rem', marginTop:'1rem'}} name="adr">검색</Button>
             </Box>
           </Box>
