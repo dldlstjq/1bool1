@@ -188,8 +188,8 @@ public class RecipeDto {
         Integer star;
         @ApiModelProperty(name="minute", example="객체")
         Integer minute;
-        @ApiModelProperty(name="recipeId", example="객체")
-        Long recipeId;
+        @ApiModelProperty(name="id", example="객체")
+        Long id;
         @ApiModelProperty(name="cnt", example="1")
         Long cnt;
     }

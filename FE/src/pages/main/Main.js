@@ -24,16 +24,26 @@ import { Link } from 'react-router-dom';
 
 function Main() {
   const [word, setWord] = useState('');
-  const [menus, setMenus] = useState([]);
+  const [likes, setLike] = useState([]);
+  const [hits, setHit] = useState([]);
   // const prevRef = useRef(null);
   // const nextRef = useRef(null);
 
   useEffect(() => {
     axios
-      .get('http://localhost:8080/api/v1/goods')
-      // .get('https://k6d207.p.ssafy.io/api/v1/goods/hit')
+      // .get('http://localhost:8080/api/v1/goods')
+      .get(`https://k6d207.p.ssafy.io/api/v1/goods/like`)
       .then(({ data }) => {
-        setMenus(data.object);
+        setLike(data.object);
+        console.log(data);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`https://k6d207.p.ssafy.io/api/v1/goods/hit`)
+      .then(({ data }) => {
+        setHit(data.object);
         console.log(data);
       });
   }, []);
@@ -93,12 +103,14 @@ function Main() {
           >
             조회수 TOP 10
           </Typography>
+          <Link to='/store'>
           <Typography
             variant='h6'
             style={{ color: 'grey', display: 'flex', justifyContent: 'end' }}
           >
             상품 모두 보기 {'>'}
           </Typography>
+          </Link>
           <Grid container spacing={3} style={{ height: 370, margin: 0, padding: 0 }}>
             <Grid item xs={1} sx={{ padding: 0, display: { xs: 'none', md: 'flex' } }}>
               <Button
@@ -148,7 +160,7 @@ function Main() {
                 }}
                 className='mySwiper'
               >
-                {menus.map((menu) => (
+                {hits.map((menu) => (
                   <SwiperSlide key={menu.id}>
                     <Link to={`/${menu.id}`} style={{ textDecoration: 'none' }}>
                       <Card
@@ -166,7 +178,7 @@ function Main() {
                         >
                           <CardMedia
                             component='img'
-                            alt='green iguana'
+                            alt='이미지 준비중'
                             sx={{ width: 160, height: 180 }}
                             image={`${menu.photoPath}`}
                           />
@@ -205,14 +217,16 @@ function Main() {
               marginTop: '8rem',
             }}
           >
-            새로운 상품
+            좋아요 TOP 10
           </Typography>
+          <Link to='/store'>
           <Typography
             variant='h6'
             style={{ color: 'grey', display: 'flex', justifyContent: 'end' }}
           >
             상품 모두 보기 {'>'}
           </Typography>
+          </Link>
           <Grid
             container
             spacing={3}
@@ -266,7 +280,7 @@ function Main() {
                 }}
                 className='mySwiper'
               >
-                {menus.map((menu) => (
+                {likes.map((menu) => (
                   <SwiperSlide key={menu.id}>
                     <Link to={`/${menu.id}`} style={{ textDecoration: 'none' }}>
                       <Card
@@ -284,7 +298,7 @@ function Main() {
                         >
                           <CardMedia
                             component='img'
-                            alt='green iguana'
+                            alt='이미지 준비중'
                             sx={{ width: 160, height: 180 }}
                             image={`${menu.photoPath}`}
                           />
