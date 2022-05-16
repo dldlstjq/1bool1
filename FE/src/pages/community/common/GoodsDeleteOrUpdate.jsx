@@ -47,7 +47,7 @@ export function DeleteOrUpdate({
     <div className='grid-cols-3 gap-2 my-4'>
       <input
         type='password'
-        className='bg-gray-700 text-white h-10'
+        className='bg-gray-700 text-white w-20 h-10'
         placeholder='비밀번호'
         name='password'
         onChange={(e) => setInputPw(e.target.value)}
