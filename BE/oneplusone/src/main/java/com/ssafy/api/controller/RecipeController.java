@@ -77,6 +77,7 @@ public class RecipeController {
         }
         photo += "";
         RecipeDto.RecipePostRequest recipePostRequest = new RecipeDto.RecipePostRequest();
+        recipePostRequest.setPrice(recipePostRealRequest.getPrice());
         recipePostRequest.setPhoto(photo);
         recipePostRequest.setNickname(recipePostRealRequest.getNickname());
         recipePostRequest.setContent(recipePostRealRequest.getContent());
@@ -205,6 +206,7 @@ public class RecipeController {
         recipePutRequest.setStar(recipeTempPutRequest.getStar());
         recipePutRequest.setDescription(recipeTempPutRequest.getDescription());
         recipePutRequest.setMinute(recipeTempPutRequest.getMinute());
+        recipePutRequest.setPrice(recipeTempPutRequest.getPrice());
         if(recipeService.modifyRecipe(recipePutRequest)) {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         }else{
@@ -263,6 +265,26 @@ public class RecipeController {
 
         Page<RecipeDto.RecipeLikeGet> list = recipeLikeService.findByRecipe(page,size,pageable);
         if(list != null)
+        {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", list));
+        }else{
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail"));
+        }
+    }
+
+
+    @GetMapping("/like/week")
+    @ApiOperation(value = "한 주의 인기순 정렬", notes = "<strong>한 주의 인기순 정렬</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> findByRecipeLikeWeek() {
+
+        List<RecipeDto.RecipeLikeGet> list = recipeLikeService.findByRecipeWeek();
+        if(list.size() != 0)
         {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", list));
         }else{

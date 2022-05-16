@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 @Service
 public class BoardLikeServiceImpl implements BoardLikeService {
@@ -115,6 +116,37 @@ public class BoardLikeServiceImpl implements BoardLikeService {
         }else {
             return true;
         }
+
+    }
+
+    @Override
+    public List<BoardDto.BoardLikeGet> findByBoardWeek() {
+        List<BoardLike> list = boardLikeRepository.findBoardLikeOrderBySQL();
+        List<BoardDto.BoardLikeGet> ans = new ArrayList<>();
+        if(list.size() == 0){
+            return new ArrayList<>();
+        }else{
+
+            BoardDto.BoardLikeGet recipeLikeGet;
+            Board recipe;
+            StringTokenizer tk;
+            for(int i = 0; i < list.size(); i++){
+                recipeLikeGet = new BoardDto.BoardLikeGet();
+                recipe = boardRepository.findById(list.get(i).getBoard_id()).orElseGet(() -> null);
+                tk = new StringTokenizer(recipe.getPhoto(),",");
+                recipeLikeGet.setCnt(list.get(i).getCnt());
+                recipeLikeGet.setPhoto(tk.nextToken());
+                recipeLikeGet.setPassword(recipe.getPassword());
+                recipeLikeGet.setContent(recipe.getContent());
+                recipeLikeGet.setNickname(recipe.getNickname());
+                recipeLikeGet.setTitle(recipe.getTitle());
+                recipeLikeGet.setId(recipe.getId());
+                recipeLikeGet.setModifiedDate(recipe.getModifiedDate());
+                recipeLikeGet.setCreatedDate(recipe.getCreatedDate());
+                ans.add(recipeLikeGet);
+            }
+        }
+        return ans;
 
     }
 }

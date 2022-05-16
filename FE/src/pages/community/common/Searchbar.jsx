@@ -6,18 +6,19 @@ export function Searchbar({ url, setState }) {
   const buttonRef = useRef();
   const imgRef = useRef();
   const [input, setInput] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
 
-  function handleFocus({ target }) {
-    target.classList.toggle("outline-black", true);
-    buttonRef.current.classList.toggle("bg-black", true);
-    buttonRef.current.classList.toggle("border", false);
-    imgRef.current.src = "/images/white-search.png";
-  }
-  function handleBlur({ target }) {
-    target?.classList.toggle("outline-black", false);
-    buttonRef.current.classList.toggle("bg-black", false);
-    imgRef.current.src = "/images/search.png";
-  }
+  // function handleFocus({ target }) {
+  //   target.classList.toggle("outline-black", true);
+  //   buttonRef.current.classList.toggle("bg-black", true);
+  //   buttonRef.current.classList.toggle("border", false);
+  //   imgRef.current.src = "/images/white-search.png";
+  // }
+  // function handleBlur({ target }) {
+  //   target?.classList.toggle("outline-black", false);
+  //   buttonRef.current.classList.toggle("bg-black", false);
+  //   imgRef.current.src = "/images/search.png";
+  // }
   function handleChange({ target }) {
     const { value } = target;
     setInput(value);
@@ -33,16 +34,17 @@ export function Searchbar({ url, setState }) {
   }
 
   return (
-    <div className="my-10 flex justify-center">
+    // <div className="my-10 flex justify-center">
+    <div className="flex justify-center">
       <div className="relative">
         <input
           type="text"
           name="content"
           className="border border-slate-300 h-12 w-56 md:h-14 md:w-72 rounded"
           placeholder="검색어를 입력해주세요"
-          onFocus={handleFocus}
-          onBlur={handleBlur}
           value={input.content}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
           onChange={handleChange}
           onKeyDown={(e) => {
             if (e.key === "Enter") applyFilter(url);
@@ -53,7 +55,11 @@ export function Searchbar({ url, setState }) {
           ref={buttonRef}
           onClick={() => applyFilter(url)}
         >
-          <img src="/images/search.png" alt="" ref={imgRef} />
+          {isFocused ? (
+            <img src="/images/white-search.png" alt="" />
+          ) : (
+            <img src="/images/search.png" alt="" />
+          )}
         </button>
       </div>
     </div>
