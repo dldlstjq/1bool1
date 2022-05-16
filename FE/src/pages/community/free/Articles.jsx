@@ -44,7 +44,7 @@ function Articles() {
 
   return (
     <div
-      className="articles"
+      className="p-4"
       onClick={handleClick}
       onWheel={() => setPopover(false)}
     >

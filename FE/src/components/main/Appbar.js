@@ -1,26 +1,26 @@
-import React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import Grid from '@mui/material/MenuItem';
-import logo from '../../common/logo.png';
-import kakaoLogo from '../../common/kakao_k.png';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import Grid from "@mui/material/MenuItem";
+import logo from "../../common/logo.png";
+import kakaoLogo from "../../common/kakao_k.png";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
-import { BASE_URL } from '../../index';
-import axios from 'axios';
+import { BASE_URL } from "../../index";
+import axios from "axios";
 
 // const pages = ['편의점', '레시피', '커뮤니티', '이벤트'];
-const settings = ['로그인'];
+const settings = ["로그인"];
 const { Kakao } = window;
 
 function Appbar() {
@@ -54,22 +54,23 @@ function Appbar() {
         // console.log(authObj);
         // console.log(authObj.access_token);
         Kakao.API.request({
-          url: '/v2/user/me',
+          url: "/v2/user/me",
           success: function (res) {
-            localStorage.setItem('email', res.kakao_account.email);
+            localStorage.setItem("email", res.kakao_account.email);
             // console.log(res);
           },
           fail: function (error) {
             alert(
-              'login success, but failed to request user information: ' + JSON.stringify(error)
+              "login success, but failed to request user information: " +
+                JSON.stringify(error)
             );
           },
         });
 
         // accessToken을 kakaoCallback에 날렸지만 로그인 불가능 답이 옴
         axios({
-          method: 'post',
-          url: BASE_URL + 'users/kakaoAlarm',
+          method: "post",
+          url: BASE_URL + "users/kakaoAlarm",
           params: {
             token: authObj.access_token,
           },
@@ -77,22 +78,22 @@ function Appbar() {
           // console.log(res);
           // localStorage.setItem('user_id', res.data.object.id);
           if (res.data.statusCode === 200) {
-            console.log('알림 보내기 성공!!');
+            console.log("알림 보내기 성공!!");
           }
         });
 
         // accessToken을 kakaoCallback에 날렸지만 로그인 불가능 답이 옴
         axios({
-          method: 'post',
-          url: BASE_URL + 'users/kakao',
+          method: "post",
+          url: BASE_URL + "users/kakao",
           params: {
             token: authObj.access_token,
           },
         }).then((res) => {
           // console.log(res);
-          localStorage.setItem('user_id', res.data.object.id);
+          localStorage.setItem("user_id", res.data.object.id);
           if (res.data.statusCode === 200) {
-            alert('1bool1에 오신걸 환영합니다!');
+            alert("1bool1에 오신걸 환영합니다!");
             navigate(location.pathname);
           }
         });
@@ -105,197 +106,281 @@ function Appbar() {
 
   function logout(e) {
     e.preventDefault();
-    localStorage.removeItem('email');
-    localStorage.removeItem('user_id');
+    localStorage.removeItem("email");
+    localStorage.removeItem("user_id");
     window.location.replace(location.pathname);
   }
   return (
     <AppBar
-      position='static'
-      style={{ backgroundColor: 'white', boxShadow: 'rgb(249, 61, 89) 0px 2px' }}
+      position="static"
+      style={{
+        backgroundColor: "white",
+        boxShadow: "rgb(249, 61, 89) 0px 2px",
+      }}
     >
-      <Container maxWidth='xl'>
+      <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Box sx={{ mr: 2, mt: 1, display: { xs: 'none', md: 'flex' } }}>
-            <Link to='/'>
-              <img src={logo} alt='logo' style={{ height: '5rem' }} />
+          <Box sx={{ mr: 2, mt: 1, display: { xs: "none", md: "flex" } }}>
+            <Link to="/">
+              <img src={logo} alt="logo" style={{ height: "5rem" }} />
             </Link>
           </Box>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
-              size='large'
-              aria-label='account of current user'
-              aria-controls='menu-appbar'
-              aria-haspopup='true'
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
               onClick={handleOpenNavMenu}
               // color="inherit"
             >
               <MenuIcon />
             </IconButton>
             <Menu
-              id='menu-appbar'
+              id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
+                vertical: "bottom",
+                horizontal: "left",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
+                vertical: "top",
+                horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: 'block', md: 'none' },
+                display: { xs: "block", md: "none" },
               }}
             >
               <MenuItem onClick={handleCloseNavMenu}>
-                <Link to='/store' style={{ textDecoration: 'none' }}>
-                  <Button style={{ color: 'black', fontSize: '1rem', fontWeight: 'bold' }}>
+                <Link to="/store" style={{ textDecoration: "none" }}>
+                  <Button
+                    style={{
+                      color: "black",
+                      fontSize: "1rem",
+                      fontWeight: "bold",
+                    }}
+                  >
                     편의점
                   </Button>
                 </Link>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-                <Link to='/community/recipe' style={{ textDecoration: 'none' }}>
-                  <Button style={{ color: 'black', fontSize: '1rem', fontWeight: 'bold' }}>
+                <Link to="/recipe" style={{ textDecoration: "none" }}>
+                  <Button
+                    style={{
+                      color: "black",
+                      fontSize: "1rem",
+                      fontWeight: "bold",
+                    }}
+                  >
                     레시피
                   </Button>
                 </Link>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-                <Link to='/community' style={{ textDecoration: 'none' }}>
-                  <Button style={{ color: 'black', fontSize: '1rem', fontWeight: 'bold' }}>
+                <Link to="/community" style={{ textDecoration: "none" }}>
+                  <Button
+                    style={{
+                      color: "black",
+                      fontSize: "1rem",
+                      fontWeight: "bold",
+                    }}
+                  >
                     커뮤니티
                   </Button>
                 </Link>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-                <Link to='/' style={{ textDecoration: 'none' }}>
-                  <Button style={{ color: 'black', fontSize: '1rem', fontWeight: 'bold' }}>
+                <Link to="/" style={{ textDecoration: "none" }}>
+                  <Button
+                    style={{
+                      color: "black",
+                      fontSize: "1rem",
+                      fontWeight: "bold",
+                    }}
+                  >
                     이벤트
                   </Button>
                 </Link>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-                <Link to='/' style={{ textDecoration: 'none' }}>
-                  <Button style={{ color: 'black', fontSize: '1rem', fontWeight: 'bold' }}>
+                <Link to="/" style={{ textDecoration: "none" }}>
+                  <Button
+                    style={{
+                      color: "black",
+                      fontSize: "1rem",
+                      fontWeight: "bold",
+                    }}
+                  >
                     공지사항
                   </Button>
                 </Link>
               </MenuItem>
             </Menu>
           </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <Link to='/'>
-              <img src={logo} alt='logo' style={{ height: '4rem' }} />
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+            <Link to="/">
+              <img src={logo} alt="logo" style={{ height: "4rem" }} />
             </Link>
           </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Link
-              to='/store'
+              to="/store"
               style={{
-                textDecoration: 'none',
-                marginRight: '2rem',
-                marginLeft: '6rem',
-                hoverColor: 'red',
+                textDecoration: "none",
+                marginRight: "2rem",
+                marginLeft: "6rem",
+                hoverColor: "red",
               }}
             >
-              <Button style={{ my: 2, color: 'black', fontSize: '1.2rem', fontWeight: 'bold' }}>
+              <Button
+                style={{
+                  my: 2,
+                  color: "black",
+                  fontSize: "1.2rem",
+                  fontWeight: "bold",
+                }}
+              >
                 편의점
               </Button>
             </Link>
             <Link
-              to='/community/recipe'
+              to="/recipe"
               style={{
-                textDecoration: 'none',
-                marginRight: '2rem',
-                marginLeft: '2rem',
-                hoverColor: 'red',
+                textDecoration: "none",
+                marginRight: "2rem",
+                marginLeft: "2rem",
+                hoverColor: "red",
               }}
             >
-              <Button style={{ my: 2, color: 'black', fontSize: '1.2rem', fontWeight: 'bold' }}>
+              <Button
+                style={{
+                  my: 2,
+                  color: "black",
+                  fontSize: "1.2rem",
+                  fontWeight: "bold",
+                }}
+              >
                 레시피
               </Button>
             </Link>
             <Link
-              to='/community'
+              to="/community"
               style={{
-                textDecoration: 'none',
-                marginRight: '2rem',
-                marginLeft: '2rem',
-                hoverColor: 'red',
+                textDecoration: "none",
+                marginRight: "2rem",
+                marginLeft: "2rem",
+                hoverColor: "red",
               }}
             >
-              <Button style={{ my: 2, color: 'black', fontSize: '1.2rem', fontWeight: 'bold' }}>
+              <Button
+                style={{
+                  my: 2,
+                  color: "black",
+                  fontSize: "1.2rem",
+                  fontWeight: "bold",
+                }}
+              >
                 커뮤니티
               </Button>
             </Link>
             <Link
-              to='/'
+              to="/"
               style={{
-                textDecoration: 'none',
-                marginRight: '2rem',
-                marginLeft: '2rem',
-                hoverColor: 'red',
+                textDecoration: "none",
+                marginRight: "2rem",
+                marginLeft: "2rem",
+                hoverColor: "red",
               }}
             >
-              <Button style={{ my: 2, color: 'black', fontSize: '1.2rem', fontWeight: 'bold' }}>
+              <Button
+                style={{
+                  my: 2,
+                  color: "black",
+                  fontSize: "1.2rem",
+                  fontWeight: "bold",
+                }}
+              >
                 이벤트
               </Button>
             </Link>
-            <Link to='/' style={{ textDecoration: 'none', marginLeft: '2rem', hoverColor: 'red' }}>
-              <Button style={{ my: 2, color: 'black', fontSize: '1.2rem', fontWeight: 'bold' }}>
+            <Link
+              to="/"
+              style={{
+                textDecoration: "none",
+                marginLeft: "2rem",
+                hoverColor: "red",
+              }}
+            >
+              <Button
+                style={{
+                  my: 2,
+                  color: "black",
+                  fontSize: "1.2rem",
+                  fontWeight: "bold",
+                }}
+              >
                 공지사항
               </Button>
             </Link>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title='Open settings'>
+            <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {localStorage.getItem('email') ? (
-                  <Avatar alt='Remy Sharp' src={kakaoLogo} />
+                {localStorage.getItem("email") ? (
+                  <Avatar alt="Remy Sharp" src={kakaoLogo} />
                 ) : (
-                  <Avatar alt='Remy Sharp' src={'/static/images/avatar/1.jpg'} />
+                  <Avatar
+                    alt="Remy Sharp"
+                    src={"/static/images/avatar/1.jpg"}
+                  />
                 )}
               </IconButton>
             </Tooltip>
 
             <Menu
-              sx={{ mt: '45px' }}
-              id='menu-appbar'
+              sx={{ mt: "45px" }}
+              id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: "top",
+                horizontal: "right",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: "top",
+                horizontal: "right",
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  {setting === '로그인' && localStorage.getItem('email') === null && (
-                    <Link to='/signin' style={{ textDecoration: 'none' }}>
-                      <Typography textAlign='center' onClick={kakaoLoginClickHandler}>
-                        {setting}
-                      </Typography>
-                    </Link>
-                  )}
-                  {localStorage.getItem('email') && (
+                  {setting === "로그인" &&
+                    localStorage.getItem("email") === null && (
+                      <Link to="/signin" style={{ textDecoration: "none" }}>
+                        <Typography
+                          textAlign="center"
+                          onClick={kakaoLoginClickHandler}
+                        >
+                          {setting}
+                        </Typography>
+                      </Link>
+                    )}
+                  {localStorage.getItem("email") && (
                     <Grid container spacing={2} colums={16}>
                       <Grid item xs={8}>
-                        <p style={{ color: 'black' }}>{localStorage.getItem('email')}</p>
+                        <p style={{ color: "black" }}>
+                          {localStorage.getItem("email")}
+                        </p>
                       </Grid>
                       <Grid item xs={8}>
-                        <Typography textAlign='center' onClick={logout}>
+                        <Typography textAlign="center" onClick={logout}>
                           로그아웃
                         </Typography>
                       </Grid>
