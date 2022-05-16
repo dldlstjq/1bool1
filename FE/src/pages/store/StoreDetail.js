@@ -78,10 +78,11 @@ function StoreDetail() {
   //   });
 
   //   // 지금 로그인한 유저가 좋아요 누른 상품인지 확인하는 기능 필요
-  //   // if(localStorage.getItem('user_id') !== null)
-  //   // axios.get(BASE_URL + `goods/${goods.id}`).then((res) => {
-  //   //  if(res.data === 1) setIsLike(true);
-  //   // });
+  //   if (localStorage.getItem('user_id') !== null) {
+  //     axios.get(BASE_URL + `goods/like/${goods.id}`).then((res) => {
+  //       if (res.data === 1) setIsLike(true);
+  //     });
+  //   }
   // }, []);
 
   const goodsData = useFetchItem(`goods/${localStorage.getItem('goodsId')}`);
@@ -137,7 +138,7 @@ function StoreDetail() {
   //   "hit": null,
   //   "convinence": "EM",
 
-  console.log(goodsData);
+  // console.log(goodsData);
   const str = String(price);
   let strPrice;
   if (str.length === 4) strPrice = str.substring(0, 1) + ',' + str.substring(1, str.length);
