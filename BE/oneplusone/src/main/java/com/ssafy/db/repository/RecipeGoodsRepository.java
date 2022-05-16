@@ -16,6 +16,6 @@ public interface RecipeGoodsRepository extends JpaRepository<RecipeGoods,Long> {
 
     List<RecipeGoods> findByRecipe(Recipe recipe);
 
-    @Query(value = "select g.photo_path as goods_photo ,r.recipe_id as recipe_id  from recipe_goods r join goods g on g.id = r.goods_id where r.recipe_id = :Id",nativeQuery = true)
+    @Query(value = "select g.photo_path as goods_photo ,r.recipe_id as recipe_id, g.name as name  from recipe_goods r join goods g on g.id = r.goods_id where r.recipe_id = :Id",nativeQuery = true)
     List<RecipeGoodsSelect> findBySQL(@Param("Id") Long Id);
 }
