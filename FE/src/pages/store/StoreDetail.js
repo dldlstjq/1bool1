@@ -88,7 +88,7 @@ function StoreDetail() {
         })
         .catch((err) => console.log(err));
     }
-  }, []);
+  }, [goods.id]);
 
   // const goodsData = useFetchItem(`goods/${localStorage.getItem('goodsId')}`);
   const comments = useFetchListAndUpdate(
