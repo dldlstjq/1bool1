@@ -43,17 +43,7 @@ function Upper({ nickname, password, description, minute, star, title }) {
           name="minute"
           defaultValue={minute}
         />
-        <select
-          className=" h-10 rounded"
-          placeholder="난이도"
-          name="star"
-          defaultValue={star}
-        >
-          <option defaultValue="">난이도</option>
-          <option defaultValue="1">1</option>
-          <option defaultValue="2">2</option>
-          <option defaultValue="3">3</option>
-        </select>
+
         <div>
           <span className="text-lg text-lime-400">메인사진</span>
           <input type="file" name="file" required className="inline-block" />
