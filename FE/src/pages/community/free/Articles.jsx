@@ -17,31 +17,28 @@ function Articles() {
   const [coord, setCoord] = useState([0, 0]);
   const [searchParams, setSearchParams] = useSearchParams([["page", "1"]]);
   const [size, setSize] = useState(10);
+  const [orderBy, setOrderBy] = useState("board");
 
   const navigate = useNavigate();
-  const page = searchParams.get("page") ?? 0;
-  const [articles, setArticles] = useFetchPage("board", page, size);
+  const pageParam = searchParams.get("page");
+  let page = 0;
+  if (pageParam) page = parseInt(pageParam) - 1;
 
-  function handleClick({ target }) {
-    if (target.matches(".article-title")) {
-      navigate(target.id);
+  const [articles, setArticles] = useFetchPage(orderBy, page, size);
+
+  function handleClick(e) {
+    if (e.target.matches(".article-title")) {
+      navigate(e.target.id);
     }
-    // else if (target.matches(".author")) {
-    //   setCoord(() => [clientX, clientY]);
-    //   setPopover(true);
-    // } else {
-    //   setPopover(false);
-    // }
-    if (target.matches("#write")) {
+    if (e.target.matches("#write")) {
       navigate("write");
     }
-    if (target.matches("#order-by-like")) {
-      axios({
-        method: "get",
-        url: "board/like",
-      })
-        .then((res) => setArticles(res.data.object))
-        .catch((err) => console.log(err));
+    if (e.target.matches("#order-by-like")) {
+      if (orderBy === "board") {
+        setOrderBy("board/like");
+        return;
+      }
+      setOrderBy("board");
     }
   }
 

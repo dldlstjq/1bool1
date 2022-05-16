@@ -15,10 +15,11 @@ function Recipes() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
   const [size, setSize] = useState(10);
+  const [orderBy, setOrderBy] = useState("recipe");
 
   const page = searchParams.get("page") ? searchParams.get("page") - 1 : 0;
 
-  const [recipes, setRecipes] = useFetchPage("recipe", page, size);
+  const [recipes, setRecipes] = useFetchPage(orderBy, page, size);
 
   function handleClick({ target }) {
     if (target.matches(".main-photo") || target.matches(".keep-all")) {
@@ -26,12 +27,11 @@ function Recipes() {
     } else if (target.matches("#write")) {
       navigate("write");
     } else if (target.matches("#order-by-like")) {
-      axios({
-        method: "get",
-        url: "recipe/like",
-      })
-        .then((res) => setRecipes(res.data.object))
-        .catch((err) => console.log(err));
+      if (orderBy === "recipe") {
+        setOrderBy("recipe/like");
+        return;
+      }
+      setOrderBy("recipe");
     }
   }
 

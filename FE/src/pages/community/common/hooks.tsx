@@ -1,30 +1,30 @@
-import { useEffect, useState, useCallback } from 'react';
-import axios from 'axios';
-import { BASE_URL } from '../../..';
+import { useEffect, useState, useCallback } from "react";
+import axios from "axios";
+import { BASE_URL } from "../../..";
 
-export function useFetchPage(url, page, size) {
+export function useFetchPage(url: string, page: number, size: number) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     axios({
-      method: 'get',
+      method: "get",
       url: BASE_URL + url,
       params: { page, size },
     })
       .then((res) => {
-        setData(res.data.object);
+        setData(res.data.object.content ?? res.data.object);
       })
       .catch((err) => console.log(err));
   }, [url, page, size]);
   return [data, setData];
 }
 
-export function useFetchItem(url, initialState) {
+export function useFetchItem(url: string, initialState: any) {
   const [data, setData] = useState(initialState);
 
   useEffect(() => {
     axios({
-      method: 'get',
+      method: "get",
       url,
     })
       .then((res) => {
@@ -35,11 +35,11 @@ export function useFetchItem(url, initialState) {
   return [data, setData];
 }
 
-export function useFetchAndUpdate(url, dep) {
+export function useFetchAndUpdate(url: string, dep: any) {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios({
-      method: 'get',
+      method: "get",
       url,
     })
       .then((res) => {
@@ -50,11 +50,26 @@ export function useFetchAndUpdate(url, dep) {
   return data;
 }
 
-export function useFetchList(url) {
+export function useFetchListAndUpdate(url: string, dep: any) {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios({
-      method: 'get',
+      method: "get",
+      url,
+    })
+      .then((res) => {
+        setData(res.data.object);
+      })
+      .catch((err) => console.log(err));
+  }, [url, dep]);
+  return data;
+}
+
+export function useFetchList(url: string) {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    axios({
+      method: "get",
       url,
     })
       .then((res) => {
@@ -65,10 +80,14 @@ export function useFetchList(url) {
   return data;
 }
 
-export function useInputs(initialForm) {
+interface MyEventTarget {
+  name: string;
+  value: string;
+}
+export function useInputs(initialForm: object) {
   const [form, setForm] = useState(initialForm);
 
-  const onChange = useCallback((e) => {
+  const onChange = useCallback((e: { target: MyEventTarget }) => {
     if (!e.target) {
       setForm(e);
       return;
@@ -79,12 +98,12 @@ export function useInputs(initialForm) {
   return [form, onChange];
 }
 
-export function useFetchHit(url) {
+export function useFetchHit(url: string) {
   const [data, setData] = useState({});
 
   useEffect(() => {
     axios({
-      method: 'put',
+      method: "put",
       url,
     })
       .then((res) => {
@@ -94,22 +113,3 @@ export function useFetchHit(url) {
   }, [url]);
   return data;
 }
-
-// export function useFetchIfUpdate(url, isUpdate) {
-//   const [data, setData] = useState({});
-
-//   useEffect(() => {
-//     if (!isUpdate) return;
-//     axios({
-//       method: "get",
-//       url: BASE_URL + url,
-//     })
-//       .then((res) => {
-//         setData(res.data.object);
-//       })
-//       .catch((err) => console.log(err));
-//   }, [url, isUpdate]);
-//   return data;
-// }
-
-// export function usePost() {}
