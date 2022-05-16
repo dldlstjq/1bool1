@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import com.ssafy.api.dto.UserDto.UserRegisterPostReq;
 import com.ssafy.db.entity.User;
@@ -325,18 +327,36 @@ public class UserServiceImpl implements UserService {
 		// Object를 JSON Object 문자열로 반환
 		conn.setRequestMethod("POST");
 		conn.setDoOutput(true);
+		conn.setRequestProperty("ContentType", "application/x-www-form-urlencoded");
 		conn.setRequestProperty("Authorization", "Bearer " + token);
 		System.out.println("[\"" + friendUuid + "\"]");
 		//conn.set("receiver_uuids", "[\"" + friendUuid + "\"]");
-		conn.setRequestProperty("template_object", "{\"object_type\": \"text\",   \"text\": \"텍스트 영역입니다. 최대 200자 표시 가능합니다.\",  \"link\": {             \"web_url\": \"https://developers.kakao.com\", \"mobile_web_url\": \"https://developers.kakao.com\"         },         \"button_title\": \"바로 확인\"}");
+//		conn.setRequestProperty("template_object", "{\"object_type\": \"text\",   \"text\": \"텍스트 영역입니다. 최대 200자 표시 가능합니다.\",  \"link\": {             \"web_url\": \"https://developers.kakao.com\", \"mobile_web_url\": \"https://developers.kakao.com\"         },         \"button_title\": \"바로 확인\"}");
 
+		Map<String,String> parameter = new HashMap<>();
+		parameter.put("receiver_uuids", "[\"" + friendUuid + "\"]");
+		parameter.put("template_object","{\"object_type\": \"text\",   \"text\": \"텍스트 영역입니다. 최대 200자 표시 가능합니다.\",  \"link\": {             \"web_url\": \"https://developers.kakao.com\", \"mobile_web_url\": \"https://developers.kakao.com\"         },         \"button_title\": \"바로 확인\"}");
+		for (String key : parameter.keySet()) {
+			if (sb.length() > 0) {
+				sb.append("&");
+			}
+			sb.append(key);
+			sb.append("=");
+			sb.append(parameter.get(key));
+		}
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "utf-8"));
+
+		String param = sb.toString();
+
+		bw.write(param);
+		bw.flush();
 
 		//결과 코드가 200이라면 성공
 		int responseCode = conn.getResponseCode();
 		String content = conn.getResponseMessage();
 		System.out.println("content : " + content);
 		System.out.println("responseCode : " + responseCode);
-
+		System.out.println(param);
 		return -1;
 	}
 
