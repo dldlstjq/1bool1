@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 @Service
 public class BoardLikeServiceImpl implements BoardLikeService {
@@ -128,11 +129,13 @@ public class BoardLikeServiceImpl implements BoardLikeService {
 
             BoardDto.BoardLikeGet recipeLikeGet;
             Board recipe;
+            StringTokenizer tk;
             for(int i = 0; i < list.size(); i++){
                 recipeLikeGet = new BoardDto.BoardLikeGet();
                 recipe = boardRepository.findById(list.get(i).getBoard_id()).orElseGet(() -> null);
+                tk = new StringTokenizer(recipe.getPhoto(),",");
                 recipeLikeGet.setCnt(list.get(i).getCnt());
-                recipeLikeGet.setPhoto(recipe.getPhoto());
+                recipeLikeGet.setPhoto(tk.nextToken());
                 recipeLikeGet.setPassword(recipe.getPassword());
                 recipeLikeGet.setContent(recipe.getContent());
                 recipeLikeGet.setNickname(recipe.getNickname());
