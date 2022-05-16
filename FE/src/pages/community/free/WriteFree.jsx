@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState, useEffect } from "react";
+import { useRef } from "react";
 import { BASE_URL } from "../../..";
 
 import axios from "axios";
@@ -13,6 +13,7 @@ import { useFetchIfUpdate, useInputs } from "../common/hooks";
 export default function WriteFree() {
   const navigate = useNavigate();
   const { state } = useLocation();
+  const fileInputRef = useRef();
   let id = "",
     nickname = "",
     password = "",
@@ -40,65 +41,70 @@ export default function WriteFree() {
 
   function handleChange(e) {}
   return (
-    <div className="grid grid-cols-2 gap-4">
-      <select className="nav-controller select col-span-2 h-16">
-        <option defaultValue="">자유 게시판</option>
-      </select>
-      <form
-        action={BASE_URL + "board"}
-        method="post"
-        encType="multipart/form-data"
-        onSubmit={submit}
-        className="col-span-2 grid grid-cols-2 gap-2 "
-      >
-        <input
-          type="text"
-          className="h-16 border border-slate-300 px-4 col-span-2"
-          placeholder="제목을 입력해주세요"
-          name="title"
-          defaultValue={title}
-          required
-        />
+    <form
+      action={BASE_URL + "board"}
+      method="post"
+      encType="multipart/form-data"
+      onSubmit={submit}
+      className="p-10 md:p-24 lg:p-40 flex flex-col"
+    >
+      <input
+        type="text"
+        className="h-10 border-b border-blue-500 focus:outline-none"
+        placeholder="제목을 입력해주세요"
+        name="title"
+        defaultValue={title}
+        required
+      />
 
-        <input
-          type="text"
-          placeholder="닉네임"
-          name="nickname"
-          className="h-16 border border-slate-300"
-          required
-          defaultValue={nickname}
-        />
-        <input
-          type="password"
-          placeholder="비밀번호"
-          name="password"
-          className="h-16 border border-slate-300"
-          required
-          defaultValue={password}
-        />
-        <textarea
-          cols="30"
-          rows="10"
-          className="border border-slate-300 col-span-2"
-          name="content"
-          placeholder="내용"
-          required
-          defaultValue={content}
-        ></textarea>
-        <input
-          type="file"
-          accept="image/png, image/jpeg"
-          name="file"
-          className="col-span-2"
-        />
-
+      <input
+        type="text"
+        placeholder="닉네임"
+        name="nickname"
+        className="h-10 border-b border-blue-500 focus:outline-none"
+        required
+        defaultValue={nickname}
+      />
+      <input
+        type="password"
+        placeholder="비밀번호"
+        name="password"
+        className="h-10 border-b border-blue-500 focus:outline-none"
+        required
+        defaultValue={password}
+      />
+      <textarea
+        className="h-30 bg-blue-100 focus:outline-none p-2"
+        name="content"
+        placeholder="내용"
+        required
+        defaultValue={content}
+      ></textarea>
+      <input
+        type="file"
+        accept="image/png, image/jpeg"
+        name="file"
+        className="hidden"
+        ref={fileInputRef}
+      />
+      <div className="flex justify-between">
         <button
-          className="w-32 h-12 bg-32 text-white col-span-2 mx-auto"
-          type="submit"
+          onClick={(e) => {
+            e.preventDefault();
+            fileInputRef.current.click();
+          }}
+          className="h-8 text-blue-500 text-lg font-black border-2 border-blue-500 w-1/3 "
         >
-          작성완료
+          사진추가
         </button>
-      </form>
-    </div>
+        <div className="h-8 bg-blue-700 w-1/3 inline-block"></div>
+      </div>
+      <button
+        className="h-8 w-1/3 text-white bg-blue-500 mx-auto"
+        type="submit"
+      >
+        작성완료
+      </button>
+    </form>
   );
 }

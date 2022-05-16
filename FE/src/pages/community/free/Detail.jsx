@@ -62,7 +62,7 @@ function Detail() {
       )}
 
       <button
-        className="bg-gray-700 text-white h-10 w-1/3 mt-5"
+        className="border-2 border-red-600 h-7 px-2 mt-5"
         onClick={() => navi("/community")}
       >
         목록보기
