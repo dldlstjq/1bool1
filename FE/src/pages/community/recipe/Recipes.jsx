@@ -43,8 +43,8 @@ function Recipes() {
   return (
     <div style={{display: 'flex', flexDirection:'column', minHeight:'100%'}}>
       <Appbar/>
-      <div sytle={{flex:'1'}}>
-      {/* <div onClick={handleClick} sytle={{flex:'1'}}> */}
+      {/* <div sytle={{flex:'1'}}> */}
+      <div onClick={handleClick} sytle={{flex:'1'}}>
        <Container>
           <div id="category" className="pb-10">
             <h1 className="text-2xl text-center">| USER RECIPES |</h1>
