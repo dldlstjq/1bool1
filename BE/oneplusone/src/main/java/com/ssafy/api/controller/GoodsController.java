@@ -1,6 +1,7 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.dto.GoodsDto;
+import com.ssafy.api.dto.RecipeDto;
 import com.ssafy.api.service.GoodsLikeService;
 import com.ssafy.api.service.GoodsService;
 import com.ssafy.common.model.response.BaseResponseBody;
@@ -159,6 +160,25 @@ public class GoodsController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
+    public ResponseEntity<? extends BaseResponseBody> findGoodsLikeDetail(@PathVariable("goodsId") Long goodsId){
+        GoodsDto = goodsLikeService.findLikeGoods(goodsId);
+        if(){
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+        }else{
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail"));
+        }
+
+    }
+
+
+    @GetMapping("/like/{goodsId}")
+    @ApiOperation(value = "상품 좋아요 갯수 리턴", notes = "<strong>상품에서 좋아요 갯수를 리턴</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
     public ResponseEntity<? extends BaseResponseBody> registerGoodsLike(@PathVariable("goodsId") Long goodsId, @RequestParam("user_id")Long userId){
         GoodsDto.GoodsLikeGetRequest dto = new GoodsDto.GoodsLikeGetRequest();
         dto.setId(goodsId);
@@ -170,7 +190,7 @@ public class GoodsController {
         }
 
     }
-
+    
     @PutMapping("/{goodsId}")
     @ApiOperation(value = "상품 조회수 등록", notes = "<strong>상품을 클릭했을때 조회수를 등록한다.</strong>")
     @ApiResponses({
@@ -254,5 +274,27 @@ public class GoodsController {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "DB 내부에 현재 데이터가 없습니다"));
         }
     }
+
+    @GetMapping("/like/user/{goodsId}")
+    @ApiOperation(value = "레시피 해당 유저가 좋아요 했는지 파악", notes = "<strong>레시피 해당 유저가 좋아요 했는지 파악</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> findLikeGoods(@PathVariable("goodsId") Long goodsId, @RequestParam("userId")Long userId) {
+        GoodsDto.GoodsLikeGetRequest dto = new GoodsDto.GoodsLikeGetRequest();
+        dto.setId(goodsId);
+        dto.setUserId(userId);
+        boolean check = goodsLikeService.findLike(dto);
+        if(check)
+        {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success",true));
+        }else{
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail",false));
+        }
+    }
+
 
 }

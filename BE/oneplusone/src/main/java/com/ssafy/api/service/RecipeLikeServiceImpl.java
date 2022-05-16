@@ -108,4 +108,17 @@ public class RecipeLikeServiceImpl implements RecipeLikeService{
         recipelike.update(0);
         return true;
     }
+
+    @Override
+    public boolean findLike(RecipeDto.RecipeLikeGetRequest dto) {
+
+        Recipe recipe = recipeRepository.findById(dto.getId()).orElseGet(() -> null);
+        User user = userRepository.findById(dto.getUserId()).orElseGet(()->null);
+        RecipeLikeManagement recipeLike = recipeLikeRepository.findByRecipeAndUser(recipe,user);
+        if(recipeLike == null){
+            return false;
+        }else {
+            return true;
+        }
+    }
 }

@@ -8,4 +8,6 @@ public interface GoodsLikeService {
     boolean modifyGoodsLike(GoodsDto.GoodsLikeGetRequest dto);
 
     List<GoodsDto.GoodsLikeGetOrderBy> findTop10LikeGoods();
+
+    boolean findLike(GoodsDto.GoodsLikeGetRequest dto);
 }
