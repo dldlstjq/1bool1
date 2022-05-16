@@ -31,7 +31,7 @@ function ButtonAndPerPage() {
           <Tab id="order-by-like" label="북마크" sx = {{ '&.Mui-selected': { color: '#F93D59' }, fontWeight:'bolder',fontSize:'1rem' }} />
         </Tabs>
 
-      <Button id="write" style={{ display:'flex', marginLeft:'auto', backgroundColor:'#F93D59', color:'white', fontWeight:'bold', borderRadius:10, height:'2rem', marginTop:'10px'}} >글쓰기</Button>
+      {/* <Button id="write" style={{ display:'flex', marginLeft:'auto', backgroundColor:'#F93D59', color:'white', fontWeight:'bold', borderRadius:10, height:'2rem', marginTop:'10px'}} >글쓰기</Button> */}
       </Box>
     </div>
   );
