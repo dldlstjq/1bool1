@@ -1,24 +1,16 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-export function DeleteOrUpdate({
-  password,
-  afterUrl,
-  state,
-  updatePageUrl,
-  url,
-  params,
-  refresh,
-}) {
-  const [inputPw, setInputPw] = useState("");
+export function DeleteOrUpdate({ password, afterUrl, state, updatePageUrl, url, params, refresh }) {
+  const [inputPw, setInputPw] = useState('');
   const navi = useNavigate();
 
   function handleDelete() {
     if (inputPw === password) {
       axios({
-        method: "delete",
+        method: 'delete',
         url,
         params,
       })
@@ -31,7 +23,7 @@ export function DeleteOrUpdate({
         .catch((err) => console.log(err));
       return;
     }
-    alert("비밀번호가 다릅니다");
+    alert('비밀번호가 다릅니다');
   }
 
   function toUpdatePage() {
@@ -39,29 +31,31 @@ export function DeleteOrUpdate({
       navi(updatePageUrl, { state });
       return;
     }
-    alert("비밀번호가 다릅니다");
+    alert('비밀번호가 다릅니다');
   }
 
   return (
-    <div className="grid grid-cols-3 gap-2 my-4">
+    <div className='grid grid-cols-3 gap-2 my-4'>
       <input
-        type="password"
-        className="bg-gray-700 text-white h-10"
-        placeholder="비밀번호"
-        name="articlePw"
+        type='password'
+        className='bg-gray-700 text-white  h-10'
+        placeholder='비밀번호'
+        name='articlePw'
         onChange={(e) => setInputPw(e.target.value)}
       />
       <button
-        id="delete"
-        className="bg-gray-700 text-white h-10"
+        id='delete'
+        className='bg-gray-700 text-white  h-10'
         onClick={handleDelete}
+        style={{ backgroundColor: '#f93d59' }}
       >
         삭제
       </button>
       <button
-        id="update"
-        className="bg-gray-700 text-white h-10"
+        id='update'
+        className='bg-gray-700 text-white h-10'
         onClick={toUpdatePage}
+        style={{ backgroundColor: '#f93d59' }}
       >
         수정
       </button>
