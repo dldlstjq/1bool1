@@ -2,6 +2,7 @@ package com.ssafy.db.repository;
 
 import com.ssafy.db.entity.Recipe;
 import com.ssafy.db.entity.RecipeLike;
+import com.ssafy.db.entity.GoodsLike2;
 import com.ssafy.db.entity.RecipeLikeManagement;
 import com.ssafy.db.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,5 +23,6 @@ public interface RecipeLikeRepository extends JpaRepository<RecipeLikeManagement
 
     @Query(value = "select r.recipe_id,COUNT(r.recipe_id) AS cnt from recipe_like_management r WHERE r.created_date > date_add(now(),interval -7 DAY) AND r.is_liked = 1 GROUP BY r.recipe_id ORDER BY cnt desc LIMIT 10;",nativeQuery = true)
     List<RecipeLike> findRecipeLikeOrderBySQL();
+
 
 }

@@ -5,4 +5,5 @@ public interface GoodsLike2 {
     Long getEvent();
     Long getPrice();
     String getConvinence();
+    String getPhoto_path();
 }

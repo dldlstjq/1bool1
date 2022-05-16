@@ -287,7 +287,8 @@ public class UserServiceImpl implements UserService {
 			for (JsonElement friend : jsonArray){
 				Long friendId = friend.getAsJsonObject().get("id").getAsLong();
 				String friendUuid = friend.getAsJsonObject().get("uuid").getAsString();
-				result_code = sendKakaoMessageFriend(token, friendUuid);
+				//result_code = sendKakaoMessageFriend(token, friendUuid);
+				String test = kakaoTemplateLikeGoods(friendId);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -303,35 +304,12 @@ public class UserServiceImpl implements UserService {
 
 		//POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
 		StringBuilder sb = new StringBuilder();
-		// 알림 보내는 body
-//		sb.append("{\"object_type\": \"text\",        " +
-//				" \"text\": \"1boo1에 로그인 하셨습니다! \\n");
-//		//유저 좋아하는 상품 목록 알람람
-//		Long temp = new Long(3);
-//		List<GoodsLike2> userGoods = goodsLikeRepository.findUserLikeGoods(temp);
-//		for (GoodsLike2 good : userGoods){
-//			String eventtype = eventType(good.getEvent());
-//			String convinence = convinenceType(good.getConvinence());
-//			sb.append(convinence + good.getName() + "원 " + good.getPrice() + " " + eventtype + " " +   "\\n");
-//		}
-//
-//		sb.append(
-//				"\"" +
-//						", \"link\": {           " +
-//						"  \"web_url\": \"https://k6d207.p.ssafy.io/\",     " +
-//						"  \"mobile_web_url\": \"https://k6d207.p.ssafy.io/\"         " +
-//						"},         " +
-//						"\"button_title\": \"사이트 바로가기\"" +
-//						"}");
 
-		// Object를 JSON Object 문자열로 반환
 		conn.setRequestMethod("POST");
 		conn.setDoOutput(true);
 		conn.setRequestProperty("ContentType", "application/x-www-form-urlencoded");
 		conn.setRequestProperty("Authorization", "Bearer " + token);
 		System.out.println("[\"" + friendUuid + "\"]");
-		//conn.set("receiver_uuids", "[\"" + friendUuid + "\"]");
-//		conn.setRequestProperty("template_object", "{\"object_type\": \"text\",   \"text\": \"텍스트 영역입니다. 최대 200자 표시 가능합니다.\",  \"link\": {             \"web_url\": \"https://developers.kakao.com\", \"mobile_web_url\": \"https://developers.kakao.com\"         },         \"button_title\": \"바로 확인\"}");
 
 		Map<String,String> parameter = new HashMap<>();
 		parameter.put("receiver_uuids", "[\"" + friendUuid + "\"]");
@@ -400,6 +378,18 @@ public class UserServiceImpl implements UserService {
 		else{
 			return "Cspace";
 		}
+	}
+
+	public String kakaoTemplateLikeGoods(Long friendId){
+		System.out.println(friendId);
+		List<GoodsLike2> goodsLike2s= goodsLikeRepository.findUserLikeGoods(friendId);
+		for(GoodsLike2 goods : goodsLike2s){
+			System.out.println(goods.getPrice());
+			System.out.println(goods.getEvent());
+			System.out.println(goods.getConvinence());
+			System.out.println(goods.getPhoto_path());
+		};
+		return "!";
 	}
 
 //	@Override
