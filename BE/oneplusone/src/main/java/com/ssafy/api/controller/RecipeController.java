@@ -137,7 +137,7 @@ public class RecipeController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<? extends BaseResponseBody> findBySearchRecipe(@RequestParam("search") String search) {
-        List<Recipe> recipe = recipeService.findBySearchRecipe(search);
+        List<RecipeAll> recipe = recipeService.findBySearchRecipe(search);
         if(recipe.size() > 0)
         {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", recipe));

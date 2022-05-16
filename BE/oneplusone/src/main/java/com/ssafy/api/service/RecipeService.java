@@ -13,7 +13,7 @@ public interface RecipeService {
 
     Page<Recipe> findRecipe(Integer page, Integer size);
 
-    List<Recipe> findBySearchRecipe(String search);
+    List<RecipeAll> findBySearchRecipe(String search);
 
     Recipe findRecipeDetail(Long id);
 

@@ -1,24 +1,28 @@
 package com.ssafy.api.service;
 
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import com.ssafy.api.dto.UserDto;
+import com.ssafy.db.entity.Goods;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import com.google.gson.JsonParser;
-import com.google.gson.JsonElement;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import com.ssafy.api.dto.UserDto.UserRegisterPostReq;
 import com.ssafy.db.entity.User;
+import com.ssafy.db.entity.GoodsLike2;
 import com.ssafy.db.repository.UserRepository;
 import com.ssafy.db.repository.UserRepositorySupport;
+import com.ssafy.db.repository.GoodsLikeRepository;
 import org.springframework.transaction.annotation.Transactional;
-
 /**
  *	유저 관련 비즈니스 로직 처리를 위한 서비스 구현 정의.
  */
@@ -33,6 +37,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
+
+	@Autowired
+	GoodsLikeRepository goodsLikeRepository;
 
 	@Override
 	public User createUser(UserRegisterPostReq userRegisterInfo) {
@@ -185,12 +192,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 
-	public int createKakaoAlarm(String token) throws Exception {
+	public int createKakaoAlarm(String token, Long userId) throws Exception {
 		String reqURL = "https://kapi.kakao.com/v2/api/talk/memo/default/send";
 		Long id =0L;
 		int result_code = 0;
 		//access_token을 이용하여 사용자 정보 조회
 		try {
+
 			URL url = new URL(reqURL);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
@@ -207,8 +215,18 @@ public class UserServiceImpl implements UserService {
 			// 알림 보내는 body
 			sb.append("template_object=");
 			sb.append("{\"object_type\": \"text\",        " +
-					" \"text\": \"1boo1에 로그인 하셨습니다!  \",        " +
-					" \"link\": {           " +
+					" \"text\": \"1boo1에 로그인 하셨습니다! \\n");
+			//유저 좋아하는 상품 목록 알람람
+			//List<GoodsLike2> userGoods = goodsLikeRepository.findUserLikeGoods(userId);
+//			for (GoodsLike2 good : userGoods){
+//				String eventtype = eventType(good.getEvent());
+//				String convinence = convinenceType(good.getConvinence());
+//				sb.append(convinence + good.getName() + "원 " + good.getPrice() + " " + eventtype + " " +   "\\n");
+//			}
+
+			sb.append(
+					"\"" +
+					", \"link\": {           " +
 					"  \"web_url\": \"https://k6d207.p.ssafy.io/\",     " +
 					"  \"mobile_web_url\": \"https://k6d207.p.ssafy.io/\"         " +
 					"},         " +
@@ -237,6 +255,151 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getEmailUser(String id) throws Exception {
 		return userRepository.findByEmail(id).orElseGet(()->null);
+	}
+
+	@Override
+	public int findKakaoFriend(String token) throws  Exception {
+		int result_code = 0;
+		String reqURL = "https://kapi.kakao.com/v1/api/talk/friends?friend_order=nickname";
+		URL url = new URL(reqURL);
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+
+// Object를 JSON Object 문자열로 반환
+
+		conn.setRequestMethod("GET");
+		conn.setDoOutput(true);
+		conn.setRequestProperty("Authorization", "Bearer " + token);
+		try{
+			int responseCode = conn.getResponseCode();
+			String content = conn.getResponseMessage();
+			Object temp  = conn.getContent();
+			BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
+			String line;
+			String ans ="";
+			while ((line = in.readLine()) != null) {
+				ans += line;
+			}
+			//System.out.println(ans);
+			JsonParser jsonParser = new JsonParser();
+			JsonObject jsonObject = (JsonObject)jsonParser.parse(ans);
+			JsonArray jsonArray = jsonObject.get("elements").getAsJsonArray();
+			for (JsonElement friend : jsonArray){
+				Long friendId = friend.getAsJsonObject().get("id").getAsLong();
+				String friendUuid = friend.getAsJsonObject().get("uuid").getAsString();
+				result_code = sendKakaoMessageFriend(token, friendUuid);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result_code;
+	}
+
+	public Integer sendKakaoMessageFriend(String token, String friendUuid) throws Exception {
+
+		String reqURL = "https://kapi.kakao.com/v1/api/talk/friends/message/default/send";
+		URL url = new URL(reqURL);
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+		//POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
+		StringBuilder sb = new StringBuilder();
+		// 알림 보내는 body
+//		sb.append("{\"object_type\": \"text\",        " +
+//				" \"text\": \"1boo1에 로그인 하셨습니다! \\n");
+//		//유저 좋아하는 상품 목록 알람람
+//		Long temp = new Long(3);
+//		List<GoodsLike2> userGoods = goodsLikeRepository.findUserLikeGoods(temp);
+//		for (GoodsLike2 good : userGoods){
+//			String eventtype = eventType(good.getEvent());
+//			String convinence = convinenceType(good.getConvinence());
+//			sb.append(convinence + good.getName() + "원 " + good.getPrice() + " " + eventtype + " " +   "\\n");
+//		}
+//
+//		sb.append(
+//				"\"" +
+//						", \"link\": {           " +
+//						"  \"web_url\": \"https://k6d207.p.ssafy.io/\",     " +
+//						"  \"mobile_web_url\": \"https://k6d207.p.ssafy.io/\"         " +
+//						"},         " +
+//						"\"button_title\": \"사이트 바로가기\"" +
+//						"}");
+
+		// Object를 JSON Object 문자열로 반환
+		conn.setRequestMethod("POST");
+		conn.setDoOutput(true);
+		conn.setRequestProperty("ContentType", "application/x-www-form-urlencoded");
+		conn.setRequestProperty("Authorization", "Bearer " + token);
+		System.out.println("[\"" + friendUuid + "\"]");
+		//conn.set("receiver_uuids", "[\"" + friendUuid + "\"]");
+//		conn.setRequestProperty("template_object", "{\"object_type\": \"text\",   \"text\": \"텍스트 영역입니다. 최대 200자 표시 가능합니다.\",  \"link\": {             \"web_url\": \"https://developers.kakao.com\", \"mobile_web_url\": \"https://developers.kakao.com\"         },         \"button_title\": \"바로 확인\"}");
+
+		Map<String,String> parameter = new HashMap<>();
+		parameter.put("receiver_uuids", "[\"" + friendUuid + "\"]");
+		parameter.put("template_object","{\"object_type\": \"text\",   \"text\": \"텍스트 영역입니다. 최대 200자 표시 가능합니다.\",  \"link\": {             \"web_url\": \"https://developers.kakao.com\", \"mobile_web_url\": \"https://developers.kakao.com\"         },         \"button_title\": \"바로 확인\"}");
+		for (String key : parameter.keySet()) {
+			if (sb.length() > 0) {
+				sb.append("&");
+			}
+			sb.append(key);
+			sb.append("=");
+			sb.append(parameter.get(key));
+		}
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "utf-8"));
+
+		String param = sb.toString();
+
+		bw.write(param);
+		bw.flush();
+
+		//결과 코드가 200이라면 성공
+		int responseCode = conn.getResponseCode();
+		String content = conn.getResponseMessage();
+		System.out.println("content : " + content);
+		System.out.println("responseCode : " + responseCode);
+		System.out.println(param);
+		return -1;
+	}
+
+	public String eventType(Long event){
+		if (event == 2){
+			return "1 + 1";
+		}
+		else if (event == 3){
+			return "2 \\+ 1";
+		}
+		else if (event == 4){
+			return "3 \\+ 1";
+		}
+		else if (event == 5){
+			return "가격 SALE 중";
+		}
+		else if (event == 6){
+			return "덤 증정";
+		}
+		else{
+			return "균일가";
+		}
+	}
+
+	public String convinenceType(String convinence){
+		if (convinence == "CU"){
+			return "CU";
+		}
+		else if (convinence == "GS"){
+			return "GS25";
+		}
+		else if (convinence == "MS"){
+			return "미니스탑";
+		}
+		else if (convinence == "SE"){
+			return "세븐일레븐";
+		}
+		else if (convinence == "EM"){
+			return "이마트24";
+		}
+		else{
+			return "Cspace";
+		}
 	}
 
 //	@Override

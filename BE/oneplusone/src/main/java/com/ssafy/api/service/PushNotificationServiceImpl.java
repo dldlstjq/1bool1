@@ -16,7 +16,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 @Service
-public class PushNotificationServiceImpl implements PushNotificationService{
+public class
+PushNotificationServiceImpl implements PushNotificationService{
     private static final String PROJECT_ID = "oneplusone-dfc60";
     private static final String BASE_URL = "https://fcm.googleapis.com";
     private static final String FCM_SEND_ENDPOINT = "/v1/projects/" + PROJECT_ID + "/messages:send";
