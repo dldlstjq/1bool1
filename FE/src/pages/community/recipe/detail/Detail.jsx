@@ -68,7 +68,7 @@ function Detail() {
       {steps?.map((step, idx) => (
         <Step key={idx} step={step} img={photos[idx + 1]} i={idx + 1} />
       ))}
-      {user_id && (
+      {user_id && recipeId && (
         <LikeButton url={"recipe/like/" + recipeId} user_id={user_id} />
       )}
       <DeleteOrUpdate

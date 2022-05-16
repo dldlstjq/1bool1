@@ -46,7 +46,9 @@ function Detail() {
           <img src={url} alt="" key={idx} />
         ))}
 
-        {user_id && <LikeButton url={"board/like/" + id} user_id={user_id} />}
+        {user_id && id && (
+          <LikeButton url={"board/like/" + id} user_id={user_id} />
+        )}
         <UserInfoBox nickname={nickname} />
         <DeleteOrUpdate
           setPassword={setarticlePw}
