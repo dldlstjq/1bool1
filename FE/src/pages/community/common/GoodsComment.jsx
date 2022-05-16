@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 import axios from 'axios';
 
@@ -7,6 +7,8 @@ import { DeleteOrUpdate } from './GoodsDeleteOrUpdate';
 /* eslint-disable no-unused-vars */
 function Comment({ content, nickname, password, id, goodsId, boardId, recipeId, url, refresh }) {
   const [inputMode, setInputMode] = useState(false);
+  const data = { id, nickname, password };
+  const inputRef = useRef();
   function handleSubmit(e) {
     if (e.key === 'Enter') {
       axios({
@@ -62,7 +64,9 @@ function Comment({ content, nickname, password, id, goodsId, boardId, recipeId, 
         password={password}
         goodsId={goodsId}
         setInputMode={setInputMode}
+        inputMode={inputMode}
         refresh={refresh}
+        inputRef={inputRef}
       />
     </div>
   );

@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 
 import axios from 'axios';
 
 import Comment from './GoodsComment';
 
-const Comments = React.forwardRef(({ url, comments, goodsId, boardId, recipeId, refresh }, ref) => {
+const Comments = ({ url, comments, goodsId, boardId, recipeId, refresh }) => {
+  const [showComments, setShowComments] = useState(true);
+  // const [popover, setPopover] = useState(false);
+  const textareaRef = useRef();
+  const buttonRef = useRef();
+  const coordRef = useRef();
+
   function handleSubmit(e) {
     e.preventDefault();
     const form = new FormData(e.target);
@@ -20,12 +26,22 @@ const Comments = React.forwardRef(({ url, comments, goodsId, boardId, recipeId, 
       url,
       data,
     })
-      .then(setTimeout(() => refresh((prev) => (prev += 1)), 1000))
+      .then(() => {
+        e.target.reset();
+        buttonRef.current.disabled = true;
+        setTimeout(() => {
+          refresh((prev) => (prev += 1));
+          buttonRef.current.disabled = false;
+        }, 1000);
+      })
       .catch((err) => console.log(err));
   }
 
   return (
     <>
+      {/* {showComments && (
+        
+      )} */}
       <form
         className='p-3 bg-stone-200 border border-stone-300 grid grid-cols-2 gap-2'
         onSubmit={handleSubmit}
@@ -36,7 +52,7 @@ const Comments = React.forwardRef(({ url, comments, goodsId, boardId, recipeId, 
           className='h-10'
           placeholder='닉네임'
           required
-          ref={ref}
+          ref={textareaRef}
         />
         <input type='password' className='h-10' placeholder='비밀번호' required name='password' />
 
@@ -51,6 +67,7 @@ const Comments = React.forwardRef(({ url, comments, goodsId, boardId, recipeId, 
         <button
           className='bg-gray-700 w-20 h-10 text-white col-span-2 ml-auto'
           type='submit'
+          ref={buttonRef}
           style={{ backgroundColor: '#f93d59' }}
         >
           등록
@@ -71,6 +88,6 @@ const Comments = React.forwardRef(({ url, comments, goodsId, boardId, recipeId, 
       ))}
     </>
   );
-});
+};
 
 export default Comments;
