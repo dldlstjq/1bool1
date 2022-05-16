@@ -1,5 +1,10 @@
 /* eslint-disable no-unused-vars */
-function UpperInfo({ title, createdDate, nickname }) {
+interface UpperInfoProps {
+  title: string;
+  nickname: string;
+}
+
+function UpperInfo({ title, nickname }: UpperInfoProps) {
   return (
     <>
       <strong className="detail-title">{title}</strong>

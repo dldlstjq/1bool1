@@ -15,11 +15,11 @@ import ButtonAndPerPage from "../common/WriteOrderBtns";
 function Articles() {
   const [popover, setPopover] = useState(false);
   const [coord, setCoord] = useState([0, 0]);
-  const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
+  const [searchParams, setSearchParams] = useSearchParams([["page", "1"]]);
   const [size, setSize] = useState(10);
 
   const navigate = useNavigate();
-  const page = searchParams.get("page") ? searchParams.get("page") - 1 : 0;
+  const page = searchParams.get("page") ?? 0;
   const [articles, setArticles] = useFetchPage("board", page, size);
 
   function handleClick({ target, clientX, clientY }) {

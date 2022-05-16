@@ -1,7 +1,14 @@
 /* eslint-disable no-unused-vars */
 import classNames from "classnames";
 
-function Article({ id, title, nickname, date, password }) {
+interface ArticleProps {
+  id: string;
+  title: string;
+  nickname: string;
+  date: string;
+}
+
+function Article({ id, title, nickname, date }: ArticleProps) {
   return (
     <li className={classNames("article", "relative")}>
       <div className="updown-wrap left-0 top-5 absolute">
