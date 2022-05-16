@@ -1,20 +1,15 @@
 /* eslint-disable no-unused-vars */
 
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { useEffect, useState, useRef } from "react";
-
-import axios from "axios";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useState } from "react";
 
 import Article from "./Article";
 import { Pagination } from "../common/Pagination";
 import { Searchbar } from "../common/Searchbar";
-import Popover from "../common/Popover";
 import { useFetchPage } from "../common/hooks";
 import ButtonAndPerPage from "../common/WriteOrderBtns";
 
 function Articles() {
-  const [popover, setPopover] = useState(false);
-  const [coord, setCoord] = useState([0, 0]);
   const [searchParams, setSearchParams] = useSearchParams([["page", "1"]]);
   const [size, setSize] = useState(10);
   const [orderBy, setOrderBy] = useState("board");
@@ -27,7 +22,7 @@ function Articles() {
   const [articles, setArticles] = useFetchPage(orderBy, page, size);
 
   function handleClick(e) {
-    if (e.target.matches(".article-title")) {
+    if (e.target.matches(".title")) {
       navigate(e.target.id);
     }
     if (e.target.matches("#write")) {
@@ -43,33 +38,27 @@ function Articles() {
   }
 
   return (
-    <div
-      className="p-4"
-      onClick={handleClick}
-      onWheel={() => setPopover(false)}
-    >
-      <div className="title">자유 게시판</div>
+    <div className="p-4 lg:px-40" onClick={handleClick}>
+      <h1 className="title text-red-500 text-4xl lg:text-6xl mb-5">
+        자유게시판
+      </h1>
       <span>다양한 주제에 대해 자유롭게 소통하는 공간입니다.</span>
 
       <ButtonAndPerPage setSize={setSize} setState={setArticles} />
 
-      <ul>
-        {articles?.map(
-          ({ id, title, nickname, password, modifiedDate }, idx) => {
-            const date = modifiedDate?.split(".")[0];
-            return (
-              <Article
-                id={id}
-                key={idx}
-                title={title}
-                nickname={nickname}
-                password={password}
-                date={date}
-              />
-            );
-          }
-        )}
-      </ul>
+      {articles?.map(({ id, title, nickname, password, modifiedDate }, idx) => {
+        const date = modifiedDate?.split(".")[0];
+        return (
+          <Article
+            id={id}
+            key={idx}
+            title={title}
+            nickname={nickname}
+            password={password}
+            date={date}
+          />
+        );
+      })}
 
       <Pagination
         setSearchParams={setSearchParams}
@@ -79,11 +68,11 @@ function Articles() {
 
       <ButtonAndPerPage setSize={setSize} />
       <Searchbar url="board/search" setState={setArticles} />
-      {popover && (
+      {/* {popover && (
         <Popover x={coord[0]} y={coord[1]}>
           응응
         </Popover>
-      )}
+      )} */}
     </div>
   );
 }

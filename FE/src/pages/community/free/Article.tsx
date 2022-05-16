@@ -10,8 +10,8 @@ interface ArticleProps {
 
 function Article({ id, title, nickname, date }: ArticleProps) {
   return (
-    <li className={classNames("article", "relative")}>
-      <div className="updown-wrap absolute" style={{ left: 0, top: "30%" }}>
+    <div className="border-2 border-red-500 ">
+      {/* <div className="updown-wrap absolute" style={{ left: 0, top: "30%" }}>
         <div className="icon-updown-box relative bottom-2">
           <i
             className="icon-box icon-info icon-up w-5 h-4 top-2 relative"
@@ -23,17 +23,19 @@ function Article({ id, title, nickname, date }: ArticleProps) {
           ></i>
         </div>
         5
-      </div>
-      <h3 className="article-title" id={id}>
+      </div> */}
+      <h2
+        className="text-2xl bg-red-500 text-white text-ellipsis overflow-hidden pl-1 title"
+        style={{ wordBreak: "keep-all" }}
+        id={id}
+      >
         {title}
-      </h3>
-      <div className="icons">
-        <i className="icon-box icon-info icon-comment w-5 h-4"></i> 22
-        <i className="icon-box icon-info icon-views w-5 h-4 ml-1"></i> 21
-        <span className="author ml-1">{nickname}</span>
-        <div className="">{date}</div>
-      </div>
-    </li>
+      </h2>
+      {/* <i className="icon-box icon-info icon-comment w-5 h-4"></i> 22
+        <i className="icon-box icon-info icon-views w-5 h-4 ml-1"></i> 21 */}
+      <p className="pl-1">By {nickname}</p>
+      <p className="pl-1">{date}</p>
+    </div>
   );
 }
 
