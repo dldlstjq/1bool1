@@ -26,13 +26,14 @@ function IngredientSelect({ selected, setSelected }) {
   }
 
   return (
-    <div className="bg-lime-400 p-4 rounded my-1">
-      <h1 className="text-lg text-purple-900 font-bold">재료</h1>
+    <div className="p-4 rounded my-1" style={{backgroundColor:'#ffe5e4'}}>
+      {/* e9c2c0 */}
+      <h1 className="text-lg font-bold">재료</h1>
 
       <select
         name="conv"
         onChange={(e) => setConv(e.target.value)}
-        className=" h-10 rounded-l text-lime-400"
+        className=" h-10 rounded-l"
       >
         {convList.map((conv, idx) => (
           <option value={conv} key={idx}>
@@ -44,7 +45,7 @@ function IngredientSelect({ selected, setSelected }) {
         type="search"
         list="item-list"
         onKeyDown={handleInputChange}
-        className=" h-10 rounded-r ml-px text-lime-400"
+        className=" h-10 rounded-r ml-px w-1/4"
       />
       <datalist id="item-list">
         {ingredients?.map(({ name }, idx) => (
@@ -53,7 +54,7 @@ function IngredientSelect({ selected, setSelected }) {
       </datalist>
       <div className="grid grid-cols-2 gap-1" onClick={removeFromList}>
         {selected.map(({ name, goodsId }, idx) => (
-          <span key={idx} id={goodsId} className="text-purple-900">
+          <span key={idx} id={goodsId}>
             {name}
           </span>
         ))}

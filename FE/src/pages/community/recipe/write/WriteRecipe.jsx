@@ -2,7 +2,9 @@
 import { useState, useCallback, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Container, Grid, Typography, Box, Button, TextField} from '@mui/material';
-import { useInputs } from "../../common/hooks";
+// import { useInputs } from "../../common/hooks";
+import Appbar from "../../../../components/main/Appbar";
+import Footer from "../../../../components/main/Footer";
 
 import axios from "axios";
 
@@ -66,10 +68,16 @@ function WriteRecipe() {
   }
 
   return (
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100%' }}>
+    <Appbar />
+    <div style={{ flex: '1', marginTop: 30 }}>
+    <Container>
     <form onSubmit={handleSubmit}>
-      <Grid container spacing={2}>
+    
+       
+      {/* <Grid container spacing={2} >
         <Grid item xs={2}></Grid>
-        <Grid item xs={8}>
+        <Grid item xs={8} > */}
         <Upper
           nickname={nickname}
           password={password}
@@ -81,24 +89,29 @@ function WriteRecipe() {
 
         <IngredientSelect selected={selected} setSelected={setSelected} />
         <Steps content={content} />
-        <div className="flex gap-2 mt-5">
+        <div className="flex gap-2 mt-5 place-content-center">
           <button
-            className="h-10  bg-lime-500 rounded text-white w-1/2"
+            className="h-10  bg-lime-500/75 rounded text-white w-1/3"
             type="submit"
-          >
+          > 
             작성완료
           </button>
           <button
-            className="h-10  bg-red-500 rounded text-white w-1/2"
+            className="h-10  bg-red-500/75 rounded text-white w-1/3"
             onClick={handleCancel}
           >
             취소
           </button>
         </div>
-        </Grid>
+        {/* </Grid>
         <Grid item xs={2}></Grid>
-      </Grid>
+      </Grid> */}
+     
     </form>
+    </Container>
+      </div>
+       <Footer />
+    </div>
   );
 }
 
