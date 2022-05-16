@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 export function DeleteOrUpdate({ password, goodsId, id, refresh, setInputMode }) {
   const [inputPw, setInputPw] = useState('');
@@ -29,7 +28,7 @@ export function DeleteOrUpdate({ password, goodsId, id, refresh, setInputMode })
   }
 
   return (
-    <div className='grid grid-cols-3 gap-2 my-4'>
+    <div className='grid-cols-3 gap-2 my-4'>
       <input
         type='password'
         className='bg-gray-700 text-white h-10'
@@ -37,10 +36,20 @@ export function DeleteOrUpdate({ password, goodsId, id, refresh, setInputMode })
         name='password'
         onChange={(e) => setInputPw(e.target.value)}
       />
-      <button id='delete' className='bg-gray-700 text-white h-10' onClick={handleDelete}>
+      <button
+        id='delete'
+        className='bg-gray-700 text-white w-20 h-10'
+        style={{ backgroundColor: '#f93d59', marginLeft: 10 }}
+        onClick={handleDelete}
+      >
         삭제
       </button>
-      <button id='update' className='bg-gray-700 text-white h-10' onClick={readyUpdate}>
+      <button
+        id='update'
+        className='bg-gray-700 text-white w-20 h-10'
+        style={{ backgroundColor: '#f93d59', marginLeft: 10 }}
+        onClick={readyUpdate}
+      >
         수정
       </button>
     </div>
