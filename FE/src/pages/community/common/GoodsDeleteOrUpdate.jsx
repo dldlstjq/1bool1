@@ -2,7 +2,15 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-export function DeleteOrUpdate({ password, goodsId, id, refresh, setInputMode }) {
+export function DeleteOrUpdate({
+  password,
+  goodsId,
+  id,
+  refresh,
+  setInputMode,
+  inputMode,
+  inputRef,
+}) {
   const [inputPw, setInputPw] = useState('');
 
   function handleDelete() {
@@ -20,8 +28,16 @@ export function DeleteOrUpdate({ password, goodsId, id, refresh, setInputMode })
   }
 
   function readyUpdate() {
-    if (inputPw === password) {
-      setInputMode(true);
+    // if (inputPw === password) {
+    //   setInputMode(true);
+    //   return;
+    // }
+    if (inputMode === true) {
+      setInputMode(false);
+      return;
+    } else if (inputPw === password) {
+      setInputMode(() => true);
+      inputRef.current.focus();
       return;
     }
     alert('비밀번호가 다릅니다');
@@ -31,7 +47,7 @@ export function DeleteOrUpdate({ password, goodsId, id, refresh, setInputMode })
     <div className='grid-cols-3 gap-2 my-4'>
       <input
         type='password'
-        className='bg-gray-700 text-white h-10'
+        className='bg-gray-700 text-white w-20 h-10'
         placeholder='비밀번호'
         name='password'
         onChange={(e) => setInputPw(e.target.value)}
@@ -50,7 +66,7 @@ export function DeleteOrUpdate({ password, goodsId, id, refresh, setInputMode })
         style={{ backgroundColor: '#f93d59', marginLeft: 10 }}
         onClick={readyUpdate}
       >
-        수정
+        {inputMode ? '수정취소' : '수정'}
       </button>
     </div>
   );

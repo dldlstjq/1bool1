@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 @Service
 public class RecipeLikeServiceImpl implements RecipeLikeService{
@@ -72,6 +73,7 @@ public class RecipeLikeServiceImpl implements RecipeLikeService{
             test.setModifiedDate(newOne.get(i).getRecipe().getModifiedDate());
             test.setStar(newOne.get(i).getRecipe().getStar());
             test.setMinute(newOne.get(i).getRecipe().getMinute());
+            test.setPrice(newOne.get(i).getRecipe().getPrice());
             ans.add(test);
         }
         final int start = (int)pageable.getOffset();
@@ -132,14 +134,16 @@ public class RecipeLikeServiceImpl implements RecipeLikeService{
 
             RecipeDto.RecipeLikeGet recipeLikeGet;
             Recipe recipe;
+            StringTokenizer tk;
             for(int i = 0; i < list.size(); i++){
                 recipeLikeGet = new RecipeDto.RecipeLikeGet();
                 recipe = recipeRepository.findById(list.get(i).getRecipe_id()).orElseGet(() -> null);
+                tk = new StringTokenizer(recipe.getPhoto(),",");
                 recipeLikeGet.setCnt(list.get(i).getCnt());
                 recipeLikeGet.setStar(recipe.getStar());
                 recipeLikeGet.setMinute(recipe.getMinute());
                 recipeLikeGet.setDescription(recipe.getDescription());
-                recipeLikeGet.setPhoto(recipe.getPhoto());
+                recipeLikeGet.setPhoto(tk.nextToken());
                 recipeLikeGet.setPassword(recipe.getPassword());
                 recipeLikeGet.setContent(recipe.getContent());
                 recipeLikeGet.setNickname(recipe.getNickname());

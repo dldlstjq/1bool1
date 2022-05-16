@@ -77,6 +77,7 @@ public class RecipeController {
         }
         photo += "";
         RecipeDto.RecipePostRequest recipePostRequest = new RecipeDto.RecipePostRequest();
+        recipePostRequest.setPrice(recipePostRealRequest.getPrice());
         recipePostRequest.setPhoto(photo);
         recipePostRequest.setNickname(recipePostRealRequest.getNickname());
         recipePostRequest.setContent(recipePostRealRequest.getContent());
@@ -205,6 +206,7 @@ public class RecipeController {
         recipePutRequest.setStar(recipeTempPutRequest.getStar());
         recipePutRequest.setDescription(recipeTempPutRequest.getDescription());
         recipePutRequest.setMinute(recipeTempPutRequest.getMinute());
+        recipePutRequest.setPrice(recipeTempPutRequest.getPrice());
         if(recipeService.modifyRecipe(recipePutRequest)) {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         }else{

@@ -43,6 +43,8 @@ public class Recipe extends BaseEntity{
 
     @Column(name = "star")
     Integer star;
+    @Column(name = "price")
+    Long price;
 
     //시작 시간
 //    @Temporal(TemporalType.TIMESTAMP)
@@ -54,7 +56,7 @@ public class Recipe extends BaseEntity{
 //    @Column(name = "update_date")
 //    Date updateDate;
 
-    public void update(String title, String content, String password,String photo,String nickname,String description,Integer minute,Integer star) {
+    public void update(String title, String content, String password,String photo,String nickname,String description,Integer minute,Integer star,Long price) {
         this.title = title;
         this.content = content;
         this.password = password;
@@ -64,10 +66,11 @@ public class Recipe extends BaseEntity{
         this.description = description;
         this.minute = minute;
         this.star = star;
+        this.price = price;
     }
 
     @Builder
-    public Recipe(Long id, String title, String content,String photo, String password, String nickname,String description,Integer minute,Integer star){
+    public Recipe(Long id, String title, String content,String photo, String password, String nickname,String description,Integer minute,Integer star,Long price){
         this.id = id;
         this.title = title;
         this.content = content;
@@ -77,6 +80,7 @@ public class Recipe extends BaseEntity{
         this.description = description;
         this.minute = minute;
         this.star = star;
+        this.price = price;
 //        this.startDate = startDate;
 //        this.updateDate = updateDate;
     }

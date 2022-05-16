@@ -42,6 +42,7 @@ public class RecipeServiceImpl implements RecipeService{
         recipe.setDescription(recipePostRequest.getDescription());
         recipe.setMinute(recipePostRequest.getMinute());
         recipe.setStar(recipePostRequest.getStar());
+        recipe.setPrice(recipePostRequest.getPrice());
         List<String> list = Arrays.asList(recipePostRequest.getGoodsId().split(","));
 
         recipeRepository.save(recipe);
@@ -114,9 +115,10 @@ public class RecipeServiceImpl implements RecipeService{
             recipe.setStar(recipePutRequest.getStar());
             recipe.setDescription(recipePutRequest.getDescription());
             recipe.setMinute(recipePutRequest.getMinute());
+            recipe.setPrice(recipePutRequest.getPrice());
             Date date = new Date();
 //            recipe.setStartDate(date);
-            recipe.update(recipePutRequest.getTitle(), recipePutRequest.getContent(),recipePutRequest.getPassword() , recipePutRequest.getPhoto(), recipePutRequest.getNickname(),recipePutRequest.getDescription(), recipePutRequest.getMinute(), recipePutRequest.getStar());
+            recipe.update(recipePutRequest.getTitle(), recipePutRequest.getContent(),recipePutRequest.getPassword() , recipePutRequest.getPhoto(), recipePutRequest.getNickname(),recipePutRequest.getDescription(), recipePutRequest.getMinute(), recipePutRequest.getStar(),recipePutRequest.getPrice());
 //            recipe.update(recipePutRequest.getTitle(), recipePutRequest.getContent(),recipePutRequest.getPassword() ,recipePutRequest.getUpdateDate(), recipePutRequest.getPhoto(), recipePutRequest.getNickname());
             return true;
         }

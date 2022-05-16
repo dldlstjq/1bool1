@@ -49,6 +49,9 @@ public class RecipeDto {
 //        Date startDate;
         @ApiModelProperty(name="GoodsId", example="1,2,3,4")
         String GoodsId;
+        @ApiModelProperty(name="price", example="10000")
+        Long price;
+
     }
     /*
      * Board 등록 사진 제대로
@@ -75,6 +78,8 @@ public class RecipeDto {
         Integer star;
         @ApiModelProperty(name="GoodsId", example="1,2,3,4")
         String GoodsId;
+        @ApiModelProperty(name="price", example="10000")
+        Long price;
 
     }
     @Getter
@@ -101,8 +106,8 @@ public class RecipeDto {
         Integer minute;
         @ApiModelProperty(name="난이도", example="1")
         Integer star;
-        // @ApiModelProperty(name="현 시간", example="2022-02-01")
-        // Date updateDate;
+        @ApiModelProperty(name="price", example="10000")
+        Long price;
     }
 
     @Getter
@@ -129,6 +134,8 @@ public class RecipeDto {
         Integer minute;
         @ApiModelProperty(name="난이도", example="1")
         Integer star;
+        @ApiModelProperty(name="price", example="10000")
+        Long price;
     }
 
     @Getter
@@ -192,6 +199,8 @@ public class RecipeDto {
         Long id;
         @ApiModelProperty(name="cnt", example="1")
         Long cnt;
+        @ApiModelProperty(name="price", example="10000")
+        Long price;
     }
 
     @Getter
