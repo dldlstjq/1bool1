@@ -46,7 +46,7 @@ function Detail() {
           password={password}
           url={"board/" + id}
           afterUrl="/community"
-          updatePageUrl="/community/free/write"
+          updatePageUrl="/community/write"
           state={articleData}
           params={{ password }}
         />

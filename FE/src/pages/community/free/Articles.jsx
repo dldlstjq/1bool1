@@ -45,6 +45,7 @@ function Articles() {
       </h1>
 
       <ButtonAndPerPage setSize={setSize} setState={setArticles} />
+      <button id="write">글쓰기</button>
       <div className="border-2 border-red-500 rounded">
         {articles?.map(
           ({ id, title, nickname, password, modifiedDate }, idx) => {

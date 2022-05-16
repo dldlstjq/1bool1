@@ -35,7 +35,7 @@ export default function WriteFree() {
       url: "board",
       data,
     })
-      .then(setTimeout(() => navigate("/community/free"), 1000))
+      .then(setTimeout(() => navigate("/community"), 1000))
       .catch((err) => console.log(err));
   }
 
@@ -97,7 +97,15 @@ export default function WriteFree() {
         >
           사진추가
         </button>
-        <div className="h-8 bg-blue-700 w-1/3 inline-block"></div>
+        <button
+          className="h-8 bg-blue-700 w-1/3 inline-block text-white"
+          onClick={(e) => {
+            e.preventDefault();
+            navigate("/community");
+          }}
+        >
+          돌아가기
+        </button>
       </div>
       <button
         className="h-8 w-1/3 text-white bg-blue-500 mx-auto"
