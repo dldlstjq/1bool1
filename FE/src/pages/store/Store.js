@@ -234,25 +234,25 @@ function Store() {
 `           <Grid container spacing={2} >
               {goods.slice(30*(page-1), 30*(page-1)+30).map((good, index) => 
               <Grid item xs={12} md={6} lg={4} style={{padding:0, display:'flex', justifyContent:'center', paddingTop:'1rem' }}>
-                    <Link to={`/store/${good.id}`}state={{ data: good }}  style={{textDecoration:'none',}}>
-                <Card className={good.convinence} sx={{boxShadow:'none', borderRadius: '16px', display:'flex', flexDirection:'column' }}>
-                  <div style={{height:'100%'}}>
-                        <Box className={changeSet(good.convinence)} style={{paddingLeft:'1rem'}} >
-                          {changebox(good.convinence)}
-                        </Box>
+                <Link to={`/store/${good.id}`}state={{ data: good }}  style={{textDecoration:'none',}}>
+                  <Card className={good.convinence} sx={{boxShadow:'none', borderRadius: '16px', display:'flex', flexDirection:'column' }}>
+                    <div style={{height:'100%'}}>
+                      <Box className={changeSet(good.convinence)} style={{paddingLeft:'1rem'}} >
+                        {changebox(good.convinence)}
+                      </Box>
                         {/* </Link> */}
                   {/* </div> */}
                     {/* <Link to={`/${good.id}`} style={{textDecoration:'none',}}> */}
                   <Box style={{display:'flex'}}>
-                      <Box sx={{width:'160px', height:'120px', marginTop:'1rem'}}>
-                        <CardMedia
-                          component="img"
-                          alt="이미지 준비중"
-                          sx={{ width: '80%', height:'80%' }}
-                          image={`${good.photoPath}`}
-                        />
+                    <Box sx={{width:'160px', height:'120px', marginTop:'1rem'}}>
+                      <CardMedia
+                        component="img"
+                        alt="이미지 준비중"
+                        sx={{ width: '80%', height:'80%' }}
+                        image={`${good.photoPath}`}
+                      />
 
-                      </Box>
+                    </Box>
                     {/* </Link>
                     <Link to={`/${good.id}`} style={{textDecoration:'none',}}> */}
                       <Box sx={{display:'flex', flexDirection:'column', paddingTop:'1rem', marginLeft:'0.5rem', marginRight:'0.5rem'}}>

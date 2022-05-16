@@ -1,30 +1,43 @@
 /* eslint-disable no-unused-vars */
+import { Container, Grid, Typography, Box, Button, TextField} from '@mui/material';
+import Card from '@mui/material/Card';
+import CardMedia from '@mui/material/CardMedia';
+import { FaWonSign, FaCoins } from "react-icons/fa";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
+
 function Recipe({ recipe }) {
-  const { id, title, photo, nickname, minute, star } = recipe;
+  const { id, title, photo, nickname, minute, star, price, cnt } = recipe;
 
   const photos = photo?.split(",");
+  console.log(recipe)
   return (
-    <div className="text-center border-2 border-purple-900 rounded pt-4">
-      <img
-        src={photos && photos[0]}
-        alt=""
-        id={id}
-        className="main-photo w-3/4 mx-auto"
-      />
-      <h1 className="text-center" id={id} style={{ wordBreak: "keep-all" }}>
-        <span className="text-purple-900 font-bold">{nickname} </span>님의
-        <span className="text-purple-900 font-bold"> {title}</span>
-      </h1>
-      <div className="flex justify-center">
-        <div className="w-7">
-          <img src="/images/level.png" alt="" />
-        </div>
-        {star}
-        <div className="w-5 ml-3">
-          <img src="/images/clock.png" alt="" />
-        </div>
-        {minute}
+    <div className="pt-4" style={{height:'350px'}}>
+      <div style={{height:'200px',display:'flex', justifyContent:'center'}}>
+        <img
+          src={photos && photos[0]}
+          // src={photos[0]}
+          alt="이미지가 없습니다"
+          id={id}
+          className="main-photo"
+          // style={{height:'200px' }}
+          style={{height:'100%' }}
+        />
+
       </div>
+      <h1 className="font-bold main-photo" id={id} style={{ wordBreak: "keep-all", paddingLeft:'1rem' }}>
+        {title}
+      </h1>
+      <h2 className="font-bold main-photo" id={id} style={{ wordBreak: "keep-all", paddingLeft:'1rem', display:'flex', flexDirection:'row' }}>
+      <FaCoins size='18' color='gold' style={{marginTop:2, marginRight:'5'}} />{price}1000원
+      </h2>
+      {/* <h2 className="font-bold main-photo" id={id} style={{ wordBreak: "keep-all", paddingLeft:'1rem', display:'flex', flexDirection:'row' }}>
+      {price}1000원
+      </h2> */}
+      <h2 className="main-photo" id={id} style={{ wordBreak: "keep-all", paddingLeft:'1rem', display:'flex', flexDirection:'row', marginTop:'0.5rem' }}>
+       <FavoriteIcon style={{color:'#F93D59', marginRight:3}}/> {cnt} &nbsp;<AccessAlarmIcon style={{marginRight:3}}/> {minute}분
+      </h2>
+
     </div>
   );
 }

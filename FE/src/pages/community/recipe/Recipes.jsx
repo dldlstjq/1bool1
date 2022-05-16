@@ -1,36 +1,28 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Appbar from "../../../components/main/Appbar";
 import Footer from "../../../components/main/Footer";
-
-import axios from "axios";
+import Pagination from "react-js-pagination";
 
 import { Searchbar } from "../common/Searchbar";
-import { Pagination } from "../common/Pagination";
 import { useFetchPage } from "../common/hooks";
 
 import Recipe from "./Recipe";
 import ButtonAndPerPage from "../common/WriteOrderBtns";
 import {
   Container,
-  Grid,
-  Typography,
   Box,
   Button,
-  TextField,
 } from "@mui/material";
 
 function Recipes() {
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
-  const [size, setSize] = useState(10);
   const [orderBy, setOrderBy] = useState("recipe");
-
-  const page = searchParams.get("page") ? searchParams.get("page") - 1 : 0;
-
-  const [recipes, setRecipes] = useFetchPage(orderBy, page, size);
+  const [page, setPage] = useState(1);
+  const handlePageChange = (page) => { setPage(page); };
+  const [recipes, setRecipes] = useFetchPage(orderBy);
 
   function handleClick({ target }) {
     if (target.matches(".main-photo") || target.matches(".keep-all")) {
@@ -46,12 +38,12 @@ function Recipes() {
     }
   }
 
+
   return (
     <div
       style={{ display: "flex", flexDirection: "column", minHeight: "100%" }}
     >
       <Appbar />
-      {/* <div sytle={{flex:'1'}}> */}
       <div onClick={handleClick} sytle={{flex:'1'}}>
        <Container>
           <div id="category" className="p-8">
@@ -59,26 +51,32 @@ function Recipes() {
             <h2 className="mt-1 text-center">유저들이 공유하는 레시피</h2>
           </div>
 
-          <ButtonAndPerPage setSize={setSize} />
+          <ButtonAndPerPage />
           <Box style={{display:'flex', justifyContent:'end', marginBottom:'1rem'}}>
             <Searchbar setState={setRecipes} url="recipe/search" />
             <Button id="write" style={{ marginLeft:'1rem', backgroundColor:'#F93D59', color:'white', fontWeight:'bold', borderRadius:10, height:'2rem', marginTop:'10px'}} >글쓰기</Button>
           </Box>
 
-          <div
+           <div
             id="recipes-box"
-            className="grid gap-1 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4"
-          >
-            {recipes?.map((recipe, idx) => {
-              return <Recipe key={idx} recipe={recipe} />;
-            })}
+            className="grid gap-1 grid-cols-1 sm:grid-cols-3 lg:grid-cols-4"
+            >
+            {recipes.slice(12*(page-1), 12*(page-1)+12).map((recipe, idx) => {
+              return <Recipe key={idx} recipe={recipe} />
+            }
+
+            )}
+            </div>
+          
             <Pagination
-              cols="col-span-2 sm:col-span-3 lg:col-span-4"
-              my="my-5"
-              setSearchParams={setSearchParams}
-            />
-          </div>
-          {/* <ButtonAndPerPage setSize={setSize} /> */}
+          activePage={page}
+          itemsCountPerPage={12}
+          totalItemsCount={recipes.length}
+          pageRangeDisplayed={5}
+          onChange={handlePageChange}
+          >
+        </Pagination>
+          
 
           
 
