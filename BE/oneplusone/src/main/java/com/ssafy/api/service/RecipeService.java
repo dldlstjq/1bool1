@@ -2,6 +2,7 @@ package com.ssafy.api.service;
 
 import com.ssafy.api.dto.RecipeDto;
 import com.ssafy.db.entity.Recipe;
+import com.ssafy.db.entity.RecipeAll;
 import org.springframework.data.domain.Page;
 import com.ssafy.db.entity.RecipeGoodsSelect;
 
@@ -24,5 +25,5 @@ public interface RecipeService {
 
     List<Recipe> findRecipePrice(Integer order);
 
-    List<Recipe> findRecipeAll();
+    List<RecipeAll> findRecipeAll();
 }

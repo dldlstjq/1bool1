@@ -1,10 +1,7 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.dto.RecipeDto;
-import com.ssafy.db.entity.Goods;
-import com.ssafy.db.entity.Recipe;
-import com.ssafy.db.entity.RecipeGoods;
-import com.ssafy.db.entity.RecipeGoodsSelect;
+import com.ssafy.db.entity.*;
 import com.ssafy.db.repository.GoodsRepository;
 import com.ssafy.db.repository.RecipeGoodsRepository;
 import com.ssafy.db.repository.RecipeLikeRepository;
@@ -150,7 +147,7 @@ public class RecipeServiceImpl implements RecipeService{
     }
 
     @Override
-    public List<Recipe> findRecipeAll() {
-        return recipeRepository.findAll();
+    public List<RecipeAll> findRecipeAll() {
+        return recipeRepository.findAllJoin();
     }
 }
