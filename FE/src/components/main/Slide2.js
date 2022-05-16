@@ -28,7 +28,7 @@ function Slide2({menus}) {
       <Grid item xs={1} sx={{ paddingLeft: 0, display: { md: 'flex' } }}>
       {/* <Grid item xs={1}> */}
       {/* <Grid item xs={1} sx={{ padding: 0, display: { xs: 'none', md: 'flex' } }}> */}
-        <Button className='swiper-button-prev2' style={{ color: '#F93D59', display: { } }}
+        <Button className='swiper-button-prev' style={{ color: '#F93D59', display: { } }}
         // <Button className='swiper-button-prev2' style={{ color: 'black'}}
           // style={{ color: '#F93D59', display: { xs: 'none' } }}
         >
@@ -53,8 +53,8 @@ function Slide2({menus}) {
           }}
           // navigation={true}
           navigation={{
-            prevEl: '.swiper-button-prev2',
-            nextEl: '.swiper-button-next2',
+            prevEl: '.swiper-button-prev',
+            nextEl: '.swiper-button-next',
           }}
           // modules={[Pagination]}
           modules={[Pagination, Navigation]}
@@ -75,7 +75,7 @@ function Slide2({menus}) {
               slidesPerGroup: 5,
             },
           }}
-          className='mySwiper2'
+          className='mySwiper'
         >
           {menus.map((menu) => (
             <SwiperSlide key={menu.id}>
@@ -95,12 +95,12 @@ function Slide2({menus}) {
                       component='img'
                       alt='이미지 준비중'
                       sx={{ width: 160, height: 180 }}
-                      image={`${menu.photoPath}`}
+                      image={`${menu.photo}`}
                     />
                   </Box>
                   <CardContent>
                     <Typography gutterBottom variant='h8' component='div'>
-                      {menu.name}
+                      {menu.title}
                     </Typography>
                     <Typography
                       gutterBottom
@@ -108,7 +108,7 @@ function Slide2({menus}) {
                       component='div'
                       style={{ fontWeight: 'bold' }}
                     >
-                      {menu.price}원
+                      {/* {menu.price}원 */}
                     </Typography>
                   </CardContent>
                 </Card>
@@ -120,7 +120,7 @@ function Slide2({menus}) {
       {/* <Grid item xs={1} sx={{ display: { xs: 'none', md: 'flex' } }}> */}
       {/* <Grid item xs={1} sx={{ display: {  md: 'flex' } }}> */}
       <Grid item xs={1}>
-        <Button className='swiper-button-next2' style={{ color: '#F93D59' }}>
+        <Button className='swiper-button-next' style={{ color: '#F93D59' }}>
           {' '}
         </Button>
       </Grid>
