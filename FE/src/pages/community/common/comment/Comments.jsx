@@ -10,7 +10,6 @@ import Upper from "./Upper";
 
 const Comments = ({ url, comments, boardId, recipeId, refresh }) => {
   const [showComments, setShowComments] = useState(true);
-  // const [popover, setPopover] = useState(false);
   const textareaRef = useRef();
   const buttonRef = useRef();
   const coordRef = useRef();

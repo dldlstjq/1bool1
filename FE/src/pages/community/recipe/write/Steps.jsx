@@ -7,9 +7,7 @@ function Steps({ content }) {
 
   useEffect(() => {
     if (content) {
-      const re = /(?<=<s>).+?(?=<s>)/g;
-      const temp = content.match(re);
-      setStepContent([...temp, ""]);
+      setStepContent(JSON.parse(content));
     }
   }, [content]);
 
