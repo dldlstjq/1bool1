@@ -93,14 +93,14 @@ function Main() {
                   <Button  onClick={onSubmit} style={{backgroundColor:'#F93D59', color:'white', fontWeight:'bold', borderRadius:20, height:'2rem', marginTop:'1rem'}} name="adr">검색</Button>
                 </Box>
               </Grid>
-              <Grid item xs={12} md={6} style={{ display: 'flex', justifyContent: 'center' , height:'400px' }}>
+              <Grid item xs={12} md={6} style={{ display: 'flex', justifyContent: 'center' , height:'350px' }}>
                 <img src={convimg} alt='convimg' />
               </Grid>
             </Grid>
           </Box>
           <Box style={{marginTop:'5rem'}}>
             <Box>
-              <Typography variant='h4' style={{ fontWeight: 'bold', display: 'flex', justifyContent: 'center', marginTop: '8rem', }} >
+              <Typography variant='h4' style={{ fontWeight: 'bold', display: 'flex', justifyContent: 'center', marginTop: '4rem', }} >
                 조회수 TOP 10
               </Typography>
             </Box>
