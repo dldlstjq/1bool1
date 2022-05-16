@@ -22,7 +22,6 @@ import axios from 'axios';
 import Popover from '../../pages/community/common/Popover';
 import GoodsComments from '../../pages/community/common/GoodsComments';
 import { DeleteOrUpdate } from '../../pages/community/common/comment/DeleteOrUpdate';
-// import { axiosRequest } from '../../pages/community/common/functions';
 
 import Appbar from '../../components/main/Appbar';
 import Footer from '../../components/main/Footer';
@@ -54,36 +53,42 @@ function StoreDetail() {
   const textareaRef = useRef();
   const navi = useNavigate();
 
-  // useEffect(() => {
-  //   axios({
-  //     method: 'get',
-  //     url: BASE_URL + `goods/${localStorage.getItem('goodsId')}`,
-  //   })
-  //     .then((res) => {
-  //       setGoodsData(res.data.object);
-  //     })
-  //     .catch((err) => console.log(err));
-
-  //   axios({
-  //     method: 'get',
-  //     url: BASE_URL + `goodsreview/${localStorage.getItem('goodsId')}`,
-  //   })
-  //     .then((res) => {
-  //       setReviewData(res.data.object);
-  //     })
-  //     .catch((err) => console.log(err));
-
-  //   axios.put(BASE_URL + `goods/${goods.id}`).then(() => {
-  //     console.log('조회수 등록');
-  //   });
-
-  //   // 지금 로그인한 유저가 좋아요 누른 상품인지 확인하는 기능 필요
-  //   if (localStorage.getItem('user_id') !== null) {
-  //     axios.get(BASE_URL + `goods/like/${goods.id}`).then((res) => {
-  //       if (res.data === 1) setIsLike(true);
-  //     });
-  //   }
-  // }, []);
+  useEffect(() => {
+    // axios({
+    //   method: 'get',
+    //   url: BASE_URL + `goods/${localStorage.getItem('goodsId')}`,
+    // })
+    //   .then((res) => {
+    //     setGoodsData(res.data.object);
+    //   })
+    //   .catch((err) => console.log(err));
+    // axios({
+    //   method: 'get',
+    //   url: BASE_URL + `goodsreview/${localStorage.getItem('goodsId')}`,
+    // })
+    //   .then((res) => {
+    //     setReviewData(res.data.object);
+    //   })
+    //   .catch((err) => console.log(err));
+    // axios.put(BASE_URL + `goods/${goods.id}`).then(() => {
+    //   console.log('조회수 등록');
+    // });
+    // 지금 로그인한 유저가 좋아요 누른 상품인지 확인하는 기능 필요
+    if (localStorage.getItem('user_id') !== null) {
+      axios({
+        method: 'get',
+        url: BASE_URL + `goods/like/user/${goods.id}`,
+        params: {
+          userId: localStorage.getItem('user_id'),
+        },
+      })
+        .then((res) => {
+          // console.log(res);
+          if (res.data.object === true) setIsLike(true);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, []);
 
   // const goodsData = useFetchItem(`goods/${localStorage.getItem('goodsId')}`);
   const comments = useFetchListAndUpdate(
@@ -381,7 +386,7 @@ function StoreDetail() {
                   <i className='icon-box icon-info icon-down  w-5 h-5'></i> 0
                 </button> */}
               </div>
-              <div className='userinfo-box' style={{ backgroundColor: '#ffe2e180' }}>
+              {/* <div className='userinfo-box' style={{ backgroundColor: '#ffe2e180' }}>
                 <i className='icon-box icon-etc icon-user  w-10 h-10'></i>
                 <div style={{ marginLeft: '1rem' }}>
                   <span style={{ marginLeft: '5px' }}>{name}</span>
@@ -392,7 +397,7 @@ function StoreDetail() {
                     {comments.length}
                   </div>
                 </div>
-              </div>
+              </div> */}
               {/* <DeleteOrUpdate
          setPw={setarticlePw}
          inputPw={articlePw}
