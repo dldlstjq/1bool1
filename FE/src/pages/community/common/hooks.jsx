@@ -1,13 +1,13 @@
-import { useEffect, useState, useCallback } from "react";
-import axios from "axios";
-import { BASE_URL } from "../../..";
+import { useEffect, useState, useCallback } from 'react';
+import axios from 'axios';
+import { BASE_URL } from '../../..';
 
 export function useFetchPage(url, page, size) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     axios({
-      method: "get",
+      method: 'get',
       url: BASE_URL + url,
       params: { page, size },
     })
@@ -24,7 +24,7 @@ export function useFetchItem(url) {
 
   useEffect(() => {
     axios({
-      method: "get",
+      method: 'get',
       url,
     })
       .then((res) => {
@@ -39,7 +39,7 @@ export function useFetchListAndUpdate(url, extra) {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios({
-      method: "get",
+      method: 'get',
       url,
     })
       .then((res) => {
@@ -54,7 +54,7 @@ export function useFetchList(url) {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios({
-      method: "get",
+      method: 'get',
       url,
     })
       .then((res) => {
@@ -77,6 +77,22 @@ export function useInputs(initialForm) {
     setForm((form) => ({ ...form, [name]: value }));
   }, []);
   return [form, onChange];
+}
+
+export function useFetchHit(url) {
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    axios({
+      method: 'put',
+      url,
+    })
+      .then((res) => {
+        setData(res.data.object);
+      })
+      .catch((err) => console.log(err));
+  }, [url]);
+  return data;
 }
 
 // export function useFetchIfUpdate(url, isUpdate) {
