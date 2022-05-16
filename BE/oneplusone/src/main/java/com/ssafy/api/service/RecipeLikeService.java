@@ -12,4 +12,6 @@ public interface RecipeLikeService {
     Page<RecipeDto.RecipeLikeGet> findByRecipe(Integer page, Integer size, Pageable pageable);
 
     boolean modifyRecipeLike(RecipeDto.RecipeLikeGetRequest dto);
+
+    boolean findLike(RecipeDto.RecipeLikeGetRequest dto);
 }

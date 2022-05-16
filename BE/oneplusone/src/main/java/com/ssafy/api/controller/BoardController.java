@@ -1,6 +1,7 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.dto.BoardDto;
+import com.ssafy.api.dto.GoodsDto;
 import com.ssafy.api.service.BoardService;
 import com.ssafy.api.service.FireBaseService;
 import com.ssafy.api.service.BoardLikeService;
@@ -257,4 +258,27 @@ public class BoardController {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail"));
         }
     }
+
+    @GetMapping("/like/user/{boardId}")
+    @ApiOperation(value = "게시글 해당 유저가 좋아요 했는지 파악", notes = "<strong>게시글 해당 유저가 좋아요 했는지 파악</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> findLikeBoard(@PathVariable("boardId") Long boardId, @RequestParam("userId")Long userId) {
+        BoardDto.BoardLikeGetRequest dto = new BoardDto.BoardLikeGetRequest();
+        dto.setId(boardId);
+        dto.setUserId(userId);
+        boolean check = boardlikeService.findLike(dto);
+        if(check)
+        {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success",true));
+        }else{
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail",false));
+        }
+    }
+
+
 }
