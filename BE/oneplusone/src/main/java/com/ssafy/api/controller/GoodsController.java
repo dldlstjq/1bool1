@@ -152,8 +152,8 @@ public class GoodsController {
         }
     }
 
-    @PutMapping("/like/{goodsId}")
-    @ApiOperation(value = "상품 좋아요 등록", notes = "<strong>상품에서 좋아요를 클릭한다.</strong>")
+    @GetMapping("/like/{goodsId}")
+    @ApiOperation(value = "해당 상품 좋아요 갯수 리턴 ", notes = "<strong>해당하는 상품에서 좋아요 갯수를 리턴</strong>")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),
@@ -161,18 +161,17 @@ public class GoodsController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<? extends BaseResponseBody> findGoodsLikeDetail(@PathVariable("goodsId") Long goodsId){
-        GoodsDto = goodsLikeService.findLikeGoods(goodsId);
-        if(){
-            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+        GoodsDto.GoodsLikeDetail goodsLikeDetail = goodsLikeService.findLikeGoods(goodsId);
+        if(goodsLikeDetail != null){
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success",goodsLikeDetail));
         }else{
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail"));
         }
-
     }
 
 
-    @GetMapping("/like/{goodsId}")
-    @ApiOperation(value = "상품 좋아요 갯수 리턴", notes = "<strong>상품에서 좋아요 갯수를 리턴</strong>")
+    @PutMapping("/like/{goodsId}")
+    @ApiOperation(value = "상품 좋아요 등록 및 삭제", notes = "<strong>상품에서 등록 및 삭제</strong>")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),

@@ -10,6 +10,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 public class GoodsDto {
@@ -97,6 +99,45 @@ public class GoodsDto {
     public static class GoodsLikeGetOrderBy {
         @ApiModelProperty(name="Goods", example="객체")
         Goods goods;
+        @ApiModelProperty(name="카운트 값", example="1")
+        Long cnt;
+    }
+
+
+
+    @Getter
+    @Setter
+    @ApiModel("GoodsLikeDetail")
+    public static class GoodsLikeDetail {
+        @ApiModelProperty(name="Goods", example="객체")
+        Long Id;
+        @ApiModelProperty(name="Goods", example="객체")
+        LocalDateTime CreatedDate;
+        @ApiModelProperty(name="Goods", example="객체")
+        LocalDateTime modifiedDate;
+        @ApiModelProperty(name="Goods", example="객체")
+        Integer category;
+        @ApiModelProperty(name="Goods", example="객체")
+        String convinence;
+        @ApiModelProperty(name="Goods", example="객체")
+        String description;
+        @ApiModelProperty(name="Goods", example="객체")
+        Integer event;
+        @ApiModelProperty(name="Goods", example="객체")
+        Integer hit;
+        @ApiModelProperty(name="Goods", example="객체")
+        Integer isSell;
+        @ApiModelProperty(name="Goods", example="객체")
+        String name;
+        @ApiModelProperty(name="Goods", example="객체")
+        String photoPath;
+        @ApiModelProperty(name="Goods", example="객체")
+        Long price;
+        @ApiModelProperty(name="Goods", example="객체")
+        Date startDate;
+        @ApiModelProperty(name="Goods", example="객체")
+        Date updateDate;
+
         @ApiModelProperty(name="카운트 값", example="1")
         Long cnt;
     }

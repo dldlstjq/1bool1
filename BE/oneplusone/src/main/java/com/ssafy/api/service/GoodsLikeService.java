@@ -10,4 +10,6 @@ public interface GoodsLikeService {
     List<GoodsDto.GoodsLikeGetOrderBy> findTop10LikeGoods();
 
     boolean findLike(GoodsDto.GoodsLikeGetRequest dto);
+
+    GoodsDto.GoodsLikeDetail findLikeGoods(Long goodsId);
 }
