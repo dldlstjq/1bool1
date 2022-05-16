@@ -1,7 +1,8 @@
 import { useState, useRef } from 'react';
 
 import axios from 'axios';
-
+import PersonPinIcon from '@mui/icons-material/PersonPin';
+import Grid from '@mui/material/Grid';
 import { DeleteOrUpdate } from './GoodsDeleteOrUpdate';
 
 /* eslint-disable no-unused-vars */
@@ -32,20 +33,33 @@ function Comment({ content, nickname, password, id, goodsId, boardId, recipeId, 
   }
   return (
     <div className='p-1 border border-stone-300'>
-      <div className='flex justify-between'>
+      <div>
         <div>
-          <i className='icon-box icon-etc icon-user w-9 h-9'></i>{' '}
-          <span className='relative bottom-3'>{nickname}</span>
+          {/* <i className=' icon-etc  w-9 h-9'></i> */}
+          {/* <PersonPinIcon style={{ width: '40px', height: '40px' }} />
+          <span className='relative bottom-3' style={{ marginTop: 150 }}>
+            {nickname}
+          </span> */}
+          <Grid container>
+            <Grid lg={0.5}>
+              <PersonPinIcon style={{ width: '40px', height: '40px' }} />
+            </Grid>
+            <Grid lg={11.5} style={{ marginTop: '20px' }}>
+              <strong className='relative bottom-3' style={{ marginTop: 100 }}>
+                {nickname}
+              </strong>
+            </Grid>
+          </Grid>
         </div>
 
-        <div>
+        {/* <div>
           <button className='w-16 h-8  bd-df'>
             <i className='icon-box icon-info icon-up w-5 h-5'></i> 0
           </button>
           <button className='w-16 h-8 ml-2 bd-df'>
             <i className='icon-box icon-info icon-down w-5 h-5'></i> 0
           </button>
-        </div>
+        </div> */}
       </div>
 
       {inputMode ? (
