@@ -22,23 +22,24 @@ function Articles() {
   const [articles, setArticles] = useFetchPage(orderBy, page, size);
 
   function handleClick(e) {
-    if (e.target.matches(".title")) {
+    const { target } = e;
+    if (target.matches(".title")) {
       navigate(e.target.id);
     }
-    if (e.target.matches("#write")) {
+    if (target.matches("#write")) {
       navigate("write");
     }
-    if (e.target.matches("#order-by-like")) {
-      if (orderBy === "board") {
-        setOrderBy("board/like");
-        return;
-      }
+    if (target.matches("#order-by-like")) {
+      setOrderBy("board/like");
+    } else if (target.matches("#order-by-recent")) {
       setOrderBy("board");
+    } else if (target.matches("#bookmark")) {
+      alert("유저가 북마크한 리스트를 주세요");
     }
   }
 
   return (
-    <div className="p-4 lg:px-40" onClick={handleClick}>
+    <div className="p-4 md:px-20 lg:px-40" onClick={handleClick}>
       <h1 className="title text-red-500 text-4xl lg:text-6xl mb-5">
         자유게시판
       </h1>
