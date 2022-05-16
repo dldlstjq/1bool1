@@ -45,6 +45,7 @@ const Comments = ({ url, comments, goodsId, boardId, recipeId, refresh }) => {
       <form
         className='p-3 bg-stone-200 border border-stone-300 grid grid-cols-2 gap-2'
         onSubmit={handleSubmit}
+        style={{ backgroundColor: '#ffe2e180' }}
       >
         <input
           type='text'
