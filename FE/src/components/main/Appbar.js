@@ -13,7 +13,10 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Grid from "@mui/material/MenuItem";
 import logo from "../../common/logo.png";
-import kakaoLogo from "../../common/kakao_k.png";
+// import kakaoLogo from "../../common/kakao_k.png";
+// import kakaoLogo from "../../common/kakao_round.png";
+import kakaoLogo from "../../common/kakaolink_btn.png";
+import kakaoLogin from "../../common/kakao_login.png";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import { BASE_URL } from "../../index";
@@ -329,16 +332,16 @@ function Appbar() {
             </Link>
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, width:'80px' }}>
                 {localStorage.getItem("email") ? (
-                  <Avatar alt="Remy Sharp" src={kakaoLogo} />
+                  <img src={kakaoLogo} alt='kakao'/>
+                  // <Avatar alt="Remy Sharp" src={kakaoLogo} />
                 ) : (
-                  <Avatar
-                    alt="Remy Sharp"
-                    src={"/static/images/avatar/1.jpg"}
-                  />
+                  // <Avatar src={kakaoLogin} />
+                  <img src={kakaoLogin} alt='kakao'/>
+                  // <img src={kakaoLogo} alt='kakao'/>
                 )}
               </IconButton>
             </Tooltip>

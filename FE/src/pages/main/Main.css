@@ -30,8 +30,13 @@
   height: 90%;
   object-fit: cover;
 }
+.swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction {
+  bottom:0px;
+}
+
 
 .swiper-pagination-bullet {
+  margin-top: 10rem;
   width: 15px;
   height: 15px;
   text-align: center;
@@ -43,6 +48,7 @@
 }
 
 .swiper-pagination-bullet-active {
+  margin-top: 10rem;
   color: #fff;
   background: #f93d59;
 }

@@ -78,36 +78,35 @@ function Main() {
       <Appbar />
       <div style={{ flex: '1' }}>
         <Container maxWidth='lg' style={{display:'flex', flexDirection:'column'}}>
-          <Box style={{display:'flex', alignItems:'center',marginTop:'1rem', marginBottm: '1rem'}}>
-            <Grid container spacing={2} style={{ margin: 0, height: 500, display:'flex', alignItems:'center' }}>
+          <Box style={{display:'flex', justifyContent:'center'}}>
+            <Grid container spacing={2} style={{ margin: 0, height: 500, display:'flex', alignItems:'center', justifyItems:'center' }}>
+            <Grid item xs={12} md={6} style={{ display: 'flex', justifyContent: 'center' , height:{xs:'200px',md:'350px'}, alignSelf:'end',  }}>
+                <img src={convimg} alt='convimg' />
+              </Grid>
               <Grid item xs={12} md={6}>
-                {/* <Box style={{ margin: 40 }}> */}
-                <Box style={{ margin: 30 }}>
+                <Box style={{ marginLeft: '2rem'}}>
                   <Typography variant='h4' style={{ fontWeight: 'bold' }}>
                     오늘의 할인은?
                   </Typography>
-                  <Typography variant='h6' style={{ fontWeight: 'bold' }}>
+                  <Typography variant='h6' style={{ fontWeight: 'bold', wordBreak: "keep-all", }}>
                     편의점의 할인 상품을 알려드려요!
                   </Typography>
                   <TextField onChange={searchWord} onKeyPress={onKeyPress} id="standard-basic" label="상품을 입력하세요" variant="standard" />
                   <Button  onClick={onSubmit} style={{backgroundColor:'#F93D59', color:'white', fontWeight:'bold', borderRadius:20, height:'2rem', marginTop:'1rem'}} name="adr">검색</Button>
                 </Box>
               </Grid>
-              <Grid item xs={12} md={6} style={{ display: 'flex', justifyContent: 'center' , height:'350px' }}>
-                <img src={convimg} alt='convimg' />
-              </Grid>
+              
             </Grid>
           </Box>
-          <Box style={{marginTop:'5rem'}}>
+          <Box>
             <Box>
               <Typography variant='h4' style={{ fontWeight: 'bold', display: 'flex', justifyContent: 'center', marginTop: '4rem', }} >
-                조회수 TOP 10
+                상품 조회수 TOP 10
               </Typography>
             </Box>
             <Box style={{display:'flex', justifyContent:'end'}}>
               <Link to='/store'>
-                <Typography variant='h6' style={{ color: 'grey',  }} > 상품 모두 보기 {'>'} </Typography>
-                {/* <Typography variant='h6' style={{ color: 'grey', display: 'flex', justifyContent: 'end' }} > 상품 모두 보기 {'>'} </Typography> */}
+                <Typography variant='h6' style={{ color: 'grey', display:'flex', justifyContent:'end'}} > 상품 모두 보기 {'>'} </Typography>
               </Link>
             </Box>
             <Box style={{marginTop:20}}>
@@ -116,13 +115,13 @@ function Main() {
           </Box>
           <Box>
             <Box>
-              <Typography variant='h4' style={{ fontWeight: 'bold', display: 'flex', justifyContent: 'center', marginTop: '8rem', }} >
-                좋아요 TOP 10
+              <Typography variant='h4' style={{ fontWeight: 'bold', display: 'flex', justifyContent: 'center', marginTop: '5rem', }} >
+                레시피 TOP 10
               </Typography>
             </Box>
             <Box style={{display:'flex', justifyContent:'end'}}>
               <Link to='/store'>
-                <Typography variant='h6' style={{ color: 'grey',  }} > 상품 모두 보기 {'>'} </Typography>
+                <Typography variant='h6' style={{ color: 'grey', display:'flex', justifyContent:'end' }} > 상품 모두 보기 {'>'} </Typography>
               </Link>
             </Box>
             <Box style={{marginTop:20}}>
