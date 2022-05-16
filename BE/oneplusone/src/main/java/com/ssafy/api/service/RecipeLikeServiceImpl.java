@@ -33,7 +33,7 @@ public class RecipeLikeServiceImpl implements RecipeLikeService{
     }
 
     @Override
-    public Page<RecipeDto.RecipeLikeGet> findByRecipe(Integer page, Integer size, Pageable pageable) {
+    public List<RecipeDto.RecipeLikeGet> findByRecipe() {
         List<RecipeLike> list = recipeLikeRepository.findAllOrderBySQL();
         List<RecipeDto.RecipeLikeGetOrderBy> newOne = new ArrayList<>();
         RecipeDto.RecipeLikeGetOrderBy temp;
@@ -76,11 +76,11 @@ public class RecipeLikeServiceImpl implements RecipeLikeService{
             test.setPrice(newOne.get(i).getRecipe().getPrice());
             ans.add(test);
         }
-        final int start = (int)pageable.getOffset();
-        final int end = Math.min((start + pageable.getPageSize()), ans.size());
-        final Page<RecipeDto.RecipeLikeGet> p = new PageImpl<>(ans.subList(start, end), pageable, ans.size());
+//        final int start = (int)pageable.getOffset();
+//        final int end = Math.min((start + pageable.getPageSize()), ans.size());
+//        final Page<RecipeDto.RecipeLikeGet> p = new PageImpl<>(ans.subList(start, end), pageable, ans.size());
 
-        return p;
+        return ans;
     }
 
     @Override

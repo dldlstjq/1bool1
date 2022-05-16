@@ -36,6 +36,8 @@ public class User extends BaseEntity{
     @Column(name = "is_withdrawal")
     Integer isWithdrawal;
 
+    @Column(name = "is_manager")
+    Integer isManager;
 
     public void update(String email, String password, String nickname,Integer isWithdrawal) {
         this.email = email;

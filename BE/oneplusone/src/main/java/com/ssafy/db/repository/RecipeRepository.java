@@ -2,7 +2,9 @@ package com.ssafy.db.repository;
 
 import com.ssafy.db.entity.Board;
 import com.ssafy.db.entity.Recipe;
+import com.ssafy.db.entity.RecipeAll;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,4 +14,7 @@ public interface RecipeRepository extends JpaRepository<Recipe,Long> {
     List<Recipe> findByTitleContainingOrContentContaining(String title, String content);
 
     Optional<Recipe> findByPasswordAndIdAndNickname(String password, Long Id, String nickname);
+
+    @Query(value = "SELECT (SELECT count(m.id) FROM recipe_like_management m WHERE m.recipe_id = r.id AND m.is_liked = 1) AS cnt ,r.id,r.created_date,r.modified_date,r.content,r.description,r.minute,r.nickname,r.password,r.photo,r.star,r.title,r.price FROM recipe r;",nativeQuery = true)
+    List<RecipeAll> findAllJoin();
 }
