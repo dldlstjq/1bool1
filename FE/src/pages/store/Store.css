@@ -102,7 +102,7 @@
   font-weight: bold;
 } */
 /* 씨스페이스 card & box*/
-.cs {
+.CS {
   /* display: flex;
   justify-content: center; */
   width: 320px;
@@ -119,11 +119,11 @@
   color: #000000;
   font-weight: bold;
 }
-.MuiCheckbox-colorPrimary { 
+/* .MuiCheckbox-colorPrimary { 
   color : 'green'
 
 }
 
 .MuiCheckbox-colorPrimary .hover {
   background-color:'red'
-}
+} */

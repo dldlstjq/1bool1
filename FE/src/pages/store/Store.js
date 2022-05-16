@@ -30,23 +30,26 @@ import { FaWonSign, FaCoins } from "react-icons/fa";
 // import { withStyles } from "@material-ui/core";
 // import styled from '@mui/material/styles';
 // import { withStyles } from 'material-ui/styles'
+import { useNavigate, useLocation } from "react-router-dom";
 
 
 function Store() {
+  // const { state } = useLocation();
+  const location = useLocation();
+  // console.log('받은건 없음',location.state)
   const [goods, setGoods] = useState([]);
   const [page, setPage] = useState(1);
   // const [word, setWord] = useState("");
   // const [items, setItems] = useState(5);
-  // const prevRef = useRef(null);
-	// const nextRef = useRef(null);
+  let name = ""
   const handlePageChange = (page) => { setPage(page); };
-  // let adr = 'https://k6d207.p.ssafy.io/api/v1/goods/gs/2'
-  // const [word, setWord] = useState({
-  //   goodName : '0',
-  // });
   const [word, setWord] = useState({
     goodName : '0',
   });
+  // const name = location.state
+  
+  // console.log('확인해봐', name)
+
   const [state, setState] = useState({
     all: false,
     cu : false,
@@ -75,15 +78,17 @@ function Store() {
   };
   const { all, cu, gs, em, se, ms, cs, allEvent, noEvent, one, two, three, sale, dum, noSale } = state;
 
-  const searchWord = (event) => {
-    console.log(event)
+  function searchWord (event) {
     setWord({goodName:event.target.value});
-    console.log(word, event)
   }
-  const { goodName } = word;
-  const onSubmit = () => {
+
+
+  const { goodName } = word
+  // console.log('밖에는 제로간?', name, goodName)
+  function onSubmit() {
     let conv = ''
     let event_type = ''
+    console.log('여기안에는', goodName)
     // let goodName = '0'
     if (cu) { conv += 'cu' }
     if (gs) {
@@ -125,8 +130,8 @@ function Store() {
       else { event_type += '7'} }
     if (allEvent || event_type === '') { event_type = '0' } 
     console.log('adr확인중', conv, event_type, goodName)
-    // let adr = `https://k6d207.p.ssafy.io/api/v1/goods/conGoods?convinenceName=${conv}&event=${event_type}&goods=${goodName}`
     let adr = `https://k6d207.p.ssafy.io/api/v1/goods/conGoods?convinenceName=${conv}&event=${event_type}&goods=${goodName}`
+    // let adr = `https://k6d207.p.ssafy.io/api/v1/goods/conGoods?convinenceName=${conv}&event=${event_type}&goods=${name}`
     
     axios
     .get(adr)
@@ -136,23 +141,15 @@ function Store() {
     })
     
   }
-  // const CustomColorCheckbox = withStyles ({
-  // // const CustomColorCheckbox = styled(Checkbox) ({
-  //   root: {
-  //     color: "#F93D59",
-  //     "&$checked": {
-  //       color: "#F93D59"
-  //     }
-  //   },
-  //   checked: {}
-
-  // // });
-  // })((props) => <Checkbox color="default" {...props} />);
+  if (location.state) {
+    name = location.state;
+    // onSubmit();
+  }
 
   
   useEffect(() => {
     axios
-    .get('https://k6d207.p.ssafy.io/api/v1/goods/conGoods?convinenceName=all&event=0&goods=0')
+    .get(`https://k6d207.p.ssafy.io/api/v1/goods/conGoods?convinenceName=all&event=0&goods=${name}`)
     .then(({data}) => {
       setGoods(data.object)
       console.log(data.object)
@@ -164,7 +161,6 @@ function Store() {
   const conName = { 'MS' : 'MINISTOP', 'CU' : 'CU', 'GS': 'GS25', 'SE':'7-ELEVEn', 'CS':'CSPACE24', 'EM':'emart24' }
   function changeSet(sen) {
     let conv = convName[sen]
-    // console.log(sen,conv,typeof(conv), typeof(sen))
     return conv
   }
   function changebox(w) {
@@ -230,7 +226,7 @@ function Store() {
             </FormGroup>
             <Box style={{ display: 'flex', flexDirection:'row',justifyContent:'center', marginTop:'1rem'}}>
                   {/* <input onChange={searchWord} name="goodName" placeholder="상품을 입력하세요" style={{borderBottom :'teal 1px solid', borderLeft:'none',}} ></input> */}
-                  <TextField onChange={searchWord} onKeyPress={onKeyPress} id="standard-basic" label="상품을 입력하세요" variant="standard" />
+                  <TextField onChange={searchWord} onKeyPress={onKeyPress} id="standard-basic" label="상품을 입력하세요" variant="standard" defaultValue={name} />
             <Button  onClick={onSubmit} style={{backgroundColor:'#F93D59', color:'white', fontWeight:'bold', borderRadius:20, height:'2rem', marginTop:'1rem'}} name="adr">검색</Button>
             </Box>
           </Box>
