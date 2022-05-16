@@ -52,13 +52,18 @@ function Recipes() {
     >
       <Appbar />
       {/* <div sytle={{flex:'1'}}> */}
-      <div onClick={handleClick} sytle={{ flex: "1" }}>
-        <Container>
-          <div id="category" className="pb-10">
+      <div onClick={handleClick} sytle={{flex:'1'}}>
+       <Container>
+          <div id="category" className="p-8">
             <h1 className="text-2xl text-center">| USER RECIPES |</h1>
             <h2 className="mt-1 text-center">유저들이 공유하는 레시피</h2>
           </div>
+
           <ButtonAndPerPage setSize={setSize} />
+          <Box style={{display:'flex', justifyContent:'end', marginBottom:'1rem'}}>
+            <Searchbar setState={setRecipes} url="recipe/search" />
+            <Button id="write" style={{ marginLeft:'1rem', backgroundColor:'#F93D59', color:'white', fontWeight:'bold', borderRadius:10, height:'2rem', marginTop:'10px'}} >글쓰기</Button>
+          </Box>
 
           <div
             id="recipes-box"
@@ -73,10 +78,11 @@ function Recipes() {
               setSearchParams={setSearchParams}
             />
           </div>
-          <ButtonAndPerPage setSize={setSize} />
+          {/* <ButtonAndPerPage setSize={setSize} /> */}
 
-          <Searchbar setState={setRecipes} url="recipe/search" />
-        </Container>
+          
+
+       </Container>
       </div>
       <Footer />
     </div>

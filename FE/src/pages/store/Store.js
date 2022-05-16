@@ -154,7 +154,7 @@ function Store() {
       setGoods(data.object)
       console.log(data.object)
     })
-  }, []);
+  }, [name]);
   
   const eventGoods = {'1':'행사안함', '2':'1+1', '3': '2+1', '4': '3+1', '5': 'SALE', '6': '덤증정', '7': '균일가' }
   const convName = { 'MS' : 'ministop', 'CU' : 'cu', 'GS': 'gs', 'SE':'seleven', 'CS':'cspace', 'EM':'emart' }
