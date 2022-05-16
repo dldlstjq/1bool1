@@ -72,6 +72,7 @@ public class RecipeLikeServiceImpl implements RecipeLikeService{
             test.setModifiedDate(newOne.get(i).getRecipe().getModifiedDate());
             test.setStar(newOne.get(i).getRecipe().getStar());
             test.setMinute(newOne.get(i).getRecipe().getMinute());
+            test.setPrice(newOne.get(i).getRecipe().getPrice());
             ans.add(test);
         }
         final int start = (int)pageable.getOffset();
