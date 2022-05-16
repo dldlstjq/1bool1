@@ -2,6 +2,7 @@ package com.ssafy.api.controller;
 
 import com.ssafy.api.dto.BoardDto;
 import com.ssafy.api.dto.GoodsDto;
+import com.ssafy.api.dto.RecipeDto;
 import com.ssafy.api.service.BoardService;
 import com.ssafy.api.service.FireBaseService;
 import com.ssafy.api.service.BoardLikeService;
@@ -280,5 +281,23 @@ public class BoardController {
         }
     }
 
+    @GetMapping("/like/week")
+    @ApiOperation(value = "한 주의 인기순 정렬", notes = "<strong>한 주의 인기순 정렬</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> findByBoardLikeWeek() {
+
+        List<BoardDto.BoardLikeGet> list = boardlikeService.findByBoardWeek();
+        if(list.size() != 0)
+        {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", list));
+        }else{
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail"));
+        }
+    }
 
 }
