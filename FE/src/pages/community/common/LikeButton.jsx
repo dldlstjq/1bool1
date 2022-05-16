@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 
-import { useFetchAndUpdate } from "./hooks";
+import { useFetchItem } from "./hooks";
 import classNames from "classnames";
 import axios from "axios";
 
 function LikeButton({ url, user_id }) {
   const [foo, refresh] = useState(0);
-  const [like, setLike] = useFetchAndUpdate(url, foo);
+  const [like, setLike] = useFetchItem(url, foo);
   function postLike() {
     if (!user_id) {
       alert("로그인이 필요합니다");
