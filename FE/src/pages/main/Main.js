@@ -113,7 +113,7 @@ function Main() {
               <Slide menus={hits}/>
             </Box>
           </Box>
-          {/* <Box>
+          <Box>
             <Box>
               <Typography variant='h4' style={{ fontWeight: 'bold', display: 'flex', justifyContent: 'center', marginTop: '8rem', }} >
                 좋아요 TOP 10
@@ -125,9 +125,9 @@ function Main() {
               </Link>
             </Box>
             <Box style={{marginTop:20}}>
-              <Slide2 menus={likes}/>
+              <Slide menus={likes}/>
             </Box>
-          </Box> */}
+          </Box>
         </Container>
       </div>
       <Footer />

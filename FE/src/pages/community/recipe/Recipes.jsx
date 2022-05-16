@@ -2,8 +2,8 @@
 import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-import Appbar from '../../../components/main/Appbar';
-import Footer from '../../../components/main/Footer';
+import Appbar from "../../../components/main/Appbar";
+import Footer from "../../../components/main/Footer";
 
 import axios from "axios";
 
@@ -13,8 +13,14 @@ import { useFetchPage } from "../common/hooks";
 
 import Recipe from "./Recipe";
 import ButtonAndPerPage from "../common/WriteOrderBtns";
-import { Container, Grid, Typography, Box, Button, TextField} from '@mui/material';
-
+import {
+  Container,
+  Grid,
+  Typography,
+  Box,
+  Button,
+  TextField,
+} from "@mui/material";
 
 function Recipes() {
   const navigate = useNavigate();
@@ -32,20 +38,22 @@ function Recipes() {
     } else if (target.matches("#write")) {
       navigate("write");
     } else if (target.matches("#order-by-like")) {
-      if (orderBy === "recipe") {
-        setOrderBy("recipe/like");
-        return;
-      }
+      setOrderBy("recipe/like");
+    } else if (target.matches("#order-by-recent")) {
       setOrderBy("recipe");
+    } else if (target.matches("#bookmark")) {
+      alert("유저가 북마크한 리스트를 주세요");
     }
   }
 
   return (
-    <div style={{display: 'flex', flexDirection:'column', minHeight:'100%'}}>
-      <Appbar/>
-      <div sytle={{flex:'1'}}>
-      {/* <div onClick={handleClick} sytle={{flex:'1'}}> */}
-       <Container>
+    <div
+      style={{ display: "flex", flexDirection: "column", minHeight: "100%" }}
+    >
+      <Appbar />
+      {/* <div sytle={{flex:'1'}}> */}
+      <div onClick={handleClick} sytle={{ flex: "1" }}>
+        <Container>
           <div id="category" className="pb-10">
             <h1 className="text-2xl text-center">| USER RECIPES |</h1>
             <h2 className="mt-1 text-center">유저들이 공유하는 레시피</h2>
@@ -68,10 +76,9 @@ function Recipes() {
           <ButtonAndPerPage setSize={setSize} />
 
           <Searchbar setState={setRecipes} url="recipe/search" />
-
-       </Container>
+        </Container>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
