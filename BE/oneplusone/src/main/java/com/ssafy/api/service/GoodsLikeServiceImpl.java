@@ -89,4 +89,31 @@ public class GoodsLikeServiceImpl implements GoodsLikeService{
 
     }
 
+    @Override
+    public GoodsDto.GoodsLikeDetail findLikeGoods(Long goodsId) {
+        GoodsLike goodsLike = goodsLikeRepository.findBySQLDetail(goodsId);
+        if(goodsLike == null){
+            return null;
+        }else{
+            Goods goods = goodsRepository.findById(goodsLike.getGoods_id()).orElseGet(()->null);
+            GoodsDto.GoodsLikeDetail dto = new GoodsDto.GoodsLikeDetail();
+            dto.setCategory(goods.getCategory());
+            dto.setId(goods.getId());
+            dto.setCnt(goodsLike.getLikeCnt());
+            dto.setConvinence(goods.getConvinence());
+            dto.setDescription(goods.getDescription());
+            dto.setEvent(goods.getEvent());
+            dto.setCreatedDate(goods.getCreatedDate());
+            dto.setHit(goods.getHit());
+            dto.setIsSell(goods.getIsSell());
+            dto.setModifiedDate(goods.getModifiedDate());
+            dto.setName(goods.getName());
+            dto.setPhotoPath(goods.getPhotoPath());
+            dto.setPrice(goods.getPrice());
+            dto.setStartDate(goods.getStartDate());
+            dto.setUpdateDate(goods.getUpdateDate());
+            return dto;
+        }
+    }
+
 }
