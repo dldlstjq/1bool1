@@ -148,4 +148,9 @@ public class RecipeServiceImpl implements RecipeService{
             return recipeRepository.findAll(Sort.by(Sort.Direction.ASC,"price"));
         }
     }
+
+    @Override
+    public List<Recipe> findRecipeAll() {
+        return recipeRepository.findAll();
+    }
 }

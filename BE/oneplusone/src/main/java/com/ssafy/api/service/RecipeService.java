@@ -23,4 +23,6 @@ public interface RecipeService {
     boolean removeRecipe(RecipeDto.RecipeDeleteRequest dto);
 
     List<Recipe> findRecipePrice(Integer order);
+
+    List<Recipe> findRecipeAll();
 }
