@@ -9,7 +9,7 @@ function Community() {
   return (
     <div className="community">
       <div className="temp-navbar"></div>
-      <NavController />
+      {/* <NavController /> */}
       <div className="p-2">
         <Outlet />
       </div>
