@@ -17,4 +17,6 @@ public interface BoardLikeService {
     Page<BoardDto.BoardLikeGet> findByBoard(Integer page, Integer size, Pageable pageable);
 
     boolean findLike(BoardDto.BoardLikeGetRequest dto);
+
+    List<BoardDto.BoardLikeGet> findByBoardWeek();
 }
