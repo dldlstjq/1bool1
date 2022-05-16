@@ -70,9 +70,10 @@ function Detail() {
             {steps?.map((step, idx) => (
               <Step key={idx} step={step} img={photos[idx + 1]} i={idx + 1} />
             ))}
-            {user_id && recipeId && (
-              <LikeButton url={'recipe/like/' + recipeId} user_id={user_id} />
-            )}
+            {/* {user_id && recipeId && (
+              <LikeButton url={'recipe/like/' + recipeId} user_id={user_id} recipe_id={recipeId} />
+            )} */}
+            <LikeButton url={'recipe/like/' + recipeId} user_id={user_id} recipe_id={recipeId} />
             <DeleteOrUpdate
               setPassword={setInputPassword}
               inputPassword={inputPassword}
@@ -90,8 +91,9 @@ function Detail() {
               refresh={refresh}
             />
             <button
-              className='bg-gray-700 text-white h-10 w-1/3 mt-5'
-              onClick={() => navi('/community/recipe')}
+              className='bg-gray-700 text-white h-10 w-20 mt-5'
+              onClick={() => navi('/recipe')}
+              style={{ backgroundColor: '#f93d59' }}
             >
               목록보기
             </button>
