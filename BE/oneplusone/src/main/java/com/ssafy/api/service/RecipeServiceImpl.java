@@ -139,4 +139,13 @@ public class RecipeServiceImpl implements RecipeService{
             return false;
         }
     }
+
+    @Override
+    public List<Recipe> findRecipePrice(Integer order) {
+        if(order == 1) {
+            return recipeRepository.findAll(Sort.by(Sort.Direction.DESC, "price"));
+        }else{
+            return recipeRepository.findAll(Sort.by(Sort.Direction.ASC,"price"));
+        }
+    }
 }
