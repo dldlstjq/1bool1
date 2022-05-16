@@ -85,7 +85,7 @@ function StoreDetail() {
   //   }
   // }, []);
 
-  const goodsData = useFetchItem(`goods/${localStorage.getItem("goodsId")}`);
+  // const goodsData = useFetchItem(`goods/${localStorage.getItem("goodsId")}`);
   const comments = useFetchListAndUpdate(
     `goodsreview/${localStorage.getItem("goodsId")}`,
     invokeUseEffect
@@ -124,7 +124,7 @@ function StoreDetail() {
     event,
     hit,
     convinence,
-  } = goodsData;
+  } = goods;
   //   "id": 6438,
   //   "createdDate": "2022-05-11 21:30:28.545944",
   //   "modifiedDate": "2022-05-11 21:30:28.546002",

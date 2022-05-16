@@ -14,4 +14,6 @@ public interface RecipeLikeService {
     boolean modifyRecipeLike(RecipeDto.RecipeLikeGetRequest dto);
 
     boolean findLike(RecipeDto.RecipeLikeGetRequest dto);
+
+    List<RecipeDto.RecipeLikeGet> findByRecipeWeek();
 }

@@ -1,33 +1,38 @@
 /* eslint-disable no-unused-vars */
-function ButtonAndPerPage({ setSize }) {
+import { Button, Box } from '@mui/material';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab'
+import React, { useState } from 'react';
+
+function ButtonAndPerPage() {
+  const [value, setValue] = useState('one');
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
   return (
-    <div className="grid grid-cols-3 gap-2 my-5">
-      <button
-        className="h-10 border-b border-slate-300 bg-purple-900 text-lime-400 font-bold text-xl  rounded"
-        id="write"
-      >
-        글쓰기
-      </button>
-      <button
-        className="h-10 border-b border-slate-300 bg-purple-900 text-lime-400 font-bold text-xl  rounded"
-        id="order-by-like"
-      >
-        좋아요순
-      </button>
-      <select
-        name="items-per-page"
-        id="items-per-page"
-        className="h-10 border-b border-slate-300 bg-purple-900 text-lime-400 font-bold  rounded text-lg text-center"
-        onChange={(e) => setSize(e.target.value)}
-      >
-        <option value="">목록개수</option>
-        <option value="10"> 10 </option>
-        <option value="20"> 20 </option>
-        <option value="30"> 30 </option>
-        <option value="40"> 40 </option>
-        <option value="50"> 50 </option>
-        <option value="100"> 100 </option>
-      </select>
+    <div style={{marginBottom:'1rem'}}>
+      <Box style={{display:'flex', flexDirection:'column', justifyContent:'between'}}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          sx = {{
+            '& .MuiTabs-indicator': {
+              backgroundColor: '#F93D59',
+            },
+            display:'flex'
+          }}
+          inBarStyle={{background:'#F93D59'}}
+        >
+          <Tab id="order-by-like" label="최신등록순" sx = {{ '&.Mui-selected': { color: '#F93D59' }, fontWeight:'bolder', fontSize:'1rem' }} />
+          <Box style={{alignSelf:'center',height:'20px', width:'2px', backgroundColor:'#F93D59'}}></Box>
+          <Tab id="order-by-like" label="좋아요순" sx = {{ '&.Mui-selected': { color: '#F93D59' }, fontWeight:'bolder',fontSize:'1rem' }} />
+          <Box style={{alignSelf:'center',height:'20px', width:'2px', backgroundColor:'#F93D59'}}></Box>
+          <Tab id="order-by-like" label="북마크" sx = {{ '&.Mui-selected': { color: '#F93D59' }, fontWeight:'bolder',fontSize:'1rem' }} />
+        </Tabs>
+
+      <Button id="write" style={{ display:'flex', marginLeft:'auto', backgroundColor:'#F93D59', color:'white', fontWeight:'bold', borderRadius:10, height:'2rem', marginTop:'10px'}} >글쓰기</Button>
+      </Box>
     </div>
   );
 }
