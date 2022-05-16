@@ -4,23 +4,17 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import { useFetchItem, useFetchAndUpdate } from "../common/hooks";
 
-import classNames from "classnames";
-
-import Popover from "../common/Popover";
 import Comments from "../common/comment/Comments";
-import UpperInfo from "./components/UpperInfo";
 import UserInfoBox from "./UserInfoBox";
 import { DeleteOrUpdate } from "./DeleteOrUpdate";
 import LikeButton from "../common/LikeButton";
 
 function Detail() {
   const { articleId } = useParams();
-  const [popover, setpopover] = useState(false);
   const [showcomments, setShowcomments] = useState(true);
   const [foo, refresh] = useState(0);
   const [articlePw, setarticlePw] = useState("");
 
-  const coordRef = useRef([0, 0]);
   const navi = useNavigate();
 
   const [articleData] = useFetchItem(`board/${articleId}`, []);
@@ -32,16 +26,12 @@ function Detail() {
   const user_id = localStorage.getItem("user_id");
 
   return (
-    <div onWheel={() => setpopover(false)}>
-      <UpperInfo nickname={nickname} title={title} />
-      <div className="relative mt-1">
-        <i className="icon-box icon-sns w-20 h-6 absolute right-0"></i>
-      </div>
-      <div className="content-box">
-        <div className="grey">
-          최근 수정 일시 : {modifiedDate?.split(".")[0]}{" "}
-        </div>
-        <p style={{ margin: "1.8rem 0" }}>{content}</p>
+    <div className="p-4">
+      <h1 className="text-3xl bg-red-500 text-white pl-2 rounded-t">{title}</h1>
+      <div className="p-2 border border-red-500">
+        <h1>By {nickname}</h1>
+        <p className="mb-2">수정시각 {modifiedDate?.split(".")[0]} </p>
+        <p>{content}</p>
         {photo?.split(",").map((url, idx) => (
           <img src={url} alt="" key={idx} />
         ))}
@@ -49,7 +39,7 @@ function Detail() {
         {user_id && id && (
           <LikeButton url={"board/like/" + id} user_id={user_id} />
         )}
-        <UserInfoBox nickname={nickname} />
+        {/* <UserInfoBox nickname={nickname} /> */}
         <DeleteOrUpdate
           setPassword={setarticlePw}
           inputPassword={articlePw}
@@ -77,12 +67,6 @@ function Detail() {
       >
         목록보기
       </button>
-
-      {popover && (
-        <Popover x={coordRef.current[0]} y={coordRef.current[1]}>
-          <h6>ㅇㅇ</h6>
-        </Popover>
-      )}
     </div>
   );
 }

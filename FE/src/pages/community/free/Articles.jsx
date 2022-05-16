@@ -43,23 +43,25 @@ function Articles() {
       <h1 className="title text-red-500 text-4xl lg:text-6xl mb-5">
         자유게시판
       </h1>
-      <span>다양한 주제에 대해 자유롭게 소통하는 공간입니다.</span>
 
       <ButtonAndPerPage setSize={setSize} setState={setArticles} />
-
-      {articles?.map(({ id, title, nickname, password, modifiedDate }, idx) => {
-        const date = modifiedDate?.split(".")[0];
-        return (
-          <Article
-            id={id}
-            key={idx}
-            title={title}
-            nickname={nickname}
-            password={password}
-            date={date}
-          />
-        );
-      })}
+      <div className="border-2 border-red-500 rounded">
+        {articles?.map(
+          ({ id, title, nickname, password, modifiedDate }, idx) => {
+            const date = modifiedDate?.split(".")[0];
+            return (
+              <Article
+                id={id}
+                key={idx}
+                title={title}
+                nickname={nickname}
+                password={password}
+                date={date}
+              />
+            );
+          }
+        )}
+      </div>
 
       <Pagination
         setSearchParams={setSearchParams}
@@ -67,13 +69,7 @@ function Articles() {
         my="my-5"
       />
 
-      <ButtonAndPerPage setSize={setSize} />
       <Searchbar url="board/search" setState={setArticles} />
-      {/* {popover && (
-        <Popover x={coord[0]} y={coord[1]}>
-          응응
-        </Popover>
-      )} */}
     </div>
   );
 }

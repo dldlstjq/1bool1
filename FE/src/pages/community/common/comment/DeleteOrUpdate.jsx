@@ -43,7 +43,7 @@ export function DeleteOrUpdate({
   }
 
   return (
-    <div className="grid grid-cols-9 gap-2 my-4">
+    <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2 my-4">
       <input
         type="password"
         className="bg-gray-700 text-white h-10"

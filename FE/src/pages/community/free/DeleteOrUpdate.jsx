@@ -43,24 +43,24 @@ export function DeleteOrUpdate({
   }
 
   return (
-    <div className="grid grid-cols-3 gap-2 my-4">
+    <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-2 mt-4">
       <input
         type="password"
-        className="bg-gray-700 text-white h-10"
+        className="h-7 rounded"
         placeholder="비밀번호"
         name="articlePw"
         onChange={(e) => setInputPw(e.target.value)}
       />
       <button
         id="delete"
-        className="bg-gray-700 text-white h-10"
+        className="bg-red-500 text-white h-7 rounded"
         onClick={handleDelete}
       >
         삭제
       </button>
       <button
         id="update"
-        className="bg-gray-700 text-white h-10"
+        className="bg-red-400 h-7 rounded text-white"
         onClick={toUpdatePage}
       >
         수정

@@ -12,7 +12,6 @@ const Comments = ({ url, comments, boardId, recipeId, refresh }) => {
   const [showComments, setShowComments] = useState(true);
   const textareaRef = useRef();
   const buttonRef = useRef();
-  const coordRef = useRef();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -44,12 +43,6 @@ const Comments = ({ url, comments, boardId, recipeId, refresh }) => {
     if (target.matches("#show-comments")) {
       setShowComments((prev) => !prev);
     }
-    // if (target.matches("#report")) {
-    //   coordRef.current = [clientX, clientY];
-    //   setPopover(true);
-    // } else {
-    //   setPopover(false);
-    // }
     if (target.matches("#focus")) {
       setShowComments(true);
       setTimeout(() => {
@@ -60,7 +53,6 @@ const Comments = ({ url, comments, boardId, recipeId, refresh }) => {
 
   return (
     <>
-      {/* {popover && <Popover x={coordRef[0]} y={coordRef[1]} />} */}
       <Upper
         comments={comments}
         setShowComments={setShowComments}

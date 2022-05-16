@@ -10,7 +10,7 @@ interface ArticleProps {
 
 function Article({ id, title, nickname, date }: ArticleProps) {
   return (
-    <div className="border-2 border-red-500 ">
+    <div>
       {/* <div className="updown-wrap absolute" style={{ left: 0, top: "30%" }}>
         <div className="icon-updown-box relative bottom-2">
           <i
