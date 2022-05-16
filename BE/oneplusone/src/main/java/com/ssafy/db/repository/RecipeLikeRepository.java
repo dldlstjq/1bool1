@@ -17,4 +17,6 @@ public interface RecipeLikeRepository extends JpaRepository<RecipeLikeManagement
     List<RecipeLike> findAllOrderBySQL();
 
     RecipeLikeManagement findByRecipeAndUser(Recipe recipe, User user);
+
+    RecipeLikeManagement findByRecipeIdAndUserId(Long recipeId, Long userId);
 }

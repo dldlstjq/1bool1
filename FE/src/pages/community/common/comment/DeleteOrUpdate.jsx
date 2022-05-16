@@ -37,14 +37,13 @@ export function DeleteOrUpdate({
     } else if (inputPw === password) {
       setInputMode(() => true);
       inputRef.current.focus();
-      // setTimeout(() => inputRef.current.focus(), 800);
       return;
     }
     alert("비밀번호가 다릅니다");
   }
 
   return (
-    <div className="grid grid-cols-3 gap-2 my-4">
+    <div className="grid grid-cols-9 gap-2 my-4">
       <input
         type="password"
         className="bg-gray-700 text-white h-10"

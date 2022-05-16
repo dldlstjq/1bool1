@@ -6,9 +6,14 @@ import { useEffect, useState, useRef } from "react";
 import { Container, Grid, Typography, Box, Button } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
+import Checkbox from "@mui/material/Checkbox";
+import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
+import Favorite from "@mui/icons-material/Favorite";
+import { pink } from "@mui/material/colors";
 import {
+  useFetchHit,
   useFetchItem,
-  useFetchAndUpdate,
+  useFetchListAndUpdate,
 } from "../../pages/community/common/hooks";
 
 import { BASE_URL } from "../../index";
@@ -20,43 +25,91 @@ import { DeleteOrUpdate } from "../../pages/community/common/comment/DeleteOrUpd
 // import { axiosRequest } from '../../pages/community/common/functions';
 
 import Appbar from "../../components/main/Appbar";
+import Footer from "../../components/main/Footer";
+
+import "./StoreDetail.css";
+
+const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 function StoreDetail() {
   const location = useLocation();
-  const goods = location.state.data;
-  console.log(location);
+  let goods = {};
+  if (location.state !== null) {
+    goods = location.state.data;
+    localStorage.setItem("goodsId", goods.id);
+  }
+  // console.log(location);
 
+  // const [goodsData, setGoodsData] = useState({});
+  // const [reviewData, setReviewData] = useState([]);
   const { articleId } = useParams();
   const [popover, setpopover] = useState(false);
   const [showcomments, setshowcomments] = useState(true);
   const [foo, refresh] = useState(0);
   const [invokeUseEffect, setInvokeUseEffect] = useState(0);
   const [articlePw, setarticlePw] = useState("");
+  const [isLike, setIsLike] = useState(false);
 
   const coordRef = useRef([0, 0]);
   const textareaRef = useRef();
   const navi = useNavigate();
 
-  const goodsData = useFetchItem(`goods/${goods.id}`);
-  const comments = useFetchAndUpdate(
-    `goodsreview/${goods.id}`,
-    invokeUseEffect,
-    []
+  // useEffect(() => {
+  //   axios({
+  //     method: 'get',
+  //     url: BASE_URL + `goods/${localStorage.getItem('goodsId')}`,
+  //   })
+  //     .then((res) => {
+  //       setGoodsData(res.data.object);
+  //     })
+  //     .catch((err) => console.log(err));
+
+  //   axios({
+  //     method: 'get',
+  //     url: BASE_URL + `goodsreview/${localStorage.getItem('goodsId')}`,
+  //   })
+  //     .then((res) => {
+  //       setReviewData(res.data.object);
+  //     })
+  //     .catch((err) => console.log(err));
+
+  //   axios.put(BASE_URL + `goods/${goods.id}`).then(() => {
+  //     console.log('조회수 등록');
+  //   });
+
+  //   // 지금 로그인한 유저가 좋아요 누른 상품인지 확인하는 기능 필요
+  //   if (localStorage.getItem('user_id') !== null) {
+  //     axios.get(BASE_URL + `goods/like/${goods.id}`).then((res) => {
+  //       if (res.data === 1) setIsLike(true);
+  //     });
+  //   }
+  // }, []);
+
+  const goodsData = useFetchItem(`goods/${localStorage.getItem("goodsId")}`);
+  const comments = useFetchListAndUpdate(
+    `goodsreview/${localStorage.getItem("goodsId")}`,
+    invokeUseEffect
   );
+  const hits = useFetchHit(`goods/${localStorage.getItem("goodsId")}`);
+  // const like = useFetchLike(`goods/${goods.id}`);
 
   const convName = {
-    CM: "CU",
-    EM: "이마트",
-    GS: "GS25",
-    MS: "미니스탑",
-    CS: "씨스페이스",
+    cu: "CU",
+    em: "이마트24",
+    gs: "GS25",
+    MS: "미니스톱",
+    cs: "씨스페이스",
+    se: "세븐일레븐",
   };
 
   const showEvent = {
-    0: "1+1",
-    1: "2+1",
-    2: "3+1",
-    3: "4+1",
+    1: "행사안함",
+    2: "1+1",
+    3: "2+1",
+    4: "3+1",
+    5: "SALE",
+    6: "덤증정",
+    7: "균일가",
   };
 
   const {
@@ -85,7 +138,7 @@ function StoreDetail() {
   //   "hit": null,
   //   "convinence": "EM",
 
-  console.log(goodsData);
+  // console.log(goodsData);
   const str = String(price);
   let strPrice;
   if (str.length === 4)
@@ -189,6 +242,36 @@ function StoreDetail() {
   //   console.log(res);
   // }
 
+  const handleChange = async (e) => {
+    if (localStorage.getItem("user_id") === null) {
+      alert("로그인을 해야 좋아요가 가능합니다!");
+      return;
+    }
+
+    const likeCurrent = e.target.checked;
+    setIsLike(likeCurrent);
+    // e.preventDefault();
+
+    if (likeCurrent) {
+      try {
+        await axios({
+          method: "put",
+          url: BASE_URL + `goods/like/${localStorage.getItem("goodsId")}`,
+          params: {
+            user_id: localStorage.getItem("user_id"),
+          },
+        }).then((res) => {
+          if (res.data.statusCode === 200) {
+            console.log("좋아요 등록");
+          }
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+    }
+  };
+
   return (
     <div
       style={{ display: "flex", flexDirection: "column", minHeight: "100%" }}
@@ -208,7 +291,7 @@ function StoreDetail() {
                 <i className="icon-box icon-info icon-views w-5 h-5 relative top-1"></i>
                 21
                 <i className="icon-box icon-comment icon-info w-5 h-5 relative top-1"></i>
-                22
+                {comments.length}
                 <i className="icon-box icon-up icon-info w-5 h-5"></i>22
                 <i className="icon-box icon-down icon-info w-5 h-5 relative top-1"></i>
                 22
@@ -218,7 +301,36 @@ function StoreDetail() {
               <i className="icon-box icon-sns w-20 h-6 absolute right-0"></i>
             </div>
             <div className="content-box">
-              <div className="grey">{convName[convinence]} 상품</div>
+              {convName[convinence] === "CU" && (
+                <div id="CU" className="grey">
+                  {convName[convinence]} 상품
+                </div>
+              )}
+              {convName[convinence] === "미니스톱" && (
+                <div id="MS" className="grey">
+                  {convName[convinence]} 상품
+                </div>
+              )}
+              {convName[convinence] === "GS25" && (
+                <div id="GS" className="grey">
+                  {convName[convinence]} 상품
+                </div>
+              )}
+              {convName[convinence] === "이마트24" && (
+                <div id="EM" className="grey">
+                  {convName[convinence]} 상품
+                </div>
+              )}
+              {convName[convinence] === "씨스페이스" && (
+                <div id="CS" className="grey">
+                  {convName[convinence]} 상품
+                </div>
+              )}
+              {convName[convinence] === "세븐일레븐" && (
+                <div id="SE" className="grey">
+                  {convName[convinence]} 상품
+                </div>
+              )}
               {/* <Grid container spacing={2} columns={16}>
                 <Grid item xs={8}> */}
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
@@ -246,15 +358,9 @@ function StoreDetail() {
 
               {/* </Grid> */}
               {/* <Grid item xs={8}> */}
-              <h1 style={{ margin: "1.8rem 0", textAlign: "center" }}>
-                {name}
-              </h1>
-              <p style={{ margin: "1.8rem 0", textAlign: "center" }}>
-                {strPrice}원
-              </p>
-              <p style={{ margin: "1.8rem 0", textAlign: "center" }}>
-                {showEvent[event]} 행사 중
-              </p>
+              <p id="goodsTitle">{name}</p>
+              <p id="goodsPrice">{strPrice}원</p>
+              <p id="goodsEvent">{showEvent[event]} </p>
               {/* </Grid> */}
               {/* </Grid> */}
               {/* <Box style={{ display: 'flex', justifyContent: 'center' }}>
@@ -264,11 +370,19 @@ function StoreDetail() {
               </Box> */}
               <div className="text-center my-7">
                 <button className="btn">
-                  <i className="icon-box icon-info icon-up  w-5 h-5"></i> 0
+                  <Checkbox
+                    {...label}
+                    icon={<FavoriteBorder />}
+                    checkedIcon={<Favorite />}
+                    checked={isLike}
+                    onChange={handleChange}
+                    color="error"
+                  />
+                  {/* <i className='icon-box icon-info icon-up  w-5 h-5'></i> 0 */}
                 </button>
-                <button className="btn">
-                  <i className="icon-box icon-info icon-down  w-5 h-5"></i> 0
-                </button>
+                {/* <button className='btn'>
+                  <i className='icon-box icon-info icon-down  w-5 h-5'></i> 0
+                </button> */}
               </div>
               <div className="userinfo-box">
                 <i className="icon-box icon-etc icon-user  w-10 h-10"></i>
@@ -278,7 +392,7 @@ function StoreDetail() {
                     <i className="icon-box icon-info icon-article w-5 h-5 relative top-1"></i>
                     21
                     <i className="icon-box icon-comment icon-info w-5 h-5 ml-1 relative top-1"></i>
-                    22
+                    {comments.length}
                   </div>
                 </div>
               </div>
@@ -319,6 +433,7 @@ function StoreDetail() {
                   <button
                     className="bg-gray-700 text-white w-20 h-10 ml-4"
                     id="focus"
+                    style={{ backgroundColor: "#f93d59" }}
                   >
                     댓글
                   </button>
@@ -337,8 +452,9 @@ function StoreDetail() {
             )}
 
             <button
-              className="bg-gray-700 text-white h-10 w-1/3 mt-5"
-              onClick={() => navi("/community")}
+              className="bg-gray-700 text-white w-20 h-10 mt-5"
+              style={{ backgroundColor: "#f93d59" }}
+              onClick={() => navi("/store")}
             >
               목록보기
             </button>
@@ -351,6 +467,7 @@ function StoreDetail() {
           </div>
         </Container>
       </div>
+      <Footer />
     </div>
   );
 }

@@ -1,0 +1,81 @@
+#MS {
+  /* color: #fff;
+  padding: 0.7rem 0.7rem 0.7rem 2rem;
+  border-radius: 100vh;
+  background-image: -webkit-linear-gradient(right, #f4ff81 0%, #00e676 100%);
+  background-image: linear-gradient(to left, #f4ff81 0%, #00e676 100%); */
+  font-size: 2em;
+  color: #fff;
+  padding: 0.7rem 0.7rem 0.7rem 2rem;
+  border-radius: 10px;
+  background: linear-gradient(45deg, rgb(254, 107, 139) 30%, rgb(255, 142, 83) 90%);
+  box-shadow: rgba(255, 105, 135, 0.3) 0px 3px 5px 2px;
+}
+
+#CU {
+  font-size: 2em;
+  color: rgb(157, 201, 42);
+  padding: 0.7rem 0.7rem 0.7rem 2rem;
+  border-radius: 10px;
+  background: linear-gradient(45deg, rgb(117, 20, 133) 30%, rgb(181, 33, 201) 90%);
+  box-shadow: rgba(255, 105, 135, 0.3) 0px 3px 5px 2px;
+}
+
+#GS {
+  font-size: 2em;
+  color: rgb(255, 255, 255);
+  padding: 0.7rem 0.7rem 0.7rem 2rem;
+  border-radius: 10px;
+  background: linear-gradient(45deg, rgb(11, 29, 129) 30%, rgb(17, 212, 238) 90%);
+  box-shadow: rgba(255, 105, 135, 0.3) 0px 3px 5px 2px;
+}
+
+#EM {
+  font-size: 2em;
+  color: rgb(73, 70, 70);
+  padding: 0.7rem 0.7rem 0.7rem 2rem;
+  border-radius: 10px;
+  background: linear-gradient(45deg, rgb(228, 201, 49) 30%, rgb(230, 228, 146) 90%);
+  box-shadow: rgba(255, 105, 135, 0.3) 0px 3px 5px 2px;
+}
+
+#CS {
+  font-size: 2em;
+  color: rgb(255, 255, 255);
+  padding: 0.7rem 0.7rem 0.7rem 2rem;
+  border-radius: 10px;
+  background: linear-gradient(45deg, rgb(216, 101, 24) 30%, rgb(223, 162, 105) 90%);
+  box-shadow: rgba(255, 105, 135, 0.3) 0px 3px 5px 2px;
+}
+
+#SE {
+  font-size: 2em;
+  color: rgb(224, 122, 39);
+  padding: 0.7rem 0.7rem 0.7rem 2rem;
+  border-radius: 10px;
+  background: linear-gradient(45deg, rgb(19, 90, 25) 30%, rgb(60, 185, 91) 90%);
+  box-shadow: rgba(255, 105, 135, 0.3) 0px 3px 5px 2px;
+}
+
+#goodsTitle {
+  font-size: 3em;
+  font-weight: bold;
+  margin: 1.8rem 0;
+  text-align: center;
+}
+
+#goodsPrice {
+  font-size: 3em;
+  margin: 1.8rem 0;
+  text-align: center;
+}
+
+#goodsEvent {
+  font-family: 'Staatliches', cursive;
+  font-size: 3em;
+  margin: 1.8rem 0;
+  text-align: center;
+  color: #f1c164;
+  text-shadow: 3px 3px #2d63a7;
+  margin: 0;
+}

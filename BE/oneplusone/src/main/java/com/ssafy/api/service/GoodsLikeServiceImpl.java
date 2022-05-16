@@ -1,10 +1,7 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.dto.GoodsDto;
-import com.ssafy.db.entity.Goods;
-import com.ssafy.db.entity.GoodsLike;
-import com.ssafy.db.entity.GoodsUserManagement;
-import com.ssafy.db.entity.User;
+import com.ssafy.db.entity.*;
 import com.ssafy.db.repository.GoodsLikeRepository;
 import com.ssafy.db.repository.GoodsRepository;
 import com.ssafy.db.repository.UserRepository;
@@ -77,6 +74,19 @@ public class GoodsLikeServiceImpl implements GoodsLikeService{
             cnt++;
         }
         return goods;
+    }
+
+    @Override
+    public boolean findLike(GoodsDto.GoodsLikeGetRequest dto) {
+        Goods goods = goodsRepository.findById(dto.getId()).orElseGet(() -> null);
+        User user = userRepository.findById(dto.getUserId()).orElseGet(()->null);
+        GoodsUserManagement goodsLike = goodsLikeRepository.findByGoodsAndUser(goods,user);
+        if(goodsLike == null){
+            return false;
+        }else {
+            return true;
+        }
+
     }
 
 }

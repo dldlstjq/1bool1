@@ -11,7 +11,7 @@ interface ArticleProps {
 function Article({ id, title, nickname, date }: ArticleProps) {
   return (
     <li className={classNames("article", "relative")}>
-      <div className="updown-wrap left-0 top-5 absolute">
+      <div className="updown-wrap absolute" style={{ left: 0, top: "30%" }}>
         <div className="icon-updown-box relative bottom-2">
           <i
             className="icon-box icon-info icon-up w-5 h-4 top-2 relative"

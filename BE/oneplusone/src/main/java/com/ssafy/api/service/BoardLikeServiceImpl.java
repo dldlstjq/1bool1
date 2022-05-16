@@ -104,4 +104,17 @@ public class BoardLikeServiceImpl implements BoardLikeService {
         final Page<BoardDto.BoardLikeGet> p = new PageImpl<>(ans.subList(start, end), pageable, ans.size());
         return p;
     }
+
+    @Override
+        public boolean findLike(BoardDto.BoardLikeGetRequest dto) {
+            Board board = boardRepository.findById(dto.getId()).orElseGet(() -> null);
+            User user = userRepository.findById(dto.getUserId()).orElseGet(()->null);
+            BoardLikeManagement boardLikeManagement = boardLikeRepository.findByBoardAndUser(board,user);
+        if(boardLikeManagement == null){
+            return false;
+        }else {
+            return true;
+        }
+
+    }
 }

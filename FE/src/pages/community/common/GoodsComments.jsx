@@ -48,7 +48,11 @@ const Comments = React.forwardRef(({ url, comments, goodsId, boardId, recipeId, 
           required
           type='text'
         ></textarea>
-        <button className='bg-gray-700 w-20 h-10 text-white col-span-2 ml-auto' type='submit'>
+        <button
+          className='bg-gray-700 w-20 h-10 text-white col-span-2 ml-auto'
+          type='submit'
+          style={{ backgroundColor: '#f93d59' }}
+        >
           등록
         </button>
       </form>

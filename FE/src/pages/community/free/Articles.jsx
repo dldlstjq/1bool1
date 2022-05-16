@@ -22,15 +22,16 @@ function Articles() {
   const page = searchParams.get("page") ?? 0;
   const [articles, setArticles] = useFetchPage("board", page, size);
 
-  function handleClick({ target, clientX, clientY }) {
+  function handleClick({ target }) {
     if (target.matches(".article-title")) {
       navigate(target.id);
-    } else if (target.matches(".author")) {
-      setCoord(() => [clientX, clientY]);
-      setPopover(true);
-    } else {
-      setPopover(false);
     }
+    // else if (target.matches(".author")) {
+    //   setCoord(() => [clientX, clientY]);
+    //   setPopover(true);
+    // } else {
+    //   setPopover(false);
+    // }
     if (target.matches("#write")) {
       navigate("write");
     }
@@ -51,9 +52,7 @@ function Articles() {
       onWheel={() => setPopover(false)}
     >
       <div className="title">자유 게시판</div>
-      <span>
-        여러 모험가님들과 다양한 주제에 대해 자유롭게 소통하는 공간입니다.
-      </span>
+      <span>다양한 주제에 대해 자유롭게 소통하는 공간입니다.</span>
 
       <ButtonAndPerPage setSize={setSize} setState={setArticles} />
 
