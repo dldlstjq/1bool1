@@ -66,8 +66,10 @@ public class RecipeServiceImpl implements RecipeService{
 
 
     @Override
-    public List<Recipe> findBySearchRecipe(String search) {
-        return recipeRepository.findByTitleContainingOrContentContaining(search,search);
+    public List<RecipeAll> findBySearchRecipe(String search) {
+        String temp = "%" + search + "%";
+
+        return recipeRepository.findByTitleContainingOrContentContaining(temp,temp);
     }
 
     @Override
