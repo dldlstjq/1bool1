@@ -5,7 +5,8 @@ import Tab from "@mui/material/Tab";
 import React, { useState } from "react";
 
 function ButtonAndPerPage() {
-  const [value, setValue] = useState("one");
+  // const [value, setValue] = useState("one");
+  const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -28,7 +29,8 @@ function ButtonAndPerPage() {
             },
             display: "flex",
           }}
-          inBarStyle={{ background: "#F93D59" }}
+          // inBarStyle={{ background: "#F93D59" }}
+          inbarStyle={{ background: "#F93D59" }}
         >
           <Tab
             id="order-by-recent"
@@ -38,6 +40,7 @@ function ButtonAndPerPage() {
               fontWeight: "bolder",
               fontSize: "1rem",
             }}
+            index={0}
           />
           <Box
             style={{
@@ -55,6 +58,7 @@ function ButtonAndPerPage() {
               fontWeight: "bolder",
               fontSize: "1rem",
             }}
+            index={1}
           />
           <Box
             style={{
@@ -72,6 +76,7 @@ function ButtonAndPerPage() {
               fontWeight: "bolder",
               fontSize: "1rem",
             }}
+            index={2}
           />
         </Tabs>
       </Box>

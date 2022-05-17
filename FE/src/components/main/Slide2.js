@@ -51,7 +51,7 @@ function Slide2({menus}) {
       >
         {menus.map((menu) => (
           <SwiperSlide key={menu.id}>
-            <Link to={`/${menu.id}`} style={{ textDecoration: 'none', }}>
+            <Link to={`/recipe/${menu.id}`} state={{ data: menu }} style={{ textDecoration: 'none', }}>
               <Card
                 sx={{
                   width: 170,
