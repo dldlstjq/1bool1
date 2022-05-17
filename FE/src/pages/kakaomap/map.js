@@ -220,7 +220,7 @@ function changeCategoryClass(el) {
 
   return (
   <div class="map_wrap">
-  <div id="map" style={{ width: "500px", height: "500px" }}></div>
+  <div id="map" style={{ width:"100%", height:"100%",position:"relative",overflow:"hidden" }}></div>
   <ul id="category">
       {/* <li id="BK9" data-order="0"> 
           <span class="category_bg bank"></span>
