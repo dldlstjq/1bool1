@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { height } from '@mui/system';
 import { useState } from 'react';
-import { Container, Grid, Typography, Box, Button, TextField } from '@mui/material';
+import { Container, Grid, Typography, Box, Button, TextField, Hidden } from '@mui/material';
 import { useFetchList } from '../../common/hooks';
 import CardMedia from '@mui/material/CardMedia';
 
@@ -87,17 +87,17 @@ function IngredientSelect({ selected, setSelected }) {
           <option value={name} key={idx} />
         ))}
       </datalist>
-      <div className='grid grid-cols-3' onClick={removeFromList}>
+      <div className='grid grid-cols-3 auto-rows-max' onClick={removeFromList}>
         {selected.map(({ name, goodsId, img_link, goodsPrice, sum_price }, idx) => (
-          <Box sx={{ width: '100%', height: '100%', marginTop: '1rem' }}>
+          <Box sx={{ width: '100%', height: '80%', marginTop: '1rem', maxHeight:'300px'}}>
             <span key={idx} id={goodsId} price={goodsPrice}>
               {name}
               <CardMedia
                 component='img'
                 alt='이미지 준비중'
-                sx={{ width: '80%', height: '80%' }}
+                sx={{ width: '80%', height: '80%'}}
                 image={img_link}
-                style={{ mx: 2 }}
+                style={{ mx: 2}}
               />
               <p>{goodsPrice} 원</p>
             </span>
