@@ -60,8 +60,9 @@ function Detail() {
               star={star}
               title={title}
               description={description}
+              recipeId={recipeId}
             />
-            {/* <div id='main' className='border-y-4 border-purple-900 py-2 my-2'> */}
+            {/* <div id='main' className='border-y-4 py-2 my-2'> */}
             {/* <h1 className='text-xl'> 이 요리는...</h1>
               <p> {description}</p> */}
             {/* </div> */}
@@ -73,7 +74,7 @@ function Detail() {
             {/* {user_id && recipeId && (
               <LikeButton url={'recipe/like/' + recipeId} user_id={user_id} recipe_id={recipeId} />
             )} */}
-            <LikeButton url={'recipe/like/' + recipeId} user_id={user_id} recipe_id={recipeId} />
+            {/* <LikeButton url={'recipe/like/' + recipeId} user_id={user_id} recipe_id={recipeId} /> */}
             <DeleteOrUpdate
               setPassword={setInputPassword}
               inputPassword={inputPassword}
