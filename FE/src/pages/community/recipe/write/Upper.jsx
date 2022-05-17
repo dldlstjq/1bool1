@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Grid } from '@mui/material';
 import { width } from '@mui/system';
+import { FileUploader } from "../../common/RecipeUploader";
 function Upper({ nickname, password, description, minute, star, title }) {
   return (
     <>
@@ -71,7 +72,8 @@ function Upper({ nickname, password, description, minute, star, title }) {
           <Grid item md = {3} xs={3} >
               <div>
                 <span className="text-lg">메인사진 &nbsp;</span>
-                <input type="file" name="file" required className="inline-block"/>
+                {/* <input type="file" name="file" required className="inline-block"/> */}
+                <FileUploader/>
               </div>
           </Grid>
         </Grid>

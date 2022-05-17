@@ -26,6 +26,7 @@
     "react-scripts": "5.0.1",
     "sass": "^1.50.0",
     "serve": "^13.0.2",
+    "state-pool": "^0.7.1",
     "styled-components": "^5.3.5",
     "swiper": "^8.1.3",
     "typescript": "^4.6.3",

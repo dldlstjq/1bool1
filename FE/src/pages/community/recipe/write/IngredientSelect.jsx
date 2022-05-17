@@ -9,13 +9,15 @@ function IngredientSelect({ selected, setSelected }) {
   const convList = ["cs", "cu", "em", "gs", "ms", "se"];
   const [conv, setConv] = useState("CS");
   const ingredients = useFetchList("goods/convinence?con=" + conv);
+  var sum_price = 0;
 
   function handleInputChange(e) {
     if (e.key === "Enter") {
       e.preventDefault();
       for (let el of ingredients) {
         if (el.name === e.target.value) {
-          setSelected([...selected, { name: el.name, goodsId: el.id, img_link : el.photoPath, goodsPrice: el.price}]);
+          sum_price = sum_price + el.price
+          setSelected([...selected, { name: el.name, goodsId: el.id, img_link : el.photoPath, goodsPrice: el.price, sum_price}]);
           e.target.value = "";
           break;
         }
@@ -29,7 +31,6 @@ function IngredientSelect({ selected, setSelected }) {
 
   return (
     <div className="p-4 rounded my-1" style={{backgroundColor:'#ffe5e4'}}>
-      {/* e9c2c0 */}
       <h1 className="text-lg font-bold">재료</h1>
 
       <select
@@ -55,7 +56,7 @@ function IngredientSelect({ selected, setSelected }) {
         ))}
       </datalist>
       <div className="grid grid-cols-3" onClick={removeFromList}>
-        {selected.map(({ name, goodsId, img_link, goodsPrice }, idx) => (
+        {selected.map(({ name, goodsId, img_link, goodsPrice,sum_price }, idx) => (
           <Box sx={{width:'400px', height:'400px', marginTop:'1rem'}}>
             <span key={idx} id={goodsId}>
               {name}
@@ -67,9 +68,11 @@ function IngredientSelect({ selected, setSelected }) {
               />
               <p>{goodsPrice} 원</p>
             </span>
+            <p>{sum_price}</p>
           </Box>
         ))}
       </div>
+      
     </div>
   );
 }
