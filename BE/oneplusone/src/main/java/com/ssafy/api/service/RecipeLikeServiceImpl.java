@@ -156,4 +156,14 @@ public class RecipeLikeServiceImpl implements RecipeLikeService{
         }
         return ans;
     }
+
+    @Override
+    public List<Recipe> findRecipeLike(Long userId) {
+        List<RecipeLikeManagement> recipes = recipeLikeRepository.findByUserId(userId);
+        List<Recipe> list = new ArrayList<>();
+        for(int i = 0; i < recipes.size(); i++){
+            list.add(recipeRepository.findById(recipes.get(i).getRecipe().getId()).orElseGet(()->null));
+        }
+        return list;
+    }
 }
