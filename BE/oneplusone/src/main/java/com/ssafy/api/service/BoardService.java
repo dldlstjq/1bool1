@@ -12,7 +12,7 @@ import java.util.List;
 public interface BoardService {
     Board createBoard(BoardPostRequest boardPostRequest);
 
-    Page<Board> findBoard(Integer page, Integer size);
+    Page<BoardDto.BoardLikeGet> findBoard(Integer page, Integer size,Pageable pageable);
 
     boolean modifyBoard(BoardDto.BoardPutRequest boardPutRequest);
 
