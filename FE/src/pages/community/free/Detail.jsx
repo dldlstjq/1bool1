@@ -1,34 +1,41 @@
 /* eslint-disable no-unused-vars */
 
-import { useNavigate, useLocation } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import { useFetchItem, useFetchAndUpdate } from "../common/hooks";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import Comments from "../common/comment/Comments";
 import UserInfoBox from "./UserInfoBox";
 import { DeleteOrUpdate } from "./DeleteOrUpdate";
 import LikeButton from "../common/LikeButton";
-import Appbar from "../../../components/main/Appbar";
-import Footer from "../../../components/main/Footer";
-import {
-  Container,
-  Grid,
-  Typography,
-  Box,
-  Button,
-  TextField,
-} from "@mui/material";
-import moment from "moment";
+import Appbar from '../../../components/main/Appbar';
+import Footer from '../../../components/main/Footer';
+import { Container, Grid, Typography, Box, Button, TextField} from '@mui/material';
+import moment from 'moment';
+
 
 function Detail() {
-  const [inputPw, setInputPw] = useState("");
+  // const [inputPw, setInputPw] = useState("");
+
+  // const navi = useNavigate();
+  // const state = useLocation().state;
+  // // const [articleData] = useFetchItem(`board/${articleId}`, []);
+
+  // const { title, content, modifiedDate, id, nickname, password, photo } = state;
+  const { articleId } = useParams();
+  const [showcomments, setShowcomments] = useState(true);
+  const [foo, refresh] = useState(0);
+  const [articlePw, setarticlePw] = useState("");
 
   const navi = useNavigate();
-  const state = useLocation().state;
-  // const [articleData] = useFetchItem(`board/${articleId}`, []);
 
-  const { title, content, modifiedDate, id, nickname, password, photo } = state;
+  const [articleData] = useFetchItem(`board/${articleId}`, []);
+  const comments = useFetchAndUpdate(`comment/${articleId}`, foo, []);
+
+  const { title, content, modifiedDate, id, nickname, password, photo } =
+    articleData;
+
 
   const user_id = localStorage.getItem("user_id");
   let time = moment({ modifiedDate }).format("YYYY.MM.DD HH:mm");
@@ -40,85 +47,62 @@ function Detail() {
       <Appbar />
       <div style={{ flex: "1" }}>
         <Container>
-          {/* <Box sx={{ borderStyle:'solid', borderColor:'#F93D59 none #F93D59', marginTop:'3rem'}}> */}
-          <Box
-            sx={{
-              borderTop: 2,
-              borderBottom: 2,
-              borderColor: "grey.500",
-              marginTop: "3rem",
-            }}
-          >
-            {/* <div className="p-4"> */}
-            <Box
-              sx={{
-                borderBottom: 1,
-                borderColor: "grey.500",
-                paddingLeft: "1rem",
-              }}
-            >
-              <Typography
-                variant="h4"
-                style={{ marginTop: "1rem", marginBottom: "1rem" }}
-              >
-                {title}
-              </Typography>
-              <Typography style={{ marginBottom: 10 }}>
-                {" "}
-                <AccountCircleIcon
-                  style={{ marginRight: 3, color: "#F93D59" }}
-                />
-                {nickname} |{" "}
-                {moment({ modifiedDate }).format("YYYY.MM.DD  HH:mm")}{" "}
-              </Typography>
+          <Box sx={{ borderTop:2, borderBottom:2, borderColor:'grey.500',marginTop:'3rem'}}>
+            <Box sx={{ borderBottom:1, borderColor:'grey.500', paddingLeft:'1rem'}}>
+              <Typography variant="h4" style={{marginTop:'1rem', marginBottom:'1rem'}}>{title}</Typography>
+              <Typography style={{marginBottom:10}}> <AccountCircleIcon style={{marginRight:3, color:'#F93D59'}}/>{nickname} | {time} </Typography>
             </Box>
-            <Box style={{ margin: "1rem" }}>
-              <Typography style={{ padding: "2rem" }}>{content}</Typography>
-              <Box>
-                {photo?.split(",").map((url, idx) => (
-                  <Box key={idx} style={{ width: "150px", height: "150px" }}>
-                    <img src={url} alt="이미지 확인중" />
-                  </Box>
-                ))}
-              </Box>
+            <Box style={{margin:'1rem'}}>
+                <Typography style={{padding:'2rem'}}>{content}</Typography>
+                <Box>
+                  {photo?.split(",").map((url, idx) => (
+                    <Box style={{width:'150px', height:'150px'}}>
+                      <img src={url} alt="이미지 확인중" key={idx} />
+                    </Box>
+
+                    ))}
+                </Box>
             </Box>
           </Box>
-          {/* <Box style={{display:'flex', flexDirection:'row', justifyContent:'space-between', margin:'1rem'}}> */}
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={6}>
-              {/* {user_id && id && ( */}
-              <LikeButton url={"board/like/" + id} user_id={user_id} />
-              {/* )} */}
-              {/* <UserInfoBox nickname={nickname} /> */}
+            <Grid container spacing={2} >
+              <Grid item xs={12} md={6}>
+                {/* {user_id && id && ( */}
+                  <LikeButton url={"board/like/" + id} user_id={user_id} />
+                  {/* )} */}
+                {/* <UserInfoBox nickname={nickname} /> */}
+
+              </Grid>
+              <Grid item xs={12} md={6} style={{ display:'flex',justifyContent:'end', paddingRight:10, marginTop:10}}>
+                <Box style={{display:'flex', justifyContent:'end', }}>
+                  <DeleteOrUpdate
+                    setPassword={setarticlePw}
+                    inputPassword={articlePw}
+                    password={password}
+                    url={"board/" + id}
+                    afterUrl="/community"
+                    updatePageUrl="/community/write"
+                    state={articleData}
+                    params={{ password }}
+                    
+                    />
+                </Box>
+              </Grid>
             </Grid>
-            <Grid
-              item
-              xs={12}
-              md={6}
-              style={{
-                display: "flex",
-                justifyContent: "end",
-                paddingRight: 10,
-                marginTop: 10,
-              }}
-            >
-              {/* <Box style={{ display: "flex", justifyContent: "end" }}>
-                <DeleteOrUpdate
-                  setPassword={setarticlePw}
-                  inputPassword={articlePw}
-                  password={password}
-                  url={"board/" + id}
-                  afterUrl="/community"
-                  updatePageUrl="/community/write"
-                  state={articleData}
-                  params={{ password }}
-                />
-              </Box> */}
-            </Grid>
-          </Grid>
           <Box style={{ margin: "1rem" }}>
             <Comments id={id} which="board" />
           </Box>
+          {/* <Box style={{margin:'1rem'}}>
+              {showcomments && (
+                <Comments
+                comments={comments}
+                articleId={articleId}
+                boardId={id}
+                url={"/comment/" + id}
+                  refresh={refresh}
+                />
+              )}
+            </Box> */}
+
           <Box style={{ display: "flex", justifyContent: "center" }}>
             <Button
               onClick={() => navi("/community")}
