@@ -53,68 +53,69 @@ const Comments = ({ url, comments, boardId, recipeId, refresh }) => {
 
   return (
     <div>
-      <div className='border border-red-400 my-2'>
-        <Upper
-          comments={comments}
-          setShowComments={setShowComments}
-          showComments={showComments}
-          handleClick={handleClick}
-        />
-        {showComments && (
-          <form
-            className='p-3 bg-stone-200 border border-stone-300 grid grid-cols-2 gap-2'
-            onSubmit={handleSubmit}
-            style={{ backgroundColor: '#ffe2e180' }}
-          >
-            <input
-              type='text'
-              name='nickname'
-              className='h-10'
-              placeholder='닉네임'
-              required
-              ref={textareaRef}
-            />
-            <input
-              type='password'
-              className='h-10'
-              placeholder='비밀번호'
-              required
-              name='password'
-            />
+      {/* <div className='border border-red-400 my-2'> */}
+      <Upper
+        comments={comments}
+        setShowComments={setShowComments}
+        showComments={showComments}
+        handleClick={handleClick}
+      />
+      {showComments && (
+        <form
+          className='p-3 bg-stone-200 border border-stone-300 grid grid-cols-2 gap-2'
+          onSubmit={handleSubmit}
+          style={{ backgroundColor: '#ffe2e180' }}
+        >
+          <input
+            type='text'
+            name='nickname'
+            className='h-10'
+            placeholder='닉네임'
+            required
+            ref={textareaRef}
+          />
+          <input type='password' className='h-10' placeholder='비밀번호' required name='password' />
 
-            <textarea
-              name='content'
-              id=''
-              className='h-24 focus:outline-none border border-stone-300 col-span-2'
-              placeholder='댓글을 작성해주세요'
-              required
-              type='text'
-            ></textarea>
-            <button
-              className='bg-gray-700 w-20 h-10 text-white col-span-2 ml-auto'
-              type='submit'
-              ref={buttonRef}
-              style={{ backgroundColor: '#f93d59' }}
-            >
-              등록
-            </button>
-          </form>
-        )}
-        {showComments &&
-          comments?.map(({ content, nickname, password, id, boardId, recipeId }, idx) => (
-            <Comment
-              key={idx}
-              content={content}
-              nickname={nickname}
-              password={password}
-              id={id}
-              boardId={boardId}
-              recipeId={recipeId}
-              refresh={refresh}
-            />
-          ))}
-      </div>
+          <textarea
+            name='content'
+            id=''
+            className='h-24 focus:outline-none border border-stone-300 col-span-2'
+            placeholder='댓글을 작성해주세요'
+            required
+            type='text'
+          ></textarea>
+          <button
+            className='bg-gray-700 w-20 h-10 text-white col-span-2 ml-auto'
+            type='submit'
+            ref={buttonRef}
+            style={{
+              backgroundColor: '#f93d59',
+              color: 'white',
+              fontWeight: 'bold',
+              borderRadius: 20,
+              height: '2rem',
+              marginTop: '1rem',
+            }}
+          >
+            등록
+          </button>
+        </form>
+      )}
+      {showComments &&
+        comments?.map(({ content, nickname, password, id, boardId, recipeId }, idx) => (
+          <Comment
+            key={idx}
+            content={content}
+            nickname={nickname}
+            password={password}
+            id={id}
+            boardId={boardId}
+            recipeId={recipeId}
+            refresh={refresh}
+          />
+        ))}
     </div>
+    // </div>
   );
 };
 

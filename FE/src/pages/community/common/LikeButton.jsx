@@ -79,7 +79,7 @@ function LikeButton({ url, user_id, recipe_id }) {
   // }
 
   return (
-    <div className='text-center my-7'>
+    <div /*className='text-center my-7'*/>
       {/* <button className="btn" onClick={postLike}>
         <i className={classNames("icon-box icon-info w-5 h-5", "icon-up")}></i>
         {like}
@@ -87,8 +87,8 @@ function LikeButton({ url, user_id, recipe_id }) {
       <button className='btn'>
         <Checkbox
           {...label}
-          icon={<FavoriteBorder />}
-          checkedIcon={<Favorite />}
+          icon={<FavoriteBorder sx={{ fontSize: '3rem' }} />}
+          checkedIcon={<Favorite sx={{ fontSize: '3rem' }} />}
           checked={isLike}
           onChange={postLike}
           color='error'
