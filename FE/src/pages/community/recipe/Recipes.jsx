@@ -46,9 +46,9 @@ function Recipes() {
       <Appbar />
       <div onClick={handleClick} sytle={{flex:'1'}}>
        <Container>
-          <div id="category" className="p-8">
-            <h1 className="text-2xl text-center">| USER RECIPES |</h1>
-            <h2 className="mt-1 text-center">유저들이 공유하는 레시피</h2>
+          <div id="category" className="p-8" >
+            <h1 className="text-2xl text-center" style={{fontSize:30}}>| USER RECIPES |</h1>
+            <h2 className="mt-1 text-center" style={{fontSize:30}}>유저들이 공유하는 레시피</h2>
           </div>
 
           <ButtonAndPerPage />
