@@ -1,14 +1,33 @@
 /* eslint-disable no-unused-vars */
 // import classNames from "classnames";
 
+import { Link } from "react-router-dom";
+
 interface ArticleProps {
   id: string;
   title: string;
   nickname: string;
+  password: string;
   date: string;
+  modifiedDate: string;
+  content: string;
+  photo: string;
 }
+interface Data {
+  data: ArticleProps;
+}
+function Article({ data }: Data) {
+  const {
+    id,
+    title,
+    nickname,
+    date,
+    password,
+    modifiedDate,
+    content,
+    photo,
+  }: ArticleProps = data;
 
-function Article({ id, title, nickname, date }: ArticleProps) {
   return (
     <div>
       {/* <div className="updown-wrap absolute" style={{ left: 0, top: "30%" }}>
@@ -24,13 +43,14 @@ function Article({ id, title, nickname, date }: ArticleProps) {
         </div>
         5
       </div> */}
-      <h2
-        className="text-2xl bg-red-500 text-white text-ellipsis overflow-hidden pl-1 title"
+      <Link
+        className="text-2xl bg-red-500 text-white text-ellipsis overflow-hidden pl-1"
         style={{ wordBreak: "keep-all" }}
-        id={id}
+        to={`/community/${id}`}
+        state={data}
       >
         {title}
-      </h2>
+      </Link>
       {/* <i className="icon-box icon-info icon-comment w-5 h-4"></i> 22
         <i className="icon-box icon-info icon-views w-5 h-4 ml-1"></i> 21 */}
       <p className="pl-1">By {nickname}</p>

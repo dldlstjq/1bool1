@@ -31,9 +31,12 @@ function Articles() {
 
   function handleClick(e) {
     const { target } = e;
-    if (target.matches(".title")) {
-      navigate(e.target.id);
-    }
+    // if (target.matches(".title")) {
+    //   navigate(e.target.id, {
+    //     state:
+    //       articles[articles.findIndex((article) => article.id === e.target.id)],
+    //   });
+    // }
     if (target.matches("#write")) {
       navigate("write");
     }
@@ -57,21 +60,9 @@ function Articles() {
         <ButtonAndPerPage setSize={setSize} setState={setArticles} />
         <button id="write">글쓰기</button>
         <div className="border-2 border-red-500 rounded">
-          {articles?.map(
-            ({ id, title, nickname, password, modifiedDate }, idx) => {
-              const date = modifiedDate?.split(".")[0];
-              return (
-                <Article
-                  id={id}
-                  key={idx}
-                  title={title}
-                  nickname={nickname}
-                  password={password}
-                  date={date}
-                />
-              );
-            }
-          )}
+          {articles?.map((data, idx) => {
+            return <Article key={idx} data={data} />;
+          })}
         </div>
 
         <Pagination

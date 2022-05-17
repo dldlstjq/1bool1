@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useRef } from "react";
 import { useFetchItem, useFetchAndUpdate } from "../common/hooks";
 
@@ -10,18 +10,13 @@ import { DeleteOrUpdate } from "./DeleteOrUpdate";
 import LikeButton from "../common/LikeButton";
 
 function Detail() {
-  const { articleId } = useParams();
-  const [showcomments, setShowcomments] = useState(true);
-  const [foo, refresh] = useState(0);
-  const [articlePw, setarticlePw] = useState("");
+  const [inputPw, setInputPw] = useState("");
 
   const navi = useNavigate();
+  const state = useLocation().state;
+  // const [articleData] = useFetchItem(`board/${articleId}`, []);
 
-  const [articleData] = useFetchItem(`board/${articleId}`, []);
-  const comments = useFetchAndUpdate(`comment/${articleId}`, foo, []);
-
-  const { title, content, modifiedDate, id, nickname, password, photo } =
-    articleData;
+  const { title, content, modifiedDate, id, nickname, password, photo } = state;
 
   const user_id = localStorage.getItem("user_id");
 
@@ -41,25 +36,17 @@ function Detail() {
         )}
         {/* <UserInfoBox nickname={nickname} /> */}
         <DeleteOrUpdate
-          setPassword={setarticlePw}
-          inputPassword={articlePw}
+          setPassword={setInputPw}
+          inputPassword={inputPw}
           password={password}
           url={"board/" + id}
           afterUrl="/community"
           updatePageUrl="/community/write"
-          state={articleData}
+          // state={articleData}
           params={{ password }}
         />
       </div>
-      {showcomments && (
-        <Comments
-          comments={comments}
-          articleId={articleId}
-          boardId={id}
-          url={"/comment/" + id}
-          refresh={refresh}
-        />
-      )}
+      <Comments which="board" id={id} />
 
       <button
         className="border-2 border-red-600 h-7 px-2 mt-5"

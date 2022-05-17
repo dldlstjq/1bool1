@@ -51,7 +51,7 @@ export function useFetchAndUpdate(url: string, dep: any) {
 }
 
 export function useFetchListAndUpdate(url: string, dep: any) {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<any[]>([]);
   useEffect(() => {
     axios({
       method: "get",
@@ -85,17 +85,14 @@ interface MyEventTarget {
   value: string;
 }
 export function useInputs(initialForm: object) {
-  const [form, setForm] = useState(initialForm);
+  const [form, setForm] = useState<object>(initialForm);
 
-  const onChange = useCallback((e: { target: MyEventTarget }) => {
-    if (!e.target) {
-      setForm(e);
-      return;
-    }
+  const handleChange = useCallback((e: { target: MyEventTarget }) => {
+    if (!e.target) return;
     const { name, value } = e.target;
     setForm((form) => ({ ...form, [name]: value }));
   }, []);
-  return [form, onChange];
+  return [form, handleChange];
 }
 
 export function useFetchHit(url: string) {
