@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState, useRef } from 'react';
 
 import axios from 'axios';
@@ -5,6 +6,9 @@ import classNames from 'classnames';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
 import Grid from '@mui/material/Grid';
 import { DeleteOrUpdate } from './DeleteOrUpdate';
+import { Container, Typography, Box, Button, TextField} from '@mui/material';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
 
 /* eslint-disable no-unused-vars */
 function Comment({ content, nickname, password, id, boardId, recipeId, refresh }) {
@@ -33,12 +37,13 @@ function Comment({ content, nickname, password, id, boardId, recipeId, refresh }
     }
   }
   return (
-    <div className='p-1 border border-stone-300'>
-      <div>
-        <div>
+    // <div className='p-1 border border-stone-300'>
+    <Box sx={{ borderBottom:1, borderTop:1, borderColor:'grey.500', padding:'0.5rem'}}>
+      <div >
+        <Box sx={{paddingTop:1}}>
           {/* <i className='icon-box icon-etc icon-user w-9 h-9'></i>{' '}
           <span className='relative bottom-3'>{nickname}</span> */}
-          <Grid container>
+          {/* <Grid container>
             <Grid lg={0.5}>
               <PersonPinIcon style={{ width: '40px', height: '40px' }} />
             </Grid>
@@ -47,8 +52,10 @@ function Comment({ content, nickname, password, id, boardId, recipeId, refresh }
                 {nickname}
               </strong>
             </Grid>
-          </Grid>
-        </div>
+          </Grid> */}
+          {/* <AccountCircleIcon style={{marginRight:3, color:'#F93D59'}}/>{nickname} */}
+          <Typography> <AccountCircleIcon style={{marginRight:3, color:'#F93D59'}}/>{nickname} </Typography>
+        </Box>
 
         {/* <div>
           <button className="w-16 h-8  bd-df">
@@ -59,7 +66,7 @@ function Comment({ content, nickname, password, id, boardId, recipeId, refresh }
           </button>
         </div> */}
       </div>
-
+      <Box sx={{paddingLeft:1, paddingTop:1}}>
       {!inputMode && <div id='comment-content'>{content}</div>}
       <input
         type='text'
@@ -75,7 +82,8 @@ function Comment({ content, nickname, password, id, boardId, recipeId, refresh }
           !inputMode && 'h-0'
         )}
       />
-
+      </Box>
+    <Box style={{display:'flex', justifyContent:'end'}}>
       <DeleteOrUpdate
         id={id}
         password={password}
@@ -86,7 +94,9 @@ function Comment({ content, nickname, password, id, boardId, recipeId, refresh }
         recipeId={recipeId}
         inputRef={inputRef}
       />
-    </div>
+
+    </Box>
+    </Box>
   );
 }
 

@@ -178,7 +178,7 @@ function Store() {
 
   return (
     <div style={{display: 'flex', flexDirection:'column', minHeight:'100vh'}}>
-    <Appbar/>
+      <Appbar/>
       <div style={{flex:'1',}}>
         <Container>
           <Box maxWidth='md' sx={{ border:2, borderColor:'#F93D5950', padding:'1rem', paddingLeft:'2rem', margin:'0 auto', marginTop:'2rem', borderRadius: '30px' }}>

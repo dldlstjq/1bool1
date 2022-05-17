@@ -4,6 +4,8 @@ import React, { useState, useRef } from 'react';
 import axios from 'axios';
 
 import Comment from './Comment';
+import { Container, Grid, Typography, Box, Button, TextField} from '@mui/material';
+
 
 import Upper from './Upper';
 // import Popover from "../Popover";
@@ -12,7 +14,6 @@ const Comments = ({ url, comments, boardId, recipeId, refresh }) => {
   const [showComments, setShowComments] = useState(true);
   const textareaRef = useRef();
   const buttonRef = useRef();
-
   function handleSubmit(e) {
     e.preventDefault();
     const form = new FormData(e.target);
@@ -101,19 +102,21 @@ const Comments = ({ url, comments, boardId, recipeId, refresh }) => {
           </button>
         </form>
       )}
-      {showComments &&
-        comments?.map(({ content, nickname, password, id, boardId, recipeId }, idx) => (
-          <Comment
-            key={idx}
-            content={content}
-            nickname={nickname}
-            password={password}
-            id={id}
-            boardId={boardId}
-            recipeId={recipeId}
-            refresh={refresh}
-          />
-        ))}
+      <Box sx={{marginTop:'2rem'}}>
+        {showComments &&
+          comments?.map(({ content, nickname, password, id, boardId, recipeId }, idx) => (
+            <Comment
+              key={idx}
+              content={content}
+              nickname={nickname}
+              password={password}
+              id={id}
+              boardId={boardId}
+              recipeId={recipeId}
+              refresh={refresh}
+            />
+          ))}
+      </Box>
     </div>
     // </div>
   );
