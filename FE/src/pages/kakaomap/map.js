@@ -1,13 +1,13 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect } from "react";
 import './map.css';
-const { kakao,location } = window;
+const { kakao } = window;
 export default function Map() {
   useEffect(() => {
     getUserLocation();
     setTimeout(() => mapContainer(),250);
   }, []);
   // 마커를 클릭했을 때 해당 장소의 상세정보를 보여줄 커스텀오버레이입니다
-  const [coords, setcoords] = useState([0,0])
+//   const [coords, setcoords] = useState([0,0])
 
   
 
