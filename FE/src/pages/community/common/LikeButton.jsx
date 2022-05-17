@@ -31,7 +31,8 @@ function LikeButton({ url, user_id, recipe_id }) {
         })
         .catch((err) => console.log(err));
     }
-  }, [recipe_id]);
+  }, [url, user_id]);
+  // }, [recipe_id]);
 
   const postLike = async (e) => {
     if (localStorage.getItem('user_id') === null) {
