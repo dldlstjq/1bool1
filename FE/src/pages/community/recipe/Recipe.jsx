@@ -9,13 +9,12 @@ import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 function Recipe({ recipe }) {
   const { id, title, photo, nickname, minute, star, price, cnt } = recipe;
   const photos = photo?.split(",");
-
   return (
     <div className="pt-4" style={{height:'350px'}}>
       <div style={{height:'200px',display:'flex', justifyContent:'center'}}>
         <img
-          src={photos && photos[0]}
-          // src={photos[0]}
+          // src={photos && photos[0]}
+          src={photos[0]}
           alt="이미지가 없습니다"
           id={id}
           className="main-photo"
