@@ -62,7 +62,7 @@ public class BoardLikeServiceImpl implements BoardLikeService {
 
     @Override
     public Page<BoardDto.BoardLikeGet> findByBoard(Integer page, Integer size, Pageable pageable) {
-        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("createdDate").descending());
+//        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("createdDate").descending());
         List<BoardLike> list = boardLikeRepository.findAllOrderBySQL();
         List<BoardDto.BoardLikeGetOrderBy> newOne = new ArrayList<>();
         BoardDto.BoardLikeGetOrderBy temp;
