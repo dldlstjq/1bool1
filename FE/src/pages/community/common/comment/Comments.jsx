@@ -7,7 +7,7 @@ import Comment from './Comment';
 import { Container, Grid, Typography, Box, Button, TextField} from '@mui/material';
 
 
-import Upper from './Upper';
+// import Upper from './Upper';
 // import Popover from "../Popover";
 
 const Comments = ({ url, comments, boardId, recipeId, refresh }) => {
@@ -54,12 +54,12 @@ const Comments = ({ url, comments, boardId, recipeId, refresh }) => {
 
   return (
     <div>
-      <Upper
+      {/* <Upper
         comments={comments}
         setShowComments={setShowComments}
         showComments={showComments}
         handleClick={handleClick}
-      />
+      /> */}
       {showComments && (
         <form
           className='p-3 bg-stone-200 border border-stone-300 grid grid-cols-2 gap-2'
