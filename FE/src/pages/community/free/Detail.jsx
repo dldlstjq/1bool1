@@ -76,8 +76,8 @@ function Detail() {
               <Typography style={{ padding: "2rem" }}>{content}</Typography>
               <Box>
                 {photo?.split(",").map((url, idx) => (
-                  <Box style={{ width: "150px", height: "150px" }}>
-                    <img src={url} alt="이미지 확인중" key={idx} />
+                  <Box key={idx} style={{ width: "150px", height: "150px" }}>
+                    <img src={url} alt="이미지 확인중" />
                   </Box>
                 ))}
               </Box>

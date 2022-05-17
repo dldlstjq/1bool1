@@ -17,16 +17,7 @@ interface Data {
   data: ArticleProps;
 }
 function Article({ data }: Data) {
-  const {
-    id,
-    title,
-    nickname,
-    date,
-    password,
-    modifiedDate,
-    content,
-    photo,
-  }: ArticleProps = data;
+  const { id, title, nickname, date }: ArticleProps = data;
 
   return (
     <div>
