@@ -8,17 +8,6 @@ export function Searchbar({ url, setState }) {
   const [input, setInput] = useState("");
   const [isFocused, setIsFocused] = useState(false);
 
-  // function handleFocus({ target }) {
-  //   target.classList.toggle("outline-black", true);
-  //   buttonRef.current.classList.toggle("bg-black", true);
-  //   buttonRef.current.classList.toggle("border", false);
-  //   imgRef.current.src = "/images/white-search.png";
-  // }
-  // function handleBlur({ target }) {
-  //   target?.classList.toggle("outline-black", false);
-  //   buttonRef.current.classList.toggle("bg-black", false);
-  //   imgRef.current.src = "/images/search.png";
-  // }
   function handleChange({ target }) {
     const { value } = target;
     setInput(value);

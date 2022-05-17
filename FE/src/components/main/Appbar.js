@@ -14,7 +14,10 @@ import MenuItem from "@mui/material/MenuItem";
 import Grid from "@mui/material/MenuItem";
 import logo from "../../common/logo.png";
 import kakaoLogo from "../../common/kakao_k.png";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+
+import Footer from "./Footer";
+
+import { Link, useNavigate, useLocation, Outlet } from "react-router-dom";
 
 import { BASE_URL } from "../../index";
 import axios from "axios";
@@ -111,298 +114,304 @@ function Appbar() {
     window.location.replace(location.pathname);
   }
   return (
-    <AppBar
-      position="static"
-      style={{
-        backgroundColor: "white",
-        boxShadow: "rgb(249, 61, 89) 0px 2px",
-      }}
-    >
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Box sx={{ mr: 2, mt: 1, display: { xs: "none", md: "flex" } }}>
-            <Link to="/">
-              <img src={logo} alt="logo" style={{ height: "5rem" }} />
-            </Link>
-          </Box>
+    <>
+      <AppBar
+        position="static"
+        style={{
+          backgroundColor: "white",
+          boxShadow: "rgb(249, 61, 89) 0px 2px",
+        }}
+      >
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <Box sx={{ mr: 2, mt: 1, display: { xs: "none", md: "flex" } }}>
+              <Link to="/">
+                <img src={logo} alt="logo" style={{ height: "5rem" }} />
+              </Link>
+            </Box>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              // color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Link to="/store" style={{ textDecoration: "none" }}>
-                  <Button
-                    style={{
-                      color: "black",
-                      fontSize: "1rem",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    편의점
-                  </Button>
-                </Link>
-              </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Link to="/recipe" style={{ textDecoration: "none" }}>
-                  <Button
-                    style={{
-                      color: "black",
-                      fontSize: "1rem",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    레시피
-                  </Button>
-                </Link>
-              </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Link to="/community" style={{ textDecoration: "none" }}>
-                  <Button
-                    style={{
-                      color: "black",
-                      fontSize: "1rem",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    커뮤니티
-                  </Button>
-                </Link>
-              </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Link to="/" style={{ textDecoration: "none" }}>
-                  <Button
-                    style={{
-                      color: "black",
-                      fontSize: "1rem",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    이벤트
-                  </Button>
-                </Link>
-              </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Link to="/" style={{ textDecoration: "none" }}>
-                  <Button
-                    style={{
-                      color: "black",
-                      fontSize: "1rem",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    공지사항
-                  </Button>
-                </Link>
-              </MenuItem>
-            </Menu>
-          </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <Link to="/">
-              <img src={logo} alt="logo" style={{ height: "4rem" }} />
-            </Link>
-          </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <Link
-              to="/store"
-              style={{
-                textDecoration: "none",
-                marginRight: "2rem",
-                marginLeft: "6rem",
-                hoverColor: "red",
-              }}
-            >
-              <Button
-                style={{
-                  my: 2,
-                  color: "black",
-                  fontSize: "1.2rem",
-                  fontWeight: "bold",
-                }}
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                // color="inherit"
               >
-                편의점
-              </Button>
-            </Link>
-            <Link
-              to="/recipe"
-              style={{
-                textDecoration: "none",
-                marginRight: "2rem",
-                marginLeft: "2rem",
-                hoverColor: "red",
-              }}
-            >
-              <Button
-                style={{
-                  my: 2,
-                  color: "black",
-                  fontSize: "1.2rem",
-                  fontWeight: "bold",
-                }}
-              >
-                레시피
-              </Button>
-            </Link>
-            <Link
-              to="/community"
-              style={{
-                textDecoration: "none",
-                marginRight: "2rem",
-                marginLeft: "2rem",
-                hoverColor: "red",
-              }}
-            >
-              <Button
-                style={{
-                  my: 2,
-                  color: "black",
-                  fontSize: "1.2rem",
-                  fontWeight: "bold",
-                }}
-              >
-                커뮤니티
-              </Button>
-            </Link>
-            <Link
-              to="/"
-              style={{
-                textDecoration: "none",
-                marginRight: "2rem",
-                marginLeft: "2rem",
-                hoverColor: "red",
-              }}
-            >
-              <Button
-                style={{
-                  my: 2,
-                  color: "black",
-                  fontSize: "1.2rem",
-                  fontWeight: "bold",
-                }}
-              >
-                이벤트
-              </Button>
-            </Link>
-            <Link
-              to="/"
-              style={{
-                textDecoration: "none",
-                marginLeft: "2rem",
-                hoverColor: "red",
-              }}
-            >
-              <Button
-                style={{
-                  my: 2,
-                  color: "black",
-                  fontSize: "1.2rem",
-                  fontWeight: "bold",
-                }}
-              >
-                공지사항
-              </Button>
-            </Link>
-          </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {localStorage.getItem("email") ? (
-                  <Avatar alt="Remy Sharp" src={kakaoLogo} />
-                ) : (
-                  <Avatar
-                    alt="Remy Sharp"
-                    src={"/static/images/avatar/1.jpg"}
-                  />
-                )}
+                <MenuIcon />
               </IconButton>
-            </Tooltip>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: "block", md: "none" },
+                }}
+              >
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Link to="/store" style={{ textDecoration: "none" }}>
+                    <Button
+                      style={{
+                        color: "black",
+                        fontSize: "1rem",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      편의점
+                    </Button>
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Link to="/recipe" style={{ textDecoration: "none" }}>
+                    <Button
+                      style={{
+                        color: "black",
+                        fontSize: "1rem",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      레시피
+                    </Button>
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Link to="/community" style={{ textDecoration: "none" }}>
+                    <Button
+                      style={{
+                        color: "black",
+                        fontSize: "1rem",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      커뮤니티
+                    </Button>
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Link to="/" style={{ textDecoration: "none" }}>
+                    <Button
+                      style={{
+                        color: "black",
+                        fontSize: "1rem",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      이벤트
+                    </Button>
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Link to="/" style={{ textDecoration: "none" }}>
+                    <Button
+                      style={{
+                        color: "black",
+                        fontSize: "1rem",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      공지사항
+                    </Button>
+                  </Link>
+                </MenuItem>
+              </Menu>
+            </Box>
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              <Link to="/">
+                <img src={logo} alt="logo" style={{ height: "4rem" }} />
+              </Link>
+            </Box>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              <Link
+                to="/store"
+                style={{
+                  textDecoration: "none",
+                  marginRight: "2rem",
+                  marginLeft: "6rem",
+                  hoverColor: "red",
+                }}
+              >
+                <Button
+                  style={{
+                    my: 2,
+                    color: "black",
+                    fontSize: "1.2rem",
+                    fontWeight: "bold",
+                  }}
+                >
+                  편의점
+                </Button>
+              </Link>
+              <Link
+                to="/recipe"
+                style={{
+                  textDecoration: "none",
+                  marginRight: "2rem",
+                  marginLeft: "2rem",
+                  hoverColor: "red",
+                }}
+              >
+                <Button
+                  style={{
+                    my: 2,
+                    color: "black",
+                    fontSize: "1.2rem",
+                    fontWeight: "bold",
+                  }}
+                >
+                  레시피
+                </Button>
+              </Link>
+              <Link
+                to="/community"
+                style={{
+                  textDecoration: "none",
+                  marginRight: "2rem",
+                  marginLeft: "2rem",
+                  hoverColor: "red",
+                }}
+              >
+                <Button
+                  style={{
+                    my: 2,
+                    color: "black",
+                    fontSize: "1.2rem",
+                    fontWeight: "bold",
+                  }}
+                >
+                  커뮤니티
+                </Button>
+              </Link>
+              <Link
+                to="/"
+                style={{
+                  textDecoration: "none",
+                  marginRight: "2rem",
+                  marginLeft: "2rem",
+                  hoverColor: "red",
+                }}
+              >
+                <Button
+                  style={{
+                    my: 2,
+                    color: "black",
+                    fontSize: "1.2rem",
+                    fontWeight: "bold",
+                  }}
+                >
+                  이벤트
+                </Button>
+              </Link>
+              <Link
+                to="/"
+                style={{
+                  textDecoration: "none",
+                  marginLeft: "2rem",
+                  hoverColor: "red",
+                }}
+              >
+                <Button
+                  style={{
+                    my: 2,
+                    color: "black",
+                    fontSize: "1.2rem",
+                    fontWeight: "bold",
+                  }}
+                >
+                  공지사항
+                </Button>
+              </Link>
+            </Box>
 
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  {setting === "로그인" &&
-                    localStorage.getItem("email") === null && (
-                      <Link to="/signin" style={{ textDecoration: "none" }}>
-                        <Typography
-                          textAlign="center"
-                          onClick={kakaoLoginClickHandler}
-                        >
-                          {setting}
-                        </Typography>
-                      </Link>
-                    )}
-                  {localStorage.getItem("email") && (
-                    <Grid container spacing={2} colums={16}>
-                      <Grid item xs={8}>
-                        <p style={{ color: "black" }}>
-                          {localStorage.getItem("email")}
-                        </p>
-                      </Grid>
-                      <Grid item xs={8}>
-                        <Typography textAlign="center" onClick={logout}>
-                          로그아웃
-                        </Typography>
-                      </Grid>
-                    </Grid>
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  {localStorage.getItem("email") ? (
+                    <Avatar alt="Remy Sharp" src={kakaoLogo} />
+                  ) : (
+                    <Avatar
+                      alt="Remy Sharp"
+                      src={"/static/images/avatar/1.jpg"}
+                    />
                   )}
-                  {/* {setting === '회원가입' && (
+                </IconButton>
+              </Tooltip>
+
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    {setting === "로그인" &&
+                      localStorage.getItem("email") === null && (
+                        <Link to="/signin" style={{ textDecoration: "none" }}>
+                          <Typography
+                            textAlign="center"
+                            onClick={kakaoLoginClickHandler}
+                          >
+                            {setting}
+                          </Typography>
+                        </Link>
+                      )}
+                    {localStorage.getItem("email") && (
+                      <Grid container spacing={2} colums={16}>
+                        <Grid item xs={8}>
+                          <p style={{ color: "black" }}>
+                            {localStorage.getItem("email")}
+                          </p>
+                        </Grid>
+                        <Grid item xs={8}>
+                          <Typography textAlign="center" onClick={logout}>
+                            로그아웃
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                    )}
+                    {/* {setting === '회원가입' && (
                     <Link to='/signup' style={{ textDecoration: 'none' }}>
                       <Typography textAlign='center'>{setting}</Typography>
                     </Link>
                   )} */}
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          {/* <Box>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+            {/* <Box>
             {localStorage.getItem('email') && (
               <p style={{ color: 'black' }}>{localStorage.getItem('email')}</p>
             )}
           </Box> */}
-        </Toolbar>
-      </Container>
-    </AppBar>
+          </Toolbar>
+        </Container>
+      </AppBar>
+      <div style={{ minHeight: "calc(100vh - 88px)" }}>
+        <Outlet />
+      </div>
+      <Footer />
+    </>
   );
 }
 

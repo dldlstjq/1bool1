@@ -1,29 +1,36 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react';
-import Appbar from '../../components/main/Appbar';
-import Footer from '../../components/main/Footer';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import Card from '@mui/material/Card';
+import React, { useState, useEffect } from "react";
+import Appbar from "../../components/main/Appbar";
+import Footer from "../../components/main/Footer";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import Card from "@mui/material/Card";
 // import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
+import CardMedia from "@mui/material/CardMedia";
 // import { Button, Container, Grid, TextField, Typography, Box} from '@mui/material';
-import { Container, Grid, Typography, Box, Button, TextField} from '@mui/material';
+import {
+  Container,
+  Grid,
+  Typography,
+  Box,
+  Button,
+  TextField,
+} from "@mui/material";
 // import Pagination from '@mui/material/Pagination';
 // import Stack from '@mui/material/Stack';
 import Pagination from "react-js-pagination";
-import styled from 'styled-components'
-import '../../components/store/Paging.css';
-import FormLabel from '@mui/material/FormLabel';
-import FormControl from '@mui/material/FormControl';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormHelperText from '@mui/material/FormHelperText';
-import Checkbox from '@mui/material/Checkbox';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import Chip from '@mui/material/Chip';
-import './Store.css';
+import styled from "styled-components";
+import "../../components/store/Paging.css";
+import FormLabel from "@mui/material/FormLabel";
+import FormControl from "@mui/material/FormControl";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormHelperText from "@mui/material/FormHelperText";
+import Checkbox from "@mui/material/Checkbox";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import Chip from "@mui/material/Chip";
+import "./Store.css";
 import { FcMoneyTransfer } from "react-icons/fc";
 import { FaWonSign, FaCoins } from "react-icons/fa";
 // import { makeStyles } from "@material-ui/core/styles";
@@ -31,7 +38,6 @@ import { FaWonSign, FaCoins } from "react-icons/fa";
 // import styled from '@mui/material/styles';
 // import { withStyles } from 'material-ui/styles'
 import { useNavigate, useLocation } from "react-router-dom";
-
 
 function Store() {
   // const { state } = useLocation();
@@ -41,33 +47,35 @@ function Store() {
   const [page, setPage] = useState(1);
   // const [word, setWord] = useState("");
   // const [items, setItems] = useState(5);
-  let name = ""
-  const handlePageChange = (page) => { setPage(page); };
+  let name = "";
+  const handlePageChange = (page) => {
+    setPage(page);
+  };
   const [word, setWord] = useState({
-    goodName : '0',
+    goodName: "0",
   });
   // const name = location.state
-  
+
   // console.log('확인해봐', name)
 
   const [state, setState] = useState({
     all: false,
-    cu : false,
-    gs : false,
-    em : false,
-    se : false,
-    ms : false,
-    cs : false,
+    cu: false,
+    gs: false,
+    em: false,
+    se: false,
+    ms: false,
+    cs: false,
     allEvent: false,
-    noEvent : false,
-    one : false,
-    two : false,
-    three : false,
-    sale : false,
-    dum : false,
-    noSale : false,
+    noEvent: false,
+    one: false,
+    two: false,
+    three: false,
+    sale: false,
+    dum: false,
+    noSale: false,
   });
-  
+
   const handleChange = (event) => {
     setState({
       ...state,
@@ -76,219 +84,576 @@ function Store() {
     // setValue(event.target.value);
     // console.log(value)
   };
-  const { all, cu, gs, em, se, ms, cs, allEvent, noEvent, one, two, three, sale, dum, noSale } = state;
+  const {
+    all,
+    cu,
+    gs,
+    em,
+    se,
+    ms,
+    cs,
+    allEvent,
+    noEvent,
+    one,
+    two,
+    three,
+    sale,
+    dum,
+    noSale,
+  } = state;
 
-  function searchWord (event) {
-    setWord({goodName:event.target.value});
+  function searchWord(event) {
+    setWord({ goodName: event.target.value });
   }
 
-
-  const { goodName } = word
+  const { goodName } = word;
   // console.log('밖에는 제로간?', name, goodName)
   function onSubmit() {
-    let conv = ''
-    let event_type = ''
-    console.log('여기안에는', goodName)
+    let conv = "";
+    let event_type = "";
+    console.log("여기안에는", goodName);
     // let goodName = '0'
-    if (cu) { conv += 'cu' }
+    if (cu) {
+      conv += "cu";
+    }
     if (gs) {
-      if (conv.length) { conv += '_gs' }
-      else { conv += 'gs'} }
-      if (em) {
-        if (conv.length) { conv += '_em' }
-        else { conv += 'em'} }
-        if (se) {
-          if (conv.length) { conv += '_se' }
-          else { conv += 'se'} }
-          if (ms) {
-            if (conv.length) { conv += '_ms' }
-            else { conv += 'ms'} }
+      if (conv.length) {
+        conv += "_gs";
+      } else {
+        conv += "gs";
+      }
+    }
+    if (em) {
+      if (conv.length) {
+        conv += "_em";
+      } else {
+        conv += "em";
+      }
+    }
+    if (se) {
+      if (conv.length) {
+        conv += "_se";
+      } else {
+        conv += "se";
+      }
+    }
+    if (ms) {
+      if (conv.length) {
+        conv += "_ms";
+      } else {
+        conv += "ms";
+      }
+    }
     if (cs) {
-      if (conv.length) { conv += '_cs' }
-      else { conv += 'cs'} }
-      if (all || conv === '' ) { conv = 'all' }
-      // console.log(conv)
-      
-      if (noEvent) { event_type += '1' }
-      if (one) {
-        if (event_type.length) { event_type += '_2' }
-        else { event_type += '2'} }
-        if (two) {
-          if (event_type.length) { event_type += '_3' }
-      else { event_type += '3'} }
-      if (three) {
-        if (event_type.length) { event_type += '_4' }
-        else { event_type += '4'} }
-        if (sale) {
-          if (event_type.length) { event_type += '_5' }
-          else { event_type += '5'} }
-          if (dum) {
-            if (event_type.length) { event_type += '_6' }
-            else { event_type += '6'} }
-            if (noSale) {
-              if (event_type.length) { event_type += '_7' }
-      else { event_type += '7'} }
-    if (allEvent || event_type === '') { event_type = '0' } 
-    console.log('adr확인중', conv, event_type, goodName)
-    let adr = `https://k6d207.p.ssafy.io/api/v1/goods/conGoods?convinenceName=${conv}&event=${event_type}&goods=${goodName}`
+      if (conv.length) {
+        conv += "_cs";
+      } else {
+        conv += "cs";
+      }
+    }
+    if (all || conv === "") {
+      conv = "all";
+    }
+    // console.log(conv)
+
+    if (noEvent) {
+      event_type += "1";
+    }
+    if (one) {
+      if (event_type.length) {
+        event_type += "_2";
+      } else {
+        event_type += "2";
+      }
+    }
+    if (two) {
+      if (event_type.length) {
+        event_type += "_3";
+      } else {
+        event_type += "3";
+      }
+    }
+    if (three) {
+      if (event_type.length) {
+        event_type += "_4";
+      } else {
+        event_type += "4";
+      }
+    }
+    if (sale) {
+      if (event_type.length) {
+        event_type += "_5";
+      } else {
+        event_type += "5";
+      }
+    }
+    if (dum) {
+      if (event_type.length) {
+        event_type += "_6";
+      } else {
+        event_type += "6";
+      }
+    }
+    if (noSale) {
+      if (event_type.length) {
+        event_type += "_7";
+      } else {
+        event_type += "7";
+      }
+    }
+    if (allEvent || event_type === "") {
+      event_type = "0";
+    }
+    console.log("adr확인중", conv, event_type, goodName);
+    let adr = `https://k6d207.p.ssafy.io/api/v1/goods/conGoods?convinenceName=${conv}&event=${event_type}&goods=${goodName}`;
     // let adr = `https://k6d207.p.ssafy.io/api/v1/goods/conGoods?convinenceName=${conv}&event=${event_type}&goods=${name}`
-    
-    axios
-    .get(adr)
-    .then(({data}) => {
-      setGoods(data.object)
-      console.log(data.object)
-    })
-    
+
+    axios.get(adr).then(({ data }) => {
+      setGoods(data.object);
+      console.log(data.object);
+    });
   }
   if (location.state) {
     name = location.state;
     // onSubmit();
   }
 
-  
   useEffect(() => {
     axios
-    .get(`https://k6d207.p.ssafy.io/api/v1/goods/conGoods?convinenceName=all&event=0&goods=${name}`)
-    .then(({data}) => {
-      setGoods(data.object)
-      console.log(data.object)
-    })
+      .get(
+        `https://k6d207.p.ssafy.io/api/v1/goods/conGoods?convinenceName=all&event=0&goods=${name}`
+      )
+      .then(({ data }) => {
+        setGoods(data.object);
+        console.log(data.object);
+      });
   }, [name]);
-  
-  const eventGoods = {'1':'행사안함', '2':'1+1', '3': '2+1', '4': '3+1', '5': 'SALE', '6': '덤증정', '7': '균일가' }
-  const convName = { 'MS' : 'ministop', 'CU' : 'cu', 'GS': 'gs', 'SE':'seleven', 'CS':'cspace', 'EM':'emart' }
-  const conName = { 'MS' : 'MINISTOP', 'CU' : 'CU', 'GS': 'GS25', 'SE':'7-ELEVEn', 'CS':'CSPACE24', 'EM':'emart24' }
+
+  const eventGoods = {
+    1: "행사안함",
+    2: "1+1",
+    3: "2+1",
+    4: "3+1",
+    5: "SALE",
+    6: "덤증정",
+    7: "균일가",
+  };
+  const convName = {
+    MS: "ministop",
+    CU: "cu",
+    GS: "gs",
+    SE: "seleven",
+    CS: "cspace",
+    EM: "emart",
+  };
+  const conName = {
+    MS: "MINISTOP",
+    CU: "CU",
+    GS: "GS25",
+    SE: "7-ELEVEn",
+    CS: "CSPACE24",
+    EM: "emart24",
+  };
   function changeSet(sen) {
-    let conv = convName[sen]
-    return conv
+    let conv = convName[sen];
+    return conv;
   }
   function changebox(w) {
-    let con = conName[w]
-    return con
+    let con = conName[w];
+    return con;
   }
   // function changeEvent(e) {
   //   let even = eventGoods(e)
 
   // }
-  const onKeyPress= (e) => {
-    if (e.key === 'Enter'){
+  const onKeyPress = (e) => {
+    if (e.key === "Enter") {
       onSubmit();
     }
-  }
+  };
 
   return (
-    <div style={{display: 'flex', flexDirection:'column', minHeight:'100%'}}>
-    <Appbar/>
-      <div style={{flex:'1',}}>
+    <div
+      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+    >
+      <Appbar />
+      <div style={{ flex: "1" }}>
         <Container>
-          <Box maxWidth='md' sx={{ border:2, borderColor:'#F93D5950', padding:'1rem', paddingLeft:'2rem', margin:'0 auto', marginTop:'2rem', borderRadius: '30px' }}>
-          {/* <Box sx={{backgroundColor:'#F93D5910', display: 'flex', flexDirection:'column', justifyContent:'center', alignItems: "center"}}> */}
-          <FormGroup aria-label="position" row style={{marginBottom:'1rem'}}>
-                {/* <FormLabel component="legend" style={{borderColor:'#F93D59', borderWidth:'1'}}>편의점   </FormLabel> */}
-                <Typography style={{width:'80px', padding:'0.5rem',textAlign: "center", marginRight:'2rem', color:'#F93D59',borderWidth:1, borderColor:'#F93D59', borderRadius:10, fontWeight:'bold'}}>편의점</Typography>
-                <FormControlLabel
-                  control={ <Checkbox checked={all} onChange={handleChange} name="all" sx={{'&.Mui-checked': { color: "#F93D59" } }} /> } label="전체" />
-                <FormControlLabel
-                  control={ <Checkbox checked={cu} onChange={handleChange} name="cu" sx={{'&.Mui-checked': { color: "#F93D59" } }} />} label="CU" />
-                <FormControlLabel
-                  control={<Checkbox checked={gs} onChange={handleChange} name="gs" sx={{'&.Mui-checked': { color: "#F93D59" } }} /> } label="GS25" />
-                <FormControlLabel
-                  control={<Checkbox checked={em} onChange={handleChange} name="em" sx={{'&.Mui-checked': { color: "#F93D59" } }} /> } label="이마트24" />
-                <FormControlLabel
-                  control={<Checkbox checked={se} onChange={handleChange} name="se" sx={{'&.Mui-checked': { color: "#F93D59" } }} /> } label="세븐일레븐" />
-                <FormControlLabel
-                  control={<Checkbox checked={ms} onChange={handleChange} name="ms" sx={{'&.Mui-checked': { color: "#F93D59" } }} /> } label="미니스톱" />
-                <FormControlLabel
-                  control={<Checkbox checked={cs} onChange={handleChange} name="cs" sx={{'&.Mui-checked': { color: "#F93D59" } }} /> } label="씨스페이스" />
-
-          </FormGroup>
-          <FormGroup aria-label="position" row style={{border:1}}>
-          {/* <Typography style={{width:'80px', padding:'0.5rem',textAlign: "center", marginRight:'2rem', backgroundColor:'#F93D59', color:'white', borderRadius:10, fontWeight:'bold'}}>행사</Typography> */}
-          <Typography style={{width:'80px', padding:'0.5rem',textAlign: "center", marginRight:'2rem', color:'#F93D59',borderWidth:1, borderColor:'#F93D59', borderRadius:10, fontWeight:'bold'}}>행사</Typography>
+          <Box
+            maxWidth="md"
+            sx={{
+              border: 2,
+              borderColor: "#F93D5950",
+              padding: "1rem",
+              paddingLeft: "2rem",
+              margin: "0 auto",
+              marginTop: "2rem",
+              borderRadius: "30px",
+            }}
+          >
+            {/* <Box sx={{backgroundColor:'#F93D5910', display: 'flex', flexDirection:'column', justifyContent:'center', alignItems: "center"}}> */}
+            <FormGroup
+              aria-label="position"
+              row
+              style={{ marginBottom: "1rem" }}
+            >
+              {/* <FormLabel component="legend" style={{borderColor:'#F93D59', borderWidth:'1'}}>편의점   </FormLabel> */}
+              <Typography
+                style={{
+                  width: "80px",
+                  padding: "0.5rem",
+                  textAlign: "center",
+                  marginRight: "2rem",
+                  color: "#F93D59",
+                  borderWidth: 1,
+                  borderColor: "#F93D59",
+                  borderRadius: 10,
+                  fontWeight: "bold",
+                }}
+              >
+                편의점
+              </Typography>
               <FormControlLabel
-                control={ <Checkbox checked={allEvent} onChange={handleChange} name="allEvent" sx={{'&.Mui-checked': { color: "#F93D59" } }} /> } label="전체" />
+                control={
+                  <Checkbox
+                    checked={all}
+                    onChange={handleChange}
+                    name="all"
+                    sx={{ "&.Mui-checked": { color: "#F93D59" } }}
+                  />
+                }
+                label="전체"
+              />
               <FormControlLabel
-                control={ <Checkbox checked={noEvent} onChange={handleChange} name="noEvent" sx={{'&.Mui-checked': { color: "#F93D59" } }} />}  label="정가" />
+                control={
+                  <Checkbox
+                    checked={cu}
+                    onChange={handleChange}
+                    name="cu"
+                    sx={{ "&.Mui-checked": { color: "#F93D59" } }}
+                  />
+                }
+                label="CU"
+              />
               <FormControlLabel
-                control={<Checkbox checked={one} onChange={handleChange} name="one"  sx={{'&.Mui-checked': { color: "#F93D59" } }}/> }  label="1+1" />
+                control={
+                  <Checkbox
+                    checked={gs}
+                    onChange={handleChange}
+                    name="gs"
+                    sx={{ "&.Mui-checked": { color: "#F93D59" } }}
+                  />
+                }
+                label="GS25"
+              />
               <FormControlLabel
-                control={<Checkbox checked={two} onChange={handleChange} name="two"  sx={{'&.Mui-checked': { color: "#F93D59" } }}/> }   label="2+1" />
+                control={
+                  <Checkbox
+                    checked={em}
+                    onChange={handleChange}
+                    name="em"
+                    sx={{ "&.Mui-checked": { color: "#F93D59" } }}
+                  />
+                }
+                label="이마트24"
+              />
               <FormControlLabel
-                control={<Checkbox checked={three} onChange={handleChange} name="three"  sx={{'&.Mui-checked': { color: "#F93D59" } }}/> }  label="3+1" />
+                control={
+                  <Checkbox
+                    checked={se}
+                    onChange={handleChange}
+                    name="se"
+                    sx={{ "&.Mui-checked": { color: "#F93D59" } }}
+                  />
+                }
+                label="세븐일레븐"
+              />
               <FormControlLabel
-                control={<Checkbox checked={sale} onChange={handleChange} name="sale"  sx={{'&.Mui-checked': { color: "#F93D59" } }}/> }  label="세일" />
+                control={
+                  <Checkbox
+                    checked={ms}
+                    onChange={handleChange}
+                    name="ms"
+                    sx={{ "&.Mui-checked": { color: "#F93D59" } }}
+                  />
+                }
+                label="미니스톱"
+              />
               <FormControlLabel
-                control={<Checkbox checked={dum} onChange={handleChange} name="dum"  sx={{'&.Mui-checked': { color: "#F93D59" } }}/> }  label="덤증정" />
-              <FormControlLabel
-                control={<Checkbox checked={noSale} onChange={handleChange} name="noSale"  sx={{'&.Mui-checked': { color: "#F93D59" } }}/> }  label="균일가" />
-            
+                control={
+                  <Checkbox
+                    checked={cs}
+                    onChange={handleChange}
+                    name="cs"
+                    sx={{ "&.Mui-checked": { color: "#F93D59" } }}
+                  />
+                }
+                label="씨스페이스"
+              />
             </FormGroup>
-            <Box style={{ display: 'flex', flexDirection:'row',justifyContent:'center', marginTop:'1rem'}}>
-                  {/* <input onChange={searchWord} name="goodName" placeholder="상품을 입력하세요" style={{borderBottom :'teal 1px solid', borderLeft:'none',}} ></input> */}
-                  <TextField onChange={searchWord} onKeyPress={onKeyPress} id="standard-basic" label="상품을 입력하세요" variant="standard" defaultValue={name} />
-            <Button  onClick={onSubmit} style={{backgroundColor:'#F93D59', color:'white', fontWeight:'bold', borderRadius:20, height:'2rem', marginTop:'1rem'}} name="adr">검색</Button>
+            <FormGroup aria-label="position" row style={{ border: 1 }}>
+              {/* <Typography style={{width:'80px', padding:'0.5rem',textAlign: "center", marginRight:'2rem', backgroundColor:'#F93D59', color:'white', borderRadius:10, fontWeight:'bold'}}>행사</Typography> */}
+              <Typography
+                style={{
+                  width: "80px",
+                  padding: "0.5rem",
+                  textAlign: "center",
+                  marginRight: "2rem",
+                  color: "#F93D59",
+                  borderWidth: 1,
+                  borderColor: "#F93D59",
+                  borderRadius: 10,
+                  fontWeight: "bold",
+                }}
+              >
+                행사
+              </Typography>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={allEvent}
+                    onChange={handleChange}
+                    name="allEvent"
+                    sx={{ "&.Mui-checked": { color: "#F93D59" } }}
+                  />
+                }
+                label="전체"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={noEvent}
+                    onChange={handleChange}
+                    name="noEvent"
+                    sx={{ "&.Mui-checked": { color: "#F93D59" } }}
+                  />
+                }
+                label="정가"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={one}
+                    onChange={handleChange}
+                    name="one"
+                    sx={{ "&.Mui-checked": { color: "#F93D59" } }}
+                  />
+                }
+                label="1+1"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={two}
+                    onChange={handleChange}
+                    name="two"
+                    sx={{ "&.Mui-checked": { color: "#F93D59" } }}
+                  />
+                }
+                label="2+1"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={three}
+                    onChange={handleChange}
+                    name="three"
+                    sx={{ "&.Mui-checked": { color: "#F93D59" } }}
+                  />
+                }
+                label="3+1"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={sale}
+                    onChange={handleChange}
+                    name="sale"
+                    sx={{ "&.Mui-checked": { color: "#F93D59" } }}
+                  />
+                }
+                label="세일"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={dum}
+                    onChange={handleChange}
+                    name="dum"
+                    sx={{ "&.Mui-checked": { color: "#F93D59" } }}
+                  />
+                }
+                label="덤증정"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={noSale}
+                    onChange={handleChange}
+                    name="noSale"
+                    sx={{ "&.Mui-checked": { color: "#F93D59" } }}
+                  />
+                }
+                label="균일가"
+              />
+            </FormGroup>
+            <Box
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                marginTop: "1rem",
+              }}
+            >
+              {/* <input onChange={searchWord} name="goodName" placeholder="상품을 입력하세요" style={{borderBottom :'teal 1px solid', borderLeft:'none',}} ></input> */}
+              <TextField
+                onChange={searchWord}
+                onKeyPress={onKeyPress}
+                id="standard-basic"
+                label="상품을 입력하세요"
+                variant="standard"
+                defaultValue={name}
+              />
+              <Button
+                onClick={onSubmit}
+                style={{
+                  backgroundColor: "#F93D59",
+                  color: "white",
+                  fontWeight: "bold",
+                  borderRadius: 20,
+                  height: "2rem",
+                  marginTop: "1rem",
+                }}
+                name="adr"
+              >
+                검색
+              </Button>
             </Box>
           </Box>
-          <Box style={{marginTop:10}}>
-`           <Grid container spacing={2} >
-              {goods.slice(30*(page-1), 30*(page-1)+30).map((good, index) => 
-              <Grid item xs={12} md={6} lg={4} style={{padding:0, display:'flex', justifyContent:'center', paddingTop:'1rem' }}>
-                    <Link to={`/store/${good.id}`}state={{ data: good }}  style={{textDecoration:'none',}}>
-                <Card className={good.convinence} sx={{boxShadow:'none', borderRadius: '16px', display:'flex', flexDirection:'column' }}>
-                  <div style={{height:'100%'}}>
-                        <Box className={changeSet(good.convinence)} style={{paddingLeft:'1rem'}} >
-                          {changebox(good.convinence)}
-                        </Box>
-                        {/* </Link> */}
-                  {/* </div> */}
-                    {/* <Link to={`/${good.id}`} style={{textDecoration:'none',}}> */}
-                  <Box style={{display:'flex'}}>
-                      <Box sx={{width:'160px', height:'120px', marginTop:'1rem'}}>
-                        <CardMedia
-                          component="img"
-                          alt="이미지 준비중"
-                          sx={{ width: '80%', height:'80%' }}
-                          image={`${good.photoPath}`}
-                        />
-
-                      </Box>
-                    {/* </Link>
+          <Box style={{ marginTop: 10 }}>
+            `{" "}
+            <Grid container spacing={2}>
+              {goods
+                .slice(30 * (page - 1), 30 * (page - 1) + 30)
+                .map((good, index) => (
+                  <Grid
+                    item
+                    xs={12}
+                    md={6}
+                    lg={4}
+                    style={{
+                      padding: 0,
+                      display: "flex",
+                      justifyContent: "center",
+                      paddingTop: "1rem",
+                    }}
+                  >
+                    <Link
+                      to={`/store/${good.id}`}
+                      state={{ data: good }}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <Card
+                        className={good.convinence}
+                        sx={{
+                          boxShadow: "none",
+                          borderRadius: "16px",
+                          display: "flex",
+                          flexDirection: "column",
+                        }}
+                      >
+                        <div style={{ height: "100%" }}>
+                          <Box
+                            className={changeSet(good.convinence)}
+                            style={{ paddingLeft: "1rem" }}
+                          >
+                            {changebox(good.convinence)}
+                          </Box>
+                          {/* </Link> */}
+                          {/* </div> */}
+                          {/* <Link to={`/${good.id}`} style={{textDecoration:'none',}}> */}
+                          <Box style={{ display: "flex" }}>
+                            <Box
+                              sx={{
+                                width: "160px",
+                                height: "120px",
+                                marginTop: "1rem",
+                              }}
+                            >
+                              <CardMedia
+                                component="img"
+                                alt="이미지 준비중"
+                                sx={{ width: "80%", height: "80%" }}
+                                image={`${good.photoPath}`}
+                              />
+                            </Box>
+                            {/* </Link>
                     <Link to={`/${good.id}`} style={{textDecoration:'none',}}> */}
-                      <Box sx={{display:'flex', flexDirection:'column', paddingTop:'1rem', marginLeft:'0.5rem', marginRight:'0.5rem'}}>
-                        <Typography gutterBottom variant="h7" component="div" style={{fontWeight:'bold'}}>
-                          {good.name}
-                        </Typography>
-                        <Typography gutterBottom variant="h8" component="div" style={{display:'flex', flexDirection:'row', alignItem:'baseline', marginTop:'0.5rem' }} >
-                         <FaCoins size='18' color='gold' style={{marginTop:2, marginRight:'5'}} />   {good.price}원
-                        </Typography>
-                        <Box className={changeSet(good.convinence)} sx={{width:'5rem', borderRadius: '10px', textAlign:'center', fontWeight:'bold'}} >
-                          {eventGoods[good.event]}
-                          
-                        </Box>
-
-                      </Box>
-
-                  </Box>
-                  </div>
-                </Card>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                paddingTop: "1rem",
+                                marginLeft: "0.5rem",
+                                marginRight: "0.5rem",
+                              }}
+                            >
+                              <Typography
+                                gutterBottom
+                                variant="h7"
+                                component="div"
+                                style={{ fontWeight: "bold" }}
+                              >
+                                {good.name}
+                              </Typography>
+                              <Typography
+                                gutterBottom
+                                variant="h8"
+                                component="div"
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "row",
+                                  alignItem: "baseline",
+                                  marginTop: "0.5rem",
+                                }}
+                              >
+                                <FaCoins
+                                  size="18"
+                                  color="gold"
+                                  style={{ marginTop: 2, marginRight: "5" }}
+                                />{" "}
+                                {good.price}원
+                              </Typography>
+                              <Box
+                                className={changeSet(good.convinence)}
+                                sx={{
+                                  width: "5rem",
+                                  borderRadius: "10px",
+                                  textAlign: "center",
+                                  fontWeight: "bold",
+                                }}
+                              >
+                                {eventGoods[good.event]}
+                              </Box>
+                            </Box>
+                          </Box>
+                        </div>
+                      </Card>
                     </Link>
-              </Grid>
-              )}
+                  </Grid>
+                ))}
             </Grid>
-
           </Box>
-        <Pagination
-          activePage={page}
-          itemsCountPerPage={30}
-          totalItemsCount={goods.length}
-          pageRangeDisplayed={5}
-          onChange={handlePageChange}
-          >
-        </Pagination>
+          <Pagination
+            activePage={page}
+            itemsCountPerPage={30}
+            totalItemsCount={goods.length}
+            pageRangeDisplayed={5}
+            onChange={handlePageChange}
+          ></Pagination>
         </Container>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
