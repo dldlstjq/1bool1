@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
-import { Button, Box } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import React, { useState } from "react";
+import { Button, Box, Container, Grid, TextField, Typography } from '@mui/material';
+import { Searchbar } from "../common/Searchbar";
 
-function ButtonAndPerPage() {
+function ButtonAndPerPage({recipes}) {
   // const [value, setValue] = useState("one");
   const [value, setValue] = useState(0);
 
@@ -12,74 +13,66 @@ function ButtonAndPerPage() {
     setValue(newValue);
   };
   return (
-    <div style={{ marginBottom: "1rem" }}>
-      <Box
-        style={{
+    <div>
+      <Tabs
+        value={value}
+        onChange={handleChange}
+        sx={{
+          "& .MuiTabs-indicator": {
+            backgroundColor: "#F93D59",
+          },
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "between",
         }}
+        // inBarStyle={{ background: "#F93D59" }}
+        inbarStyle={{ background: "#F93D59" }}
       >
-        <Tabs
-          value={value}
-          onChange={handleChange}
+        <Tab
+          id="order-by-recent"
+          label="최신등록순"
           sx={{
-            "& .MuiTabs-indicator": {
-              backgroundColor: "#F93D59",
-            },
-            display: "flex",
+            "&.Mui-selected": { color: "#F93D59" },
+            fontWeight: "bolder",
+            fontSize: "1rem",
           }}
-          // inBarStyle={{ background: "#F93D59" }}
-          inbarStyle={{ background: "#F93D59" }}
-        >
-          <Tab
-            id="order-by-recent"
-            label="최신등록순"
-            sx={{
-              "&.Mui-selected": { color: "#F93D59" },
-              fontWeight: "bolder",
-              fontSize: "1rem",
-            }}
-            index={0}
-          />
-          <Box
-            style={{
-              alignSelf: "center",
-              height: "20px",
-              width: "2px",
-              backgroundColor: "#F93D59",
-            }}
-          ></Box>
-          <Tab
-            id="order-by-like"
-            label="좋아요순"
-            sx={{
-              "&.Mui-selected": { color: "#F93D59" },
-              fontWeight: "bolder",
-              fontSize: "1rem",
-            }}
-            index={1}
-          />
-          <Box
-            style={{
-              alignSelf: "center",
-              height: "20px",
-              width: "2px",
-              backgroundColor: "#F93D59",
-            }}
-          ></Box>
-          <Tab
-            id="bookmark"
-            label="북마크"
-            sx={{
-              "&.Mui-selected": { color: "#F93D59" },
-              fontWeight: "bolder",
-              fontSize: "1rem",
-            }}
-            index={2}
-          />
-        </Tabs>
-      </Box>
+          index={0}
+        />
+        <Box
+          style={{
+            alignSelf: "center",
+            height: "20px",
+            width: "2px",
+            backgroundColor: "#F93D59",
+          }}
+        ></Box>
+        <Tab
+          id="order-by-like"
+          label="좋아요순"
+          sx={{
+            "&.Mui-selected": { color: "#F93D59" },
+            fontWeight: "bolder",
+            fontSize: "1rem",
+          }}
+          index={1}
+        />
+        <Box
+          style={{
+            alignSelf: "center",
+            height: "20px",
+            width: "2px",
+            backgroundColor: "#F93D59",
+          }}
+        ></Box>
+        <Tab
+          id="bookmark"
+          label="북마크"
+          sx={{
+            "&.Mui-selected": { color: "#F93D59" },
+            fontWeight: "bolder",
+            fontSize: "1rem",
+          }}
+          index={2}
+        />
+      </Tabs>
     </div>
   );
 }
