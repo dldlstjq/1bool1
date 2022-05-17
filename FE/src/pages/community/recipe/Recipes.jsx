@@ -8,6 +8,7 @@ import Pagination from "react-js-pagination";
 
 import { Searchbar } from "../common/Searchbar";
 import { useFetchPage } from "../common/hooks";
+import RecipeTop from "./RecipeTop";
 
 import Recipe from "./Recipe";
 import ButtonAndPerPage from "../common/WriteOrderBtns";
@@ -15,6 +16,7 @@ import {
   Container,
   Box,
   Button,
+  Grid,
 } from "@mui/material";
 
 function Recipes() {
@@ -46,41 +48,39 @@ function Recipes() {
       <Appbar />
       <div onClick={handleClick} sytle={{flex:'1'}}>
        <Container>
-          <div id="category" className="p-8" >
-            <h1 className="text-2xl text-center" style={{fontSize:30}}>| USER RECIPES |</h1>
-            <h2 className="mt-1 text-center" style={{fontSize:30}}>유저들이 공유하는 레시피</h2>
-          </div>
-
-          <ButtonAndPerPage />
-          <Box style={{display:'flex', justifyContent:'end', marginBottom:'1rem'}}>
-            <Searchbar setState={setRecipes} url="recipe/search" />
-            <Button id="write" style={{ marginLeft:'1rem', backgroundColor:'#F93D59', color:'white', fontWeight:'bold', borderRadius:10, height:'2rem', marginTop:'10px'}} >글쓰기</Button>
-          </Box>
-
-           <div
-            id="recipes-box"
-            className="grid gap-1 grid-cols-1 sm:grid-cols-3 lg:grid-cols-4"
-            >
-            {recipes.slice(12*(page-1), 12*(page-1)+12).map((recipe, idx) => {
-              return <Recipe key={idx} recipe={recipe} />
-            }
-
-            )}
-            </div>
+          <RecipeTop/>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={6}>
+              <ButtonAndPerPage />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Box style={{display:'flex', justifyContent:'end', marginBottom:'1rem'}}>
+                <Searchbar setState={recipes} url="recipe/search" />
+                <Button id="write" style={{ marginLeft:'1rem', backgroundColor:'#F93D59', color:'white', fontWeight:'bold', borderRadius:10, height:'2rem', marginTop:'10px'}} >글쓰기</Button>
+              </Box>
+            </Grid>
+          </Grid>
           
-            <Pagination
-          activePage={page}
-          itemsCountPerPage={12}
-          totalItemsCount={recipes.length}
-          pageRangeDisplayed={5}
-          onChange={handlePageChange}
+          <div
+          id="recipes-box"
+          className="grid gap-1 grid-cols-1 sm:grid-cols-3 lg:grid-cols-4"
           >
-        </Pagination>
-          
+          {recipes.slice(12*(page-1), 12*(page-1)+12).map((recipe, idx) => {
+            return <Recipe key={idx} recipe={recipe} />
+          }
 
+          )}
+          </div>
           
-
-       </Container>
+          <Pagination
+            activePage={page}
+            itemsCountPerPage={12}
+            totalItemsCount={recipes.length}
+            pageRangeDisplayed={5}
+            onChange={handlePageChange}
+            >
+          </Pagination>
+        </Container>
       </div>
       <Footer />
     </div>
