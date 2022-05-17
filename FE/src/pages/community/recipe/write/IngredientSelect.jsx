@@ -1,7 +1,9 @@
 /* eslint-disable no-unused-vars */
+import { height } from "@mui/system";
 import { useState } from "react";
-
+import { Container, Grid, Typography, Box, Button, TextField} from '@mui/material';
 import { useFetchList } from "../../common/hooks";
+import CardMedia from '@mui/material/CardMedia';
 
 function IngredientSelect({ selected, setSelected }) {
   const convList = ["cs", "cu", "em", "gs", "ms", "se"];
@@ -13,7 +15,7 @@ function IngredientSelect({ selected, setSelected }) {
       e.preventDefault();
       for (let el of ingredients) {
         if (el.name === e.target.value) {
-          setSelected([...selected, { name: el.name, goodsId: el.id }]);
+          setSelected([...selected, { name: el.name, goodsId: el.id, img_link : el.photoPath, goodsPrice: el.price}]);
           e.target.value = "";
           break;
         }
@@ -52,11 +54,20 @@ function IngredientSelect({ selected, setSelected }) {
           <option value={name} key={idx} />
         ))}
       </datalist>
-      <div className="grid grid-cols-2 gap-1" onClick={removeFromList}>
-        {selected.map(({ name, goodsId }, idx) => (
-          <span key={idx} id={goodsId}>
-            {name}
-          </span>
+      <div className="grid grid-cols-3" onClick={removeFromList}>
+        {selected.map(({ name, goodsId, img_link, goodsPrice }, idx) => (
+          <Box sx={{width:'400px', height:'400px', marginTop:'1rem'}}>
+            <span key={idx} id={goodsId}>
+              {name}
+              <CardMedia
+                component="img"
+                alt="이미지 준비중"
+                sx={{ width: '80%', height:'80%' }}
+                image={img_link}
+              />
+              <p>{goodsPrice} 원</p>
+            </span>
+          </Box>
         ))}
       </div>
     </div>
