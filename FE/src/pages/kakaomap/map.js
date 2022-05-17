@@ -3,29 +3,28 @@ import './map.css';
 const { kakao } = window;
 export default function Map() {
   useEffect(() => {
-    getUserLocation();
+    location();
     setTimeout(() => mapContainer(),250);
   }, []);
   // 마커를 클릭했을 때 해당 장소의 상세정보를 보여줄 커스텀오버레이입니다
 //   const [coords, setcoords] = useState([0,0])
 
   
-
-  function success({ coords, timestamp }) {
-    window.lat = coords.latitude;   // 위도
-    window.lng = coords.longitude; // 경도
-    // alert(`위도: ${lat}, 경도: ${lng}, 위치 반환 시간: ${timestamp}`);
-    // location.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
-}
-
-function getUserLocation() {
-    if (!navigator.geolocation) {
-        throw "위치 정보가 지원되지 않습니다.";
+const location  = () =>{
+    function success({ coords, timestamp }) {
+        window.lat = coords.latitude;   // 위도
+        window.lng = coords.longitude; // 경도
+        // alert(`위도: ${lat}, 경도: ${lng}, 위치 반환 시간: ${timestamp}`);
+        // location.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
     }
-    navigator.geolocation.getCurrentPosition(success);
-}
 
-getUserLocation();
+    function getUserLocation() {
+        if (!navigator.geolocation) {
+            throw "위치 정보가 지원되지 않습니다.";
+        }
+        navigator.geolocation.getCurrentPosition(success);
+    }
+}
   const mapContainer  = () => {
     let mapContainer = document.getElementById("map");
     let mapOption  = {
