@@ -20,7 +20,7 @@ export default function Map() {
 
     function getUserLocation() {
         if (!navigator.geolocation) {
-            throw "위치 정보가 지원되지 않습니다.";
+            // throw "위치 정보가 지원되지 않습니다.";
         }
         navigator.geolocation.getCurrentPosition(success);
     }
