@@ -1,6 +1,15 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import {
+  Container,
+  Grid,
+  Typography,
+  Box,
+  Button,
+  TextField,
+} from "@mui/material";
 
 export function DeleteOrUpdate({
   setInputPw,
@@ -9,48 +18,49 @@ export function DeleteOrUpdate({
   inputMode,
 }) {
   return (
-    <div className="grid-cols-3 gap-2 my-4">
+    <Box xs={{ display: "flex", flexDirection: "row" }}>
       <input
         type="password"
-        className="bg-gray-700 text-white w-20 h-10"
+        className="h-7 rounded"
         placeholder="비밀번호"
         name="password"
         onChange={(e) => setInputPw(e.target.value)}
         style={{
-          borderRadius: 20,
+          borderRadius: 10,
           borderStyle: "solid",
           borderColor: "#f93d59",
           backgroundColor: "#ffe2e180",
+          width: "140px",
         }}
       />
-      <button
+      <Button
         id="delete"
-        className="bg-gray-700 text-white w-20 h-10"
         onClick={handleDelete}
         style={{
-          backgroundColor: "#f93d59",
-          color: "white",
+          backgroundColor: "white",
+          borderRadius: 10,
+          color: "grey",
+          border: "1px solid",
+          marginRight: 5,
+          marginLeft: 5,
           fontWeight: "bold",
-          borderRadius: 20,
-          marginLeft: 10,
         }}
       >
         삭제
-      </button>
-      <button
+      </Button>
+      <Button
         id="update"
-        className="bg-gray-700 text-white w-20 h-10"
         onClick={readyUpdate}
         style={{
-          backgroundColor: "#f93d59",
-          color: "white",
+          backgroundColor: "white",
+          borderRadius: 10,
+          color: "grey",
+          border: "1px solid",
           fontWeight: "bold",
-          borderRadius: 20,
-          marginLeft: 10,
         }}
       >
-        {inputMode ? "수정취소" : "수정"}
-      </button>
-    </div>
+        {inputMode ? "취소" : "수정"}
+      </Button>
+    </Box>
   );
 }
