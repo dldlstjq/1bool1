@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { BASE_URL } from "../../..";
 
 import axios from "axios";
@@ -12,6 +12,7 @@ import { useFetchIfUpdate, useInputs } from "../common/hooks";
 
 export default function WriteFree() {
   const navigate = useNavigate();
+  const [files, setFiles] = useState([]);
   const { state } = useLocation();
   const fileInputRef = useRef();
   let id = "",
@@ -39,7 +40,17 @@ export default function WriteFree() {
       .catch((err) => console.log(err));
   }
 
-  function handleChange(e) {}
+  let fileObj = [];
+  let fileArray = [];
+
+  function uploadMultipleFiles(e) {
+    fileObj.push(e.target.files);
+    for (let i = 0; i < fileObj[0].length; i++) {
+      fileArray.push(URL.createObjectURL(fileObj[0][i]));
+    }
+    setFiles(fileArray);
+  }
+
   return (
     <form
       action={BASE_URL + "board"}
@@ -82,12 +93,17 @@ export default function WriteFree() {
       ></textarea>
       <input
         type="file"
-        accept="image/png, image/jpeg"
+        accept="image/*"
         name="file"
         className="hidden"
+        multiple
         ref={fileInputRef}
+        onChange={uploadMultipleFiles}
       />
       <div className="flex justify-between">
+        {files.map((url, idx) => (
+          <img src={url} alt="" key={idx} className="w-20" />
+        ))}
         <button
           onClick={(e) => {
             e.preventDefault();
