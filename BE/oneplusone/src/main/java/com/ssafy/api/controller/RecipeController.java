@@ -9,6 +9,7 @@ import com.ssafy.api.service.RecipeService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.Board;
 import com.ssafy.db.entity.Recipe;
+import com.ssafy.db.entity.RecipeAll;
 import com.ssafy.db.entity.RecipeGoodsSelect;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,7 +123,7 @@ public class RecipeController {
     })
     public ResponseEntity<? extends BaseResponseBody> findBoard() {
 //        List<Recipe> recipe = recipeService.findRecipe();
-        List<Recipe> recipe = recipeService.findRecipeAll();
+        List<RecipeAll> recipe = recipeService.findRecipeAll();
         if(recipe.isEmpty()) return ResponseEntity.status(200).body(BaseResponseBody.of(200, "해당 페이지에 레시피가 없습니다."));
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", recipe));
     }
@@ -136,7 +137,7 @@ public class RecipeController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<? extends BaseResponseBody> findBySearchRecipe(@RequestParam("search") String search) {
-        List<Recipe> recipe = recipeService.findBySearchRecipe(search);
+        List<RecipeAll> recipe = recipeService.findBySearchRecipe(search);
         if(recipe.size() > 0)
         {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", recipe));
@@ -276,9 +277,9 @@ public class RecipeController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> findByRecipeLike(@RequestParam("page") Integer page,@RequestParam("size") Integer size,@ApiIgnore Pageable pageable) {
+    public ResponseEntity<? extends BaseResponseBody> findByRecipeLike() {
 
-        Page<RecipeDto.RecipeLikeGet> list = recipeLikeService.findByRecipe(page,size,pageable);
+        List<RecipeDto.RecipeLikeGet> list = recipeLikeService.findByRecipe();
         if(list != null)
         {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", list));

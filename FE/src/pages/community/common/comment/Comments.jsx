@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useRef } from "react";
+import React, { useState, useRef } from 'react';
 
-import axios from "axios";
+import axios from 'axios';
 
-import Comment from "./Comment";
+import Comment from './Comment';
 
-import Upper from "./Upper";
+import Upper from './Upper';
 // import Popover from "../Popover";
 
 const Comments = ({ url, comments, boardId, recipeId, refresh }) => {
@@ -20,10 +20,10 @@ const Comments = ({ url, comments, boardId, recipeId, refresh }) => {
     for (var a of form.entries()) {
       data[a[0]] = a[1];
     }
-    if (boardId) data["boardId"] = boardId;
-    if (recipeId) data["recipeId"] = recipeId;
+    if (boardId) data['boardId'] = boardId;
+    if (recipeId) data['recipeId'] = recipeId;
     axios({
-      method: "post",
+      method: 'post',
       url,
       data,
     })
@@ -40,10 +40,10 @@ const Comments = ({ url, comments, boardId, recipeId, refresh }) => {
 
   function handleClick(e) {
     const { target, clientX, clientY } = e;
-    if (target.matches("#show-comments")) {
+    if (target.matches('#show-comments')) {
       setShowComments((prev) => !prev);
     }
-    if (target.matches("#focus")) {
+    if (target.matches('#focus')) {
       setShowComments(true);
       setTimeout(() => {
         textareaRef.current.focus();
@@ -53,7 +53,7 @@ const Comments = ({ url, comments, boardId, recipeId, refresh }) => {
 
   return (
     <div>
-      <div className="border border-red-400 my-2">
+      <div className='border border-red-400 my-2'>
         <Upper
           comments={comments}
           setShowComments={setShowComments}
@@ -61,45 +61,47 @@ const Comments = ({ url, comments, boardId, recipeId, refresh }) => {
           handleClick={handleClick}
         />
         {showComments && (
-          <form className="p-3 flex flex-col" onSubmit={handleSubmit}>
+          <form
+            className='p-3 bg-stone-200 border border-stone-300 grid grid-cols-2 gap-2'
+            onSubmit={handleSubmit}
+            style={{ backgroundColor: '#ffe2e180' }}
+          >
             <input
-              type="text"
-              name="nickname"
-              className="h-8 border-b  border-red-400"
-              placeholder="닉네임"
+              type='text'
+              name='nickname'
+              className='h-10'
+              placeholder='닉네임'
               required
               ref={textareaRef}
             />
             <input
-              type="password"
-              className="h-8 border-b my-2 border-red-400"
-              placeholder="비밀번호"
+              type='password'
+              className='h-10'
+              placeholder='비밀번호'
               required
-              name="password"
+              name='password'
             />
 
             <textarea
-              name="content"
-              id=""
-              className="h-24 my-4 border border-red-400"
-              placeholder="댓글을 작성해주세요"
+              name='content'
+              id=''
+              className='h-24 focus:outline-none border border-stone-300 col-span-2'
+              placeholder='댓글을 작성해주세요'
               required
-              type="text"
+              type='text'
             ></textarea>
             <button
-              className="bg-red-500 px-4 h-7 text-white w-1/3 mx-auto"
-              type="submit"
+              className='bg-gray-700 w-20 h-10 text-white col-span-2 ml-auto'
+              type='submit'
               ref={buttonRef}
+              style={{ backgroundColor: '#f93d59' }}
             >
               등록
             </button>
           </form>
         )}
-      </div>
-
-      {showComments &&
-        comments?.map(
-          ({ content, nickname, password, id, boardId, recipeId }, idx) => (
+        {showComments &&
+          comments?.map(({ content, nickname, password, id, boardId, recipeId }, idx) => (
             <Comment
               key={idx}
               content={content}
@@ -110,8 +112,8 @@ const Comments = ({ url, comments, boardId, recipeId, refresh }) => {
               recipeId={recipeId}
               refresh={refresh}
             />
-          )
-        )}
+          ))}
+      </div>
     </div>
   );
 };

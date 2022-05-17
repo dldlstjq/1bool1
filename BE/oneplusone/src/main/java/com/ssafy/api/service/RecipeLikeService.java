@@ -9,7 +9,7 @@ import java.util.List;
 public interface RecipeLikeService {
     Long findByRecipeId(RecipeDto.RecipeLikeGetRequest dto);
 
-    Page<RecipeDto.RecipeLikeGet> findByRecipe(Integer page, Integer size, Pageable pageable);
+    List<RecipeDto.RecipeLikeGet> findByRecipe();
 
     boolean modifyRecipeLike(RecipeDto.RecipeLikeGetRequest dto);
 
