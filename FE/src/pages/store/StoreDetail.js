@@ -91,7 +91,7 @@ function StoreDetail() {
   }, [goods.id]);
 
   // const goodsData = useFetchItem(`goods/${localStorage.getItem('goodsId')}`);
-  const comments = useFetchListAndUpdate(
+  const [comments, setComments] = useFetchListAndUpdate(
     `goodsreview/${localStorage.getItem("goodsId")}`,
     foo
   );

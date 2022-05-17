@@ -26,19 +26,17 @@ import Kakao from "./pages/user/KakaoLogin";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Appbar></Appbar>}>
-        <Route index element={<Main></Main>} />
-        <Route path="signin" element={<Kakao />}></Route>
-        <Route path="signup" element={<Signup />}></Route>
-        <Route path="/store" element={<Store />}></Route>
-        <Route path="/store/:goodsId" element={<StoreDetail />}></Route>
-        <Route path="community" element={<Articles />} />
-        <Route path="community/:articleId" element={<Detail />}></Route>
-        <Route path="community/write" element={<WriteFree />} />
-        <Route path="recipe" element={<Recipes />} />
-        <Route path="recipe/:recipeId" element={<RecipeDetail />} />
-        <Route path="recipe/write" element={<WriteRecipe />} />
-      </Route>
+      <Route path="/" element={<Main></Main>} />
+      <Route path="signin" element={<Kakao />}></Route>
+      <Route path="signup" element={<Signup />}></Route>
+      <Route path="/store" element={<Store />}></Route>
+      <Route path="/store/:goodsId" element={<StoreDetail />}></Route>
+      <Route path="community" element={<Articles />} />
+      <Route path="community/:articleId" element={<Detail />}></Route>
+      <Route path="community/write" element={<WriteFree />} />
+      <Route path="recipe" element={<Recipes />} />
+      <Route path="recipe/:recipeId" element={<RecipeDetail />} />
+      <Route path="recipe/write" element={<WriteRecipe />} />
     </Routes>
   );
 }

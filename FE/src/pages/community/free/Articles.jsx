@@ -8,6 +8,8 @@ import { Pagination } from "../common/Pagination";
 import { Searchbar } from "../common/Searchbar";
 import { useFetchPage } from "../common/hooks";
 import ButtonAndPerPage from "../common/WriteOrderBtns";
+import Appbar from "../../../components/main/Appbar";
+import Footer from "../../../components/main/Footer";
 
 function Articles() {
   const [searchParams, setSearchParams] = useSearchParams([["page", "1"]]);
@@ -17,7 +19,13 @@ function Articles() {
   const navigate = useNavigate();
   const pageParam = searchParams.get("page");
   let page = 0;
-  if (pageParam) page = parseInt(pageParam) - 1;
+  if (pageParam) {
+    if (orderBy === "board/like") {
+      page = parseInt(pageParam);
+    } else {
+      page = parseInt(pageParam) - 1;
+    }
+  }
 
   const [articles, setArticles] = useFetchPage(orderBy, page, size);
 
@@ -39,39 +47,43 @@ function Articles() {
   }
 
   return (
-    <div className="p-4 md:px-20 lg:px-40" onClick={handleClick}>
-      <h1 className="title text-red-500 text-4xl lg:text-6xl mb-5">
-        자유게시판
-      </h1>
+    <>
+      <Appbar />
+      <div className="p-4 md:px-20 lg:px-40" onClick={handleClick}>
+        <h1 className="title text-red-500 text-4xl lg:text-6xl mb-5">
+          자유게시판
+        </h1>
 
-      <ButtonAndPerPage setSize={setSize} setState={setArticles} />
-      <button id="write">글쓰기</button>
-      <div className="border-2 border-red-500 rounded">
-        {articles?.map(
-          ({ id, title, nickname, password, modifiedDate }, idx) => {
-            const date = modifiedDate?.split(".")[0];
-            return (
-              <Article
-                id={id}
-                key={idx}
-                title={title}
-                nickname={nickname}
-                password={password}
-                date={date}
-              />
-            );
-          }
-        )}
+        <ButtonAndPerPage setSize={setSize} setState={setArticles} />
+        <button id="write">글쓰기</button>
+        <div className="border-2 border-red-500 rounded">
+          {articles?.map(
+            ({ id, title, nickname, password, modifiedDate }, idx) => {
+              const date = modifiedDate?.split(".")[0];
+              return (
+                <Article
+                  id={id}
+                  key={idx}
+                  title={title}
+                  nickname={nickname}
+                  password={password}
+                  date={date}
+                />
+              );
+            }
+          )}
+        </div>
+
+        <Pagination
+          setSearchParams={setSearchParams}
+          cols="col-span-2"
+          my="my-5"
+        />
+
+        <Searchbar url="board/search" setState={setArticles} />
       </div>
-
-      <Pagination
-        setSearchParams={setSearchParams}
-        cols="col-span-2"
-        my="my-5"
-      />
-
-      <Searchbar url="board/search" setState={setArticles} />
-    </div>
+      <Footer />
+    </>
   );
 }
 

@@ -62,7 +62,7 @@ export function useFetchListAndUpdate(url: string, dep: any) {
       })
       .catch((err) => console.log(err));
   }, [url, dep]);
-  return data;
+  return [data, setData];
 }
 
 export function useFetchList(url: string) {
