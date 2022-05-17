@@ -18,12 +18,12 @@ const location  = () =>{
         // location.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
     }
 
-    function getUserLocation() {
-        if (!navigator.geolocation) {
-            throw "위치 정보가 지원되지 않습니다.";
-        }
-        navigator.geolocation.getCurrentPosition(success);
-    }
+    // function getUserLocation() {
+    //     if (!navigator.geolocation) {
+    //         throw "위치 정보가 지원되지 않습니다.";
+    //     }
+    //     navigator.geolocation.getCurrentPosition(success);
+    // }
 }
   const mapContainer  = () => {
     let mapContainer = document.getElementById("map");
