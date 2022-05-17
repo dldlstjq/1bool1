@@ -2,7 +2,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Container, Grid, Typography, Box, Button, TextField} from '@mui/material';
+import {  Box, Button } from '@mui/material';
 
 
 export function DeleteOrUpdate({
@@ -45,7 +45,6 @@ export function DeleteOrUpdate({
   }
 
   return (
-    // <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-2 mt-4">
     <Box xs={{display:'flex', alignSelf:'end'}}>
       <input
         type="password"

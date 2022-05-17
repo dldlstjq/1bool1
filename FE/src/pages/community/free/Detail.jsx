@@ -38,9 +38,7 @@ function Detail() {
       <Appbar/>
       <div style={{flex:'1',}}>
         <Container>
-          {/* <Box sx={{ borderStyle:'solid', borderColor:'#F93D59 none #F93D59', marginTop:'3rem'}}> */}
           <Box sx={{ borderTop:2, borderBottom:2, borderColor:'grey.500',marginTop:'3rem'}}>
-          {/* <div className="p-4"> */}
             <Box sx={{ borderBottom:1, borderColor:'grey.500', paddingLeft:'1rem'}}>
               <Typography variant="h4" style={{marginTop:'1rem', marginBottom:'1rem'}}>{title}</Typography>
               <Typography style={{marginBottom:10}}> <AccountCircleIcon style={{marginRight:3, color:'#F93D59'}}/>{nickname} | {moment({modifiedDate}).format("YYYY.MM.DD  HH:mm")} </Typography>
@@ -57,7 +55,6 @@ function Detail() {
                 </Box>
             </Box>
             </Box>
-            {/* <Box style={{display:'flex', flexDirection:'row', justifyContent:'space-between', margin:'1rem'}}> */}
             <Grid container spacing={2} >
               <Grid item xs={12} md={6}>
                 {/* {user_id && id && ( */}

@@ -54,7 +54,6 @@ const Comments = ({ url, comments, boardId, recipeId, refresh }) => {
 
   return (
     <div>
-      {/* <div className='border border-red-400 my-2'> */}
       <Upper
         comments={comments}
         setShowComments={setShowComments}
@@ -118,7 +117,6 @@ const Comments = ({ url, comments, boardId, recipeId, refresh }) => {
           ))}
       </Box>
     </div>
-    // </div>
   );
 };
 
