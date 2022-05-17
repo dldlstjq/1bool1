@@ -93,7 +93,14 @@ function Detail() {
             <button
               className='bg-gray-700 text-white h-10 w-20 mt-5'
               onClick={() => navi('/recipe')}
-              style={{ backgroundColor: '#f93d59' }}
+              style={{
+                backgroundColor: '#f93d59',
+                color: 'white',
+                fontWeight: 'bold',
+                borderRadius: 20,
+                marginTop: '1rem',
+                marginLeft: 10,
+              }}
             >
               목록보기
             </button>
