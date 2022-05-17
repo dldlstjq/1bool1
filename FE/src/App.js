@@ -14,9 +14,9 @@ import StoreDetail from "./pages/store/StoreDetail";
 import Articles from "./pages/community/free/Articles";
 import WriteFree from "./pages/community/free/WriteFree";
 import Detail from "./pages/community/free/Detail";
-import WriteRecipe from "./pages/community/Recipe/Write/WriteRecipe";
-import Recipes from "./pages/community/Recipe/Recipes";
-import RecipeDetail from "./pages/community/Recipe/detail/Detail";
+import WriteRecipe from "./pages/community/recipe/write/WriteRecipe";
+import Recipes from "./pages/community/recipe/Recipes";
+import RecipeDetail from "./pages/community/recipe/detail/Detail";
 import KakaoMap from "./pages/kakaomap/KakaoMap";
 // signin, signup
 import Signin from "./pages/user/Signin";
