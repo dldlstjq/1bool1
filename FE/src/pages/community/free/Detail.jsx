@@ -31,7 +31,6 @@ function Detail() {
   const { title, content, modifiedDate, id, nickname, password, photo } = state;
 
   const user_id = localStorage.getItem("user_id");
-  console.log(articleData);
   let time = moment({ modifiedDate }).format("YYYY.MM.DD HH:mm");
 
   return (
@@ -103,7 +102,7 @@ function Detail() {
                 marginTop: 10,
               }}
             >
-              <Box style={{ display: "flex", justifyContent: "end" }}>
+              {/* <Box style={{ display: "flex", justifyContent: "end" }}>
                 <DeleteOrUpdate
                   setPassword={setarticlePw}
                   inputPassword={articlePw}
@@ -114,19 +113,11 @@ function Detail() {
                   state={articleData}
                   params={{ password }}
                 />
-              </Box>
+              </Box> */}
             </Grid>
           </Grid>
           <Box style={{ margin: "1rem" }}>
-            {showcomments && (
-              <Comments
-                comments={comments}
-                articleId={articleId}
-                boardId={id}
-                url={"/comment/" + id}
-                refresh={refresh}
-              />
-            )}
+            <Comments id={id} which="board" />
           </Box>
           <Box style={{ display: "flex", justifyContent: "center" }}>
             <Button

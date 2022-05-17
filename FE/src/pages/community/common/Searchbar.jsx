@@ -23,7 +23,6 @@ export function Searchbar({ url, setState }) {
   }
 
   return (
-    // <div className="my-10 flex justify-center">
     <div className="flex justify-center">
       <div className="relative">
         <input
