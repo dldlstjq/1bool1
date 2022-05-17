@@ -43,7 +43,7 @@ function Recipes() {
 
   return (
     <div
-      style={{ display: "flex", flexDirection: "column", minHeight: "100%" }}
+      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
     >
       <Appbar />
       <div onClick={handleClick} sytle={{flex:'1'}}>
