@@ -4,7 +4,7 @@ import './RecipeDetail.css';
 
 function Step({ step, img, i }) {
   return (
-    <div className='py-2 my-2 border-t-4 border-purple-900'>
+    <div className='py-2 my-2 border-t-4 '>
       <br />
       <span id='step' className='text-xl' style={{ marginTop: '10px' }}>
         STEP {i}

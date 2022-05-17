@@ -16,12 +16,24 @@ export function DeleteOrUpdate({
         placeholder="비밀번호"
         name="password"
         onChange={(e) => setInputPw(e.target.value)}
+        style={{
+          borderRadius: 20,
+          borderStyle: "solid",
+          borderColor: "#f93d59",
+          backgroundColor: "#ffe2e180",
+        }}
       />
       <button
         id="delete"
         className="bg-gray-700 text-white w-20 h-10"
         onClick={handleDelete}
-        style={{ backgroundColor: "#f93d59", marginLeft: 10 }}
+        style={{
+          backgroundColor: "#f93d59",
+          color: "white",
+          fontWeight: "bold",
+          borderRadius: 20,
+          marginLeft: 10,
+        }}
       >
         삭제
       </button>
@@ -29,7 +41,13 @@ export function DeleteOrUpdate({
         id="update"
         className="bg-gray-700 text-white w-20 h-10"
         onClick={readyUpdate}
-        style={{ backgroundColor: "#f93d59", marginLeft: 10 }}
+        style={{
+          backgroundColor: "#f93d59",
+          color: "white",
+          fontWeight: "bold",
+          borderRadius: 20,
+          marginLeft: 10,
+        }}
       >
         {inputMode ? "수정취소" : "수정"}
       </button>

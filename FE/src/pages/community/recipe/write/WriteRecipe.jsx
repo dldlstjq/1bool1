@@ -1,8 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { useState, useCallback, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-
-import { useInputs } from "../../common/hooks";
+import { Container, Grid, Typography, Box, Button, TextField} from '@mui/material';
+// import { useInputs } from "../../common/hooks";
+import Appbar from "../../../../components/main/Appbar";
+import Footer from "../../../../components/main/Footer";
 
 import axios from "axios";
 
@@ -66,33 +68,50 @@ function WriteRecipe() {
   }
 
   return (
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100%' }}>
+    <Appbar />
+    <div style={{ flex: '1', marginTop: 30 }}>
+    <Container>
     <form onSubmit={handleSubmit}>
-      <Upper
-        nickname={nickname}
-        password={password}
-        description={description}
-        minute={minute}
-        star={star}
-        title={title}
-      />
+    
+       
+      {/* <Grid container spacing={2} >
+        <Grid item xs={2}></Grid>
+        <Grid item xs={8} > */}
+        <Upper
+          nickname={nickname}
+          password={password}
+          description={description}
+          minute={minute}
+          star={star}
+          title={title}
+        />
 
-      <IngredientSelect selected={selected} setSelected={setSelected} />
-      <Steps content={content} />
-      <div className="flex gap-2 mt-5">
-        <button
-          className="h-10  bg-lime-500 rounded text-white w-1/2"
-          type="submit"
-        >
-          작성완료
-        </button>
-        <button
-          className="h-10  bg-red-500 rounded text-white w-1/2"
-          onClick={handleCancel}
-        >
-          취소
-        </button>
-      </div>
+        <IngredientSelect selected={selected} setSelected={setSelected} />
+        <Steps content={content} />
+        <div className="flex gap-2 mt-5 place-content-center">
+          <button
+            className="h-10  bg-lime-500/75 rounded text-white w-1/3"
+            type="submit"
+          > 
+            작성완료
+          </button>
+          <button
+            className="h-10  bg-red-500/75 rounded text-white w-1/3"
+            onClick={handleCancel}
+          >
+            취소
+          </button>
+        </div>
+        {/* </Grid>
+        <Grid item xs={2}></Grid>
+      </Grid> */}
+     
     </form>
+    </Container>
+      </div>
+       <Footer />
+    </div>
   );
 }
 

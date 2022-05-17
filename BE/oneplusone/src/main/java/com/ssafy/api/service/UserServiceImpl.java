@@ -280,15 +280,13 @@ public class UserServiceImpl implements UserService {
 			while ((line = in.readLine()) != null) {
 				ans += line;
 			}
-			//System.out.println(ans);
 			JsonParser jsonParser = new JsonParser();
 			JsonObject jsonObject = (JsonObject)jsonParser.parse(ans);
 			JsonArray jsonArray = jsonObject.get("elements").getAsJsonArray();
 			for (JsonElement friend : jsonArray){
 				Long friendId = friend.getAsJsonObject().get("id").getAsLong();
 				String friendUuid = friend.getAsJsonObject().get("uuid").getAsString();
-				//result_code = sendKakaoMessageFriend(token, friendUuid);
-				String test = kakaoTemplateLikeGoods(friendId);
+				result_code = sendKakaoMessageFriend(token, friendUuid);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

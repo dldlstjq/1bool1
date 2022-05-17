@@ -38,16 +38,17 @@ export function DeleteOrUpdate({ password, afterUrl, state, updatePageUrl, url, 
     <div className='grid grid-cols-3 gap-2 my-4'>
       <input
         type='password'
-        className='bg-gray-700 text-white  h-10'
+        className=' text-white  h-10'
         placeholder='비밀번호'
         name='articlePw'
         onChange={(e) => setInputPw(e.target.value)}
+        style={{ backgroundColor: '#ffe2e180', borderRadius: 20 }}
       />
       <button
         id='delete'
         className='bg-gray-700 text-white  h-10'
         onClick={handleDelete}
-        style={{ backgroundColor: '#f93d59' }}
+        style={{ backgroundColor: '#f93d59', borderRadius: 20 }}
       >
         삭제
       </button>
@@ -55,7 +56,7 @@ export function DeleteOrUpdate({ password, afterUrl, state, updatePageUrl, url, 
         id='update'
         className='bg-gray-700 text-white h-10'
         onClick={toUpdatePage}
-        style={{ backgroundColor: '#f93d59' }}
+        style={{ backgroundColor: '#f93d59', borderRadius: 20 }}
       >
         수정
       </button>
