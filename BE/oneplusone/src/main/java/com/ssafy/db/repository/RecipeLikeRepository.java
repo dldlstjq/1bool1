@@ -1,10 +1,6 @@
 package com.ssafy.db.repository;
 
-import com.ssafy.db.entity.Recipe;
-import com.ssafy.db.entity.RecipeLike;
-import com.ssafy.db.entity.GoodsLike2;
-import com.ssafy.db.entity.RecipeLikeManagement;
-import com.ssafy.db.entity.User;
+import com.ssafy.db.entity.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -26,6 +22,12 @@ public interface RecipeLikeRepository extends JpaRepository<RecipeLikeManagement
 
     @Query(value = "select r.recipe_id,COUNT(r.recipe_id) AS cnt from recipe_like_management r WHERE r.is_liked = 1 GROUP BY r.recipe_id ORDER BY cnt desc LIMIT 4;",nativeQuery = true)
     List<RecipeLike> findRecipeLikeOrderBySQLTop4();
+
+    @Query(value = "select r.nickname, r.description, r.title, rl.cnt from recipe as r " +
+            "inner join (select rl.recipe_id, count(rl.recipe_id) as cnt " +
+            "from recipe_like_management as rl  where rl.is_liked = 1 group by recipe_id limit 4) as rl " +
+            "on r.id = rl.recipe_id;",nativeQuery = true)
+    List<RecipeKakao> findRecipeLikeOrderBySQLTop4ForKaKao();
 
     @Query(value = "SELECT r.* FROM recipe_like_management r WHERE r.user_id = :userId AND r.is_liked = 1 ",nativeQuery = true)
     List<RecipeLikeManagement> findByUserId(@Param("userId") Long userId);
