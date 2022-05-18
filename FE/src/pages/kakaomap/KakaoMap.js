@@ -260,16 +260,16 @@ export default function KakaoMap() {
       <Appbar />
       <div className="mt-10 w-full sm:w-5/6 md:w-3/4 mx-auto">
         <Container>
-          <div class="map_wrap">
-            <div
-              id="map"
-              style={{
-                width: "100%",
-                height: "100%",
-                position: "relative",
-                overflow: "hidden",
-              }}
-            ></div>
+          <div
+            id="map"
+            className="h-[300px] sm:h-[500px] relative"
+            // style={{
+            //   width: "100%",
+            //   height: "100%",
+            //   position: "relative",
+            //   overflow: "hidden",
+            // }}
+          >
             <ul id="category">
               {/* <li id="BK9" data-order="0"> 
                 <span class="category_bg bank"></span>
@@ -299,7 +299,9 @@ export default function KakaoMap() {
           </div>
         </Container>
       </div>
-      <Footer />
+      <div className="absolute bottom-0 w-full">
+        <Footer />
+      </div>
     </div>
   );
 }
