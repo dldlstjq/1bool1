@@ -5,10 +5,10 @@ import { Container, Grid, Typography, Box, Button, TextField, Hidden } from '@mu
 import { useFetchList } from '../../common/hooks';
 import CardMedia from '@mui/material/CardMedia';
 
-function IngredientSelect({ selected, setSelected }) {
+function IngredientSelect({ selected, setSelected, sum, setSum }) {
   const convList = ['cs', 'cu', 'em', 'gs', 'ms', 'se'];
   const [conv, setConv] = useState('CS');
-  const [sum, setSum] = useState(0);
+  // const [sum, setSum] = useState(0);
   const ingredients = useFetchList('goods/convinence?con=' + conv);
   var sum_price = 0;
 
