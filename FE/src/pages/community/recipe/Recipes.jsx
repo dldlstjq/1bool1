@@ -1,17 +1,17 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+
+import axios from "axios";
 
 import Appbar from "../../../components/main/Appbar";
 import Footer from "../../../components/main/Footer";
 import Pagination from "react-js-pagination";
-
 import { Searchbar } from "../common/searchbar/Searchbar";
-import { useFetchPage } from "../common/hooks";
 import RecipeTop from "./RecipeTop";
-
 import Recipe from "./Recipe";
 import ButtonAndPerPage from "../common/WriteOrderBtns";
+
 import { Container, Box, Button, Grid } from "@mui/material";
 
 function Recipes() {
@@ -21,7 +21,19 @@ function Recipes() {
   const handlePageChange = (page) => {
     setPage(page);
   };
-  const [recipes, setRecipes] = useFetchPage(orderBy);
+  const [recipes, setRecipes] = useState([]);
+  // const fullRecipes = useRef([]);
+
+  useEffect(() => {
+    axios({
+      method: "get",
+      url: "recipe",
+    })
+      .then((res) => {
+        setRecipes(res.data.object);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   function handleClick({ target }) {
     if (target.matches(".main-photo") || target.matches(".keep-all")) {
@@ -35,6 +47,10 @@ function Recipes() {
     } else if (target.matches("#bookmark")) {
       alert("유저가 북마크한 리스트를 주세요");
     }
+  }
+
+  function setState(data) {
+    setRecipes(data);
   }
 
   return (
@@ -57,7 +73,7 @@ function Recipes() {
                   marginBottom: "1rem",
                 }}
               >
-                <Searchbar setState={recipes} url="recipe/search" />
+                <Searchbar setState={setRecipes} url="recipe/search" />
                 <Button
                   id="write"
                   style={{
