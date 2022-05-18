@@ -67,15 +67,21 @@ export default function KakaoLogin() {
             Promise.resolve(res.data.object.id);
           })
           .then((res) => {
-            axios({
-              method: "get",
-              url: "board/like/userlist",
-              params: { user_id: res },
-            })
-              .then((res) =>
-                localStorage.setItem("board", JSON.stringify(res.data.object))
-              )
-              .catch((err) => console.log(err));
+            const apps = ["board", "goods", "recipe"];
+            apps.forEach((appname) => {
+              axios({
+                method: "get",
+                url: `${appname}/like/userlist`,
+                params: { user_id: res },
+              })
+                .then((res) =>
+                  localStorage.setItem(
+                    `${appname}`,
+                    JSON.stringify(res.data.object)
+                  )
+                )
+                .catch((err) => console.log(err));
+            });
           });
       },
       fail: function (err) {

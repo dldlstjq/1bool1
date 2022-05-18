@@ -39,15 +39,13 @@ function Detail() {
   }
 
   return (
-    <div
-      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
-    >
+    <div style={{ minHeight: "100vh" }}>
       <Appbar />
-      <div style={{ flex: "1" }}>
+      <div style={{ flex: "1" }} className="lg:w-3/4 sm:w-11/12 mx-auto">
         <Container>
           <Box
             sx={{
-              borderTop: 2,
+              // borderTop: 2,
               borderBottom: 2,
               borderColor: "grey.500",
               marginTop: "3rem",
@@ -75,13 +73,14 @@ function Detail() {
               </Typography>
             </Box>
             <Box style={{ margin: "1rem" }}>
-              <Typography style={{ padding: "2rem" }}>{content}</Typography>
+              <Typography style={{ padding: "1rem" }}>{content}</Typography>
               <Box>
-                {photo?.split(",").map((url, idx) => (
-                  <Box style={{ width: "150px", height: "150px" }}>
-                    <img src={url} alt="이미지 확인중" key={idx} />
-                  </Box>
-                ))}
+                {photo !== "error" &&
+                  photo?.split(",").map((url, idx) => (
+                    <Box style={{ width: "150px", height: "150px" }}>
+                      <img src={url} alt="이미지 확인중" key={idx} />
+                    </Box>
+                  ))}
               </Box>
             </Box>
             <div className="text-center mt-10 mb-5">
@@ -130,19 +129,17 @@ function Detail() {
 
           <Comments detailId={id} which="board" />
 
-          <Box style={{ display: "flex", justifyContent: "center" }}>
-            <Button
-              onClick={() => navi("/community")}
-              style={{
-                justifyContent: "center",
-                backgroundColor: "#F93D59",
-                color: "white",
-                fontWeight: "bold",
-              }}
-            >
-              목록
-            </Button>
-          </Box>
+          <Button
+            onClick={() => navi("/community")}
+            style={{
+              backgroundColor: "#F93D59",
+              color: "white",
+              fontWeight: "bold",
+            }}
+            className="relative left-1/2 top-5"
+          >
+            목록
+          </Button>
         </Container>
       </div>
       <Footer />

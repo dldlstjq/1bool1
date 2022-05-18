@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 
-function ButtonAndPerPage({ setState, like, recent }) {
+function ButtonAndPerPage() {
   const [value, setValue] = useState(0);
 
   const handleChange = (e, newValue) => {

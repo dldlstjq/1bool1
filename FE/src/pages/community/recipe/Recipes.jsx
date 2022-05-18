@@ -10,14 +10,13 @@ import Pagination from "react-js-pagination";
 import { Searchbar } from "../common/searchbar/Searchbar";
 import RecipeTop from "./RecipeTop";
 import Recipe from "./Recipe";
-import ButtonAndPerPage from "../common/WriteOrderBtns";
+import OrderByRecentLikeBookmark from "../common/WriteOrderBtns";
 
 import { Container, Box, Button, Grid, Typography } from "@mui/material";
-import { FaWonSign, FaCoins, FaCrown } from 'react-icons/fa';
-import { AiOutlineCrown } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
-import cooking from '../../../common/cooking.png'
-
+import { FaWonSign, FaCoins, FaCrown } from "react-icons/fa";
+import { AiOutlineCrown } from "react-icons/ai";
+import { Link } from "react-router-dom";
+import cooking from "../../../common/cooking.png";
 
 function Recipes() {
   const navigate = useNavigate();
@@ -27,18 +26,17 @@ function Recipes() {
     setPage(page);
   };
   const [recipes, setRecipes] = useState([]);
-  // const fullRecipes = useRef([]);
 
   useEffect(() => {
     axios({
       method: "get",
-      url: "recipe",
+      url: orderBy,
     })
       .then((res) => {
         setRecipes(res.data.object);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [orderBy]);
 
   function handleClick({ target }) {
     if (target.matches(".main-photo") || target.matches(".keep-all")) {
@@ -54,10 +52,6 @@ function Recipes() {
     }
   }
 
-  function setState(data) {
-    setRecipes(data);
-  }
-
   return (
     <div
       style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
@@ -66,24 +60,30 @@ function Recipes() {
       <div onClick={handleClick} sytle={{ flex: "1" }}>
         <Container>
           <RecipeTop />
-          <Box style={{display:'flex', flexDirection:'row' , marginBottom:'2rem',}}>
-            <img src={cooking} alt='convimg' style={{width:50}}/>
-              <Typography
-                variant="h4"
-                style={{
-                  fontWeight: "bold",
-                  display: "flex",
-                  justifyContent: "start",
-                  paddingTop:10,
-                  marginLeft:10
-                }}
-              >
-                모두의 레시피
-              </Typography>
-            </Box>
+          <Box
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              marginBottom: "2rem",
+            }}
+          >
+            <img src={cooking} alt="convimg" style={{ width: 50 }} />
+            <Typography
+              variant="h4"
+              style={{
+                fontWeight: "bold",
+                display: "flex",
+                justifyContent: "start",
+                paddingTop: 10,
+                marginLeft: 10,
+              }}
+            >
+              모두의 레시피
+            </Typography>
+          </Box>
           <Grid container spacing={2}>
             <Grid item xs={12} md={6}>
-              <ButtonAndPerPage />
+              <OrderByRecentLikeBookmark />
             </Grid>
             <Grid item xs={12} md={6}>
               <Box
