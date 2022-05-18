@@ -65,6 +65,24 @@ public class GoodsController {
         }
     }
 
+    @GetMapping("/like/userlist")
+    @ApiOperation(value = "해당 유저의 상품 좋아요 리스트", notes = "<strong>해당 유저의 상품 좋아요 리스트</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> findGoodsLike(@RequestParam("user_id")Long userId) {
+        List<Goods> list = goodsLikeService.findGoodsLike(userId);
+        if(list.size() != 0)
+        {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success",list));
+        }else{
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail"));
+        }
+    }
+    
     @GetMapping("/search")
     @ApiOperation(value = "검색 내용 조회", notes = "<strong>검색된 상품 목록을 가져온다.</strong>")
     @ApiResponses({

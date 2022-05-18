@@ -166,4 +166,37 @@ public class RecipeLikeServiceImpl implements RecipeLikeService{
         }
         return list;
     }
+
+    @Override
+    public List<RecipeDto.RecipeLikeGet> findByRecipeTop() {
+        List<RecipeLike> list = recipeLikeRepository.findRecipeLikeOrderBySQLTop4();
+        List<RecipeDto.RecipeLikeGet> ans = new ArrayList<>();
+        if(list.size() == 0){
+            return new ArrayList<>();
+        }else{
+
+            RecipeDto.RecipeLikeGet recipeLikeGet;
+            Recipe recipe;
+            StringTokenizer tk;
+            for(int i = 0; i < list.size(); i++){
+                recipeLikeGet = new RecipeDto.RecipeLikeGet();
+                recipe = recipeRepository.findById(list.get(i).getRecipe_id()).orElseGet(() -> null);
+                tk = new StringTokenizer(recipe.getPhoto(),",");
+                recipeLikeGet.setCnt(list.get(i).getCnt());
+                recipeLikeGet.setStar(recipe.getStar());
+                recipeLikeGet.setMinute(recipe.getMinute());
+                recipeLikeGet.setDescription(recipe.getDescription());
+                recipeLikeGet.setPhoto(tk.nextToken());
+                recipeLikeGet.setPassword(recipe.getPassword());
+                recipeLikeGet.setContent(recipe.getContent());
+                recipeLikeGet.setNickname(recipe.getNickname());
+                recipeLikeGet.setTitle(recipe.getTitle());
+                recipeLikeGet.setId(recipe.getId());
+                recipeLikeGet.setModifiedDate(recipe.getModifiedDate());
+                recipeLikeGet.setCreatedDate(recipe.getCreatedDate());
+                ans.add(recipeLikeGet);
+            }
+        }
+        return ans;
+    }
 }

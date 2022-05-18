@@ -19,4 +19,6 @@ public interface BoardLikeService {
     boolean findLike(BoardDto.BoardLikeGetRequest dto);
 
     List<BoardDto.BoardLikeGet> findByBoardWeek();
+
+    List<Board> findBoardLike(Long userId);
 }

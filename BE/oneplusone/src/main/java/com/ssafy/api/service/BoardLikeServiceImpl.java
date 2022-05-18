@@ -12,9 +12,7 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 @Service
 public class BoardLikeServiceImpl implements BoardLikeService {
@@ -148,5 +146,27 @@ public class BoardLikeServiceImpl implements BoardLikeService {
         }
         return ans;
 
+    }
+
+    @Override
+    public List<Board> findBoardLike(Long userId) {
+        List<BoardLikeManagement> boards = boardLikeRepository.findByUserId(userId);
+        List<Board> list = new ArrayList<>();
+        for(int i = 0; i < boards.size(); i++){
+            list.add(boardRepository.findById(boards.get(i).getBoard().getId()).orElseGet(()->null));
+        }
+        Collections.sort(list,new Comparator<Board>() {
+            @Override
+            public int compare(Board s1, Board s2) {
+                if (s1.getId() < s2.getId()) {
+                    return 1;
+                } else if (s1.getId() > s2.getId()) {
+                    return -1;
+                }
+                return 0;
+            }
+        });
+
+        return list;
     }
 }

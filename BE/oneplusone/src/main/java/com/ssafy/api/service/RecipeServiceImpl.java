@@ -1,5 +1,6 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.dto.BoardDto;
 import com.ssafy.api.dto.RecipeDto;
 import com.ssafy.db.entity.*;
 import com.ssafy.db.repository.GoodsRepository;
@@ -13,9 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class RecipeServiceImpl implements RecipeService{
@@ -59,7 +58,7 @@ public class RecipeServiceImpl implements RecipeService{
 
     @Override
     public Page<Recipe> findRecipe(Integer page, Integer size) {
-        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("createdDate").descending());
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("createdDate").ascending());
         return recipeRepository.findAll(pageRequest);
     }
 
@@ -150,6 +149,18 @@ public class RecipeServiceImpl implements RecipeService{
 
     @Override
     public List<RecipeAll> findRecipeAll() {
-        return recipeRepository.findAllJoin();
+        List<RecipeAll> list = recipeRepository.findAllJoin();
+        Collections.sort(list, new Comparator<RecipeAll>() {
+            @Override
+            public int compare(RecipeAll s1, RecipeAll s2) {
+                if (s1.getId() < s2.getId()) {
+                    return 1;
+                } else if (s1.getId() > s2.getId()) {
+                    return -1;
+                }
+                return 0;
+            }
+        });
+        return list;
     }
 }

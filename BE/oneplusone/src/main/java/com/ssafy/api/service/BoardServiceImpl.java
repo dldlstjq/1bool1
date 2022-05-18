@@ -85,9 +85,9 @@ public class BoardServiceImpl implements BoardService{
             @Override
             public int compare(BoardDto.BoardLikeGet s1, BoardDto.BoardLikeGet s2) {
                 if (s1.getId() < s2.getId()) {
-                    return -1;
-                } else if (s1.getId() > s2.getId()) {
                     return 1;
+                } else if (s1.getId() > s2.getId()) {
+                    return -1;
                 }
                 return 0;
             }
