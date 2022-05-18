@@ -1,118 +1,140 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 
-import axios from 'axios';
+import axios from "axios";
 
-import Comment from './Comment';
-import { Container, Grid, Typography, Box, Button, TextField} from '@mui/material';
-
+import Comment from "./Comment";
+import {
+  Container,
+  Grid,
+  Typography,
+  Box,
+  Button,
+  TextField,
+} from "@mui/material";
 
 // import Upper from './Upper';
 // import Popover from "../Popover";
 
-const Comments = ({ url, comments, boardId, recipeId, refresh }) => {
+const Comments = ({ which, detailId }) => {
   const [showComments, setShowComments] = useState(true);
+  const [comments, setComments] = useState([]);
   const textareaRef = useRef();
   const buttonRef = useRef();
-  function handleSubmit(e) {
-    e.preventDefault();
-    const form = new FormData(e.target);
-    const data = {};
-    for (var a of form.entries()) {
-      data[a[0]] = a[1];
-    }
-    if (boardId) data['boardId'] = boardId;
-    if (recipeId) data['recipeId'] = recipeId;
-    axios({
-      method: 'post',
-      url,
-      data,
-    })
-      .then(() => {
-        e.target.reset();
-        buttonRef.current.disabled = true;
-        setTimeout(() => {
-          refresh((prev) => (prev += 1));
-          buttonRef.current.disabled = false;
-        }, 1000);
-      })
-      .catch((err) => console.log(err));
+  const fakeId = useRef(10000);
+  const [inputs, setInputs] = useState({
+    nickname: "",
+    password: "",
+    content: "",
+  });
+  const [foo, refresh] = useState(0);
+
+  let url = "comment/";
+  let idForData = "boardId";
+  if (which === "recipe") {
+    url = "recipereview/";
+    idForData = "recipeId";
+  } else if (which === "goods") {
+    url = "goodsreview/";
+    idForData = "goodsId";
   }
 
-  function handleClick(e) {
-    const { target, clientX, clientY } = e;
-    if (target.matches('#show-comments')) {
+  useEffect(() => {
+    axios({
+      method: "get",
+      url: url + detailId,
+    })
+      .then((res) => setComments(res.data.object))
+      .catch((err) => console.log(err));
+  }, [url, detailId, foo]);
+
+  function handleInputChange(e) {
+    const { name, value } = e.target;
+    setInputs({ ...inputs, [name]: value });
+  }
+
+  function handleClick({ target }) {
+    if (target.matches("#submit-comment")) {
+      const { password, content, nickname } = inputs;
+      if (!password || !content || !nickname) {
+        alert("비어있는 값이 있습니다");
+        return;
+      }
+      const data = { ...inputs, [idForData]: detailId };
+      axios({
+        method: "post",
+        url: url + detailId,
+        data,
+      })
+        .then(() => refresh((prev) => (prev += 1)))
+        .catch((err) => console.log(err));
+    } else if (target.matches("#toggle-comments")) {
       setShowComments((prev) => !prev);
-    }
-    if (target.matches('#focus')) {
-      setShowComments(true);
-      setTimeout(() => {
-        textareaRef.current.focus();
-      }, 500);
     }
   }
 
   return (
-    <div>
-      {/* <Upper
-        comments={comments}
-        setShowComments={setShowComments}
-        showComments={showComments}
-        handleClick={handleClick}
-      /> */}
+    <div onClick={handleClick}>
+      <button id="toggle-comments">댓글 {comments?.length}</button>
       {showComments && (
-        <form
-          className='p-3 bg-stone-200 border border-stone-300 grid grid-cols-2 gap-2'
-          onSubmit={handleSubmit}
-          style={{ backgroundColor: '#ffe2e180' }}
+        <div
+          className="p-3 bg-stone-200 border border-stone-300 grid grid-cols-2 gap-2"
+          style={{ backgroundColor: "#ffe2e180" }}
         >
           <input
-            type='text'
-            name='nickname'
-            className='h-10'
-            placeholder='닉네임'
+            type="text"
+            name="nickname"
+            className="h-10"
+            placeholder="닉네임"
             required
             ref={textareaRef}
+            onChange={handleInputChange}
           />
-          <input type='password' className='h-10' placeholder='비밀번호' required name='password' />
+          <input
+            type="password"
+            className="h-10"
+            placeholder="비밀번호"
+            required
+            name="password"
+            onChange={handleInputChange}
+          />
 
           <textarea
-            name='content'
-            id=''
-            className='h-24 focus:outline-none border border-stone-300 col-span-2'
-            placeholder='댓글을 작성해주세요'
+            name="content"
+            id=""
+            className="h-24 focus:outline-none border border-stone-300 col-span-2"
+            placeholder="댓글을 작성해주세요"
             required
-            type='text'
+            type="text"
+            onChange={handleInputChange}
           ></textarea>
           <button
-            className='bg-gray-700 w-20 h-10 text-white col-span-2 ml-auto'
-            type='submit'
+            className="bg-gray-700 w-20 h-10 text-white col-span-2 ml-auto"
+            id="submit-comment"
             ref={buttonRef}
             style={{
-              backgroundColor: '#f93d59',
-              color: 'white',
-              fontWeight: 'bold',
+              backgroundColor: "#f93d59",
+              color: "white",
+              fontWeight: "bold",
               borderRadius: 20,
-              height: '2rem',
-              marginTop: '1rem',
+              height: "2rem",
+              marginTop: "1rem",
             }}
           >
             등록
           </button>
-        </form>
+        </div>
       )}
-      <Box sx={{marginTop:'2rem'}}>
+      <Box sx={{ marginTop: "2rem" }}>
         {showComments &&
-          comments?.map(({ content, nickname, password, id, boardId, recipeId }, idx) => (
+          comments?.map((commentData, idx) => (
             <Comment
               key={idx}
-              content={content}
-              nickname={nickname}
-              password={password}
-              id={id}
-              boardId={boardId}
-              recipeId={recipeId}
-              refresh={refresh}
+              commentData={commentData}
+              idForData={idForData}
+              setComments={setComments}
+              detailId={detailId}
+              url={url}
             />
           ))}
       </Box>
