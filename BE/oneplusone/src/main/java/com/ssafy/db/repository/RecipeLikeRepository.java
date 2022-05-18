@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface RecipeLikeRepository extends JpaRepository<RecipeLikeManagement,Long> {
     @Query(value = "select count(b.id) from recipe_like_management b where b.recipe_id = :Id And b.is_liked = 1",nativeQuery = true)
@@ -29,4 +30,6 @@ public interface RecipeLikeRepository extends JpaRepository<RecipeLikeManagement
 
     @Query(value = "SELECT r.* FROM recipe_like_management r WHERE r.user_id = :userId AND r.is_liked = 1 ",nativeQuery = true)
     List<RecipeLikeManagement> findByUserId(@Param("userId") Long userId);
+    @Query(value = "select r.recipe_id,COUNT(r.recipe_id) AS cnt from recipe_like_management r WHERE r.is_liked = 1 AND r.recipe_id = :id GROUP BY r.recipe_id;",nativeQuery = true)
+    Optional<RecipeLike> findByRecipeId(@Param("id") Long id);
 }

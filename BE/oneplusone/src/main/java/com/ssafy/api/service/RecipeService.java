@@ -15,7 +15,7 @@ public interface RecipeService {
 
     List<RecipeAll> findBySearchRecipe(String search);
 
-    Recipe findRecipeDetail(Long id);
+    RecipeDto.RecipeLikeGet findRecipeDetail(Long id);
 
     public List<RecipeGoodsSelect> findRecipeDetailGoods(Long id);
 

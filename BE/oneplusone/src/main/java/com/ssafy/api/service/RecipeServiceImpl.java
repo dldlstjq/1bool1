@@ -20,7 +20,8 @@ import java.util.*;
 public class RecipeServiceImpl implements RecipeService{
     @Autowired
     RecipeRepository recipeRepository;
-
+    @Autowired
+    RecipeLikeRepository recipeLikeRepository;
     @Autowired
     GoodsRepository goodsRepository;
 
@@ -72,8 +73,45 @@ public class RecipeServiceImpl implements RecipeService{
     }
 
     @Override
-    public Recipe findRecipeDetail(Long id) {
-        return recipeRepository.findById(id).orElseGet(() -> null);
+    public RecipeDto.RecipeLikeGet findRecipeDetail(Long id) {
+        RecipeLike recipeLike = recipeLikeRepository.findByRecipeId(id).orElseGet(()->null);
+        RecipeDto.RecipeLikeGet recipeLikeGet;
+        if(recipeLike == null){
+            Recipe recipe = recipeRepository.findById(id).orElseGet(()->null);
+            recipeLikeGet = new RecipeDto.RecipeLikeGet();
+            recipeLikeGet.setModifiedDate(recipe.getModifiedDate());
+            recipeLikeGet.setCreatedDate(recipe.getCreatedDate());
+            recipeLikeGet.setId(recipe.getId());
+            recipeLikeGet.setCnt(0L);
+            recipeLikeGet.setTitle(recipe.getTitle());
+            recipeLikeGet.setNickname(recipe.getNickname());
+            recipeLikeGet.setContent(recipe.getContent());
+            recipeLikeGet.setPassword(recipe.getPassword());
+            recipeLikeGet.setPhoto(recipe.getPhoto());
+            recipeLikeGet.setDescription(recipe.getDescription());
+            recipeLikeGet.setPrice(recipe.getPrice());
+            recipeLikeGet.setStar(recipe.getStar());
+            recipeLikeGet.setMinute(recipe.getMinute());
+            return recipeLikeGet;
+        }else{
+            Recipe recipe = recipeRepository.findById(id).orElseGet(()->null);
+            recipeLikeGet = new RecipeDto.RecipeLikeGet();
+            recipeLikeGet.setModifiedDate(recipe.getModifiedDate());
+            recipeLikeGet.setCreatedDate(recipe.getCreatedDate());
+            recipeLikeGet.setId(recipe.getId());
+            recipeLikeGet.setCnt(recipeLike.getCnt());
+            recipeLikeGet.setTitle(recipe.getTitle());
+            recipeLikeGet.setNickname(recipe.getNickname());
+            recipeLikeGet.setContent(recipe.getContent());
+            recipeLikeGet.setPassword(recipe.getPassword());
+            recipeLikeGet.setPhoto(recipe.getPhoto());
+            recipeLikeGet.setDescription(recipe.getDescription());
+            recipeLikeGet.setPrice(recipe.getPrice());
+            recipeLikeGet.setStar(recipe.getStar());
+            recipeLikeGet.setMinute(recipe.getMinute());
+            return recipeLikeGet;
+        }
+
     }
 
     public List<RecipeGoodsSelect> findRecipeDetailGoods(Long id){

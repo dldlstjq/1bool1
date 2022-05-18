@@ -155,7 +155,7 @@ public class RecipeController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<? extends BaseResponseBody> findRecipeDetail(@PathVariable("id") Long id) {
-        Recipe recipe = recipeService.findRecipeDetail(id);
+        RecipeDto.RecipeLikeGet recipe = recipeService.findRecipeDetail(id);
         if(recipe != null) {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", recipe));
         }else{
