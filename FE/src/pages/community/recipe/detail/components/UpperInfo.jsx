@@ -9,7 +9,17 @@ import { BASE_URL } from '../../../../../index';
 import '../RecipeDetail.css';
 import LikeButton from '../../../common/LikeButton';
 
-function UpperInfo({ photo, star, title, minute, modifiedDate, nickname, description, recipeId }) {
+function UpperInfo({
+  photo,
+  star,
+  title,
+  minute,
+  modifiedDate,
+  nickname,
+  description,
+  recipeId,
+  price,
+}) {
   const [likeCnt, setLikeCnt] = useState(0);
 
   const handleLike = async (e) => {
@@ -108,7 +118,7 @@ function UpperInfo({ photo, star, title, minute, modifiedDate, nickname, descrip
 
           <Grid /*xs={6} md={6}*/ xs={1} sm={2} md={4} lg={4}>
             <div class='place-content-center' style={{ display: 'flex', marginTop: 6 }}>
-              <p id='price'>{minute}원</p>
+              <p id='price'>{price}원</p>
             </div>
           </Grid>
         </Grid>

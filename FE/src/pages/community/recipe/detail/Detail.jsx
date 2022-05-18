@@ -23,8 +23,18 @@ function Detail() {
   const [inputPassword, setInputPassword] = useState('');
   const [foo, refresh] = useState(0);
 
-  const { photo, title, nickname, password, modifiedDate, content, star, minute, description } =
-    recipe;
+  const {
+    photo,
+    title,
+    nickname,
+    password,
+    modifiedDate,
+    content,
+    star,
+    minute,
+    description,
+    price,
+  } = recipe;
 
   const steps = content && JSON.parse(content);
   const photos = photo?.split(',');
@@ -61,6 +71,7 @@ function Detail() {
               title={title}
               description={description}
               recipeId={recipeId}
+              price={price}
             />
             {/* <div id='main' className='border-y-4 py-2 my-2'> */}
             {/* <h1 className='text-xl'> 이 요리는...</h1>
@@ -78,11 +89,11 @@ function Detail() {
             <DeleteOrUpdate
               setPassword={setInputPassword}
               inputPassword={inputPassword}
-              afterUrl='/community/recipe'
+              afterUrl='/recipe'
               params={{ nickname, password }}
               password={password}
               state={recipe}
-              updatePageUrl='/community/recipe/write'
+              updatePageUrl='/recipe/write'
               url={`recipe/${recipeId}`}
             />
             <Comments
