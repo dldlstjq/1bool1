@@ -5,10 +5,10 @@ import { Container, Grid, Typography, Box, Button, TextField, Hidden } from '@mu
 import { useFetchList } from '../../common/hooks';
 import CardMedia from '@mui/material/CardMedia';
 
-function IngredientSelect({ selected, setSelected }) {
+function IngredientSelect({ selected, setSelected, sum, setSum }) {
   const convList = ['cs', 'cu', 'em', 'gs', 'ms', 'se'];
   const [conv, setConv] = useState('CS');
-  const [sum, setSum] = useState(0);
+  // const [sum, setSum] = useState(0);
   const ingredients = useFetchList('goods/convinence?con=' + conv);
   var sum_price = 0;
 
@@ -77,7 +77,7 @@ function IngredientSelect({ selected, setSelected }) {
             <h1 className='text-lg font-bold'>가격</h1>
           </Grid>
           <Grid xs={10} md={2} lg={2}>
-            <p>{sum}원</p>
+            <p className='text-lg font-bold'>{sum}원</p>
           </Grid>
         </Grid>
       </div>
@@ -89,15 +89,15 @@ function IngredientSelect({ selected, setSelected }) {
       </datalist>
       <div className='grid grid-cols-3 auto-rows-max' onClick={removeFromList}>
         {selected.map(({ name, goodsId, img_link, goodsPrice, sum_price }, idx) => (
-          <Box sx={{ width: '100%', height: '80%', marginTop: '1rem', maxHeight:'300px'}}>
-            <span key={idx} id={goodsId} price={goodsPrice}>
+          <Box sx={{ width: '100%', height: '80%', marginTop: '1rem', maxHeight: '300px' }}>
+            <span className='text-lg font-bold' key={idx} id={goodsId} price={goodsPrice}>
               {name}
               <CardMedia
                 component='img'
                 alt='이미지 준비중'
-                sx={{ width: '80%', height: '80%'}}
+                sx={{ width: '80%', height: '80%' }}
                 image={img_link}
-                style={{ mx: 2}}
+                style={{ mx: 2 }}
               />
               <p>{goodsPrice} 원</p>
             </span>
