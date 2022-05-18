@@ -15,6 +15,7 @@ import IngredientSelect from './IngredientSelect';
 function WriteRecipe() {
   const [dialog, setDialog] = useState(false);
   const [selected, setSelected] = useState([]);
+  const [sum, setSum] = useState(0);
   const navi = useNavigate();
   const { state } = useLocation();
   let content = '',
@@ -24,7 +25,7 @@ function WriteRecipe() {
     password = '',
     star = '',
     title = '',
-    price = '';
+    price = 0;
   if (state) ({ content, description, minute, nickname, password, star, title, price } = state);
 
   const handleCancel = useCallback(() => {
@@ -48,6 +49,7 @@ function WriteRecipe() {
     form.append('content', JSON.stringify(content));
     form.delete('step');
     form.append('goodsId', selected.map(({ goodsId }) => goodsId).join(','));
+    form.append('price', sum);
     if (state) {
       form.append('id', state.id);
       axios({
@@ -86,7 +88,12 @@ function WriteRecipe() {
               title={title}
             />
 
-            <IngredientSelect selected={selected} setSelected={setSelected} />
+            <IngredientSelect
+              selected={selected}
+              setSelected={setSelected}
+              sum={sum}
+              setSum={setSum}
+            />
             <Steps content={content} />
             <div className='flex gap-2 mt-5 place-content-center'>
               <button className='h-10  bg-lime-500/75 rounded text-white w-1/3' type='submit'>
