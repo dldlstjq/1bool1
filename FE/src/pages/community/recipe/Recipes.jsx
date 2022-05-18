@@ -12,7 +12,12 @@ import RecipeTop from "./RecipeTop";
 import Recipe from "./Recipe";
 import ButtonAndPerPage from "../common/WriteOrderBtns";
 
-import { Container, Box, Button, Grid } from "@mui/material";
+import { Container, Box, Button, Grid, Typography } from "@mui/material";
+import { FaWonSign, FaCoins, FaCrown } from 'react-icons/fa';
+import { AiOutlineCrown } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
+import cooking from '../../../common/cooking.png'
+
 
 function Recipes() {
   const navigate = useNavigate();
@@ -61,6 +66,21 @@ function Recipes() {
       <div onClick={handleClick} sytle={{ flex: "1" }}>
         <Container>
           <RecipeTop />
+          <Box style={{display:'flex', flexDirection:'row' , marginBottom:'2rem',}}>
+            <img src={cooking} alt='convimg' style={{width:50}}/>
+              <Typography
+                variant="h4"
+                style={{
+                  fontWeight: "bold",
+                  display: "flex",
+                  justifyContent: "start",
+                  paddingTop:10,
+                  marginLeft:10
+                }}
+              >
+                모두의 레시피
+              </Typography>
+            </Box>
           <Grid container spacing={2}>
             <Grid item xs={12} md={6}>
               <ButtonAndPerPage />
