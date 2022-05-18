@@ -71,7 +71,14 @@ const Comments = ({ url, comments, goodsId, boardId, recipeId, refresh }) => {
           className='bg-gray-700 w-20 h-10 text-white col-span-2 ml-auto'
           type='submit'
           ref={buttonRef}
-          style={{ backgroundColor: '#f93d59' }}
+          style={{
+            backgroundColor: '#f93d59',
+            color: 'white',
+            fontWeight: 'bold',
+            borderRadius: 20,
+            height: '2rem',
+            marginTop: '1rem',
+          }}
         >
           등록
         </button>
