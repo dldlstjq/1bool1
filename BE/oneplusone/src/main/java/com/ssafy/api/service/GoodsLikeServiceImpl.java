@@ -1,5 +1,6 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.dto.BoardDto;
 import com.ssafy.api.dto.GoodsDto;
 import com.ssafy.db.entity.*;
 import com.ssafy.db.repository.GoodsLikeRepository;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -114,6 +117,28 @@ public class GoodsLikeServiceImpl implements GoodsLikeService{
             dto.setUpdateDate(goods.getUpdateDate());
             return dto;
         }
+    }
+
+    @Override
+    public List<Goods> findGoodsLike(Long userId) {
+        List<GoodsUserManagement> goods = goodsLikeRepository.findByUserId(userId);
+        List<Goods> list = new ArrayList<>();
+        for(int i = 0; i < goods.size(); i++){
+            list.add(goodsRepository.findById(goods.get(i).getGoods().getId()).orElseGet(()->null));
+        }
+        Collections.sort(list,new Comparator<Goods>() {
+            @Override
+            public int compare(Goods s1, Goods s2) {
+                if (s1.getId() < s2.getId()) {
+                    return 1;
+                } else if (s1.getId() > s2.getId()) {
+                    return -1;
+                }
+                return 0;
+            }
+        });
+        return list;
+
     }
 
 }
