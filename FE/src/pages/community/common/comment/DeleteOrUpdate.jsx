@@ -11,7 +11,7 @@ import {
   TextField,
 } from "@mui/material";
 
-export function DeleteOrUpdate({ setCheckPw }) {
+export function DeleteOrUpdate({ setCheckPw, inputMode }) {
   return (
     <Box xs={{ display: "flex", flexDirection: "row" }}>
       <input
