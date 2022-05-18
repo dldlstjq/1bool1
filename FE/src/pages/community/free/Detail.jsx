@@ -29,10 +29,10 @@ function Detail() {
     state;
   const userId = localStorage.getItem("user_id");
   let time = moment({ modifiedDate }).format("YYYY.MM.DD HH:mm");
-  let likes;
-  useEffect(() => {
-    likes = JSON.parse(localStorage.getItem("likes"));
-  });
+  // let likes;
+  // useEffect(() => {
+  //   likes = JSON.parse(localStorage.getItem("likes"));
+  // });
 
   function handleLike() {
     // setIsLike((prev) => !prev);
