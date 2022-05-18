@@ -19,7 +19,6 @@ import {
 import { BASE_URL } from '../../index';
 import axios from 'axios';
 
-import Popover from '../../pages/community/common/Popover';
 import GoodsComments from '../../pages/community/common/GoodsComments';
 import Comments from '../../pages/community/common/comment/Comments';
 import { DeleteOrUpdate } from '../../pages/community/common/comment/DeleteOrUpdate';
