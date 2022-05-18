@@ -78,11 +78,11 @@ function Detail() {
             <DeleteOrUpdate
               setPassword={setInputPassword}
               inputPassword={inputPassword}
-              afterUrl='/community/recipe'
+              afterUrl='/recipe'
               params={{ nickname, password }}
               password={password}
               state={recipe}
-              updatePageUrl='/community/recipe/write'
+              updatePageUrl='/recipe/write'
               url={`recipe/${recipeId}`}
             />
             <Comments
