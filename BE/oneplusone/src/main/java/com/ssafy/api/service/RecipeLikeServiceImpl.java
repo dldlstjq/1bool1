@@ -151,6 +151,7 @@ public class RecipeLikeServiceImpl implements RecipeLikeService{
                 recipeLikeGet.setId(recipe.getId());
                 recipeLikeGet.setModifiedDate(recipe.getModifiedDate());
                 recipeLikeGet.setCreatedDate(recipe.getCreatedDate());
+                recipeLikeGet.setPrice(recipe.getPrice());
                 ans.add(recipeLikeGet);
             }
         }
