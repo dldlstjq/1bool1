@@ -1,12 +1,11 @@
 /* eslint-disable no-unused-vars */
 
 import { useNavigate, useLocation } from "react-router-dom";
-import { useState, useRef } from "react";
+import { useState, useEffect } from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 import Comments from "../common/comment/Comments";
 import { DeleteOrUpdate } from "./DeleteOrUpdate";
-import LikeButton from "../common/LikeButton";
 import Appbar from "../../../components/main/Appbar";
 import Footer from "../../../components/main/Footer";
 import {
@@ -19,16 +18,25 @@ import {
 } from "@mui/material";
 import moment from "moment";
 
+import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
+import Favorite from "@mui/icons-material/Favorite";
+
 function Detail() {
   const state = useLocation().state;
   const [articlePw, setarticlePw] = useState("");
-
   const navi = useNavigate();
   const { title, content, modifiedDate, id, nickname, password, photo, cnt } =
     state;
-
-  const user_id = localStorage.getItem("user_id");
+  const userId = localStorage.getItem("user_id");
   let time = moment({ modifiedDate }).format("YYYY.MM.DD HH:mm");
+  let likes;
+  useEffect(() => {
+    likes = JSON.parse(localStorage.getItem("likes"));
+  });
+
+  function handleLike() {
+    // setIsLike((prev) => !prev);
+  }
 
   return (
     <div
@@ -76,14 +84,24 @@ function Detail() {
                 ))}
               </Box>
             </Box>
+            <div className="text-center mt-10 mb-5">
+              {/* {isLike ? (
+                <Favorite
+                  color="error"
+                  style={{ width: "35px" }}
+                  onClick={handleLike}
+                />
+              ) : (
+                <FavoriteBorder
+                  color="error"
+                  style={{ width: "35px" }}
+                  onClick={handleLike}
+                />
+              )} */}
+            </div>
           </Box>
           <Grid container spacing={2}>
-            <Grid item xs={12} md={6}>
-              {/* {user_id && id && ( */}
-              <LikeButton url={"board/like/" + id} user_id={user_id} />
-              {/* )} */}
-              {/* <UserInfoBox nickname={nickname} /> */}
-            </Grid>
+            {/* <Grid item xs={12} md={6}></Grid> */}
             <Grid
               item
               xs={12}

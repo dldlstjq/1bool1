@@ -5,14 +5,13 @@ import axios from "axios";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Container } from "@mui/material";
 
-import { useFetchAndUpdate, useFetchList } from "../../common/hooks";
+import { useFetchList } from "../../common/hooks";
 
 import Step from "./Step";
 import Goods from "./Goods";
 import { DeleteOrUpdate } from "./DeleteOrUpdate";
 import Comments from "../../common/comment/Comments";
 import UpperInfo from "./components/UpperInfo";
-import LikeButton from "../../common/LikeButton";
 
 import Appbar from "../../../../components/main/Appbar";
 import Footer from "../../../../components/main/Footer";

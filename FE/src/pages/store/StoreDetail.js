@@ -19,7 +19,6 @@ import {
 import { BASE_URL } from "../../index";
 import axios from "axios";
 
-import Popover from "../../pages/community/common/Popover";
 import GoodsComments from "../../pages/community/common/GoodsComments";
 import { DeleteOrUpdate } from "../../pages/community/common/comment/DeleteOrUpdate";
 
@@ -42,7 +41,6 @@ function StoreDetail() {
   // const [goodsData, setGoodsData] = useState({});
   // const [reviewData, setReviewData] = useState([]);
   const { articleId } = useParams();
-  const [popover, setpopover] = useState(false);
   const [showcomments, setshowcomments] = useState(true);
   const [foo, refresh] = useState(0);
   const [invokeUseEffect, setInvokeUseEffect] = useState(0);
@@ -159,12 +157,6 @@ function StoreDetail() {
     if (target.matches("#show-comments")) {
       setshowcomments((prev) => !prev);
     }
-    // if (target.matches('#report')) {
-    //   coordRef.current = [clientX, clientY];
-    //   setpopover(true);
-    // } else {
-    //   setpopover(false);
-    // }
     if (target.matches("#focus")) {
       setshowcomments((prev) => true);
       setTimeout(() => {
@@ -287,7 +279,7 @@ function StoreDetail() {
       <Appbar />
       <div style={{ flex: "1", marginTop: 30 }}>
         <Container>
-          <div onClick={handleClick} onWheel={() => setpopover(false)}>
+          <div onClick={handleClick}>
             {/* <strong className='detail-title'>{name}</strong>
             <div style={{ padding: '0.5rem 0', borderBottom: '1px solid #323232' }}>
               <div className='author-and-date'>최근 수정 일시 | {modifiedDate?.split('.')[0]}</div>
@@ -447,12 +439,6 @@ function StoreDetail() {
             >
               목록보기
             </button>
-
-            {popover && (
-              <Popover x={coordRef.current[0]} y={coordRef.current[1]}>
-                <h6>ㅇㅇ</h6>
-              </Popover>
-            )}
           </div>
         </Container>
       </div>

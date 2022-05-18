@@ -11,12 +11,23 @@ import {
   Typography,
 } from "@mui/material";
 
-function ButtonAndPerPage({ recipes }) {
+function ButtonAndPerPage({ setState, like, recent }) {
   const [value, setValue] = useState(0);
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (e, newValue) => {
     setValue(newValue);
   };
+  // function handleClick({ target }) {
+  //   if (target.id === "order-by-recent") {
+  //     setState(like);
+  //     return;
+  //   }
+  //   if (target.id === "order-by-like") {
+  //     setState(recent);
+  //     return;
+  //   }
+  // }
+
   return (
     <div>
       <Tabs

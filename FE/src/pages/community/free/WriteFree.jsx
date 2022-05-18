@@ -57,7 +57,7 @@ export default function WriteFree() {
         method="post"
         encType="multipart/form-data"
         onSubmit={submit}
-        className="p-4 md:p-32 lg:p-48 flex flex-col gap-2"
+        className="p-4 md:w-3/4 xl:w-3/5 flex flex-col gap-2 mx-auto"
       >
         <div className="h-28" style={{ backgroundColor: "#fafbfc" }}>
           <img src={chatIcon} alt="" className="mt-4 ml-2 inline-block" />

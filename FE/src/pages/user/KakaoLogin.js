@@ -1,23 +1,23 @@
-import * as React from 'react';
+import * as React from "react";
 // import Button from '@mui/material/Button';
 // import CssBaseline from '@mui/material/CssBaseline';
 // import TextField from '@mui/material/TextField';
 // import FormControlLabel from '@mui/material/FormControlLabel';
 // import Checkbox from '@mui/material/Checkbox';
 // import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 // import Typography from '@mui/material/Typography';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 // import { useState, useEffect, useCallback } from 'react';
 // import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
+import Container from "@mui/material/Container";
 
-import { BASE_URL } from '../../index';
-import axios from 'axios';
-import styled from 'styled-components';
-import Appbar from '../../components/main/Appbar';
+import { BASE_URL } from "../../index";
+import axios from "axios";
+import styled from "styled-components";
+import Appbar from "../../components/main/Appbar";
 
 const { Kakao } = window;
 
@@ -39,35 +39,47 @@ export default function KakaoLogin() {
         // 카카오 이메일은 ok. but 좋아요 등록 시 user_id를 어떻게 가져오나?
         console.log(authObj);
         Kakao.API.request({
-          url: '/v2/user/me',
+          url: "/v2/user/me",
           success: function (res) {
-            localStorage.setItem('email', res.kakao_account.email);
+            localStorage.setItem("email", res.kakao_account.email);
             // console.log(res);
             // console.log(res.id);
           },
           fail: function (error) {
             alert(
-              'login success, but failed to request user information: ' + JSON.stringify(error)
+              "login success, but failed to request user information: " +
+                JSON.stringify(error)
             );
           },
         });
 
         // accessToken을 kakaoCallback에 날렸지만 로그인 불가능 답이 옴
         axios({
-          method: 'post',
-          url: BASE_URL + 'users/kakao',
+          method: "post",
+          url: BASE_URL + "users/kakao",
           params: {
             token: authObj.access_token,
           },
-        }).then((res) => {
-          console.log(res);
-          localStorage.setItem('user_id', res.data.object.id);
-          // console.log('성공했나');
-          if (res.data.statusCode === 200) {
-            alert('1bool1에 오신걸 환영합니다!');
-            navigate('/');
-          }
-        });
+        })
+          .then((res) => {
+            localStorage.setItem("user_id", res.data.object.id);
+            if (res.data.statusCode === 200) {
+              alert("1bool1에 오신걸 환영합니다!");
+              navigate("/");
+            }
+            Promise.resolve(res.data.object.id);
+          })
+          .then((res) => {
+            axios({
+              method: "get",
+              url: "board/like/userlist",
+              params: { user_id: res },
+            })
+              .then((res) =>
+                localStorage.setItem("board", JSON.stringify(res.data.object))
+              )
+              .catch((err) => console.log(err));
+          });
       },
       fail: function (err) {
         alert(JSON.stringify(err));
@@ -78,14 +90,14 @@ export default function KakaoLogin() {
   return (
     <Section>
       <Appbar />
-      <Container component='main' maxWidth='xs'>
+      <Container component="main" maxWidth="xs">
         <Box
           component={Paper}
           sx={{
             marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
           {/* <a href={KAKAO_LOGIN_API_URL}>
@@ -96,16 +108,16 @@ export default function KakaoLogin() {
               height='auto'
             ></img>
           </a> */}
-          <img src={require('../../common/logo.png')} alt='1bool1'></img>
-          <Box component='form' noValidate sx={{ mt: 1, marginTop: 4 }}>
+          <img src={require("../../common/logo.png")} alt="1bool1"></img>
+          <Box component="form" noValidate sx={{ mt: 1, marginTop: 4 }}>
             <Grid container spacing={2}>
               <Grid item xs={1}></Grid>
               <Grid item xs={10} md={10}>
                 <img
-                  src={require('../../common/kakao_logo.png')}
-                  alt='카카오 로그인'
-                  width='225px'
-                  height='auto'
+                  src={require("../../common/kakao_logo.png")}
+                  alt="카카오 로그인"
+                  width="225px"
+                  height="auto"
                   style={{ marginLeft: 40 }}
                   onClick={kakaoLoginClickHandler}
                 ></img>

@@ -28,19 +28,6 @@ function Article({ data }: Data) {
         alt=""
         className="w-20 max-h-20 inline-block border-r-2 md:max-h-32 md:w-32"
       />
-      {/* <div className="updown-wrap absolute" style={{ left: 0, top: "30%" }}>
-        <div className="icon-updown-box relative bottom-2">
-          <i
-            className="icon-box icon-info icon-up w-5 h-4 top-2 relative"
-            style={{ display: "block" }}
-          ></i>
-          <i
-            className="icon-box icon-info icon-down w-5 h-4 top-2 relative bottom-1"
-            style={{ display: "block" }}
-          ></i>
-        </div>
-        5
-      </div> */}
       <div className="inline-block grow pr-5">
         <Link
           className="text-xl text-ellipsis overflow-hidden pl-1 flex justify-between"
