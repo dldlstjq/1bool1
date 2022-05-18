@@ -13,7 +13,7 @@ import Footer from "../../../components/main/Footer";
 
 function Articles() {
   const [searchParams, setSearchParams] = useSearchParams([["page", "1"]]);
-  const [size, setSize] = useState(10);
+  const [size, setSize] = useState(20);
   const [orderBy, setOrderBy] = useState("board");
 
   const navigate = useNavigate();
@@ -31,12 +31,6 @@ function Articles() {
 
   function handleClick(e) {
     const { target } = e;
-    // if (target.matches(".title")) {
-    //   navigate(e.target.id, {
-    //     state:
-    //       articles[articles.findIndex((article) => article.id === e.target.id)],
-    //   });
-    // }
     if (target.matches("#write")) {
       navigate("write");
     }
@@ -52,14 +46,13 @@ function Articles() {
   return (
     <>
       <Appbar />
-      <div className="p-4 md:px-20 lg:px-40" onClick={handleClick}>
-        <h1 className="title text-red-500 text-4xl lg:text-6xl mb-5">
-          자유게시판
-        </h1>
+      <div className="p-px md:px-20 lg:px-40" onClick={handleClick}>
+        <h1 className="title text-4xl lg:text-6xl mb-5">자유게시판</h1>
 
         <ButtonAndPerPage setSize={setSize} setState={setArticles} />
+
         <button id="write">글쓰기</button>
-        <div className="border-2 border-red-500 rounded">
+        <div className="border-t-2 border-slate-700">
           {articles?.map((data, idx) => {
             return <Article key={idx} data={data} />;
           })}
