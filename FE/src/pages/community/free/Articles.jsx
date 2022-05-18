@@ -50,8 +50,25 @@ function Articles() {
         <h1 className="title text-4xl lg:text-6xl mb-5">자유게시판</h1>
 
         <ButtonAndPerPage setSize={setSize} setState={setArticles} />
+        <div className="text-right mr-1 my-2">
+          <Searchbar url="board/search" setState={setArticles} />
+          <button
+            id="write"
+            style={{
+              padding: "1px",
+              marginLeft: "1rem",
+              backgroundColor: "#F93D59",
+              color: "white",
+              fontWeight: "bold",
+              borderRadius: 5,
+              height: "2rem",
+              marginTop: "10px",
+            }}
+          >
+            글쓰기
+          </button>
+        </div>
 
-        <button id="write">글쓰기</button>
         <div className="border-t-2 border-slate-700">
           {articles?.map((data, idx) => {
             return <Article key={idx} data={data} />;
@@ -63,8 +80,9 @@ function Articles() {
           cols="col-span-2"
           my="my-5"
         />
-
-        <Searchbar url="board/search" setState={setArticles} />
+        <div className="text-center">
+          <Searchbar url="board/search" setState={setArticles} />
+        </div>
       </div>
       <Footer />
     </>

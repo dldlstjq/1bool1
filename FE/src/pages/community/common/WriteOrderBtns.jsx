@@ -2,11 +2,17 @@
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import React, { useState } from "react";
-import { Button, Box, Container, Grid, TextField, Typography } from '@mui/material';
+import {
+  Button,
+  Box,
+  Container,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { Searchbar } from "../common/Searchbar";
 
-function ButtonAndPerPage({recipes}) {
-  // const [value, setValue] = useState("one");
+function ButtonAndPerPage({ recipes }) {
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
