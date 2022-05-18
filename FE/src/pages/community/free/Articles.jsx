@@ -47,7 +47,7 @@ function Articles() {
     <>
       <Appbar />
       <div className="p-px md:px-20 lg:px-40" onClick={handleClick}>
-        <h1 className="title text-4xl lg:text-6xl mb-5">자유게시판</h1>
+        <h1 className="title text-4xl lg:text-6xl my-5 md:mb-20">자유게시판</h1>
 
         <ButtonAndPerPage setSize={setSize} setState={setArticles} />
         <div className="text-right mr-1 my-2">

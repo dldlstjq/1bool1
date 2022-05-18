@@ -27,7 +27,7 @@ export function Searchbar({ url, setState }) {
       <input
         type="text"
         name="content"
-        className="border border-slate-300 h-12 w-56 md:h-14 md:w-72 rounded"
+        className="border border-slate-300 h-12 md:h-14 w-full rounded"
         placeholder="검색어를 입력해주세요"
         value={input.content}
         onFocus={() => setIsFocused(true)}
