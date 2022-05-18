@@ -19,7 +19,7 @@ public interface UserService {
 	public String getKakaoAccessToken (String code);
 	public Long createKakaoUser(String token) throws Exception;
 	public int createKakaoAlarm(String token, Long userId) throws Exception;
-	public int findKakaoFriend(String token) throws Exception;
+	public int findKakaoFriend(String token, Long method) throws Exception;
 	User getEmailUser(String id) throws Exception;
 //	Boolean update(UserDto.UserPutReq userPutReq);
 }

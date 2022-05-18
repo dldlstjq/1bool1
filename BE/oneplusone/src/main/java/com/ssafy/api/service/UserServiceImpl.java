@@ -258,7 +258,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int findKakaoFriend(String token) throws  Exception {
+	public int findKakaoFriend(String token, Long method) throws  Exception {
 		int result_code = 0;
 		String reqURL = "https://kapi.kakao.com/v1/api/talk/friends?friend_order=nickname";
 		URL url = new URL(reqURL);
@@ -280,6 +280,7 @@ public class UserServiceImpl implements UserService {
 			while ((line = in.readLine()) != null) {
 				ans += line;
 			}
+			//System.out.println(ans);
 			JsonParser jsonParser = new JsonParser();
 			JsonObject jsonObject = (JsonObject)jsonParser.parse(ans);
 			JsonArray jsonArray = jsonObject.get("elements").getAsJsonArray();
@@ -378,17 +379,98 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
-	public String kakaoTemplateLikeGoods(Long friendId){
-		System.out.println(friendId);
+	public String KakaoTemplateLikeGoods(Long friendId){
 		List<GoodsLike2> goodsLike2s= goodsLikeRepository.findUserLikeGoods(friendId);
-		for(GoodsLike2 goods : goodsLike2s){
-			System.out.println(goods.getPrice());
-			System.out.println(goods.getEvent());
-			System.out.println(goods.getConvinence());
-			System.out.println(goods.getPhoto_path());
-		};
-		return "!";
+		StringBuilder sb = new StringBuilder();
+
+		if (goodsLike2s.size() < 2){
+			sb.append("" +
+					"{\n" +
+					"        \"object_type\": \"text\",\n" +
+					"        \"text\": \"좋아요 누른 물건이 적어요 ㅠㅠ\",\n" +
+					"        \"link\": {\n" +
+					"            \"web_url\": \"https://k6d207.p.ssafy.io/\",\n" +
+					"            \"mobile_web_url\": \"https://k6d207.p.ssafy.io/\"\n" +
+					"        },\n" +
+					"        \"button_title\": \"좋아요 누르러 가기!\"\n" +
+					"    }" +
+					"");
+		}
+		else{
+			sb.append("" +
+					"{\n" +
+					"        \"object_type\": \"list\",\n" +
+					"        \"header_title\": \"좋아요 누른 상품들 행사중!\",\n" +
+					"        \"header_link\": {\n" +
+					"            \"web_url\": \"https://k6d207.p.ssafy.io/\",\n" +
+					"            \"mobile_web_url\": \"https://k6d207.p.ssafy.io/\",\n" +
+					"            \"android_execution_params\": \"main\",\n" +
+					"            \"ios_execution_params\": \"main\"\n" +
+					"        },\n" +
+					"        \"contents\": [\n" );
+
+
+			for (int i = 0; i < goodsLike2s.size(); i++){
+				sb.append("" +
+						"{\n" +
+						"                \"title\": \"");
+				sb.append(goodsLike2s.get(i).getName());
+				sb.append(
+						"\",\n" +
+								"                \"description\": \"");
+				sb.append(convinenceType(goodsLike2s.get(i).getConvinence())
+						+" : " + eventType(goodsLike2s.get(i).getEvent()));
+				sb.append(
+						"\",\n" +
+								"                \"image_url\": \"");
+				sb.append(goodsLike2s.get(i).getPhoto_path());
+				sb.append(
+						"\",\n" +
+								"                \"image_width\": 640,\n" +
+								"                \"image_height\": 640,\n" +
+								"                \"link\": {\n" +
+								"                    \"web_url\": \"https://k6d207.p.ssafy.io\",\n" +
+								"                    \"mobile_web_url\": \"https://k6d207.p.ssafy.io\",\n" +
+								"                    \"android_execution_params\": \"/contents/3\",\n" +
+								"                    \"ios_execution_params\": \"/contents/3\"\n" +
+								"                }\n" +
+								"            }" +
+								"");
+				if(i != goodsLike2s.size() -1 ){
+					sb.append(',');
+				}
+			}
+
+			sb.append(
+					"        ],\n" +
+							"        \"buttons\": [\n" +
+							"            {\n" +
+							"                \"title\": \"확인하러 가기!\",\n" +
+							"                \"link\": {\n" +
+							"                    \"web_url\": \"https://k6d207.p.ssafy.io/\",\n" +
+							"                    \"mobile_web_url\": \"https://k6d207.p.ssafy.io/\"\n" +
+							"                }\n" +
+							"            },\n" +
+							"            {\n" +
+							"                \"title\": \"확인하러 가기!\",\n" +
+							"                \"link\": {\n" +
+							"                    \"android_execution_params\": \"main\",\n" +
+							"                    \"ios_execution_params\": \"main\"\n" +
+							"                }\n" +
+							"            }\n" +
+							"        ]\n" +
+							"    }" +
+							"");
+		}
+
+		return sb.toString();
 	}
+
+	public String KakaoTemplateBestRecipe(){
+
+		StringBuilder sb = new StringBuilder();
+		return sb.toString();
+	};
 
 //	@Override
 //	public void getEmailUser(Long id) throws Exception{
