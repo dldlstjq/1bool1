@@ -4,6 +4,7 @@ import "./App.css";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
 
+import Appbar from "./components/main/Appbar";
 import Main from "./pages/main/Main";
 import Store from "./pages/store/Store";
 import StoreDetail from "./pages/store/StoreDetail";
@@ -16,7 +17,7 @@ import Detail from "./pages/community/free/Detail";
 import WriteRecipe from "./pages/community/recipe/write/WriteRecipe";
 import Recipes from "./pages/community/recipe/Recipes";
 import RecipeDetail from "./pages/community/recipe/detail/Detail";
-
+import KakaoMap from "./pages/kakaomap/KakaoMap";
 // signin, signup
 import Signin from "./pages/user/Signin";
 import Signup from "./pages/user/Signup";
@@ -36,6 +37,7 @@ function App() {
       <Route path="recipe" element={<Recipes />} />
       <Route path="recipe/:recipeId" element={<RecipeDetail />} />
       <Route path="recipe/write" element={<WriteRecipe />} />
+      <Route path="/map" element={<KakaoMap/>}></Route>
     </Routes>
   );
 }

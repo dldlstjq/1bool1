@@ -287,8 +287,7 @@ public class UserServiceImpl implements UserService {
 			for (JsonElement friend : jsonArray){
 				Long friendId = friend.getAsJsonObject().get("id").getAsLong();
 				String friendUuid = friend.getAsJsonObject().get("uuid").getAsString();
-				//result_code = sendKakaoMessageFriend(token, friendUuid);
-				String test = KakaoTemplateLikeGoods(friendId);
+				result_code = sendKakaoMessageFriend(token, friendUuid);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -328,32 +327,34 @@ public class UserServiceImpl implements UserService {
 
 		bw.write(param);
 		bw.flush();
+
 		//결과 코드가 200이라면 성공
 		int responseCode = conn.getResponseCode();
 		String content = conn.getResponseMessage();
 		System.out.println("content : " + content);
 		System.out.println("responseCode : " + responseCode);
+		System.out.println(param);
 		return -1;
 	}
 
 	public String eventType(Long event){
 		if (event == 2){
-			return "1쁠라스1";
+			return "1 + 1";
 		}
 		else if (event == 3){
-			return "2쁠라스1";
+			return "2 \\+ 1";
 		}
 		else if (event == 4){
-			return "3쁠라스1";
+			return "3 \\+ 1";
 		}
 		else if (event == 5){
-			return "가격 SALE!";
+			return "가격 SALE 중";
 		}
 		else if (event == 6){
-			return "덤 증정!";
+			return "덤 증정";
 		}
 		else{
-			return "균일가!";
+			return "균일가";
 		}
 	}
 

@@ -1,16 +1,33 @@
 /* eslint-disable no-unused-vars */
 // import classNames from "classnames";
 
+import { Link } from "react-router-dom";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import adminIcon from "./admin.png";
+
 interface ArticleProps {
   id: string;
   title: string;
   nickname: string;
-  date: string;
+  password: string;
+  modifiedDate: string;
+  content: string;
+  photo: string;
+  cnt: string;
 }
+interface Data {
+  data: ArticleProps;
+}
+function Article({ data }: Data) {
+  const { id, title, nickname, modifiedDate, photo, cnt }: ArticleProps = data;
 
-function Article({ id, title, nickname, date }: ArticleProps) {
   return (
-    <div>
+    <div className="border-b border-slate-400 flex pt-3 sm:py-3">
+      <img
+        src={photo.split(",")[0]}
+        alt=""
+        className="w-20 max-h-20 inline-block border-r-2 md:max-h-32 md:w-32"
+      />
       {/* <div className="updown-wrap absolute" style={{ left: 0, top: "30%" }}>
         <div className="icon-updown-box relative bottom-2">
           <i
@@ -24,17 +41,34 @@ function Article({ id, title, nickname, date }: ArticleProps) {
         </div>
         5
       </div> */}
-      <h2
-        className="text-2xl bg-red-500 text-white text-ellipsis overflow-hidden pl-1 title"
-        style={{ wordBreak: "keep-all" }}
-        id={id}
-      >
-        {title}
-      </h2>
-      {/* <i className="icon-box icon-info icon-comment w-5 h-4"></i> 22
-        <i className="icon-box icon-info icon-views w-5 h-4 ml-1"></i> 21 */}
-      <p className="pl-1">By {nickname}</p>
-      <p className="pl-1">{date}</p>
+      <div className="inline-block grow pr-5">
+        <Link
+          className="text-xl text-ellipsis overflow-hidden pl-1 flex justify-between"
+          style={{ wordBreak: "keep-all" }}
+          to={`/community/${id}`}
+          state={data}
+        >
+          <div className="inline-block max-w-[200px] sm:w-2/3 h-[31px] overflow-hidden text-ellipsis">
+            {title}
+          </div>
+          <span>
+            <FavoriteIcon
+              style={{ color: "#F93D59", marginLeft: 3, marginRight: 3 }}
+            />
+            {cnt}
+          </span>
+        </Link>
+
+        <div className="my-2 max-h-[50px] overflow-hidden hidden lg:block">
+          <img src={adminIcon} alt="" className="inline-block w-12" />
+          {nickname} | {modifiedDate.split(".")[0].slice(0, -3)}
+        </div>
+        <div className="my-2 overflow-hidden flex lg:hidden ">
+          <img src={adminIcon} alt="" className="inline-block w-12" />
+          {nickname}
+          <br /> {modifiedDate.split(".")[0].slice(0, -3)}
+        </div>
+      </div>
     </div>
   );
 }

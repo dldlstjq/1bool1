@@ -1,34 +1,31 @@
-import { useState, useRef } from "react";
+/* eslint-disable no-unused-vars */
+import { useState, useRef } from 'react';
 
-import axios from "axios";
-import classNames from "classnames";
+import axios from 'axios';
+import classNames from 'classnames';
+import PersonPinIcon from '@mui/icons-material/PersonPin';
+import Grid from '@mui/material/Grid';
+import { DeleteOrUpdate } from './DeleteOrUpdate';
+import { Container, Typography, Box, Button, TextField} from '@mui/material';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-import { DeleteOrUpdate } from "./DeleteOrUpdate";
 
 /* eslint-disable no-unused-vars */
-function Comment({
-  content,
-  nickname,
-  password,
-  id,
-  boardId,
-  recipeId,
-  refresh,
-}) {
+function Comment({ content, nickname, password, id, boardId, recipeId, refresh }) {
   const [inputMode, setInputMode] = useState(false);
   const data = { id, nickname, password };
   const inputRef = useRef();
-  let url = "comment/" + boardId;
+  let url = 'comment/' + boardId;
   if (recipeId) {
-    url = "recipereview/" + recipeId;
-    data["recipeId"] = recipeId;
+    url = 'recipereview/' + recipeId;
+    data['recipeId'] = recipeId;
   } else {
-    data["boardId"] = boardId;
+    data['boardId'] = boardId;
   }
   function handleSubmit(e) {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       axios({
-        method: "put",
+        method: 'put',
         url,
         data: { ...data, content: e.target.value },
       })
@@ -40,28 +37,30 @@ function Comment({
     }
   }
   return (
-    <div className="p-1 border border-red-400">
-      <div className="mb-2">
-        <i className="icon-box icon-etc icon-user w-9 h-9"></i>{" "}
-        <span className="text-xl text-red-500">{nickname}</span>
+    <Box sx={{ borderBottom:1, borderTop:1, borderColor:'grey.500', padding:'0.5rem'}}>
+      <div >
+        <Box sx={{paddingTop:1}}>
+          <Typography> <AccountCircleIcon style={{marginRight:3, color:'#F93D59'}}/>{nickname} </Typography>
+        </Box>
       </div>
-
-      {!inputMode && <div id="comment-content">{content}</div>}
+      <Box sx={{paddingLeft:1, paddingTop:1}}>
+      {!inputMode && <div id='comment-content'>{content}</div>}
       <input
-        type="text"
+        type='text'
         defaultValue={content}
         onKeyDown={handleSubmit}
         ref={inputRef}
         className={classNames(
-          "w-full",
-          "rounded",
-          inputMode && "border",
-          inputMode && "border-purple-900",
-          inputMode && "h-10",
-          !inputMode && "h-0"
+          'w-full',
+          'rounded',
+          inputMode && 'border',
+          inputMode && 'border-purple-900',
+          inputMode && 'h-10',
+          !inputMode && 'h-0'
         )}
       />
-
+      </Box>
+    <Box style={{display:'flex', justifyContent:'end'}}>
       <DeleteOrUpdate
         id={id}
         password={password}
@@ -72,7 +71,9 @@ function Comment({
         recipeId={recipeId}
         inputRef={inputRef}
       />
-    </div>
+
+    </Box>
+    </Box>
   );
 }
 

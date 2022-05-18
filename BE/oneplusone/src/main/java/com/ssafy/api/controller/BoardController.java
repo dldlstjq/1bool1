@@ -10,6 +10,7 @@ import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.Board;
 import com.ssafy.db.entity.BoardLike;
 import com.ssafy.db.entity.BoardLikeManagement;
+import com.ssafy.db.entity.Recipe;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -95,9 +96,9 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> findBoard(@RequestParam("page") Integer page, @RequestParam("size") Integer size) {
+    public ResponseEntity<? extends BaseResponseBody> findBoard(@RequestParam("page") Integer page, @RequestParam("size") Integer size,@ApiIgnore Pageable pageable) {
 //        Page<Board> board = boardService.findBoard(pageable);
-        List<Board> board = boardService.findBoard(page, size).getContent();
+        List<BoardDto.BoardLikeGet> board = boardService.findBoard(page, size,pageable).getContent();
         if(board.isEmpty()) return ResponseEntity.status(200).body(BaseResponseBody.of(200, "해당 페이지에 게시글이 없습니다."));
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", board));
     }
@@ -182,6 +183,25 @@ public class BoardController {
         }
     }
 
+
+    @GetMapping("/like/userlist")
+    @ApiOperation(value = "해당 유저의 게시글 좋아요 리스트", notes = "<strong>해당 유저의 게시글 좋아요 리스트</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> findBoardLike(@RequestParam("user_id")Long userId) {
+        List<Board> list = boardlikeService.findBoardLike(userId);
+        if(list.size() != 0)
+        {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success",list));
+        }else{
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail"));
+        }
+    }
+    
     @DeleteMapping("{id}")
     @ApiOperation(value = "해당 글 삭제", notes = "<strong>해당 글을 삭제한다.</strong>")
     @ApiResponses({

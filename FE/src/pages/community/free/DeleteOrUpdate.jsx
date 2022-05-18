@@ -2,6 +2,8 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {  Box, Button } from '@mui/material';
+
 
 export function DeleteOrUpdate({
   password,
@@ -43,7 +45,7 @@ export function DeleteOrUpdate({
   }
 
   return (
-    <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-2 mt-4">
+    <Box xs={{display:'flex', alignSelf:'end'}}>
       <input
         type="password"
         className="h-7 rounded"
@@ -51,20 +53,20 @@ export function DeleteOrUpdate({
         name="articlePw"
         onChange={(e) => setInputPw(e.target.value)}
       />
-      <button
+      <Button
         id="delete"
-        className="bg-red-500 text-white h-7 rounded"
         onClick={handleDelete}
+        style={{ backgroundColor: 'white', borderRadius: 10, color:'grey', border: '1px solid' , marginRight:5, fontWeight:'bold' }}
       >
-        삭제
-      </button>
-      <button
+        글삭제
+      </Button>
+      <Button
         id="update"
-        className="bg-red-400 h-7 rounded text-white"
         onClick={toUpdatePage}
+        style={{ backgroundColor: 'white', borderRadius: 10, color:'grey', border: '1px solid' , marginRight:5, fontWeight:'bold' }}
       >
-        수정
-      </button>
-    </div>
+        글수정
+      </Button>
+    </Box>
   );
 }

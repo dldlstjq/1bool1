@@ -88,7 +88,6 @@ function Store() {
   function onSubmit() {
     let conv = ''
     let event_type = ''
-    console.log('여기안에는', goodName)
     // let goodName = '0'
     if (cu) { conv += 'cu' }
     if (gs) {
@@ -129,7 +128,7 @@ function Store() {
               if (event_type.length) { event_type += '_7' }
       else { event_type += '7'} }
     if (allEvent || event_type === '') { event_type = '0' } 
-    console.log('adr확인중', conv, event_type, goodName)
+    // console.log('adr확인중', conv, event_type, goodName)
     let adr = `https://k6d207.p.ssafy.io/api/v1/goods/conGoods?convinenceName=${conv}&event=${event_type}&goods=${goodName}`
     // let adr = `https://k6d207.p.ssafy.io/api/v1/goods/conGoods?convinenceName=${conv}&event=${event_type}&goods=${name}`
     
@@ -178,8 +177,8 @@ function Store() {
   }
 
   return (
-    <div style={{display: 'flex', flexDirection:'column', minHeight:'100%'}}>
-    <Appbar/>
+    <div style={{display: 'flex', flexDirection:'column', minHeight:'100vh'}}>
+      <Appbar/>
       <div style={{flex:'1',}}>
         <Container>
           <Box maxWidth='md' sx={{ border:2, borderColor:'#F93D5950', padding:'1rem', paddingLeft:'2rem', margin:'0 auto', marginTop:'2rem', borderRadius: '30px' }}>
@@ -234,7 +233,7 @@ function Store() {
 `           <Grid container spacing={2} >
               {goods.slice(30*(page-1), 30*(page-1)+30).map((good, index) => 
               <Grid item xs={12} md={6} lg={4} style={{padding:0, display:'flex', justifyContent:'center', paddingTop:'1rem' }}>
-                <Link to={`/store/${good.id}`}state={{ data: good }}  style={{textDecoration:'none',}}>
+                <Link to={`/store/${good.id}`} state={{ data: good }}  style={{textDecoration:'none',}}>
                   <Card className={good.convinence} sx={{boxShadow:'none', borderRadius: '16px', display:'flex', flexDirection:'column' }}>
                     <div style={{height:'100%'}}>
                       <Box className={changeSet(good.convinence)} style={{paddingLeft:'1rem'}} >

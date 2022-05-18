@@ -26,4 +26,6 @@ public interface GoodsLikeRepository extends JpaRepository<GoodsUserManagement, 
             " inner join user as u on gu.user_id = u.id where u.email=:friendId)" +
             " as gi on g.id = gi.goods_id where g.is_sell = 1;",nativeQuery = true)
     List<GoodsLike2> findUserLikeGoods(Long friendId);
+
+    List<GoodsUserManagement> findByUserId(Long userId);
 }

@@ -198,7 +198,7 @@ function Appbar() {
                 </Link>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-                <Link to="/" style={{ textDecoration: "none" }}>
+                <Link to="/map" style={{ textDecoration: "none" }}>
                   <Button
                     style={{
                       color: "black",
@@ -206,7 +206,7 @@ function Appbar() {
                       fontWeight: "bold",
                     }}
                   >
-                    이벤트
+                    근처 편의점
                   </Button>
                 </Link>
               </MenuItem>
@@ -292,7 +292,7 @@ function Appbar() {
               </Button>
             </Link>
             <Link
-              to="/"
+              to="/map"
               style={{
                 textDecoration: "none",
                 marginRight: "2rem",
@@ -308,11 +308,11 @@ function Appbar() {
                   fontWeight: "bold",
                 }}
               >
-                이벤트
+                근처 편의점
               </Button>
             </Link>
             <Link
-              to="/"
+              to="/map"
               style={{
                 textDecoration: "none",
                 marginLeft: "2rem",

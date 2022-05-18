@@ -12,4 +12,6 @@ public interface GoodsLikeService {
     boolean findLike(GoodsDto.GoodsLikeGetRequest dto);
 
     GoodsDto.GoodsLikeDetail findLikeGoods(Long goodsId);
+
+    List<Goods> findGoodsLike(Long userId);
 }
