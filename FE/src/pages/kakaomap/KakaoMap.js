@@ -15,7 +15,7 @@ const { kakao } = window;
 export default function KakaoMap() {
   useEffect(() => {
     // getUserLocation();
-    setTimeout(() => mapContainer(), 250);
+    setTimeout(() => mapContainer(), 500);
   }, []);
   // 마커를 클릭했을 때 해당 장소의 상세정보를 보여줄 커스텀오버레이입니다
   //   const [coords, setcoords] = useState([0,0])
@@ -258,7 +258,7 @@ export default function KakaoMap() {
       style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
     >
       <Appbar />
-      <div className="mt-10 w-full sm:w-5/6 md:w-3/4 mx-auto">
+      <div className="mt-10 w-full sm:w-5/6 md:w-3/4 m-auto ">
         <Container>
           <div
             id="map"
