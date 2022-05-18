@@ -254,12 +254,14 @@ export default function KakaoMap() {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
-      <Appbar />
-      <div className="w-full min-h-[100vh] flex flex-col justify-center">
+    // <div style={{ display: "flex", flexDirection: "column" }}>
+      // <Appbar />
+      // <div className="w-full min-h-[100vh] flex flex-col justify-center">
+      <div className="w-full flex flex-col justify-center">
         <div
           id="map"
-          className="h-[300px] sm:h-[350px] md:h-[400px] lg:h-[500px] xl:h-[600px] w-11/12 md:w-3/4 mx-auto"
+          // className="h-[300px] sm:h-[350px] md:h-[400px] lg:h-[500px] xl:h-[600px] w-11/12 md:w-3/4 mx-auto"
+          className="h-[400px] sm:h-[300px] md:h-[400px] w-11/12 md:w-3/4 mx-auto"
         >
           <ul id="category">
             {/* <li id="BK9" data-order="0"> 
@@ -289,7 +291,7 @@ export default function KakaoMap() {
           </ul>
         </div>
       </div>
-      <Footer />
-    </div>
+    //   <Footer />
+    // </div>
   );
 }

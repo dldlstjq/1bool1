@@ -28,13 +28,15 @@ import Slide2 from '../../components/main/Slide2';
 import Store from '../store/Store';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import KakaoMap from '../kakaomap/KakaoMap';
 
-
+const { kakao } = window;
 
 function Main() {
   const [word, setWord] = useState('');
   const [likes, setLike] = useState([]);
   const [hits, setHit] = useState([]);
+  var ps = new kakao.maps.services.Places();
   // const prevRef = useRef(null);
   // const nextRef = useRef(null);
   const navi = useNavigate();
@@ -74,7 +76,7 @@ function Main() {
     }
   }
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100%' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Appbar />
       <div style={{ flex: '1' }}>
         <Container maxWidth='lg' style={{display:'flex', flexDirection:'column'}}>
@@ -105,13 +107,34 @@ function Main() {
               </Typography>
             </Box>
             <Box style={{display:'flex', justifyContent:'end'}}>
-              <Link to='/store'>
+              <Link to='/recipe'>
                 <Typography variant='h6' style={{ color: 'grey', display:'flex', justifyContent:'end'}} > 상품 모두 보기 {'>'} </Typography>
               </Link>
             </Box>
             <Box style={{marginTop:20}}>
               <Slide menus={hits}/>
             </Box>
+          </Box>
+          <Box style={{display:'flex', justifyContent:'center', height:'400px', marginBottom:'5rem', marginTop:'3rem'}} >
+            <Grid container spacing={2} style={{ margin: 0, height: 500, display:'flex', alignItems:'center', justifyItems:'center' }}>
+              <Grid item xs={12} md={5}>
+                <Box style={{ display:'felx', justifyContent:'end'}}>
+                  <Box style={{ display:'felx', justifyItems:'end', marginLeft:14,  wordBreak: "keep-all", }}>
+                    <Typography variant='h4' style={{ fontWeight: 'bold', }}>
+                      우리동네 편의점 어디있지?
+                    </Typography>
+                    <Typography variant='h6' style={{ fontWeight: 'bold', wordBreak: "keep-all", }}>
+                      근처에 있는 편의점 찾기!
+                    </Typography>
+                    <TextField onChange={searchWord} onKeyPress={onKeyPress} id="standard-basic" label="OO동을 입력해보세요." variant="standard" />
+                    <Button  onClick={onSubmit} style={{backgroundColor:'#F93D59', color:'white', fontWeight:'bold', borderRadius:20, height:'2rem', marginTop:'1rem'}} name="adr">검색</Button>
+                  </Box>
+                </Box>
+              </Grid>
+              <Grid item xs={12} md={7} style={{height:'400px'}}>
+                <KakaoMap/>
+              </Grid>
+            </Grid>
           </Box>
           <Box>
             <Box>
@@ -128,6 +151,25 @@ function Main() {
               <Slide2 menus={likes}/>
             </Box>
           </Box>
+          {/* <Box style={{display:'flex', justifyContent:'center', height:'400px', marginBottom:'5rem'}} >
+            <Grid container spacing={2} style={{ margin: 0, height: 500, display:'flex', alignItems:'center', justifyItems:'center' }}>
+              <Grid item xs={12} md={6}>
+                <Box style={{ marginLeft: '2rem'}}>
+                  <Typography variant='h4' style={{ fontWeight: 'bold' }}>
+                    우리동네 편의점 어디있지?
+                  </Typography>
+                  <Typography variant='h6' style={{ fontWeight: 'bold', wordBreak: "keep-all", }}>
+                    근처에 있는 편의점 찾기!
+                  </Typography>
+                  <TextField onChange={searchWord} onKeyPress={onKeyPress} id="standard-basic" label="OO동" variant="standard" />
+                  <Button  onClick={onSubmit} style={{backgroundColor:'#F93D59', color:'white', fontWeight:'bold', borderRadius:20, height:'2rem', marginTop:'1rem'}} name="adr">검색</Button>
+                </Box>
+              </Grid>
+              <Grid item xs={12} md={6} style={{height:'400px'}}>
+                <KakaoMap/>
+              </Grid>
+            </Grid>
+          </Box> */}
         </Container>
       </div>
       <Footer />
