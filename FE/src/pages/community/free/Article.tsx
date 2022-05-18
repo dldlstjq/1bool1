@@ -48,7 +48,7 @@ function Article({ data }: Data) {
           to={`/community/${id}`}
           state={data}
         >
-          <div className="inline-block max-w-[220px] sm:max-w-[400px] h-[35px] overflow-hidden text-ellipsis">
+          <div className="inline-block max-w-[200px] sm:w-2/3 h-[31px] overflow-hidden text-ellipsis">
             {title}
           </div>
           <span>
@@ -59,9 +59,14 @@ function Article({ data }: Data) {
           </span>
         </Link>
 
-        <div className="my-2 max-h-[50px] overflow-hidden">
+        <div className="my-2 max-h-[50px] overflow-hidden hidden lg:block">
           <img src={adminIcon} alt="" className="inline-block w-12" />
           {nickname} | {modifiedDate.split(".")[0].slice(0, -3)}
+        </div>
+        <div className="my-2 overflow-hidden flex lg:hidden ">
+          <img src={adminIcon} alt="" className="inline-block w-12" />
+          {nickname}
+          <br /> {modifiedDate.split(".")[0].slice(0, -3)}
         </div>
       </div>
     </div>

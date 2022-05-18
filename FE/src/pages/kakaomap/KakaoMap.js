@@ -259,7 +259,7 @@ export default function KakaoMap() {
       <div className="w-full min-h-[100vh] flex flex-col justify-center">
         <div
           id="map"
-          className="h-[300px] sm:h-[450px] md:h-[500px] lg:h-[550px] w-11/12 md:w-3/4 mx-auto"
+          className="h-[300px] sm:h-[350px] md:h-[400px] lg:h-[500px] xl:h-[600px] w-11/12 md:w-3/4 mx-auto"
         >
           <ul id="category">
             {/* <li id="BK9" data-order="0"> 

@@ -51,8 +51,9 @@ function Articles() {
   return (
     <>
       <Appbar />
+      <div className="text-2xl">TOP 4</div>
       <div
-        className="p-1 sm:p-0 sm:w-11/12 md:w-3/4 lg:w-1/2 mx-auto"
+        className="p-1 sm:p-0 sm:w-11/12 md:w-3/4 lg:w-2/3 mx-auto"
         onClick={handleClick}
       >
         <h1 className="title text-4xl lg:text-6xl my-5 md:mb-20 ml-1">
