@@ -254,24 +254,15 @@ export default function KakaoMap() {
   };
 
   return (
-    <div
-      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
-    >
+    <div style={{ display: "flex", flexDirection: "column" }}>
       <Appbar />
-      <div className="mt-10 w-full sm:w-5/6 md:w-3/4 m-auto ">
-        <Container>
-          <div
-            id="map"
-            className="h-[300px] sm:h-[500px] relative"
-            // style={{
-            //   width: "100%",
-            //   height: "100%",
-            //   position: "relative",
-            //   overflow: "hidden",
-            // }}
-          >
-            <ul id="category">
-              {/* <li id="BK9" data-order="0"> 
+      <div className="w-full min-h-[100vh] flex flex-col justify-center">
+        <div
+          id="map"
+          className="h-[300px] sm:h-[450px] md:h-[500px] lg:h-[550px] w-11/12 md:w-3/4 mx-auto"
+        >
+          <ul id="category">
+            {/* <li id="BK9" data-order="0"> 
                 <span class="category_bg bank"></span>
                 은행
             </li>       
@@ -291,17 +282,14 @@ export default function KakaoMap() {
                 <span class="category_bg cafe"></span>
                 카페
             </li>   */}
-              <li id="CS2" data-order="5">
-                <span class="category_bg store"></span>
-                편의점
-              </li>
-            </ul>
-          </div>
-        </Container>
+            <li id="CS2" data-order="5">
+              <span class="category_bg store"></span>
+              편의점
+            </li>
+          </ul>
+        </div>
       </div>
-      <div className="absolute bottom-0 w-full">
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 }
