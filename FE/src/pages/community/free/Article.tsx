@@ -2,6 +2,7 @@
 // import classNames from "classnames";
 
 import { Link } from "react-router-dom";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 interface ArticleProps {
   id: string;
@@ -11,12 +12,13 @@ interface ArticleProps {
   modifiedDate: string;
   content: string;
   photo: string;
+  cnt: string;
 }
 interface Data {
   data: ArticleProps;
 }
 function Article({ data }: Data) {
-  const { id, title, nickname, modifiedDate, photo }: ArticleProps = data;
+  const { id, title, nickname, modifiedDate, photo, cnt }: ArticleProps = data;
 
   return (
     <div className="border-b border-slate-400 flex pt-3">
@@ -38,15 +40,24 @@ function Article({ data }: Data) {
         </div>
         5
       </div> */}
-      <div className="inline-block">
+      <div className="inline-block grow pr-5">
         <Link
-          className="text-2xl text-ellipsis overflow-hidden pl-1"
+          className="text-xl text-ellipsis overflow-hidden pl-1 flex justify-between"
           style={{ wordBreak: "keep-all" }}
           to={`/community/${id}`}
           state={data}
         >
-          {title}
+          <div className="inline-block max-w-[220px] sm:max-w-[400px]">
+            {title}
+          </div>
+          <span>
+            <FavoriteIcon
+              style={{ color: "#F93D59", marginLeft: 3, marginRight: 3 }}
+            />
+            {cnt}
+          </span>
         </Link>
+
         {/* <i className="icon-box icon-info icon-comment w-5 h-4"></i> 22
         <i className="icon-box icon-info icon-views w-5 h-4 ml-1"></i> 21 */}
         <div className="my-2 max-h-[50px] overflow-hidden">

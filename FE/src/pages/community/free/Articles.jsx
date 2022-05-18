@@ -4,7 +4,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 
 import Article from "./Article";
-import { Pagination } from "../common/Pagination";
+// import { Pagination } from "../common/Pagination";
 import { Searchbar } from "../common/Searchbar";
 import { useFetchPage } from "../common/hooks";
 import ButtonAndPerPage from "../common/WriteOrderBtns";
@@ -75,11 +75,11 @@ function Articles() {
           })}
         </div>
 
-        <Pagination
+        {/* <Pagination
           setSearchParams={setSearchParams}
           cols="col-span-2"
           my="my-5"
-        />
+        /> */}
         <div className="text-center">
           <Searchbar url="board/search" setState={setArticles} />
         </div>

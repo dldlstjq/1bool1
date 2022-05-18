@@ -14,7 +14,8 @@ export function Pagination({ setSearchParams, ...rest }) {
     if (target.matches(".back") && i >= 5) {
       seti(i - 5);
     } else if (target.matches(".forth")) {
-      seti(i + 5);
+      seti((i) => i + 5);
+      console.log(i);
     } else if (target.matches(".page")) {
       setSearchParams({ page: target.id });
       setButtons(
