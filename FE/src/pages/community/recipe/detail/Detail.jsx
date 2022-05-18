@@ -1,27 +1,26 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-import { useParams, useNavigate } from 'react-router-dom';
-import { Container } from '@mui/material';
+import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { Container } from "@mui/material";
 
-import { useFetchAndUpdate, useFetchList } from '../../common/hooks';
+import { useFetchAndUpdate, useFetchList } from "../../common/hooks";
 
-import Step from './Step';
-import Goods from './Goods';
-import { DeleteOrUpdate } from './DeleteOrUpdate';
-import Comments from '../../common/comment/Comments';
-import UpperInfo from './components/UpperInfo';
-import LikeButton from '../../common/LikeButton';
+import Step from "./Step";
+import Goods from "./Goods";
+import { DeleteOrUpdate } from "./DeleteOrUpdate";
+import Comments from "../../common/comment/Comments";
+import UpperInfo from "./components/UpperInfo";
+import LikeButton from "../../common/LikeButton";
 
-import Appbar from '../../../../components/main/Appbar';
-import Footer from '../../../../components/main/Footer';
+import Appbar from "../../../../components/main/Appbar";
+import Footer from "../../../../components/main/Footer";
 
 function Detail() {
   const { recipeId } = useParams();
   const [recipe, setRecipe] = useState({});
-  const [inputPassword, setInputPassword] = useState('');
-  const [foo, refresh] = useState(0);
+  const [inputPassword, setInputPassword] = useState("");
 
   const {
     photo,
@@ -37,14 +36,14 @@ function Detail() {
   } = recipe;
 
   const steps = content && JSON.parse(content);
-  const photos = photo?.split(',');
+  const photos = photo?.split(",");
   const navi = useNavigate();
-  const user_id = localStorage.getItem('user_id');
+  const user_id = localStorage.getItem("user_id");
 
   useEffect(() => {
     axios({
-      method: 'get',
-      url: 'recipe/' + recipeId,
+      method: "get",
+      url: "recipe/" + recipeId,
     })
       .then((res) => {
         setRecipe(res.data.object);
@@ -52,14 +51,15 @@ function Detail() {
       .catch((err) => console.log(err));
   }, [recipeId]);
 
-  const goods = useFetchList('recipe/goods/' + recipeId);
-  const comments = useFetchAndUpdate('recipereview/' + recipeId, foo, []);
+  const goods = useFetchList("recipe/goods/" + recipeId);
 
   console.log(goods);
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100%' }}>
+    <div
+      style={{ display: "flex", flexDirection: "column", minHeight: "100%" }}
+    >
       <Appbar />
-      <div style={{ flex: '1', marginTop: 30 }}>
+      <div style={{ flex: "1", marginTop: 30 }}>
         <Container>
           <div>
             <UpperInfo
@@ -77,7 +77,7 @@ function Detail() {
             {/* <h1 className='text-xl'> 이 요리는...</h1>
               <p> {description}</p> */}
             {/* </div> */}
-            <hr id='line'></hr>
+            <hr id="line"></hr>
             <Goods goods={goods} />
             {steps?.map((step, idx) => (
               <Step key={idx} step={step} img={photos[idx + 1]} i={idx + 1} />
@@ -89,28 +89,23 @@ function Detail() {
             <DeleteOrUpdate
               setPassword={setInputPassword}
               inputPassword={inputPassword}
-              afterUrl='/recipe'
+              afterUrl="/recipe"
               params={{ nickname, password }}
               password={password}
               state={recipe}
-              updatePageUrl='/recipe/write'
+              updatePageUrl="/recipe/write"
               url={`recipe/${recipeId}`}
             />
-            <Comments
-              url={'recipereview/' + recipeId}
-              comments={comments}
-              recipeId={recipeId}
-              refresh={refresh}
-            />
+            <Comments which="detail" detailId={recipeId} />
             <button
-              className='bg-gray-700 text-white h-10 w-20 mt-5'
-              onClick={() => navi('/recipe')}
+              className="bg-gray-700 text-white h-10 w-20 mt-5"
+              onClick={() => navi("/recipe")}
               style={{
-                backgroundColor: '#f93d59',
-                color: 'white',
-                fontWeight: 'bold',
+                backgroundColor: "#f93d59",
+                color: "white",
+                fontWeight: "bold",
                 borderRadius: 20,
-                marginTop: '1rem',
+                marginTop: "1rem",
                 marginLeft: 10,
               }}
             >

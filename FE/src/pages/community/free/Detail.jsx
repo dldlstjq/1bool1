@@ -1,12 +1,10 @@
 /* eslint-disable no-unused-vars */
 
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useRef } from "react";
-import { useFetchItem, useFetchAndUpdate } from "../common/hooks";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 import Comments from "../common/comment/Comments";
-import UserInfoBox from "./UserInfoBox";
 import { DeleteOrUpdate } from "./DeleteOrUpdate";
 import LikeButton from "../common/LikeButton";
 import Appbar from "../../../components/main/Appbar";
@@ -22,25 +20,12 @@ import {
 import moment from "moment";
 
 function Detail() {
-  // const [inputPw, setInputPw] = useState("");
-
-  // const navi = useNavigate();
-  // const state = useLocation().state;
-  // // const [articleData] = useFetchItem(`board/${articleId}`, []);
-
-  // const { title, content, modifiedDate, id, nickname, password, photo } = state;
-  const { articleId } = useParams();
-  const [showcomments, setShowcomments] = useState(true);
-  const [foo, refresh] = useState(0);
+  const state = useLocation().state;
   const [articlePw, setarticlePw] = useState("");
 
   const navi = useNavigate();
-
-  const [articleData] = useFetchItem(`board/${articleId}`, []);
-  const comments = useFetchAndUpdate(`comment/${articleId}`, foo, []);
-
-  const { title, content, modifiedDate, id, nickname, password, photo } =
-    articleData;
+  const { title, content, modifiedDate, id, nickname, password, photo, cnt } =
+    state;
 
   const user_id = localStorage.getItem("user_id");
   let time = moment({ modifiedDate }).format("YYYY.MM.DD HH:mm");
@@ -118,25 +103,14 @@ function Detail() {
                   url={"board/" + id}
                   afterUrl="/community"
                   updatePageUrl="/community/write"
-                  state={articleData}
+                  state={state}
                   params={{ password }}
                 />
               </Box>
             </Grid>
           </Grid>
 
-          <Comments id={id} />
-          {/* <Box style={{margin:'1rem'}}>
-              {showcomments && (
-                <Comments
-                comments={comments}
-                articleId={articleId}
-                boardId={id}
-                url={"/comment/" + id}
-                  refresh={refresh}
-                />
-              )}
-            </Box> */}
+          <Comments detailId={id} which="board" />
 
           <Box style={{ display: "flex", justifyContent: "center" }}>
             <Button

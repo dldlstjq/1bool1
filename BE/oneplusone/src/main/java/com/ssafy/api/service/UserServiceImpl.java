@@ -2,7 +2,8 @@ package com.ssafy.api.service;
 
 import com.google.gson.*;
 import com.ssafy.api.dto.UserDto;
-import com.ssafy.db.entity.Goods;
+import com.ssafy.db.entity.*;
+import com.ssafy.db.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,11 +18,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.ssafy.api.dto.UserDto.UserRegisterPostReq;
-import com.ssafy.db.entity.User;
-import com.ssafy.db.entity.GoodsLike2;
-import com.ssafy.db.repository.UserRepository;
-import com.ssafy.db.repository.UserRepositorySupport;
-import com.ssafy.db.repository.GoodsLikeRepository;
 import org.springframework.transaction.annotation.Transactional;
 /**
  *	유저 관련 비즈니스 로직 처리를 위한 서비스 구현 정의.
@@ -40,6 +36,12 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	GoodsLikeRepository goodsLikeRepository;
+
+	@Autowired
+	RecipeLikeRepository recipeLikeRepository;
+
+	@Autowired
+	GoodsRepository goodsRepository;
 
 	@Override
 	public User createUser(UserRegisterPostReq userRegisterInfo) {
@@ -210,28 +212,10 @@ public class UserServiceImpl implements UserService {
 			//POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "utf-8"));
 			StringBuilder sb = new StringBuilder();
-
-
-			// 알림 보내는 body
 			sb.append("template_object=");
-			sb.append("{\"object_type\": \"text\",        " +
-					" \"text\": \"1boo1에 로그인 하셨습니다! \\n");
-			//유저 좋아하는 상품 목록 알람람
-			//List<GoodsLike2> userGoods = goodsLikeRepository.findUserLikeGoods(userId);
-//			for (GoodsLike2 good : userGoods){
-//				String eventtype = eventType(good.getEvent());
-//				String convinence = convinenceType(good.getConvinence());
-//				sb.append(convinence + good.getName() + "원 " + good.getPrice() + " " + eventtype + " " +   "\\n");
-//			}
-
-			sb.append(
-					"\"" +
-					", \"link\": {           " +
-					"  \"web_url\": \"https://k6d207.p.ssafy.io/\",     " +
-					"  \"mobile_web_url\": \"https://k6d207.p.ssafy.io/\"         " +
-					"},         " +
-					"\"button_title\": \"사이트 바로가기\"" +
-					"}");
+			String temp = KakaoTemplateBestRecipe();
+			System.out.println(temp);
+			sb.append(temp);
 
 			bw.write(sb.toString());
 			bw.flush();
@@ -379,8 +363,8 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
-	public String KakaoTemplateLikeGoods(Long friendId){
-		List<GoodsLike2> goodsLike2s= goodsLikeRepository.findUserLikeGoods(friendId);
+	public String KakaoTemplateLikeGoods(Long userId){
+		List<GoodsLike2> goodsLike2s= goodsLikeRepository.findUserLikeGoods(userId);
 		StringBuilder sb = new StringBuilder();
 
 		if (goodsLike2s.size() < 2){
@@ -467,8 +451,74 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public String KakaoTemplateBestRecipe(){
-
 		StringBuilder sb = new StringBuilder();
+		List<RecipeKakao> recipeLikes = recipeLikeRepository.findRecipeLikeOrderBySQLTop4ForKaKao();
+
+		sb.append("" +
+				"{\n" +
+				"        \"object_type\": \"list\",\n" +
+				"        \"header_title\": \"Top3 편스토랑 레시피!\",\n" +
+				"        \"header_link\": {\n" +
+				"            \"web_url\": \"https://k6d207.p.ssafy.io/\",\n" +
+				"            \"mobile_web_url\": \"https://k6d207.p.ssafy.io/\",\n" +
+				"            \"android_execution_params\": \"main\",\n" +
+				"            \"ios_execution_params\": \"main\"\n" +
+				"        },\n" +
+				"        \"contents\": [\n" );
+
+
+		for (int i = 0; i < recipeLikes.size(); i++){
+			goodsKakao good = goodsRepository.findPhotopathKakao(recipeLikes.get(i).getId());
+			sb.append("" +
+					"{\n" +
+					"                \"title\": \"");
+			sb.append(recipeLikes.get(i).getTitle());
+			sb.append(
+					"\",\n" +
+							"                \"description\": \"");
+			sb.append(recipeLikes.get(i).getDescription());
+			sb.append(
+					"\",\n" +
+							"                \"image_url\": \"");
+			sb.append(good.getPhoto_path());
+			sb.append(
+					"\",\n" +
+							"                \"image_width\": 640,\n" +
+							"                \"image_height\": 640,\n" +
+							"                \"link\": {\n" +
+							"                    \"web_url\": \"https://k6d207.p.ssafy.io\",\n" +
+							"                    \"mobile_web_url\": \"https://k6d207.p.ssafy.io\",\n" +
+							"                    \"android_execution_params\": \"/contents/3\",\n" +
+							"                    \"ios_execution_params\": \"/contents/3\"\n" +
+							"                }\n" +
+							"            }" +
+							"");
+			if(i != recipeLikes.size() -1 ){
+				sb.append(',');
+			}
+		}
+
+		sb.append(
+				"        ],\n" +
+						"        \"buttons\": [\n" +
+						"            {\n" +
+						"                \"title\": \"만드는 법 확인!\",\n" +
+						"                \"link\": {\n" +
+						"                    \"web_url\": \"https://k6d207.p.ssafy.io/\",\n" +
+						"                    \"mobile_web_url\": \"https://k6d207.p.ssafy.io/\"\n" +
+						"                }\n" +
+						"            },\n" +
+						"            {\n" +
+						"                \"title\": \"만드는 법 확인!\",\n" +
+						"                \"link\": {\n" +
+						"                    \"android_execution_params\": \"main\",\n" +
+						"                    \"ios_execution_params\": \"main\"\n" +
+						"                }\n" +
+						"            }\n" +
+						"        ]\n" +
+						"    }" +
+						"");
+
 		return sb.toString();
 	};
 
