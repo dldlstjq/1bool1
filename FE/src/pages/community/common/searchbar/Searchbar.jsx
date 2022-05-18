@@ -2,6 +2,9 @@
 import { useRef, useState } from "react";
 import axios from "axios";
 
+import searchIcon from "./search.png";
+import whiteSearchIcon from "./white-search.png";
+
 export function Searchbar({ url, setState }) {
   const buttonRef = useRef();
   const imgRef = useRef();
@@ -43,9 +46,9 @@ export function Searchbar({ url, setState }) {
         onClick={() => applyFilter(url)}
       >
         {isFocused ? (
-          <img src="/images/white-search.png" alt="" />
+          <img src={whiteSearchIcon} alt="" />
         ) : (
-          <img src="/images/search.png" alt="" />
+          <img src={searchIcon} alt="" />
         )}
       </button>
     </div>

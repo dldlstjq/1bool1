@@ -10,7 +10,6 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Searchbar } from "../common/Searchbar";
 
 function ButtonAndPerPage({ recipes }) {
   const [value, setValue] = useState(0);

@@ -3,6 +3,7 @@
 
 import { Link } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import adminIcon from "./admin.png";
 
 interface ArticleProps {
   id: string;
@@ -21,7 +22,7 @@ function Article({ data }: Data) {
   const { id, title, nickname, modifiedDate, photo, cnt }: ArticleProps = data;
 
   return (
-    <div className="border-b border-slate-400 flex pt-3">
+    <div className="border-b border-slate-400 flex pt-3 sm:py-3">
       <img
         src={photo.split(",")[0]}
         alt=""
@@ -47,7 +48,7 @@ function Article({ data }: Data) {
           to={`/community/${id}`}
           state={data}
         >
-          <div className="inline-block max-w-[220px] sm:max-w-[400px]">
+          <div className="inline-block max-w-[220px] sm:max-w-[400px] h-[35px] overflow-hidden text-ellipsis">
             {title}
           </div>
           <span>
@@ -58,10 +59,8 @@ function Article({ data }: Data) {
           </span>
         </Link>
 
-        {/* <i className="icon-box icon-info icon-comment w-5 h-4"></i> 22
-        <i className="icon-box icon-info icon-views w-5 h-4 ml-1"></i> 21 */}
         <div className="my-2 max-h-[50px] overflow-hidden">
-          <img src="/images/admin.png" alt="" className="inline-block w-12" />
+          <img src={adminIcon} alt="" className="inline-block w-12" />
           {nickname} | {modifiedDate.split(".")[0].slice(0, -3)}
         </div>
       </div>
