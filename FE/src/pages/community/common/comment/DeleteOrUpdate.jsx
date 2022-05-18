@@ -11,12 +11,7 @@ import {
   TextField,
 } from "@mui/material";
 
-export function DeleteOrUpdate({
-  setInputPw,
-  handleDelete,
-  readyUpdate,
-  inputMode,
-}) {
+export function DeleteOrUpdate({ setCheckPw }) {
   return (
     <Box xs={{ display: "flex", flexDirection: "row" }}>
       <input
@@ -24,7 +19,7 @@ export function DeleteOrUpdate({
         className="h-7 rounded"
         placeholder="비밀번호"
         name="password"
-        onChange={(e) => setInputPw(e.target.value)}
+        onChange={(e) => setCheckPw(e.target.value)}
         style={{
           borderRadius: 10,
           borderStyle: "solid",
@@ -34,8 +29,7 @@ export function DeleteOrUpdate({
         }}
       />
       <Button
-        id="delete"
-        onClick={handleDelete}
+        id="delete-comment"
         style={{
           backgroundColor: "white",
           borderRadius: 10,
@@ -49,8 +43,7 @@ export function DeleteOrUpdate({
         삭제
       </Button>
       <Button
-        id="update"
-        onClick={readyUpdate}
+        id="update-comment"
         style={{
           backgroundColor: "white",
           borderRadius: 10,
