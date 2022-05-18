@@ -24,4 +24,6 @@ public interface BoardLikeRepository extends JpaRepository<BoardLikeManagement,L
 
     @Query(value = "select r.board_id,COUNT(r.board_id) AS cnt from board_like_management r WHERE r.created_date > date_add(now(),interval -7 DAY) AND r.is_liked = 1 GROUP BY r.board_id ORDER BY cnt desc LIMIT 10;",nativeQuery = true)
     List<BoardLike> findBoardLikeOrderBySQL();
+
+    List<BoardLikeManagement> findByUserId(Long userId);
 }

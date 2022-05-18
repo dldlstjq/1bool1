@@ -19,4 +19,6 @@ public interface RecipeLikeService {
     List<RecipeDto.RecipeLikeGet> findByRecipeWeek();
 
     List<Recipe> findRecipeLike(Long userId);
+
+    List<RecipeDto.RecipeLikeGet> findByRecipeTop();
 }
