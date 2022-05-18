@@ -23,8 +23,7 @@ function RecipeTop(props) {
 
   useEffect(()=> {
     axios
-    // .get(`https://1bool1.com/api/v1/recipe/like/top`)
-    .get(`https://1bool1.com/api/v1/recipe/like/top`)
+    .get(`${axios.defaults.baseURL}recipe/like/top`)
     .then(({data})=>{
       setMenu(data.object)
       console.log('홍', data.object)

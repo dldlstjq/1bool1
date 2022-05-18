@@ -47,9 +47,7 @@ function Main() {
   };
   useEffect(() => {
     axios
-      // .get('http://localhost:8080/api/v1/goods')
-      .get(`https://k6d207.p.ssafy.io/api/v1/recipe/like/week`)
-      // .get(`https://k6d207.p.ssafy.io/api/v1/goods/like`)
+      .get(`${axios.defaults.baseURL}recipe/like/week`)
       .then(({ data }) => {
         setLike(data.object);
         console.log('좋아요', data.object);
@@ -57,7 +55,7 @@ function Main() {
   }, []);
 
   useEffect(() => {
-    axios.get(`https://k6d207.p.ssafy.io/api/v1/goods/hit`).then(({ data }) => {
+    axios.get(`${axios.defaults.baseURL}goods/hit`).then(({ data }) => {
       setHit(data.object);
       // console.log('조회수', data.object, hits);
     });
