@@ -183,31 +183,31 @@ public class UserController {
 			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "토큰이 없음"));
 	}
 
-	@ResponseBody
-	@PostMapping("/kakaoFriend")
-	public ResponseEntity<? extends BaseResponseBody> kakaoFriend(@RequestParam("token") String token) throws Exception {
-		if (!token.equals("")) {
-			int code = userService.findKakaoFriend(token);
-			if (code == 0)
-				return ResponseEntity.status(200).body(BaseResponseBody.of(200, "친구 찾기 성공!!"));
-			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "알림이 안와요ㅠㅠ"));
-		}
-		else
-			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "토큰이 없음"));
-	}
+//	@ResponseBody
+//	@PostMapping("/kakaoFriend")
+//	public ResponseEntity<? extends BaseResponseBody> kakaoFriend(@RequestParam("token") String token) throws Exception {
+//		if (!token.equals("")) {
+//			int code = userService.findKakaoFriend(token);
+//			if (code == 0)
+//				return ResponseEntity.status(200).body(BaseResponseBody.of(200, "친구 찾기 성공!!"));
+//			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "알림이 안와요ㅠㅠ"));
+//		}
+//		else
+//			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "토큰이 없음"));
+//	}
 
 	@GetMapping("/kakaoFriend")
-	@ApiOperation(value = "카카오 친구 조회", notes = "로그인한 사용자의 카카오 로그인 조회")
+	@ApiOperation(value = "카카오 친구 메시지 보내기", notes = "로그인한 사용자의 카카오 로그인 조회")
 	@ApiResponses({
 			@ApiResponse(code = 200, message = "성공"),
 			@ApiResponse(code = 401, message = "인증 실패"),
 			@ApiResponse(code = 404, message = "사용자 없음"),
 			@ApiResponse(code = 500, message = "서버 오류")
 	})
-	public ResponseEntity<? extends BaseResponseBody> findKakaoFriend(@RequestParam("token") String token) throws Exception {
+	public ResponseEntity<? extends BaseResponseBody> sendKakaoMessageFriend(@RequestParam("token") String token, @RequestParam("method") Long method) throws Exception {
 
-		Integer check = userService.findKakaoFriend(token);
-		if(check == 0)
+		Integer check = userService.findKakaoFriend(token, method);
+		if(check != 0)
 			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "친구 조회 성공"));
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "친구 조회 실패"));
 

@@ -258,7 +258,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int findKakaoFriend(String token) throws  Exception {
+	public int findKakaoFriend(String token, Long method) throws  Exception {
 		int result_code = 0;
 		String reqURL = "https://kapi.kakao.com/v1/api/talk/friends?friend_order=nickname";
 		URL url = new URL(reqURL);
@@ -288,7 +288,7 @@ public class UserServiceImpl implements UserService {
 				Long friendId = friend.getAsJsonObject().get("id").getAsLong();
 				String friendUuid = friend.getAsJsonObject().get("uuid").getAsString();
 				//result_code = sendKakaoMessageFriend(token, friendUuid);
-				String test = kakaoTemplateLikeGoods(friendId);
+				String test = KakaoTemplateLikeGoods(friendId);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -328,34 +328,32 @@ public class UserServiceImpl implements UserService {
 
 		bw.write(param);
 		bw.flush();
-
 		//결과 코드가 200이라면 성공
 		int responseCode = conn.getResponseCode();
 		String content = conn.getResponseMessage();
 		System.out.println("content : " + content);
 		System.out.println("responseCode : " + responseCode);
-		System.out.println(param);
 		return -1;
 	}
 
 	public String eventType(Long event){
 		if (event == 2){
-			return "1 + 1";
+			return "1쁠라스1";
 		}
 		else if (event == 3){
-			return "2 \\+ 1";
+			return "2쁠라스1";
 		}
 		else if (event == 4){
-			return "3 \\+ 1";
+			return "3쁠라스1";
 		}
 		else if (event == 5){
-			return "가격 SALE 중";
+			return "가격 SALE!";
 		}
 		else if (event == 6){
-			return "덤 증정";
+			return "덤 증정!";
 		}
 		else{
-			return "균일가";
+			return "균일가!";
 		}
 	}
 
@@ -380,17 +378,98 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
-	public String kakaoTemplateLikeGoods(Long friendId){
-		System.out.println(friendId);
+	public String KakaoTemplateLikeGoods(Long friendId){
 		List<GoodsLike2> goodsLike2s= goodsLikeRepository.findUserLikeGoods(friendId);
-		for(GoodsLike2 goods : goodsLike2s){
-			System.out.println(goods.getPrice());
-			System.out.println(goods.getEvent());
-			System.out.println(goods.getConvinence());
-			System.out.println(goods.getPhoto_path());
-		};
-		return "!";
+		StringBuilder sb = new StringBuilder();
+
+		if (goodsLike2s.size() < 2){
+			sb.append("" +
+					"{\n" +
+					"        \"object_type\": \"text\",\n" +
+					"        \"text\": \"좋아요 누른 물건이 적어요 ㅠㅠ\",\n" +
+					"        \"link\": {\n" +
+					"            \"web_url\": \"https://k6d207.p.ssafy.io/\",\n" +
+					"            \"mobile_web_url\": \"https://k6d207.p.ssafy.io/\"\n" +
+					"        },\n" +
+					"        \"button_title\": \"좋아요 누르러 가기!\"\n" +
+					"    }" +
+					"");
+		}
+		else{
+			sb.append("" +
+					"{\n" +
+					"        \"object_type\": \"list\",\n" +
+					"        \"header_title\": \"좋아요 누른 상품들 행사중!\",\n" +
+					"        \"header_link\": {\n" +
+					"            \"web_url\": \"https://k6d207.p.ssafy.io/\",\n" +
+					"            \"mobile_web_url\": \"https://k6d207.p.ssafy.io/\",\n" +
+					"            \"android_execution_params\": \"main\",\n" +
+					"            \"ios_execution_params\": \"main\"\n" +
+					"        },\n" +
+					"        \"contents\": [\n" );
+
+
+			for (int i = 0; i < goodsLike2s.size(); i++){
+				sb.append("" +
+						"{\n" +
+						"                \"title\": \"");
+				sb.append(goodsLike2s.get(i).getName());
+				sb.append(
+						"\",\n" +
+								"                \"description\": \"");
+				sb.append(convinenceType(goodsLike2s.get(i).getConvinence())
+						+" : " + eventType(goodsLike2s.get(i).getEvent()));
+				sb.append(
+						"\",\n" +
+								"                \"image_url\": \"");
+				sb.append(goodsLike2s.get(i).getPhoto_path());
+				sb.append(
+						"\",\n" +
+								"                \"image_width\": 640,\n" +
+								"                \"image_height\": 640,\n" +
+								"                \"link\": {\n" +
+								"                    \"web_url\": \"https://k6d207.p.ssafy.io\",\n" +
+								"                    \"mobile_web_url\": \"https://k6d207.p.ssafy.io\",\n" +
+								"                    \"android_execution_params\": \"/contents/3\",\n" +
+								"                    \"ios_execution_params\": \"/contents/3\"\n" +
+								"                }\n" +
+								"            }" +
+								"");
+				if(i != goodsLike2s.size() -1 ){
+					sb.append(',');
+				}
+			}
+
+			sb.append(
+					"        ],\n" +
+							"        \"buttons\": [\n" +
+							"            {\n" +
+							"                \"title\": \"확인하러 가기!\",\n" +
+							"                \"link\": {\n" +
+							"                    \"web_url\": \"https://k6d207.p.ssafy.io/\",\n" +
+							"                    \"mobile_web_url\": \"https://k6d207.p.ssafy.io/\"\n" +
+							"                }\n" +
+							"            },\n" +
+							"            {\n" +
+							"                \"title\": \"확인하러 가기!\",\n" +
+							"                \"link\": {\n" +
+							"                    \"android_execution_params\": \"main\",\n" +
+							"                    \"ios_execution_params\": \"main\"\n" +
+							"                }\n" +
+							"            }\n" +
+							"        ]\n" +
+							"    }" +
+							"");
+		}
+
+		return sb.toString();
 	}
+
+	public String KakaoTemplateBestRecipe(){
+
+		StringBuilder sb = new StringBuilder();
+		return sb.toString();
+	};
 
 //	@Override
 //	public void getEmailUser(Long id) throws Exception{
