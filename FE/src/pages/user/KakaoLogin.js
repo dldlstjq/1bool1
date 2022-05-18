@@ -60,10 +60,6 @@ export default function KakaoLogin() {
         })
           .then((res) => {
             localStorage.setItem("user_id", res.data.object.id);
-            if (res.data.statusCode === 200) {
-              alert("1bool1에 오신걸 환영합니다!");
-              navigate("/");
-            }
             Promise.resolve(res.data.object.id);
           })
           .then((res) => {
@@ -82,6 +78,10 @@ export default function KakaoLogin() {
                 )
                 .catch((err) => console.log(err));
             });
+            setTimeout(() => {
+              alert("1bool1에 오신걸 환영합니다!");
+              navigate("/");
+            }, 1000);
           });
       },
       fail: function (err) {
