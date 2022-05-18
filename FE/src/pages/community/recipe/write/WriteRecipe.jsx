@@ -23,16 +23,18 @@ function WriteRecipe() {
     nickname = '',
     password = '',
     star = '',
-    title = '';
-  if (state) ({ content, description, minute, nickname, password, star, title } = state);
+    title = '',
+    price = '';
+  if (state) ({ content, description, minute, nickname, password, star, title, price } = state);
 
   const handleCancel = useCallback(() => {
-    navi('/community/recipe');
+    navi('/recipe');
   }, [navi]);
 
   function handleSubmit(e) {
     // put or post
     e.preventDefault();
+    console.log(e.target);
     if (selected.length === 0) {
       alert('재료를 추가해주세요');
       return;
@@ -53,7 +55,7 @@ function WriteRecipe() {
         url: 'recipe',
         data: form,
       })
-        .then(setTimeout(() => navi('/community/recipe'), 1000))
+        .then(setTimeout(() => navi('/recipe'), 1000))
         .catch((err) => console.log(err));
     } else {
       axios({
@@ -61,7 +63,7 @@ function WriteRecipe() {
         url: 'recipe',
         data: form,
       })
-        .then(setTimeout(() => navi('/community/recipe'), 1000))
+        .then(setTimeout(() => navi('/recipe'), 1000))
         .catch((err) => console.log(err));
     }
   }
