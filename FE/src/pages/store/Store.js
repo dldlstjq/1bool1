@@ -129,8 +129,7 @@ function Store() {
       else { event_type += '7'} }
     if (allEvent || event_type === '') { event_type = '0' } 
     // console.log('adr확인중', conv, event_type, goodName)
-    let adr = `https://k6d207.p.ssafy.io/api/v1/goods/conGoods?convinenceName=${conv}&event=${event_type}&goods=${goodName}`
-    // let adr = `https://k6d207.p.ssafy.io/api/v1/goods/conGoods?convinenceName=${conv}&event=${event_type}&goods=${name}`
+    let adr = `${axios.defaults.baseURL}goods/conGoods?convinenceName=${conv}&event=${event_type}&goods=${goodName}`
     
     axios
     .get(adr)
@@ -148,7 +147,8 @@ function Store() {
   
   useEffect(() => {
     axios
-    .get(`https://k6d207.p.ssafy.io/api/v1/goods/conGoods?convinenceName=all&event=0&goods=${name}`)
+    .get(`${axios.defaults.baseURL}goods/conGoods?convinenceName=all&event=0&goods=${name}`)
+    // .get(`https://1bool1.com/api/v1/goods/conGoods?convinenceName=all&event=0&goods=${name}`)
     .then(({data}) => {
       setGoods(data.object)
       console.log(data.object)

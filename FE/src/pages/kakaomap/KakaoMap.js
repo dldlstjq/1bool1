@@ -176,7 +176,7 @@ export default function KakaoMap() {
       }
 
       content +=
-        '    <span class="tel">' + place.phone + '</span>' + '</div>' + '<div class="after"></div>';
+        '    <span class="tel">' + place.phone + '</span></div><div class="after"></div>';
 
       contentNode.innerHTML = content;
       placeOverlay.setPosition(new kakao.maps.LatLng(place.y, place.x));

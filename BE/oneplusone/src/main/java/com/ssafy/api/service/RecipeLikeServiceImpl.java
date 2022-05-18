@@ -193,6 +193,7 @@ public class RecipeLikeServiceImpl implements RecipeLikeService{
                 recipeLikeGet.setNickname(recipe.getNickname());
                 recipeLikeGet.setTitle(recipe.getTitle());
                 recipeLikeGet.setId(recipe.getId());
+                recipeLikeGet.setPrice(recipe.getPrice());
                 recipeLikeGet.setModifiedDate(recipe.getModifiedDate());
                 recipeLikeGet.setCreatedDate(recipe.getCreatedDate());
                 ans.add(recipeLikeGet);

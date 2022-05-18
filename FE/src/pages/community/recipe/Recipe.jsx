@@ -10,7 +10,7 @@ function Recipe({ recipe }) {
   const { id, title, photo, nickname, minute, star, price, cnt } = recipe;
   const photos = photo?.split(',');
   return (
-    <div className='pt-4' style={{ height: '350px' }}>
+    <div className='p-4' style={{ height: '350px' }}>
       <div style={{ height: '200px', display: 'flex', justifyContent: 'center' }}>
         <img
           // src={photos && photos[0]}
@@ -18,8 +18,8 @@ function Recipe({ recipe }) {
           alt='이미지가 없습니다'
           id={id}
           className='main-photo'
-          // style={{height:'200px' }}
-          style={{ height: '100%' }}
+          style={{width:'100%' }}
+          // style={{ height: '100%' }}
         />
       </div>
       <h1

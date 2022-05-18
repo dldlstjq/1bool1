@@ -24,12 +24,9 @@ const { Kakao } = window;
 export default function KakaoLogin() {
   const navigate = useNavigate();
   // const CLIENT_ID = '036e9cc127f3c0b11192c751fab0d62b';
-  // const REDIRECT_URI = 'http://k6d207.p.ssafy.io/api/v1/users/kakao';
   // const REDIRECT_URI = 'http://localhost:3000/oauth/callback/kakao';
   // const REDIRECT_URI = 'http://localhost:3000/signin';
-  //   https://kauth.kakao.com/oauth/authorize?client_id=036e9cc127f3c0b11192c751fab0d62b&redirect_uri=http://k6d207.p.ssafy.io/api/v1/users/kakao&response_type=code
   // const KAKAO_LOGIN_API_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-  // const KAKAO_LOGIN_API_URL = `https://kauth.kakao.com/oauth/authorize?client_id=036e9cc127f3c0b11192c751fab0d62b&redirect_uri=http://k6d207.p.ssafy.io/api/v1/users/kakao&response_type=code`;
 
   function kakaoLoginClickHandler(e) {
     e.preventDefault();
