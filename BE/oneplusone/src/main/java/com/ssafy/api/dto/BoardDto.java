@@ -38,6 +38,7 @@ public class BoardDto {
 //        @ApiModelProperty(name="시작 시간", example="2022-02-01")
 //        Date startDate;
     }
+
     @Data
     @ApiModel("BoardDeleteRequest")
     public static class BoardDeleteRequest {
