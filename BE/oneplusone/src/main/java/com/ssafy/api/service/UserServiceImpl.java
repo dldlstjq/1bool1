@@ -3,7 +3,7 @@ package com.ssafy.api.service;
 import com.google.gson.*;
 import com.ssafy.api.dto.UserDto;
 import com.ssafy.db.entity.*;
-import com.ssafy.db.repository.RecipeLikeRepository;
+import com.ssafy.db.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,9 +18,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.ssafy.api.dto.UserDto.UserRegisterPostReq;
-import com.ssafy.db.repository.UserRepository;
-import com.ssafy.db.repository.UserRepositorySupport;
-import com.ssafy.db.repository.GoodsLikeRepository;
 import org.springframework.transaction.annotation.Transactional;
 /**
  *	유저 관련 비즈니스 로직 처리를 위한 서비스 구현 정의.
@@ -42,6 +39,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	RecipeLikeRepository recipeLikeRepository;
+
+	@Autowired
+	GoodsRepository goodsRepository;
 
 	@Override
 	public User createUser(UserRegisterPostReq userRegisterInfo) {
@@ -468,6 +468,7 @@ public class UserServiceImpl implements UserService {
 
 
 		for (int i = 0; i < recipeLikes.size(); i++){
+			goodsKakao good = goodsRepository.findPhotopathKakao(recipeLikes.get(i).getId());
 			sb.append("" +
 					"{\n" +
 					"                \"title\": \"");
@@ -479,7 +480,7 @@ public class UserServiceImpl implements UserService {
 			sb.append(
 					"\",\n" +
 							"                \"image_url\": \"");
-			sb.append(recipeLikes.get(i).getPhoto());
+			sb.append(good.getPhoto_path());
 			sb.append(
 					"\",\n" +
 							"                \"image_width\": 640,\n" +

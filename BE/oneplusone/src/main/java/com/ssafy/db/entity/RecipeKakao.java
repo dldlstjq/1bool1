@@ -5,5 +5,5 @@ public interface RecipeKakao {
     String getDescription();
     String getTitle();
     String getPhoto();
-    Long getCnt();
+    Long getId();
 }
