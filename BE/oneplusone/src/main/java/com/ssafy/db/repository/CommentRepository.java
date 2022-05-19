@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment,Long> {
-//    @Query(value = "select * from comment c where c.board_id = :boardId", nativeQuery = true)
     public List<Comment> findByBoardId(Long boardId);
 
     Comment findByBoardIdAndId(Long boardId, Long id);

@@ -46,7 +46,6 @@ public class RecipeLikeServiceImpl implements RecipeLikeService{
             another.remove(recipeRepository.findById(list.get(i).getRecipe_id()).orElseGet(() -> null)); //삭제 처리
             newOne.add(temp);
         }
-        //이 곳은 레시피 좋아요 갯수를 받지 못한 곳 입니다.
         RecipeDto.RecipeLikeGetOrderBy t;
         for(int i = 0; i < another.size(); i++){
             t = new RecipeDto.RecipeLikeGetOrderBy();
@@ -54,10 +53,8 @@ public class RecipeLikeServiceImpl implements RecipeLikeService{
             t.setCnt(0L);
             newOne.add(t);
         }
-        //끝 처리
 
         List<RecipeDto.RecipeLikeGet> ans = new ArrayList<>();
-        //끝 처리
         RecipeDto.RecipeLikeGet test;
         for(int i = 0; i < newOne.size(); i++){
             test = new RecipeDto.RecipeLikeGet();
@@ -76,10 +73,6 @@ public class RecipeLikeServiceImpl implements RecipeLikeService{
             test.setPrice(newOne.get(i).getRecipe().getPrice());
             ans.add(test);
         }
-//        final int start = (int)pageable.getOffset();
-//        final int end = Math.min((start + pageable.getPageSize()), ans.size());
-//        final Page<RecipeDto.RecipeLikeGet> p = new PageImpl<>(ans.subList(start, end), pageable, ans.size());
-
         return ans;
     }
 

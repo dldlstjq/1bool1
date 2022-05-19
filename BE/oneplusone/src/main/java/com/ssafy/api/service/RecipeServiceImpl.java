@@ -88,7 +88,7 @@ public class RecipeServiceImpl implements RecipeService{
 
         List<RecipeGoods> recipelist = recipeGoodsRepository.findByRecipe(recipe);
         if(recipelist.size() > 0) {
-            for(int j = 0; j < recipelist.size(); j++) { //레시피 아이디로 등록 된 것 다 지우고
+            for(int j = 0; j < recipelist.size(); j++) {
                 recipeGoodsRepository.delete(recipelist.get(j));
             }
         }
@@ -96,7 +96,7 @@ public class RecipeServiceImpl implements RecipeService{
             for (int i = 0; i < list.size(); i++) {
                 RecipeGoods recipeGoods = new RecipeGoods();
                 Goods goods = goodsRepository.findById(Long.valueOf(list.get(i))).orElseGet(() -> null);
-                if (goods == null) { //goods 가 없는 번호
+                if (goods == null) {
                     return false;
                 }
                 recipeGoods.setRecipe(recipe);
@@ -115,9 +115,7 @@ public class RecipeServiceImpl implements RecipeService{
             recipe.setMinute(recipePutRequest.getMinute());
             recipe.setPrice(recipePutRequest.getPrice());
             Date date = new Date();
-//            recipe.setStartDate(date);
             recipe.update(recipePutRequest.getTitle(), recipePutRequest.getContent(),recipePutRequest.getPassword() , recipePutRequest.getPhoto(), recipePutRequest.getNickname(),recipePutRequest.getDescription(), recipePutRequest.getMinute(), recipePutRequest.getStar(),recipePutRequest.getPrice());
-//            recipe.update(recipePutRequest.getTitle(), recipePutRequest.getContent(),recipePutRequest.getPassword() ,recipePutRequest.getUpdateDate(), recipePutRequest.getPhoto(), recipePutRequest.getNickname());
             return true;
         }
         return false;

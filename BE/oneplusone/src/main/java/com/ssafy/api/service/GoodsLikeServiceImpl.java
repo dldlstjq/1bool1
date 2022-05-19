@@ -56,7 +56,6 @@ public class GoodsLikeServiceImpl implements GoodsLikeService{
         List<GoodsLike> list= goodsLikeRepository.findAllOrderBySQL();
 
         List<GoodsDto.GoodsLikeGetOrderBy> goods = new ArrayList<>();
-//        List<Goods> tmp = new ArrayList<>();
 
         if(list==null || list.isEmpty()) return null;
 

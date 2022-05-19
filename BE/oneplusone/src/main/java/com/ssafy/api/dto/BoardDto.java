@@ -35,8 +35,6 @@ public class BoardDto {
         String password;
         @ApiModelProperty(name="사진 경로", example="123232.jpg")
         String photo;
-//        @ApiModelProperty(name="시작 시간", example="2022-02-01")
-//        Date startDate;
     }
 
     @Data
@@ -47,9 +45,6 @@ public class BoardDto {
         @ApiModelProperty(name="비밀번호", example="a1234!@")
         String password;
     }
-    /*
-    * Board 등록 사진 제대로
-    * */
     @Getter
     @Setter
     @ApiModel("BoardPostRealRequest")
@@ -101,8 +96,6 @@ public class BoardDto {
         String password;
         @ApiModelProperty(name="사진 경로", example="123232.jpg")
         String photo;
-//        @ApiModelProperty(name="현 시간", example="2022-02-01")
-//        Date updateDate;
     }
 
     @Getter

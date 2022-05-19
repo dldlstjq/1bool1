@@ -1,13 +1,11 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.dto.BoardDto;
-import com.ssafy.api.dto.RecipeDto;
 import com.ssafy.db.entity.*;
 import com.ssafy.db.repository.BoardLikeRepository;
 import com.ssafy.db.repository.BoardRepository;
 import com.ssafy.db.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.support.PagedListHolder;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
