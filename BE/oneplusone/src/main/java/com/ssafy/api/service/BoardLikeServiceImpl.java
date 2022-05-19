@@ -109,9 +109,13 @@ public class BoardLikeServiceImpl implements BoardLikeService {
             Board board = boardRepository.findById(dto.getId()).orElseGet(() -> null);
             User user = userRepository.findById(dto.getUserId()).orElseGet(()->null);
             BoardLikeManagement boardLikeManagement = boardLikeRepository.findByBoardAndUser(board,user);
+
         if(boardLikeManagement == null){
             return false;
         }else {
+            if(boardLikeManagement.getIsLiked() == 0){
+                return false;
+            }
             return true;
         }
 
