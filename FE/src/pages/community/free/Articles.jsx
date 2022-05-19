@@ -14,14 +14,20 @@ import Footer from "../../../components/main/Footer";
 import Pagination from "react-js-pagination";
 
 function Articles() {
-  // const [searchParams, setSearchParams] = useSearchParams([["page", "1"]]);
-  const [size, setSize] = useState(99999);
-  const [orderBy, setOrderBy] = useState("board");
+  const fakeList = [
+    { id: 100, cnt: 3, title: "abc", nickname: "닉네임" },
+    { id: 1200, cnt: 3, title: "abc", nickname: "닉네임" },
+    { id: 111, cnt: 3, title: "abc", nickname: "닉네임" },
+    { id: 110, cnt: 3, title: "abc", nickname: "닉네임" },
+    { id: 10, cnt: 3, title: "abc", nickname: "닉네임" },
+  ];
 
   const navigate = useNavigate();
   // const pageParam = searchParams.get("page");
   const [page, setPage] = useState(1);
-  const like = useRef([]);
+  // const [top10,setTop10] = useState([])
+  // const like = useRef([]);
+  const [like, setLike] = useState();
   const recent = useRef([]);
   const [articles, setArticles] = useState([]);
   const handlePageChange = (page) => {
@@ -43,7 +49,7 @@ function Articles() {
       url: "board/like",
       params: { page: 0, size: 999999 },
     })
-      .then((res) => (like.current = res.data.object.content))
+      .then((res) => setLike(res.data.object.content))
       .catch((err) => console.log(err));
   }, []);
 
@@ -65,20 +71,22 @@ function Articles() {
   }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
-    >
+    <div>
       <Appbar />
-      <div onClick={handleClick} sytle={{ flex: "1" }}>
-        
-      {/* <div className="text-2xl">TOP 4</div> */}
-      {/* <div
+
+      <div
         className="p-1 sm:p-0 sm:w-11/12 md:w-3/4 lg:w-2/3 mx-auto"
         onClick={handleClick}
-      > */}
-      <Container>
+      >
+        <div className="text-4xl lg:text-5xl font-bold">TOP 10</div>
+        {/* <div className="border-t-2 border-slate-700">
+          {like
+            ?.slice(20 * (page - 1), 20 * (page - 1) + 20)
+            .map((data, idx) => {
+              return <Article data={data} key={idx} />;
+            })}
+        </div> */}
 
-      
-        {/* <h1 className='title text-4xl lg:text-6xl my-5 md:mb-20 ml-1'>자유게시판</h1> */}
         <Box
           style={{ display: "flex", flexDirection: "row", marginTop: "2rem" }}
         >
@@ -134,8 +142,6 @@ function Articles() {
         <div className="text-center mt-10">
           <Searchbar url="board/search" setState={setArticles} />
         </div>
-      {/* </div> */}
-      </Container>
       </div>
       <Footer />
     </div>
