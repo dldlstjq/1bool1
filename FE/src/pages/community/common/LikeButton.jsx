@@ -11,9 +11,9 @@ import { BASE_URL } from '../../../index';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-function LikeButton({ url, user_id, recipe_id }) {
+function LikeButton({ url, user_id, recipe_id, setLike, likeCnt }) {
   const [foo, refresh] = useState(0);
-  const [like, setLike] = useFetchItem(url, foo);
+  // const [like, setLike] = useFetchItem(url, foo);
   const [isLike, setIsLike] = useState(false);
 
   useEffect(() => {
@@ -43,6 +43,12 @@ function LikeButton({ url, user_id, recipe_id }) {
     const likeCurrent = e.target.checked;
     setIsLike(likeCurrent);
     // e.preventDefault();
+
+    if (likeCurrent) {
+      setLike(likeCnt + 1);
+    } else {
+      setLike(likeCnt - 1);
+    }
 
     try {
       await axios({
