@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { Container } from '@mui/material';
 
+import { BASE_URL } from '../../../../index';
 import { useFetchList } from '../../common/hooks';
 
 import Step from './Step';
@@ -20,6 +21,7 @@ function Detail() {
   const { recipeId } = useParams();
   const [recipe, setRecipe] = useState({});
   const [inputPassword, setInputPassword] = useState('');
+  const [likeCnt, setLikeCnt] = useState(0);
 
   const {
     photo,
@@ -48,6 +50,15 @@ function Detail() {
         setRecipe(res.data.object);
       })
       .catch((err) => console.log(err));
+
+    axios({
+      method: 'get',
+      url: BASE_URL + 'recipe/like/' + recipeId,
+    })
+      .then((res) => {
+        setLikeCnt(res.data.object);
+      })
+      .catch((err) => console.log(err));
   }, [recipeId]);
 
   const goods = useFetchList('recipe/goods/' + recipeId);
@@ -69,6 +80,7 @@ function Detail() {
               description={description}
               recipeId={recipeId}
               price={price}
+              likeCnt={likeCnt}
             />
             {/* <div id='main' className='border-y-4 py-2 my-2'> */}
             {/* <h1 className='text-xl'> 이 요리는...</h1>

@@ -11,9 +11,9 @@ import { BASE_URL } from '../../../index';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-function LikeButton({ url, user_id, recipe_id }) {
+function LikeButton({ url, user_id, recipe_id, setLike, likeCnt }) {
   const [foo, refresh] = useState(0);
-  const [like, setLike] = useFetchItem(url, foo);
+  // const [like, setLike] = useFetchItem(url, foo);
   const [isLike, setIsLike] = useState(false);
 
   useEffect(() => {
@@ -45,22 +45,25 @@ function LikeButton({ url, user_id, recipe_id }) {
     // e.preventDefault();
 
     if (likeCurrent) {
-      try {
-        await axios({
-          method: 'post',
-          url: BASE_URL + `recipe/like/${recipe_id}`,
-          params: {
-            user_id: user_id,
-          },
-        }).then((res) => {
-          if (res.data.statusCode === 200) {
-            console.log('좋아요 등록');
-          }
-        });
-      } catch (err) {
-        console.log(err);
-      }
+      setLike(likeCnt + 1);
     } else {
+      setLike(likeCnt - 1);
+    }
+
+    try {
+      await axios({
+        method: 'post',
+        url: BASE_URL + `recipe/like/${recipe_id}`,
+        params: {
+          user_id: user_id,
+        },
+      }).then((res) => {
+        if (res.data.statusCode === 200) {
+          console.log('좋아요 등록');
+        }
+      });
+    } catch (err) {
+      console.log(err);
     }
   };
 

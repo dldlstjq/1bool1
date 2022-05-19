@@ -19,30 +19,32 @@ function UpperInfo({
   description,
   recipeId,
   price,
+  likeCnt,
 }) {
-  const [likeCnt, setLikeCnt] = useState(0);
-
+  const [like, setLike] = useState(likeCnt);
+  console.log(like);
   const handleLike = async (e) => {
     // e.preventDefault();
-    if (localStorage.getItem('user_id') !== null) {
-      try {
-        await axios({
-          method: 'get',
-          url: BASE_URL + `recipe/like/${recipeId}`,
-        }).then((res) => {
-          if (res.data.statusCode === 200) {
-            setLikeCnt(res.data.object);
-          }
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    }
+    // if (localStorage.getItem('user_id') !== null) {
+    //   try {
+    //     await axios({
+    //       method: 'get',
+    //       url: BASE_URL + `recipe/like/${recipeId}`,
+    //     }).then((res) => {
+    //       if (res.data.statusCode === 200) {
+    //         setLikeCnt(res.data.object);
+    //       }
+    //     });
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // }
+    setLike(like + 1);
   };
 
   return (
     <>
-      <img src={photo} alt='' className='main-photo w-3/4 mx-auto' style={{width:'500px'}}/>
+      <img src={photo} alt='' className='main-photo w-3/4 mx-auto' style={{ width: '500px' }} />
       {/* <div className='flex justify-between mb-3' style={{ marginTop: '10px' }}> */}
       {/* <div style={{ textAlign: 'center' }}> */}
       {/* <h1>
@@ -78,6 +80,8 @@ function UpperInfo({
                 url={'recipe/like/user/' + recipeId}
                 user_id={localStorage.getItem('user_id')}
                 recipe_id={recipeId}
+                setLike={setLike}
+                likeCnt={likeCnt}
               />
             </div>
           </Grid>
@@ -107,7 +111,7 @@ function UpperInfo({
         >
           <Grid /*xs={6} md={6}*/ xs={1} sm={2} md={4} lg={4}>
             <div class='place-content-center' style={{ display: 'flex', marginTop: 6 }}>
-              <p id='like'>{likeCnt}</p>
+              <p id='like'>{like}</p>
             </div>
           </Grid>
           <Grid /*xs={6} md={6}*/ xs={1} sm={2} md={4} lg={4}>
