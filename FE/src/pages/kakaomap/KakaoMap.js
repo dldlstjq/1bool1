@@ -42,6 +42,16 @@ export default function KakaoMap() {
       currCategory = ''; // 현재 선택된 카테고리를 가지고 있을 변수입니다
     var map = new kakao.maps.Map(mapContainer, mapOption);
 
+    // 마커가 표시될 위치입니다
+    var markerPosition = new kakao.maps.LatLng(window.lat, window.lng);
+
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+      position: markerPosition,
+    });
+
+    marker.setMap(map);
+
     // 장소 검색 객체를 생성합니다
     var ps = new kakao.maps.services.Places(map);
 
@@ -175,8 +185,7 @@ export default function KakaoMap() {
         content += '    <span title="' + place.address_name + '">' + place.address_name + '</span>';
       }
 
-      content +=
-        '    <span class="tel">' + place.phone + '</span></div><div class="after"></div>';
+      content += '    <span class="tel">' + place.phone + '</span></div><div class="after"></div>';
 
       contentNode.innerHTML = content;
       placeOverlay.setPosition(new kakao.maps.LatLng(place.y, place.x));
