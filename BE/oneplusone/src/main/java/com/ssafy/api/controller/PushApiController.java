@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @Slf4j
 @RequestMapping("/v1/push")
+@ApiIgnore
 public class PushApiController {
     @Autowired
     private PushNotificationService pushNotificationService;
