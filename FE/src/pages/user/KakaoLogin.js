@@ -57,32 +57,15 @@ export default function KakaoLogin() {
           params: {
             token: authObj.access_token,
           },
-        })
-          .then((res) => {
-            localStorage.setItem("user_id", res.data.object.id);
-            Promise.resolve(res.data.object.id);
-          })
-          .then((res) => {
-            const apps = ["board", "goods", "recipe"];
-            apps.forEach((appname) => {
-              axios({
-                method: "get",
-                url: `${appname}/like/userlist`,
-                params: { user_id: res },
-              })
-                .then((res) =>
-                  localStorage.setItem(
-                    `${appname}`,
-                    JSON.stringify(res.data.object)
-                  )
-                )
-                .catch((err) => console.log(err));
-            });
-            setTimeout(() => {
-              alert("1bool1에 오신걸 환영합니다!");
-              navigate("/");
-            }, 1000);
-          });
+        }).then((res) => {
+          console.log(res);
+          localStorage.setItem("user_id", res.data.object.id);
+          // console.log('성공했나');
+          if (res.data.statusCode === 200) {
+            alert("1bool1에 오신걸 환영합니다!");
+            navigate("/");
+          }
+        });
       },
       fail: function (err) {
         alert(JSON.stringify(err));

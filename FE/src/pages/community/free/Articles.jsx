@@ -113,7 +113,7 @@ function Articles() {
 
         <div className="border-t-2 border-slate-700">
           {articles
-            .slice(20 * (page - 1), 20 * (page - 1) + 20)
+            ?.slice(20 * (page - 1), 20 * (page - 1) + 20)
             .map((data, idx) => {
               return <Article data={data} key={idx} />;
             })}
