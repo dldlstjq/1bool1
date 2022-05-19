@@ -152,7 +152,7 @@ function Main() {
               </Typography>
             </Box>
             <Box style={{ display: 'flex', justifyContent: 'end' }}>
-              <Link to='/recipe'>
+              <Link to='/store'>
                 <Typography
                   variant='h6'
                   style={{ color: 'grey', display: 'flex', justifyContent: 'end' }}
