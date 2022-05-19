@@ -47,7 +47,7 @@ function Articles() {
       navigate("write");
     }
     if (target.matches("#order-by-like")) {
-      setArticles(like.current);
+      setArticles(like);
       return;
     }
     if (target.matches("#order-by-recent")) {
@@ -95,35 +95,35 @@ function Articles() {
           </Typography>
         </Box>
         <Grid container spacing={2}>
-            <Grid item xs={12} md={6}  style={{paddingLeft:40}}>
-              <RecentLikeBookmark setState={setArticles}/>
-            </Grid>
-            <Grid item xs={12} md={6} style={{paddingRight:25}}>
-              <Box
+          <Grid item xs={12} md={6} style={{ paddingLeft: 40 }}>
+            <RecentLikeBookmark setState={setArticles} />
+          </Grid>
+          <Grid item xs={12} md={6} style={{ paddingRight: 25 }}>
+            <Box
+              style={{
+                display: "flex",
+                justifyContent: "end",
+                marginBottom: "1rem",
+              }}
+            >
+              <Searchbar url="board/search" setState={setArticles} />
+              <Button
+                id="write"
                 style={{
-                  display: "flex",
-                  justifyContent: "end",
-                  marginBottom: "1rem",
+                  marginLeft: "1rem",
+                  backgroundColor: "#F93D59",
+                  color: "white",
+                  fontWeight: "bold",
+                  borderRadius: 10,
+                  height: "2rem",
+                  marginTop: "10px",
                 }}
               >
-                <Searchbar url="board/search" setState={setArticles} />
-                <Button
-                  id="write"
-                  style={{
-                    marginLeft: "1rem",
-                    backgroundColor: "#F93D59",
-                    color: "white",
-                    fontWeight: "bold",
-                    borderRadius: 10,
-                    height: "2rem",
-                    marginTop: "10px",
-                  }}
-                >
-                  글쓰기
-                </Button>
-              </Box>
-            </Grid>
+                글쓰기
+              </Button>
+            </Box>
           </Grid>
+        </Grid>
 
         {/* <RecentLikeBookmark setState={setArticles} />
         <div className="text-right mr-1 my-2">
