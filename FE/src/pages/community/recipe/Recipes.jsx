@@ -53,13 +53,17 @@ function Recipes() {
         .get(`${axios.defaults.baseURL}recipe/like/userlist?user_id=${localStorage.getItem('user_id')}`)
         .then((res) => {
           setRecipes(res.data.object);
-          // console.log('asdf')
+          console.log(res.data.object)
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err)
+          alert("북마크를 확인하시려면 로그인을 해주세요!");
+          setRecipes([]);
+        });
       }
       else {
         alert("북마크를 확인하시려면 로그인을 해주세요!");
-        setOrderBy('recipe/like')
+        setRecipes([]);
       }
     }
   }
@@ -124,16 +128,36 @@ function Recipes() {
             </Grid>
           </Grid>
 
-          <div
+          {/* <div
             id="recipes-box"
             className="grid gap-1 grid-cols-1 sm:grid-cols-3 lg:grid-cols-4"
           >
-            {recipes
+            {recipes.length?recipes
               .slice(12 * (page - 1), 12 * (page - 1) + 12)
-              .map((recipe, idx) => {
-                return <Recipe key={idx} recipe={recipe} />;
-              })}
-          </div>
+              .map((recipe, idx) => 
+
+                <Recipe key={idx} recipe={recipe} />
+                
+              )
+              :<Box style={{display:'flex', justifyContent:'center'}}>
+                <Typography variant='h4'>목록이 없습니다!!</Typography>
+              </Box>
+            }
+          </div> */}
+          <Box >
+            <Grid container spacing={5}>
+            {recipes.length?recipes
+              .slice(12 * (page - 1), 12 * (page - 1) + 12)
+              .map((recipe, idx) => 
+                 <Recipe key={idx} recipe={recipe} />
+              )
+              :<Box style={{marginTop:'5rem', marginBottom:'3rem', marginLeft:'5rem'}}>
+                <Typography variant='h6'>목록이 없습니다.</Typography>
+              </Box>
+            }
+            </Grid>
+
+          </Box>
 
           <Pagination
             activePage={page}
