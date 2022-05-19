@@ -75,7 +75,7 @@ function UpperInfo({
           <Grid /*xs={6} md={6}*/ xs={1} sm={2} md={4} lg={4}>
             <div class='place-content-center' style={{ display: 'flex' }} onClick={handleLike}>
               <LikeButton
-                url={'recipe/like/' + recipeId}
+                url={'recipe/like/user/' + recipeId}
                 user_id={localStorage.getItem('user_id')}
                 recipe_id={recipeId}
               />

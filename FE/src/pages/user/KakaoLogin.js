@@ -58,9 +58,18 @@ export default function KakaoLogin() {
             token: authObj.access_token,
           },
         }).then((res) => {
-          console.log(res);
+          // axios({
+          //   method: "get",
+          //   url: "board/like/userlist",
+          //   params: { user_id: res.data.object.id },
+          // })
+          //   .then((res) => {
+          //     console.log(res.data.object);
+          //     localStorage.setItem("board", res.data.object);
+          //   })
+          //   .catch((err) => console.log(err));
           localStorage.setItem("user_id", res.data.object.id);
-          // console.log('성공했나');
+          console.log("성공했나");
           if (res.data.statusCode === 200) {
             alert("1bool1에 오신걸 환영합니다!");
             navigate("/");

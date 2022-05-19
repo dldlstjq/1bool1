@@ -4,6 +4,7 @@ import com.ssafy.api.dto.BoardDto;
 import com.ssafy.api.dto.BoardDto.BoardPostRequest;
 import com.ssafy.api.dto.UserDto;
 import com.ssafy.db.entity.Board;
+import com.ssafy.db.entity.BoardSearch;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -20,5 +21,5 @@ public interface BoardService {
 
     Board findBoardDetail(Long id);
 
-    List<Board> findBySearchBoard(String search);
+    List<BoardSearch> findBySearchBoard(String search);
 }
