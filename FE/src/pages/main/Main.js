@@ -46,12 +46,10 @@ function Main() {
     console.log(word);
   };
   useEffect(() => {
-    axios
-      .get(`${axios.defaults.baseURL}recipe/like/week`)
-      .then(({ data }) => {
-        setLike(data.object);
-        console.log('좋아요', data.object);
-      });
+    axios.get(`${axios.defaults.baseURL}recipe/like/week`).then(({ data }) => {
+      setLike(data.object);
+      console.log('좋아요', data.object);
+    });
   }, []);
 
   useEffect(() => {
@@ -101,10 +99,12 @@ function Main() {
               >
                 <img src={convimg} alt='convimg' />
               </Grid>
-              <Grid item xs={12} md={6} style={{ display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
+              <Grid
+                item
+                xs={12}
+                md={6}
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              >
                 <Box style={{ marginLeft: '2rem' }}>
                   <Typography variant='h4' style={{ fontWeight: 'bold' }}>
                     오늘의 할인은?
@@ -231,13 +231,13 @@ function Main() {
               </Typography>
             </Box>
             <Box style={{ display: 'flex', justifyContent: 'end' }}>
-              <Link to='/store'>
+              <Link to='/recipe'>
                 <Typography
                   variant='h6'
                   style={{ color: 'grey', display: 'flex', justifyContent: 'end' }}
                 >
                   {' '}
-                  상품 모두 보기 {'>'}{' '}
+                  레시피 모두 보기 {'>'}{' '}
                 </Typography>
               </Link>
             </Box>
