@@ -111,7 +111,7 @@ function UpperInfo({
         >
           <Grid /*xs={6} md={6}*/ xs={1} sm={2} md={4} lg={4}>
             <div class='place-content-center' style={{ display: 'flex', marginTop: 6 }}>
-              <p id='like'>{like}</p>
+              <p id='like'>{likeCnt}</p>
             </div>
           </Grid>
           <Grid /*xs={6} md={6}*/ xs={1} sm={2} md={4} lg={4}>
