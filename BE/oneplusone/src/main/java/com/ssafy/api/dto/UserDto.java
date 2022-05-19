@@ -49,6 +49,8 @@ public class UserDto {
         @NotNull(message = "탈퇴 여부를 입력하세요 0 : 활동 / 1 : 탈퇴")
         @ApiModelProperty(name="유저 탈퇴 여부", example="0", required = true)
         Integer isWithdrawal;
+        @ApiModelProperty(name="알람 받을지 말지", example="0", required = true)
+        Integer isAlarm;
     }
     
     /**

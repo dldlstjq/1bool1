@@ -50,6 +50,7 @@ public class UserServiceImpl implements UserService {
 		user.setPassword(passwordEncoder.encode(userRegisterInfo.getPassword()));
 		user.setNickname(userRegisterInfo.getNickname());
 		user.setIsWithdrawal(userRegisterInfo.getIsWithdrawal());
+		user.setIsAlarm(0);
 		return userRepository.save(user);
 	}
 
@@ -68,15 +69,17 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public Boolean update(UserDto.UserPutReq userPutReq) {
+
 		String email = userPutReq.getEmail();
 		String password = userPutReq.getPassword();
 		String nickname = userPutReq.getNickname();
-		Integer isWtihdrawal = userPutReq.getIsWithdrawal();
+//		Integer isWtihdrawal = userPutReq.getIsWithdrawal();
+		Integer isAlarm = userPutReq.getIsAlarm();
 		User user = userRepository.findByEmail(email).orElseGet(()-> null);
 
-		if(user != null && passwordEncoder.matches(password,user.getPassword())){
+		if(user != null){
 			user.setNickname(nickname);
-			user.update(user.getEmail(),user.getPassword(),nickname,isWtihdrawal);
+			user.update(user.getEmail(),user.getPassword(),user.getNickname(),user.getIsWithdrawal(),isAlarm);
 			return true;
 		}
 		return false;
@@ -250,8 +253,14 @@ public class UserServiceImpl implements UserService {
 			JsonArray jsonArray = jsonObject.get("elements").getAsJsonArray();
 			for (JsonElement friend : jsonArray){
 				Long friendId = friend.getAsJsonObject().get("id").getAsLong();
-				String friendUuid = friend.getAsJsonObject().get("uuid").getAsString();
-				result_code = sendKakaoMessageFriend(token, friendUuid, method, friendId);
+				String Id = String.valueOf(friendId);
+				Integer a = userRepository.findByEmail(Id).orElseGet(()->null).getIsAlarm();
+				if(a == null || a == 0){
+					continue;
+				}else {
+					String friendUuid = friend.getAsJsonObject().get("uuid").getAsString();
+					result_code = sendKakaoMessageFriend(token, friendUuid, method, friendId);
+				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -311,13 +320,13 @@ public class UserServiceImpl implements UserService {
 
 	public String eventType(Long event){
 		if (event == 2){
-			return "1 + 1";
+			return "1쁠라스1";
 		}
 		else if (event == 3){
-			return "2 \\+ 1";
+			return "2쁠라스1";
 		}
 		else if (event == 4){
-			return "3 \\+ 1";
+			return "3쁠라스1";
 		}
 		else if (event == 5){
 			return "가격 SALE 중";
@@ -395,7 +404,11 @@ public class UserServiceImpl implements UserService {
 				sb.append(
 						"\",\n" +
 								"                \"image_url\": \"");
-				sb.append(goodsLike2s.get(i).getPhoto_path());
+				if(goodsLike2s.get(i).getConvinence().equals("CU")){
+					sb.append("https:"+goodsLike2s.get(i).getPhoto_path());
+				}else{
+					sb.append(goodsLike2s.get(i).getPhoto_path());
+				}
 				sb.append(
 						"\",\n" +
 								"                \"image_width\": 640,\n" +
@@ -500,6 +513,7 @@ public class UserServiceImpl implements UserService {
 	public String KakaoTemplateBestGoods(){
 		StringBuilder sb = new StringBuilder();
 		List<GoodsLike2> goodsLike2s = goodsRepository.findBest3Kakao();
+
 		sb.append("" +
 				"{\n" +
 				"        \"object_type\": \"list\",\n" +
@@ -514,6 +528,7 @@ public class UserServiceImpl implements UserService {
 
 
 		for (int i = 0; i < goodsLike2s.size(); i++){
+
 			sb.append("" +
 					"{\n" +
 					"                \"title\": \"");
@@ -525,7 +540,12 @@ public class UserServiceImpl implements UserService {
 			sb.append(
 					"\",\n" +
 							"                \"image_url\": \"");
-			sb.append(goodsLike2s.get(i).getPhoto_path());
+			if(goodsLike2s.get(i).getConvinence().equals("CU")){
+				sb.append("https:"+goodsLike2s.get(i).getPhoto_path());
+			}else{
+				sb.append(goodsLike2s.get(i).getPhoto_path());
+			}
+
 			sb.append(
 					"\",\n" +
 							"                \"image_width\": 640,\n" +

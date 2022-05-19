@@ -35,11 +35,19 @@ public class User extends BaseEntity{
     @Column(name = "is_manager")
     Integer isManager;
 
-    public void update(String email, String password, String nickname,Integer isWithdrawal) {
+    @Column(name = "is_alarm")
+    Integer isAlarm;
+
+    public void update(String email, String password, String nickname,Integer isWithdrawal,Integer isAlarm) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
         this.isWithdrawal = isWithdrawal;
+        if(this.isAlarm == null ||this.isAlarm == 0){
+            this.isAlarm = 1;
+        }else{
+            this.isAlarm = 0;
+        }
     }
 
     @Builder
