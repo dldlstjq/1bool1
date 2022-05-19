@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars */
-// import classNames from "classnames";
-
 import { Link } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import adminIcon from "./admin.png";
+import "./article.css";
 
 interface ArticleProps {
   id: string;
@@ -26,16 +25,19 @@ function Article({ data }: Data) {
       <img
         src={photo.split(",")[0]}
         alt=""
-        className="w-20 max-h-20 inline-block border-r-2 md:max-h-32 md:w-32"
+        className="w-20 max-h-20 inline-block border-r-2 md:max-h-32 md:w-32 shrink-0"
       />
-      <div className="inline-block grow pr-5">
+      <div className="inline-block grow pr-5 article-after-img">
         <Link
-          className="text-xl text-ellipsis overflow-hidden pl-1 flex justify-between"
+          className="md:text-xl xl:text-2xl text-ellipsis overflow-hidden pl-1 flex justify-between"
           style={{ wordBreak: "keep-all" }}
           to={`/community/${id}`}
           state={data}
         >
-          <div className="inline-block max-w-[200px] sm:w-2/3 h-[31px] overflow-hidden text-ellipsis">
+          <div
+            className="inline-block h-[31px] overflow-hidden text-ellipsis whitespace-nowrap"
+            style={{ maxWidth: "calc(100% - 42px)" }}
+          >
             {title}
           </div>
           <span>
