@@ -15,13 +15,11 @@ import Pagination from "react-js-pagination";
 function Articles() {
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
-  const [like, setLike] = useState();
+  const like = useRef([]);
   const recent = useRef([]);
   const [articles, setArticles] = useState([]);
   const user_id = localStorage.getItem("user_id");
   const userLike = user_id && JSON.parse(localStorage.getItem("board"));
-  const state = useLocation();
-  console.log(state);
   useEffect(() => {
     axios({
       method: "get",
@@ -38,7 +36,7 @@ function Articles() {
       url: "board/like",
       params: { page: 0, size: 999999 },
     })
-      .then((res) => setLike(res.data.object.content))
+      .then((res) => (like.current = res.data.object.content))
       .catch((err) => console.log(err));
   }, []);
 
@@ -47,16 +45,20 @@ function Articles() {
       navigate("write");
     }
     if (target.matches("#order-by-like")) {
-      setArticles(like);
+      setArticles(like.current);
       return;
     }
     if (target.matches("#order-by-recent")) {
       setArticles(recent.current);
       return;
+    } else if (target.matches("#bookmark")) {
+      if (!user_id) {
+        alert("로그인이 필요합니다");
+        setArticles([]);
+        return;
+      }
+      setArticles(userLike);
     }
-    // } else if (target.matches("#bookmark")) {
-    //   alert("유저가 북마크한 리스트를 주세요");
-    // }
   }
   const handlePageChange = (page) => {
     setPage(page);
@@ -69,15 +71,6 @@ function Articles() {
         className="p-1 sm:p-0 sm:w-11/12 md:w-3/4 lg:w-2/3 mx-auto"
         onClick={handleClick}
       >
-        {/* <div className="text-4xl lg:text-5xl font-bold">TOP 10</div> */}
-        {/* <div className="border-t-2 border-slate-700">
-          {like
-            ?.slice(20 * (page - 1), 20 * (page - 1) + 20)
-            .map((data, idx) => {
-              return <Article data={data} key={idx} />;
-            })}
-        </div> */}
-
         <Box
           style={{ display: "flex", flexDirection: "row", marginTop: "2rem" }}
         >
@@ -160,9 +153,6 @@ function Articles() {
           pageRangeDisplayed={5}
           onChange={handlePageChange}
         ></Pagination>
-        {/* <div className="text-center mt-10">
-          <Searchbar url="board/search" setState={setArticles} />
-        </div> */}
       </div>
       <Footer />
     </div>

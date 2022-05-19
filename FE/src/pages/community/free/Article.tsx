@@ -50,12 +50,12 @@ function Article({ data }: Data) {
 
         <div className="my-2 max-h-[50px] overflow-hidden hidden lg:block">
           <img src={adminIcon} alt="" className="inline-block w-12" />
-          {nickname} | {modifiedDate.split(".")[0].slice(0, -3)}
+          {nickname} | {modifiedDate?.split(".")[0].slice(0, -3)}
         </div>
         <div className="my-2 overflow-hidden flex lg:hidden ">
           <img src={adminIcon} alt="" className="inline-block w-12" />
           {nickname}
-          <br /> {modifiedDate.split(".")[0].slice(0, -3)}
+          <br /> {modifiedDate?.split(".")[0].slice(0, -3)}
         </div>
       </div>
     </div>

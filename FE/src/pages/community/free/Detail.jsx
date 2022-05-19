@@ -11,7 +11,6 @@ import Comments from "../common/comment/Comments";
 import { DeleteOrUpdate } from "./DeleteOrUpdate";
 import Appbar from "../../../components/main/Appbar";
 import Footer from "../../../components/main/Footer";
-// import LikeButton from '../common/LikeButton';
 import {
   Container,
   Grid,
@@ -29,18 +28,36 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 function Detail() {
+  const navi = useNavigate();
   const state = useLocation().state;
+  let userLike = null,
+    userId = null;
+  userId = localStorage.getItem("user_id");
+  userLike = userId && JSON.parse(localStorage.getItem("board"));
+  console.log(userLike);
+
+  useEffect(() => {
+    if (!state) navi("/community");
+    userLike?.forEach((article) => {
+      if (article.id === id) setIsLike(true);
+    });
+  }, [state, userLike]);
+
   const [articlePw, setarticlePw] = useState("");
   const [isLike, setIsLike] = useState(false);
-  const navi = useNavigate();
-  const { title, content, modifiedDate, id, nickname, password, photo } = state;
-  const userId = localStorage.getItem("user_id");
-  const userLike = userId && JSON.parse(localStorage.getItem("board"));
-  let time = moment({ modifiedDate }).format("YYYY.MM.DD HH:mm");
 
-  function handleLike() {
-    // setIsLike((prev) => !prev);
-  }
+  let title = "",
+    content = "",
+    modifiedDate = "",
+    id = "",
+    nickname = "",
+    password = "",
+    photo = "",
+    cnt = "";
+  if (state)
+    ({ title, content, modifiedDate, id, nickname, password, photo, cnt } =
+      state);
+  let time = moment({ modifiedDate }).format("YYYY.MM.DD HH:mm");
 
   const handleChange = async (e) => {
     if (localStorage.getItem("user_id") === null) {
@@ -49,7 +66,6 @@ function Detail() {
     }
 
     const likeCurrent = e.target.checked;
-    setIsLike(likeCurrent);
     // e.preventDefault();
 
     try {
@@ -61,8 +77,11 @@ function Detail() {
         },
       }).then((res) => {
         if (res.data.statusCode === 200) {
-          console.log("좋아요 등록");
-          // userLike.push(state)
+          userLike = isLike
+            ? userLike.filter((article) => article.id !== id)
+            : [...userLike, { ...state, cnt: state.cnt + 1 }];
+          localStorage.setItem("board", JSON.stringify(userLike));
+          setIsLike((prev) => !prev);
         }
       });
     } catch (err) {
@@ -155,40 +174,9 @@ function Detail() {
                   />
                 </button>
               </div>
-              {/* <LikeButton
-                url={'board/like/user/' + id}
-                user_id={localStorage.getItem('user_id')}
-                board_id={id}
-              /> */}
-
-              {/* {isLike ? (
-                <Favorite
-                  color="error"
-                  style={{ width: "35px" }}
-                  onClick={handleLike}
-                />
-              ) : (
-                <FavoriteBorder
-                  color="error"
-                  style={{ width: "35px" }}
-                  onClick={handleLike}
-                />
-              )} */}
             </div>
           </Box>
-          {/* <Grid container spacing={2}> */}
-          {/* <Grid item xs={12} md={6}></Grid> */}
-          {/* <Grid
-              item
-              xs={12}
-              md={6}
-              style={{
-                display: "flex",
-                justifyContent: "end",
-                paddingRight: 10,
-                marginTop: 10,
-              }}
-            > */}
+
           <Box
             style={{ display: "flex", justifyContent: "end", marginTop: 10 }}
           >
@@ -203,22 +191,20 @@ function Detail() {
               params={{ password }}
             />
           </Box>
-          {/* </Grid>
-          </Grid> */}
 
           <Comments detailId={id} which="board" />
-
-          <Button
-            onClick={() => navi("/community")}
-            style={{
-              backgroundColor: "#F93D59",
-              color: "white",
-              fontWeight: "bold",
-            }}
-            className="relative left-1/2 top-5"
-          >
-            목록
-          </Button>
+          <div className="text-center">
+            <Button
+              onClick={() => navi("/community")}
+              style={{
+                backgroundColor: "#F93D59",
+                color: "white",
+                fontWeight: "bold",
+              }}
+            >
+              목록
+            </Button>
+          </div>
         </Container>
       </div>
       <Footer />

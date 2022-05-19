@@ -14,6 +14,7 @@ export default function WriteFree() {
   const [files, setFiles] = useState([]);
   const { state } = useLocation();
   const fileInputRef = useRef();
+
   let id = "",
     nickname = "",
     password = "",
@@ -22,7 +23,6 @@ export default function WriteFree() {
   if (state) ({ id, nickname, password, title, content } = state);
 
   function submit(e) {
-    // put or post
     e.preventDefault();
     const data = new FormData(e.target);
     let method = "post";
