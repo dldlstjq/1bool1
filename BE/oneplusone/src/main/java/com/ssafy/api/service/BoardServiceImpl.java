@@ -4,6 +4,7 @@ import com.ssafy.api.dto.BoardDto;
 import com.ssafy.api.dto.UserDto;
 import com.ssafy.db.entity.Board;
 import com.ssafy.db.entity.BoardLike;
+import com.ssafy.db.entity.BoardSearch;
 import com.ssafy.db.entity.User;
 import com.ssafy.db.repository.BoardLikeRepository;
 import com.ssafy.db.repository.BoardRepository;
@@ -137,8 +138,10 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public List<Board> findBySearchBoard(String search) {
-        List<Board> list = boardRepository.findByTitleContainingOrContentContaining(search,search);
+    public List<BoardSearch> findBySearchBoard(String search) {
+        String temp = "%"+search+"%";
+        search = temp;
+        List<BoardSearch> list = boardRepository.findByTitleContainingOrContentContaining(search,search);
         return list;
     }
 }
