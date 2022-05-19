@@ -41,7 +41,7 @@ public class UserDto {
     @ApiModel("UserPutReq")
     public static class UserPutReq {
         @ApiModelProperty(name="유저 Email", example="ssafy_web")
-        String email;
+        Long id;
         @ApiModelProperty(name="유저 Password", example="your_password")
         String password;
         @ApiModelProperty(name="유저 Nickname", example="your_password")

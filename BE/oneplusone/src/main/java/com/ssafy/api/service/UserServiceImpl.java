@@ -70,12 +70,12 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public Boolean update(UserDto.UserPutReq userPutReq) {
 
-		String email = userPutReq.getEmail();
+		Long email = userPutReq.getId();
 		String password = userPutReq.getPassword();
 		String nickname = userPutReq.getNickname();
 //		Integer isWtihdrawal = userPutReq.getIsWithdrawal();
 		Integer isAlarm = userPutReq.getIsAlarm();
-		User user = userRepository.findByEmail(email).orElseGet(()-> null);
+		User user = userRepository.findById(email).orElseGet(()-> null);
 
 		if(user != null){
 			user.setNickname(nickname);
