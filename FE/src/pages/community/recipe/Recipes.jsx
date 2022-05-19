@@ -53,11 +53,13 @@ function Recipes() {
         .get(`${axios.defaults.baseURL}recipe/like/userlist?user_id=${localStorage.getItem('user_id')}`)
         .then((res) => {
           setRecipes(res.data.object);
+          // console.log('asdf')
         })
         .catch((err) => console.log(err));
       }
       else {
-        alert("로그인을 해주세요!"); 
+        alert("북마크를 확인하시려면 로그인을 해주세요!");
+        setOrderBy('recipe/like')
       }
     }
   }
@@ -92,10 +94,10 @@ function Recipes() {
             </Typography>
           </Box>
           <Grid container spacing={2}>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={6} style={{paddingLeft:30}}>
               <OrderByRecentLikeBookmark />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={6} style={{paddingRight:10}}>
               <Box
                 style={{
                   display: "flex",

@@ -87,6 +87,9 @@ public class GoodsLikeServiceImpl implements GoodsLikeService{
         if(goodsLike == null){
             return false;
         }else {
+            if(goodsLike.getIsLiked() == 0){
+                return false;
+            }
             return true;
         }
 

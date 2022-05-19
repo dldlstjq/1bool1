@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.io.IOException;
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 @CrossOrigin("*")
 @RequiredArgsConstructor
 @RequestMapping(value = "/firebase")
+@ApiIgnore
 public class FireBaseController {
 
     @Autowired

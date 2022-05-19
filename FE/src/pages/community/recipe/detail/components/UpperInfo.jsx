@@ -42,7 +42,7 @@ function UpperInfo({
 
   return (
     <>
-      <img src={photo} alt='' className='main-photo w-3/4 mx-auto' />
+      <img src={photo} alt='' className='main-photo w-3/4 mx-auto' style={{width:'500px'}}/>
       {/* <div className='flex justify-between mb-3' style={{ marginTop: '10px' }}> */}
       {/* <div style={{ textAlign: 'center' }}> */}
       {/* <h1>
