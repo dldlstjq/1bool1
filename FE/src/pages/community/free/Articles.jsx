@@ -24,7 +24,7 @@ function Articles() {
     axios({
       method: "get",
       url: "board",
-      params: { page: 0, size: 999999 },
+      params: { page: 0, size: 999 },
     })
       .then((res) => {
         recent.current = res.data.object;
@@ -34,7 +34,7 @@ function Articles() {
     axios({
       method: "get",
       url: "board/like",
-      params: { page: 0, size: 999999 },
+      params: { page: 0, size: 999 },
     })
       .then((res) => (like.current = res.data.object.content))
       .catch((err) => console.log(err));
@@ -57,7 +57,13 @@ function Articles() {
         setArticles([]);
         return;
       }
-      setArticles(userLike);
+      setArticles(
+        like.current.filter(
+          (article) =>
+            userLike.findIndex((likeArticle) => likeArticle.id === article.id) >
+            -1
+        )
+      );
     }
   }
   const handlePageChange = (page) => {
@@ -69,6 +75,7 @@ function Articles() {
 
       <div
         className="p-1 sm:p-0 sm:w-11/12 md:w-3/4 lg:w-2/3 mx-auto"
+        style={{ minHeight: "calc(100vh - 170px" }}
         onClick={handleClick}
       >
         <Box
