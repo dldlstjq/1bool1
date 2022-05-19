@@ -151,15 +151,15 @@ public class BoardLikeServiceImpl implements BoardLikeService {
     }
 
     @Override
-    public List<Board> findBoardLike(Long userId) {
+    public List<BoardSearch> findBoardLike(Long userId) {
         List<BoardLikeManagement> boards = boardLikeRepository.findByUserId(userId);
-        List<Board> list = new ArrayList<>();
+        List<BoardSearch> list = new ArrayList<>();
         for(int i = 0; i < boards.size(); i++){
-            list.add(boardRepository.findById(boards.get(i).getBoard().getId()).orElseGet(()->null));
+            list.add(boardRepository.findByIdSQL(boards.get(i).getBoard().getId()));
         }
-        Collections.sort(list,new Comparator<Board>() {
+        Collections.sort(list,new Comparator<BoardSearch>() {
             @Override
-            public int compare(Board s1, Board s2) {
+            public int compare(BoardSearch s1, BoardSearch s2) {
                 if (s1.getId() < s2.getId()) {
                     return 1;
                 } else if (s1.getId() > s2.getId()) {

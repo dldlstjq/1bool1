@@ -189,7 +189,7 @@ public class BoardController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<? extends BaseResponseBody> findBoardLike(@RequestParam("user_id")Long userId) {
-        List<Board> list = boardlikeService.findBoardLike(userId);
+        List<BoardSearch> list = boardlikeService.findBoardLike(userId);
         if(list.size() != 0)
         {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success",list));

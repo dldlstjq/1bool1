@@ -4,6 +4,7 @@ import com.ssafy.api.dto.BoardDto;
 import com.ssafy.db.entity.Board;
 import com.ssafy.db.entity.BoardLike;
 import com.ssafy.db.entity.BoardLikeManagement;
+import com.ssafy.db.entity.BoardSearch;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -20,5 +21,5 @@ public interface BoardLikeService {
 
     List<BoardDto.BoardLikeGet> findByBoardWeek();
 
-    List<Board> findBoardLike(Long userId);
+    List<BoardSearch> findBoardLike(Long userId);
 }
