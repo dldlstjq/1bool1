@@ -122,7 +122,7 @@ function Articles() {
         <Pagination
           activePage={page}
           itemsCountPerPage={5}
-          totalItemsCount={articles.length}
+          totalItemsCount={articles?.length || 0}
           pageRangeDisplayed={5}
           onChange={handlePageChange}
         ></Pagination>
