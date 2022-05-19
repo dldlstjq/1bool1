@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Api(value = "상품 API", tags = {"Goods"})
@@ -79,7 +80,7 @@ public class GoodsController {
         {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success",list));
         }else{
-            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail"));
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Fail",new ArrayList<>()));
         }
     }
     
