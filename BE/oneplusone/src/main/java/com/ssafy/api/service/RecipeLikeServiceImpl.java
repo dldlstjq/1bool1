@@ -120,6 +120,9 @@ public class RecipeLikeServiceImpl implements RecipeLikeService{
         if(recipeLike == null){
             return false;
         }else {
+            if(recipeLike.getIsLiked() == 0){
+                return false;
+            }
             return true;
         }
     }
