@@ -27,7 +27,7 @@ function LikeButton({ url, user_id, recipe_id }) {
       })
         .then((res) => {
           console.log(res);
-          if (res.data.object === 1) setIsLike(true);
+          if (res.data.object === true) setIsLike(true);
         })
         .catch((err) => console.log(err));
     }
