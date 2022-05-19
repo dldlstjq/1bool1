@@ -66,6 +66,7 @@ function Store() {
     sale : false,
     dum : false,
     noSale : false,
+    book : false,
   });
   
   const handleChange = (event) => {
@@ -76,7 +77,7 @@ function Store() {
     // setValue(event.target.value);
     // console.log(value)
   };
-  const { all, cu, gs, em, se, ms, cs, allEvent, noEvent, one, two, three, sale, dum, noSale } = state;
+  const { all, cu, gs, em, se, ms, cs, allEvent, noEvent, one, two, three, sale, dum, noSale, book } = state;
 
   function searchWord (event) {
     setWord({goodName:event.target.value});
@@ -130,7 +131,14 @@ function Store() {
     if (allEvent || event_type === '') { event_type = '0' } 
     // console.log('adr확인중', conv, event_type, goodName)
     let adr = `${axios.defaults.baseURL}goods/conGoods?convinenceName=${conv}&event=${event_type}&goods=${goodName}`
-    
+    if (book) {
+      if (localStorage.getItem('user_id') !== null) {
+        adr = `${axios.defaults.baseURL}goods/like/userlist?user_id=${localStorage.getItem('user_id')}`
+      } else {
+        alert("좋아요 누른 목록을 확인하시려면 로그인을 해주세요!");
+      }
+    }
+
     axios
     .get(adr)
     .then(({data}) => {
@@ -175,9 +183,12 @@ function Store() {
       onSubmit();
     }
   }
+  function bookmark() {
+    
+  }
 
   return (
-    <div style={{display: 'flex', flexDirection:'column', minHeight:'100vh'}}>
+    <div style={{display: 'flex', flexDirection:'column', minHeight:'100vh', }}>
       <Appbar/>
       <div style={{flex:'1',}}>
         <Container>
@@ -202,7 +213,7 @@ function Store() {
                   control={<Checkbox checked={cs} onChange={handleChange} name="cs" sx={{'&.Mui-checked': { color: "#F93D59" } }} /> } label="씨스페이스" />
 
           </FormGroup>
-          <FormGroup aria-label="position" row style={{border:1}}>
+          <FormGroup aria-label="position" row style={{marginBottom:'1rem'}}>
           {/* <Typography style={{width:'80px', padding:'0.5rem',textAlign: "center", marginRight:'2rem', backgroundColor:'#F93D59', color:'white', borderRadius:10, fontWeight:'bold'}}>행사</Typography> */}
           <Typography style={{width:'80px', padding:'0.5rem',textAlign: "center", marginRight:'2rem', color:'#F93D59',borderWidth:1, borderColor:'#F93D59', borderRadius:10, fontWeight:'bold'}}>행사</Typography>
               <FormControlLabel
@@ -223,14 +234,20 @@ function Store() {
                 control={<Checkbox checked={noSale} onChange={handleChange} name="noSale"  sx={{'&.Mui-checked': { color: "#F93D59" } }}/> }  label="균일가" />
             
             </FormGroup>
+            <FormGroup aria-label="position" row style={{border:1}}>
+              <Typography style={{width:'80px', padding:'0.5rem',textAlign: "center", marginRight:'2rem', color:'#F93D59',borderWidth:1, borderColor:'#F93D59', borderRadius:10, fontWeight:'bold'}}>좋아요</Typography>
+              <FormControlLabel
+                control={ <Checkbox checked={book} onChange={handleChange} name="book" sx={{'&.Mui-checked': { color: "#F93D59" } }} /> } label="좋아요 상품" />
+            </FormGroup>
+
             <Box style={{ display: 'flex', flexDirection:'row',justifyContent:'center', marginTop:'1rem'}}>
                   {/* <input onChange={searchWord} name="goodName" placeholder="상품을 입력하세요" style={{borderBottom :'teal 1px solid', borderLeft:'none',}} ></input> */}
                   <TextField onChange={searchWord} onKeyPress={onKeyPress} id="standard-basic" label="상품을 입력하세요" variant="standard" defaultValue={name} />
             <Button  onClick={onSubmit} style={{backgroundColor:'#F93D59', color:'white', fontWeight:'bold', borderRadius:20, height:'2rem', marginTop:'1rem'}} name="adr">검색</Button>
             </Box>
           </Box>
-          <Box style={{marginTop:10}}>
-`           <Grid container spacing={2} >
+          <Box style={{marginTop:30, marginLeft:10}}>
+           <Grid container spacing={2} >
               {goods.slice(30*(page-1), 30*(page-1)+30).map((good, index) => 
               <Grid item xs={12} md={6} lg={4} style={{padding:0, display:'flex', justifyContent:'center', paddingTop:'1rem' }}>
                 <Link to={`/store/${good.id}`} state={{ data: good }}  style={{textDecoration:'none',}}>
