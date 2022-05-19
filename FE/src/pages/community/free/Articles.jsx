@@ -14,6 +14,14 @@ import Footer from "../../../components/main/Footer";
 import Pagination from "react-js-pagination";
 
 function Articles() {
+  const fakeList = [
+    { id: 100, cnt: 3, title: "abc", nickname: "닉네임" },
+    { id: 1200, cnt: 3, title: "abc", nickname: "닉네임" },
+    { id: 111, cnt: 3, title: "abc", nickname: "닉네임" },
+    { id: 110, cnt: 3, title: "abc", nickname: "닉네임" },
+    { id: 10, cnt: 3, title: "abc", nickname: "닉네임" },
+  ];
+
   const navigate = useNavigate();
   // const pageParam = searchParams.get("page");
   const [page, setPage] = useState(1);
@@ -63,9 +71,7 @@ function Articles() {
   }
 
   return (
-    <div
-      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
-    >
+    <div>
       <Appbar />
 
       <div
