@@ -258,23 +258,20 @@ function StoreDetail() {
     setIsLike(likeCurrent);
     // e.preventDefault();
 
-    if (likeCurrent) {
-      try {
-        await axios({
-          method: 'put',
-          url: BASE_URL + `goods/like/${localStorage.getItem('goodsId')}`,
-          params: {
-            user_id: localStorage.getItem('user_id'),
-          },
-        }).then((res) => {
-          if (res.data.statusCode === 200) {
-            console.log('좋아요 등록');
-          }
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    } else {
+    try {
+      await axios({
+        method: 'put',
+        url: BASE_URL + `goods/like/${localStorage.getItem('goodsId')}`,
+        params: {
+          user_id: localStorage.getItem('user_id'),
+        },
+      }).then((res) => {
+        if (res.data.statusCode === 200) {
+          console.log('좋아요 등록');
+        }
+      });
+    } catch (err) {
+      console.log(err);
     }
   };
 
