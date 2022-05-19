@@ -7,10 +7,7 @@ import com.ssafy.api.service.BoardService;
 import com.ssafy.api.service.FireBaseService;
 import com.ssafy.api.service.BoardLikeService;
 import com.ssafy.common.model.response.BaseResponseBody;
-import com.ssafy.db.entity.Board;
-import com.ssafy.db.entity.BoardLike;
-import com.ssafy.db.entity.BoardLikeManagement;
-import com.ssafy.db.entity.Recipe;
+import com.ssafy.db.entity.*;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -112,7 +109,7 @@ public class BoardController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<? extends BaseResponseBody> findBySearchBoard(@RequestParam("search") String search) {
-        List<Board> board = boardService.findBySearchBoard(search);
+        List<BoardSearch> board = boardService.findBySearchBoard(search);
         if(board.size() > 0)
         {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", board));
