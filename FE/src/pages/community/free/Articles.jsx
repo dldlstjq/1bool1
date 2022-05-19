@@ -1,38 +1,27 @@
 /* eslint-disable no-unused-vars */
 
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { Container, Box, Button, Grid, Typography } from "@mui/material";
 import axios from "axios";
 
 import Article from "./Article";
 import { Searchbar } from "../common/searchbar/Searchbar";
-import { useFetchPage } from "../common/hooks";
 import RecentLikeBookmark from "../common/WriteOrderBtns";
 import Appbar from "../../../components/main/Appbar";
 import Footer from "../../../components/main/Footer";
 import Pagination from "react-js-pagination";
 
 function Articles() {
-  const fakeList = [
-    { id: 100, cnt: 3, title: "abc", nickname: "닉네임" },
-    { id: 1200, cnt: 3, title: "abc", nickname: "닉네임" },
-    { id: 111, cnt: 3, title: "abc", nickname: "닉네임" },
-    { id: 110, cnt: 3, title: "abc", nickname: "닉네임" },
-    { id: 10, cnt: 3, title: "abc", nickname: "닉네임" },
-  ];
-
   const navigate = useNavigate();
-  // const pageParam = searchParams.get("page");
   const [page, setPage] = useState(1);
-  // const [top10,setTop10] = useState([])
-  // const like = useRef([]);
   const [like, setLike] = useState();
   const recent = useRef([]);
   const [articles, setArticles] = useState([]);
-  const handlePageChange = (page) => {
-    setPage(page);
-  };
+  const user_id = localStorage.getItem("user_id");
+  const userLike = user_id && JSON.parse(localStorage.getItem("board"));
+  const state = useLocation();
+  console.log(state);
   useEffect(() => {
     axios({
       method: "get",
@@ -69,7 +58,9 @@ function Articles() {
     //   alert("유저가 북마크한 리스트를 주세요");
     // }
   }
-
+  const handlePageChange = (page) => {
+    setPage(page);
+  };
   return (
     <div>
       <Appbar />
