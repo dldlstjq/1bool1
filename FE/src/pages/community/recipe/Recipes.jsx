@@ -48,7 +48,17 @@ function Recipes() {
     } else if (target.matches("#order-by-recent")) {
       setOrderBy("recipe");
     } else if (target.matches("#bookmark")) {
-      alert("유저가 북마크한 리스트를 주세요");
+      if (localStorage.getItem('user_id') !== null) {
+        axios
+        .get(`${axios.defaults.baseURL}recipe/like/userlist?user_id=${localStorage.getItem('user_id')}`)
+        .then((res) => {
+          setRecipes(res.data.object);
+        })
+        .catch((err) => console.log(err));
+      }
+      else {
+        alert("로그인을 해주세요!"); 
+      }
     }
   }
 
