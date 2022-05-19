@@ -43,7 +43,4 @@ public interface GoodsRepository extends JpaRepository<Goods, Long> {
     @Query(value = "select g.convinence, g.name, g.photo_path, g.price, gr.cnt from goods as g inner join (select goods_id, count(goods_id) as cnt from goods_user_management where is_liked = 1 group by goods_id order by cnt desc) as gr on g.id = gr.goods_id  where g.is_sell =1 limit 3;\n", nativeQuery = true)
     List<GoodsLike2> findBest3Kakao();
 
-//    List<Goods> findTop10ByOrderByLikeDesc();
-//@Query(value = "select * from room as ru where ru.room_id IN ( select r.room_id from room_user as r where r.user_id = :userId )", nativeQuery = true)
-//List<Room> searchUserHasRoom(Long userId);
 }

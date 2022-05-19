@@ -234,14 +234,6 @@ public class GoodsController {
                 goods.getHit(),
                 goods.getConvinence()
         );
-//        goodsPutRequest.setId(goods.getId());
-//        goodsPutRequest.setName(goods.getName());
-//        goodsPutRequest.setPrice(goods.getPrice());
-//        goodsPutRequest.setPhotoPath(goods.getPhotoPath());
-//        goodsPutRequest.setDescription(goods.getDescription());
-//        goodsPutRequest.setEvent(goods.getEvent());
-//        goodsPutRequest.setIsSell(goods.getIsSell());
-//        goodsPutRequest.setCategory(goods.getCategory());
         if(goods.getHit() == null)
             goodsPutRequest.setHit(1);
         else

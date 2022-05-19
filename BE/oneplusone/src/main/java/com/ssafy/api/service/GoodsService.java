@@ -13,8 +13,6 @@ public interface GoodsService {
 
     List<GoodsDto.GoodsPutRequest> findTop10HitGoods();
 
-//    List<Goods> findTop10LikeGoods();
-
     List<Goods> findGoodsByConvinenceEvent(GoodsDto.GoodsEventGetRequest goodsEventGetRequest);
 
     Goods findGoodsDetail(Long goodsId);

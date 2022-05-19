@@ -94,7 +94,6 @@ public class BoardController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<? extends BaseResponseBody> findBoard(@RequestParam("page") Integer page, @RequestParam("size") Integer size,@ApiIgnore Pageable pageable) {
-//        Page<Board> board = boardService.findBoard(pageable);
         List<BoardDto.BoardLikeGet> board = boardService.findBoard(page, size,pageable).getContent();
         if(board.isEmpty()) return ResponseEntity.status(200).body(BaseResponseBody.of(200, "해당 페이지에 게시글이 없습니다."));
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", board));
