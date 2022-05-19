@@ -7,7 +7,6 @@ import whiteSearchIcon from "./white-search.png";
 
 export function Searchbar({ url, setState }) {
   const buttonRef = useRef();
-  const imgRef = useRef();
   const [input, setInput] = useState("");
   const [isFocused, setIsFocused] = useState(false);
 
