@@ -42,10 +42,8 @@ function WriteRecipe() {
   }, [navi]);
 
   function handleSubmit(e) {
-    // put or post
-
     e.preventDefault();
-    console.log(e.target);
+
     if (selected.length === 0) {
       alert("재료를 추가해주세요");
       return;
@@ -55,6 +53,10 @@ function WriteRecipe() {
     const content = [];
     for (const step of form) {
       if (step[0] === "step") content.push(step[1]);
+      if (step[0] === "file" && !step[1].name) {
+        alert("사진이 필요합니다");
+        return;
+      }
     }
     form.append("content", JSON.stringify(content));
     form.delete("step");
@@ -79,6 +81,13 @@ function WriteRecipe() {
         .catch((err) => console.log(err));
     }
   }
+  // function handleSubmit(e) {
+  //   e.preventDefault();
+  //   const form = new FormData(e.target);
+  //   for (var x of form) {
+  //     if (x[0] === "file") console.log(Boolean(x[1].name));
+  //   }
+  // }
 
   return (
     <div

@@ -65,9 +65,6 @@ function Detail() {
       return;
     }
 
-    const likeCurrent = e.target.checked;
-    // e.preventDefault();
-
     try {
       await axios({
         method: "post",
