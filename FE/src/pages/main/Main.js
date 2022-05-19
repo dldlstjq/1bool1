@@ -43,12 +43,12 @@ function Main() {
   const searchWord = (event) => {
     // console.log('이벤트', event)
     setWord(event.target.value);
-    console.log(word);
+    // console.log(word);
   };
   useEffect(() => {
     axios.get(`${axios.defaults.baseURL}recipe/like/week`).then(({ data }) => {
       setLike(data.object);
-      console.log('좋아요', data.object);
+      // console.log('좋아요', data.object);
     });
   }, []);
 
