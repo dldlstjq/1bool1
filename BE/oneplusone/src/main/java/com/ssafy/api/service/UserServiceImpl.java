@@ -213,7 +213,7 @@ public class UserServiceImpl implements UserService {
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "utf-8"));
 			StringBuilder sb = new StringBuilder();
 			sb.append("template_object=");
-			String temp = KakaoTemplateBestRecipe();
+			String temp = KakaoTemplateBestGoods();
 			System.out.println(temp);
 			sb.append(temp);
 
@@ -271,7 +271,7 @@ public class UserServiceImpl implements UserService {
 			for (JsonElement friend : jsonArray){
 				Long friendId = friend.getAsJsonObject().get("id").getAsLong();
 				String friendUuid = friend.getAsJsonObject().get("uuid").getAsString();
-				result_code = sendKakaoMessageFriend(token, friendUuid);
+				result_code = sendKakaoMessageFriend(token, friendUuid, method, friendId);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -279,7 +279,7 @@ public class UserServiceImpl implements UserService {
 		return result_code;
 	}
 
-	public Integer sendKakaoMessageFriend(String token, String friendUuid) throws Exception {
+	public Integer sendKakaoMessageFriend(String token, String friendUuid, Long method, Long friendId) throws Exception {
 
 		String reqURL = "https://kapi.kakao.com/v1/api/talk/friends/message/default/send";
 		URL url = new URL(reqURL);
@@ -292,11 +292,22 @@ public class UserServiceImpl implements UserService {
 		conn.setDoOutput(true);
 		conn.setRequestProperty("ContentType", "application/x-www-form-urlencoded");
 		conn.setRequestProperty("Authorization", "Bearer " + token);
-		System.out.println("[\"" + friendUuid + "\"]");
+
+		String template;
+		if(method==1){
+			template = KakaoTemplateLikeGoods(friendId);
+		}
+		else if(method==2){
+			template = KakaoTemplateBestRecipe();
+		}
+		else{
+			template = KakaoTemplateBestGoods();
+		}
 
 		Map<String,String> parameter = new HashMap<>();
 		parameter.put("receiver_uuids", "[\"" + friendUuid + "\"]");
-		parameter.put("template_object","{\"object_type\": \"text\",   \"text\": \"텍스트 영역입니다. 최대 200자 표시 가능합니다.\",  \"link\": {             \"web_url\": \"https://developers.kakao.com\", \"mobile_web_url\": \"https://developers.kakao.com\"         },         \"button_title\": \"바로 확인\"}");
+
+		parameter.put("template_object", template);
 		for (String key : parameter.keySet()) {
 			if (sb.length() > 0) {
 				sb.append("&");
@@ -317,7 +328,7 @@ public class UserServiceImpl implements UserService {
 		String content = conn.getResponseMessage();
 		System.out.println("content : " + content);
 		System.out.println("responseCode : " + responseCode);
-		System.out.println(param);
+		//System.out.println(param);
 		return -1;
 	}
 
@@ -434,13 +445,6 @@ public class UserServiceImpl implements UserService {
 							"                    \"web_url\": \"https://k6d207.p.ssafy.io/\",\n" +
 							"                    \"mobile_web_url\": \"https://k6d207.p.ssafy.io/\"\n" +
 							"                }\n" +
-							"            },\n" +
-							"            {\n" +
-							"                \"title\": \"확인하러 가기!\",\n" +
-							"                \"link\": {\n" +
-							"                    \"android_execution_params\": \"main\",\n" +
-							"                    \"ios_execution_params\": \"main\"\n" +
-							"                }\n" +
 							"            }\n" +
 							"        ]\n" +
 							"    }" +
@@ -507,20 +511,80 @@ public class UserServiceImpl implements UserService {
 						"                    \"web_url\": \"https://k6d207.p.ssafy.io/\",\n" +
 						"                    \"mobile_web_url\": \"https://k6d207.p.ssafy.io/\"\n" +
 						"                }\n" +
-						"            },\n" +
-						"            {\n" +
-						"                \"title\": \"만드는 법 확인!\",\n" +
-						"                \"link\": {\n" +
-						"                    \"android_execution_params\": \"main\",\n" +
-						"                    \"ios_execution_params\": \"main\"\n" +
-						"                }\n" +
 						"            }\n" +
+
 						"        ]\n" +
 						"    }" +
 						"");
 
 		return sb.toString();
 	};
+
+	public String KakaoTemplateBestGoods(){
+		StringBuilder sb = new StringBuilder();
+		List<GoodsLike2> goodsLike2s = goodsRepository.findBest3Kakao();
+		sb.append("" +
+				"{\n" +
+				"        \"object_type\": \"list\",\n" +
+				"        \"header_title\": \"Top3 편의점 상품!\",\n" +
+				"        \"header_link\": {\n" +
+				"            \"web_url\": \"https://k6d207.p.ssafy.io/\",\n" +
+				"            \"mobile_web_url\": \"https://k6d207.p.ssafy.io/\",\n" +
+				"            \"android_execution_params\": \"main\",\n" +
+				"            \"ios_execution_params\": \"main\"\n" +
+				"        },\n" +
+				"        \"contents\": [\n" );
+
+
+		for (int i = 0; i < goodsLike2s.size(); i++){
+			sb.append("" +
+					"{\n" +
+					"                \"title\": \"");
+			sb.append(goodsLike2s.get(i).getName());
+			sb.append(
+					"\",\n" +
+							"                \"description\": \"");
+			sb.append(goodsLike2s.get(i).getPrice());
+			sb.append(
+					"\",\n" +
+							"                \"image_url\": \"");
+			sb.append(goodsLike2s.get(i).getPhoto_path());
+			sb.append(
+					"\",\n" +
+							"                \"image_width\": 640,\n" +
+							"                \"image_height\": 640,\n" +
+							"                \"link\": {\n" +
+							"                    \"web_url\": \"https://k6d207.p.ssafy.io\",\n" +
+							"                    \"mobile_web_url\": \"https://k6d207.p.ssafy.io\",\n" +
+							"                    \"android_execution_params\": \"/contents/3\",\n" +
+							"                    \"ios_execution_params\": \"/contents/3\"\n" +
+							"                }\n" +
+							"            }" +
+							"");
+			if(i != goodsLike2s.size() -1 ){
+				sb.append(',');
+			}
+		}
+
+		sb.append(
+				"        ],\n" +
+						"        \"buttons\": [\n" +
+						"            {\n" +
+						"                \"title\": \"상품 확인하러 가기!\",\n" +
+						"                \"link\": {\n" +
+						"                    \"web_url\": \"https://k6d207.p.ssafy.io/\",\n" +
+						"                    \"mobile_web_url\": \"https://k6d207.p.ssafy.io/\"\n" +
+						"                }\n" +
+						"            }" +
+
+						"        ]\n" +
+						"    }" +
+						"");
+
+
+		return sb.toString();
+	};
+
 
 //	@Override
 //	public void getEmailUser(Long id) throws Exception{

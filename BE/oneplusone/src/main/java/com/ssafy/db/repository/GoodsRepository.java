@@ -2,6 +2,7 @@ package com.ssafy.db.repository;
 
 import com.ssafy.db.entity.Convinence;
 import com.ssafy.db.entity.Goods;
+import com.ssafy.db.entity.GoodsLike2;
 import com.ssafy.db.entity.goodsKakao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -38,6 +39,9 @@ public interface GoodsRepository extends JpaRepository<Goods, Long> {
 
     @Query(value = "select photo_path from goods as g inner join (select goods_id from recipe_goods where recipe_id = :recipeId limit 1) as gr on g.id = gr.goods_id;\n", nativeQuery = true)
     goodsKakao findPhotopathKakao(Long recipeId);
+
+    @Query(value = "select g.convinence, g.name, g.photo_path, g.price, gr.cnt from goods as g inner join (select goods_id, count(goods_id) as cnt from goods_user_management where is_liked = 1 group by goods_id order by cnt desc) as gr on g.id = gr.goods_id  where g.is_sell =1 limit 3;\n", nativeQuery = true)
+    List<GoodsLike2> findBest3Kakao();
 
 //    List<Goods> findTop10ByOrderByLikeDesc();
 //@Query(value = "select * from room as ru where ru.room_id IN ( select r.room_id from room_user as r where r.user_id = :userId )", nativeQuery = true)
