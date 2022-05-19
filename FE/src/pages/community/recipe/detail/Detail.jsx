@@ -3,8 +3,9 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { Container } from '@mui/material';
+import { Container, Grid, Typography, Box, Button, TextField } from '@mui/material';
 
+import { BASE_URL } from '../../../../index';
 import { useFetchList } from '../../common/hooks';
 
 import Step from './Step';
@@ -20,6 +21,7 @@ function Detail() {
   const { recipeId } = useParams();
   const [recipe, setRecipe] = useState({});
   const [inputPassword, setInputPassword] = useState('');
+  const [likeCnt, setLikeCnt] = useState(0);
 
   const {
     photo,
@@ -48,6 +50,15 @@ function Detail() {
         setRecipe(res.data.object);
       })
       .catch((err) => console.log(err));
+
+    axios({
+      method: 'get',
+      url: BASE_URL + 'recipe/like/' + recipeId,
+    })
+      .then((res) => {
+        setLikeCnt(res.data.object);
+      })
+      .catch((err) => console.log(err));
   }, [recipeId]);
 
   const goods = useFetchList('recipe/goods/' + recipeId);
@@ -69,6 +80,7 @@ function Detail() {
               description={description}
               recipeId={recipeId}
               price={price}
+              likeCnt={likeCnt}
             />
             {/* <div id='main' className='border-y-4 py-2 my-2'> */}
             {/* <h1 className='text-xl'> 이 요리는...</h1>
@@ -83,6 +95,9 @@ function Detail() {
               <LikeButton url={'recipe/like/' + recipeId} user_id={user_id} recipe_id={recipeId} />
             )} */}
             {/* <LikeButton url={'recipe/like/' + recipeId} user_id={user_id} recipe_id={recipeId} /> */}
+            <hr id='line' style={{marginTop:'1rem'}}></hr>
+            <Box sx={{ display: 'flex', justifyContent: 'end', marginTop:'1rem',marginBottom:'1rem'}}>
+
             <DeleteOrUpdate
               setPassword={setInputPassword}
               inputPassword={inputPassword}
@@ -92,22 +107,21 @@ function Detail() {
               state={recipe}
               updatePageUrl='/recipe/write'
               url={`recipe/${recipeId}`}
-            />
+            /></Box>
             <Comments which='recipe' detailId={recipeId} />
-            <button
-              className='bg-gray-700 text-white h-10 w-20 mt-5'
-              onClick={() => navi('/recipe')}
-              style={{
-                backgroundColor: '#f93d59',
-                color: 'white',
-                fontWeight: 'bold',
-                borderRadius: 20,
-                marginTop: '1rem',
-                marginLeft: 10,
-              }}
-            >
-              목록보기
-            </button>
+            <Box style={{display:'flex', justifyContent:'center'}}>
+              <Button
+                onClick={() => navi('/recipe')}
+                style={{
+                  backgroundColor: '#F93D59',
+                  color: 'white',
+                  fontWeight: 'bold',
+                  marginTop:'2rem'
+                }}
+              >
+                목록
+              </Button>
+            </Box>
           </div>
         </Container>
       </div>

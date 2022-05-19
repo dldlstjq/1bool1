@@ -420,20 +420,19 @@ function StoreDetail() {
               />
             )} */}
 
-            <button
-              className='bg-gray-700 text-white w-20 h-10 mt-5'
-              style={{
-                backgroundColor: '#f93d59',
-                color: 'white',
-                fontWeight: 'bold',
-                borderRadius: 20,
-                marginTop: '1rem',
-                marginLeft: 10,
-              }}
-              onClick={() => navi('/store')}
-            >
-              목록보기
-            </button>
+            <Box style={{display:'flex', justifyContent:'center'}}>
+              <Button
+                onClick={() => navi('/recipe')}
+                style={{
+                  backgroundColor: '#F93D59',
+                  color: 'white',
+                  fontWeight: 'bold',
+                  marginTop:'2rem'
+                }}
+              >
+                목록
+              </Button>
+            </Box>
 
             {/* {popover && (
               <Popover x={coordRef.current[0]} y={coordRef.current[1]}>

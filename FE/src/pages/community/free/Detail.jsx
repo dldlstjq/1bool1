@@ -24,6 +24,7 @@ import moment from "moment";
 
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
@@ -95,13 +96,39 @@ function Detail() {
               >
                 {title}
               </Typography>
-              <Typography style={{ marginBottom: 10 }}>
-                {" "}
-                <AccountCircleIcon
-                  style={{ marginRight: 3, color: "#F93D59" }}
-                />
-                {nickname} | {time}{" "}
-              </Typography>
+              <Grid container>
+                <Grid item xs={6} md={6}>
+                  <Typography style={{ marginBottom: 10 }}>
+                    {" "}
+                    <AccountCircleIcon
+                      style={{ marginRight: 3, color: "#F93D59" }}
+                    />
+                    {nickname} | {time}{" "}
+                  </Typography>
+                </Grid>
+                <Grid
+                  item
+                  xs={6}
+                  md={6}
+                  style={{
+                    display: "flex",
+                    justifyContent: "end",
+                    paddingRight: 10,
+                    alignItems: "center",
+                  }}
+                >
+                  <FavoriteIcon style={{ color: "#F93D59", marginRight: 3 }}>
+                    {" "}
+                    &nbsp;
+                  </FavoriteIcon>
+                  {cnt}
+                </Grid>
+              </Grid>
+
+              {/* <Box >
+                    <Box style={{display:'flex', justifyItems:'end'}}>
+                    </Box>
+                </Box> */}
             </Box>
             <Box style={{ margin: "1rem" }}>
               <Typography style={{ padding: "1rem" }}>{content}</Typography>
@@ -119,6 +146,7 @@ function Detail() {
                 <button className="btn">
                   <Checkbox
                     {...label}
+                    // label="좋아요"
                     icon={<FavoriteBorder />}
                     checkedIcon={<Favorite />}
                     checked={isLike}
@@ -148,9 +176,9 @@ function Detail() {
               )} */}
             </div>
           </Box>
-          <Grid container spacing={2}>
-            {/* <Grid item xs={12} md={6}></Grid> */}
-            <Grid
+          {/* <Grid container spacing={2}> */}
+          {/* <Grid item xs={12} md={6}></Grid> */}
+          {/* <Grid
               item
               xs={12}
               md={6}
@@ -160,21 +188,23 @@ function Detail() {
                 paddingRight: 10,
                 marginTop: 10,
               }}
-            >
-              <Box style={{ display: "flex", justifyContent: "end" }}>
-                <DeleteOrUpdate
-                  setPassword={setarticlePw}
-                  inputPassword={articlePw}
-                  password={password}
-                  url={"board/" + id}
-                  afterUrl="/community"
-                  updatePageUrl="/community/write"
-                  state={state}
-                  params={{ password }}
-                />
-              </Box>
-            </Grid>
-          </Grid>
+            > */}
+          <Box
+            style={{ display: "flex", justifyContent: "end", marginTop: 10 }}
+          >
+            <DeleteOrUpdate
+              setPassword={setarticlePw}
+              inputPassword={articlePw}
+              password={password}
+              url={"board/" + id}
+              afterUrl="/community"
+              updatePageUrl="/community/write"
+              state={state}
+              params={{ password }}
+            />
+          </Box>
+          {/* </Grid>
+          </Grid> */}
 
           <Comments detailId={id} which="board" />
 
