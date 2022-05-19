@@ -26,7 +26,6 @@ function RecipeTop(props) {
     .get(`${axios.defaults.baseURL}recipe/like/top`)
     .then(({data})=>{
       setMenu(data.object)
-      console.log('홍', data.object)
     })
   },[]);
 
@@ -53,7 +52,7 @@ function RecipeTop(props) {
       <Box>
         <Grid container spacing={5}>
           {menus.map((menu, index) => 
-          <Grid item xs={12} sm={6} md={3} lg={3}>
+          <Grid item xs={12} sm={6} md={3} lg={3} key={menu.id}>
             <Link to={`/recipe/${menu.id}`}>
               <Card sx={{boxShadow:'none', display:'flex', flexDirection:'column', height:'350px' }}>
                 <Box style={{ height: '200px',  display: 'flex', justifyContent: 'center', position:'relative'}}>
