@@ -44,23 +44,20 @@ function LikeButton({ url, user_id, recipe_id }) {
     setIsLike(likeCurrent);
     // e.preventDefault();
 
-    if (likeCurrent) {
-      try {
-        await axios({
-          method: 'post',
-          url: BASE_URL + `recipe/like/${recipe_id}`,
-          params: {
-            user_id: user_id,
-          },
-        }).then((res) => {
-          if (res.data.statusCode === 200) {
-            console.log('좋아요 등록');
-          }
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    } else {
+    try {
+      await axios({
+        method: 'post',
+        url: BASE_URL + `recipe/like/${recipe_id}`,
+        params: {
+          user_id: user_id,
+        },
+      }).then((res) => {
+        if (res.data.statusCode === 200) {
+          console.log('좋아요 등록');
+        }
+      });
+    } catch (err) {
+      console.log(err);
     }
   };
 
