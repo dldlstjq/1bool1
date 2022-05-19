@@ -197,7 +197,7 @@ function Appbar() {
                   </Button>
                 </Link>
               </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
+              {/* <MenuItem onClick={handleCloseNavMenu}>
                 <Link to="/map" style={{ textDecoration: "none" }}>
                   <Button
                     style={{
@@ -222,7 +222,7 @@ function Appbar() {
                     공지사항
                   </Button>
                 </Link>
-              </MenuItem>
+              </MenuItem> */}
             </Menu>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -291,7 +291,7 @@ function Appbar() {
                 커뮤니티
               </Button>
             </Link>
-            <Link
+            {/* <Link
               to="/map"
               style={{
                 textDecoration: "none",
@@ -329,7 +329,7 @@ function Appbar() {
               >
                 공지사항
               </Button>
-            </Link>
+            </Link> */}
           </Box>
 
           <Box sx={{ flexGrow: 0, }}>

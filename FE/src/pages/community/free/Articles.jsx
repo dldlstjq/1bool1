@@ -65,14 +65,19 @@ function Articles() {
   }
 
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+    >
       <Appbar />
-
+      <div onClick={handleClick} sytle={{ flex: "1" }}>
+        
       {/* <div className="text-2xl">TOP 4</div> */}
-      <div
+      {/* <div
         className="p-1 sm:p-0 sm:w-11/12 md:w-3/4 lg:w-2/3 mx-auto"
         onClick={handleClick}
-      >
+      > */}
+      <Container>
+
+      
         {/* <h1 className='title text-4xl lg:text-6xl my-5 md:mb-20 ml-1'>자유게시판</h1> */}
         <Box
           style={{ display: "flex", flexDirection: "row", marginTop: "2rem" }}
@@ -129,6 +134,8 @@ function Articles() {
         <div className="text-center mt-10">
           <Searchbar url="board/search" setState={setArticles} />
         </div>
+      {/* </div> */}
+      </Container>
       </div>
       <Footer />
     </div>

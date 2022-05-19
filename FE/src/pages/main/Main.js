@@ -101,7 +101,10 @@ function Main() {
               >
                 <img src={convimg} alt='convimg' />
               </Grid>
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} md={6} style={{ display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
                 <Box style={{ marginLeft: '2rem' }}>
                   <Typography variant='h4' style={{ fontWeight: 'bold' }}>
                     오늘의 할인은?
