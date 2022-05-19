@@ -52,7 +52,7 @@
 ## 👨‍💻Client
 ---
 ```
-$ cd frontend
+$ cd FE
 $ npm install
 $ npm run serve
 ```

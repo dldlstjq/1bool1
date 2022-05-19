@@ -26,8 +26,6 @@ public class FirebaseConfig {
 
             ClassPathResource resource = new ClassPathResource(firebaseSdkPath);
             InputStream serviceAccount = resource.getInputStream();
-            // 2021.06.23 FirebaseOptions 생성자가 Deprecated 되었기 때문에 builder 수정.
-            // 2022.01.04 공식홈페이지에서 제대로 수정됨
             FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .build();

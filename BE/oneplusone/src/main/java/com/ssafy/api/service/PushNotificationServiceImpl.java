@@ -36,8 +36,6 @@ PushNotificationServiceImpl implements PushNotificationService{
     }
 
     private static String getAccessToken() throws IOException {
-        //21.6.23 아직까지도 공식 홈페이지에서 Deprecated 된 해당 문장을 수정하지 않고있다.
-        //22.01.04 공식 홈페이지에서 제대로 수정이 되었다.
         GoogleCredential googleCredential = GoogleCredential
                 .fromStream(new ClassPathResource("oneplusone-dfc60-firebase-adminsdk-c0775-ca3c985ab8.json").getInputStream())
                 .createScoped(Arrays.asList(SCOPES));
@@ -88,7 +86,6 @@ PushNotificationServiceImpl implements PushNotificationService{
             3. condition -> multiple topic
          */
         jMessage.addProperty("topic", "news");
-        //jMessage.addProperty("token", /* your test device token */);
 
         JsonObject jFcm = new JsonObject();
         jFcm.add(MESSAGE_KEY, jMessage);

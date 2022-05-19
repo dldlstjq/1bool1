@@ -50,13 +50,8 @@ public class GoodsServiceImpl implements GoodsService{
             hitList.add(tmp);
         }
         return hitList;
-//        return goodsRepository.findTop10ByOrderByHitDesc();
     }
 
-//    @Override
-//    public List<Goods> findTop10LikeGoods() {
-//        return goodsRepository.findTop10ByOrderByLikeDesc();
-//    }
 
     @Override
     public Goods findGoodsDetail(Long goodsId) {
@@ -69,7 +64,6 @@ public class GoodsServiceImpl implements GoodsService{
         Goods goods = goodsRepository.findById(goodsPutRequest.getId()).orElseGet(()->null);
 
         if(goods != null){
-//            goods.update(goodsPutRequest);
             goods.setName(goodsPutRequest.getName());
             goods.setPrice(goodsPutRequest.getPrice());
             goods.setPhotoPath(goodsPutRequest.getPhotoPath());
@@ -79,13 +73,8 @@ public class GoodsServiceImpl implements GoodsService{
             goods.setCategory(goodsPutRequest.getCategory());
             goods.setHit(goodsPutRequest.getHit());
             goods.setConvinence(goodsPutRequest.getConvinence());
-//            goods.update(goodsPutRequest.getName(), goodsPutRequest.getPrice(), goodsPutRequest.getPhotoPath(), goodsPutRequest.getDescription(),
-//                    goodsPutRequest.getCategory(), goodsPutRequest.getIsSell(), goodsPutRequest.getEvent(), goodsPutRequest.getHit(),
-//                    goodsPutRequest.getConvinence());
             return goodsRepository.save(goods);
-//            return true;
         }
-//        return false;
         return null;
     }
 

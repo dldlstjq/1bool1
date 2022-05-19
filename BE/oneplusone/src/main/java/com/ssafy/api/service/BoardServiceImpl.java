@@ -38,8 +38,6 @@ public class BoardServiceImpl implements BoardService{
         board.setPhoto(boardPostRequest.getPhoto());
         board.setTitle(boardPostRequest.getTitle());
         Date date = new Date();
-//        boardPostRequest.setStartDate(date);
-//        board.setStartDate(boardPostRequest.getStartDate());
         return boardRepository.save(board);
     }
 
@@ -58,7 +56,6 @@ public class BoardServiceImpl implements BoardService{
             newOne.add(temp);
         }
 
-        //이 곳은 게시글 좋아요 갯수를 받지 못한 곳 입니다.
         BoardDto.BoardLikeGetOrderBy t;
         for(int i = 0; i < another.size(); i++){
             t = new BoardDto.BoardLikeGetOrderBy();
@@ -98,7 +95,6 @@ public class BoardServiceImpl implements BoardService{
         final Page<BoardDto.BoardLikeGet> p = new PageImpl<>(ans.subList(start, end), pageable, ans.size());
 
         return p;
-//        return boardRepository.findAll(pageable);
     }
 
     @Override
@@ -113,9 +109,7 @@ public class BoardServiceImpl implements BoardService{
             board.setContent(boardPutRequest.getContent());
             board.setPhoto(boardPutRequest.getPhoto());
             Date date = new Date();
-//            board.setStartDate(date);
             board.update(boardPutRequest.getTitle(), boardPutRequest.getContent(),boardPutRequest.getPassword() , boardPutRequest.getPhoto(), boardPutRequest.getNickname());
-//            board.update(boardPutRequest.getTitle(), boardPutRequest.getContent(),boardPutRequest.getPassword() ,boardPutRequest.getUpdateDate(), boardPutRequest.getPhoto(), boardPutRequest.getNickname());
             return true;
         }
         return false;

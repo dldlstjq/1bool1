@@ -1,13 +1,11 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.dto.BoardDto;
-import com.ssafy.api.dto.RecipeDto;
 import com.ssafy.db.entity.*;
 import com.ssafy.db.repository.BoardLikeRepository;
 import com.ssafy.db.repository.BoardRepository;
 import com.ssafy.db.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.support.PagedListHolder;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -153,15 +151,15 @@ public class BoardLikeServiceImpl implements BoardLikeService {
     }
 
     @Override
-    public List<Board> findBoardLike(Long userId) {
+    public List<BoardSearch> findBoardLike(Long userId) {
         List<BoardLikeManagement> boards = boardLikeRepository.findByUserId(userId);
-        List<Board> list = new ArrayList<>();
+        List<BoardSearch> list = new ArrayList<>();
         for(int i = 0; i < boards.size(); i++){
-            list.add(boardRepository.findById(boards.get(i).getBoard().getId()).orElseGet(()->null));
+            list.add(boardRepository.findByIdSQL(boards.get(i).getBoard().getId()));
         }
-        Collections.sort(list,new Comparator<Board>() {
+        Collections.sort(list,new Comparator<BoardSearch>() {
             @Override
-            public int compare(Board s1, Board s2) {
+            public int compare(BoardSearch s1, BoardSearch s2) {
                 if (s1.getId() < s2.getId()) {
                     return 1;
                 } else if (s1.getId() > s2.getId()) {

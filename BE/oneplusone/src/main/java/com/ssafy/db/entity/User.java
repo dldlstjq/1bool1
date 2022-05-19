@@ -18,21 +18,17 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 public class User extends BaseEntity{
-    // 이메일
     @Column(name = "email", nullable = false)
     String email;
 
-    // 유저 비밀번호
     @JsonIgnore
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "password", nullable = false)
     String password;
 
-    // 유저 닉네임
     @Column(name = "nickname",nullable = false)
     String nickname;
 
-    //탈퇴 여부
     @Column(name = "is_withdrawal")
     Integer isWithdrawal;
 
@@ -54,8 +50,5 @@ public class User extends BaseEntity{
         this.nickname = nickname;
         this.isWithdrawal = isWithdrawal;
     }
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "construction_id", nullable = false)
-//    Construction construction;
-    
+
 }

@@ -47,7 +47,6 @@ public class UserServiceImpl implements UserService {
 	public User createUser(UserRegisterPostReq userRegisterInfo) {
 		User user = new User();
 		user.setEmail(userRegisterInfo.getEmail());
-		// 보안을 위해서 유저 패스워드 암호화 하여 디비에 저장.
 		user.setPassword(passwordEncoder.encode(userRegisterInfo.getPassword()));
 		user.setNickname(userRegisterInfo.getNickname());
 		user.setIsWithdrawal(userRegisterInfo.getIsWithdrawal());
@@ -94,11 +93,9 @@ public class UserServiceImpl implements UserService {
 			URL url = new URL(reqURL);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-			//POST 요청을 위해 기본값이 false인 setDoOutput을 true로
 			conn.setRequestMethod("POST");
 			conn.setDoOutput(true);
 
-			//POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
 			StringBuilder sb = new StringBuilder();
 			sb.append("grant_type=authorization_code");
@@ -108,11 +105,9 @@ public class UserServiceImpl implements UserService {
 			bw.write(sb.toString());
 			bw.flush();
 
-			//결과 코드가 200이라면 성공
 			int responseCode = conn.getResponseCode();
 			System.out.println("responseCode : " + responseCode);
 
-			//요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
 			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			String line = "";
 			String result = "";
@@ -122,7 +117,6 @@ public class UserServiceImpl implements UserService {
 			}
 			System.out.println("response body : " + result);
 
-			//Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
 			JsonParser parser = new JsonParser();
 			JsonElement element = parser.parse(result);
 
@@ -144,19 +138,15 @@ public class UserServiceImpl implements UserService {
 	public Long createKakaoUser(String token) throws Exception {
 		String reqURL = "https://kapi.kakao.com/v2/user/me";
 		Long id =0L;
-		//access_token을 이용하여 사용자 정보 조회
 		try {
 			URL url = new URL(reqURL);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
 			conn.setRequestMethod("GET");
 			conn.setDoOutput(true);
-			conn.setRequestProperty("Authorization", "Bearer " + token); //전송할 header 작성, access_token전송
-			//결과 코드가 200이라면 성공
+			conn.setRequestProperty("Authorization", "Bearer " + token);
 			int responseCode = conn.getResponseCode();
-			System.out.println("responseCode : " + responseCode);
 
-			//요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
 			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			String line = "";
 			String result = "";
@@ -164,15 +154,12 @@ public class UserServiceImpl implements UserService {
 			while ((line = br.readLine()) != null) {
 				result += line;
 			}
-			System.out.println("response body : " + result);
 
-			//Gson 라이브러리로 JSON파싱
 			JsonParser parser = new JsonParser();
 			JsonElement element = parser.parse(result);
 			JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 			System.out.println("element : " + element);
 
-//			String email = kakao_account.getAsJsonObject().get("email").getAsString();
 			id = element.getAsJsonObject().get("id").getAsLong();
 			System.out.println("id : " + id);
 
@@ -180,7 +167,6 @@ public class UserServiceImpl implements UserService {
 			if(hasEmail){
 				br.close();
 				return id;
-//				email = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("account_email").getAsString();
 			}else{
 				br.close();
 				return 0L;
@@ -198,7 +184,6 @@ public class UserServiceImpl implements UserService {
 		String reqURL = "https://kapi.kakao.com/v2/api/talk/memo/default/send";
 		Long id =0L;
 		int result_code = 0;
-		//access_token을 이용하여 사용자 정보 조회
 		try {
 
 			URL url = new URL(reqURL);
@@ -206,10 +191,8 @@ public class UserServiceImpl implements UserService {
 
 			conn.setRequestMethod("POST");
 			conn.setDoOutput(true);
-			conn.setRequestProperty("Authorization", "Bearer " + token); //전송할 header 작성, access_token전송
-//			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); // 데이터 형식
+			conn.setRequestProperty("Authorization", "Bearer " + token);
 
-			//POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "utf-8"));
 			StringBuilder sb = new StringBuilder();
 			sb.append("template_object=");
@@ -220,7 +203,6 @@ public class UserServiceImpl implements UserService {
 			bw.write(sb.toString());
 			bw.flush();
 
-			//결과 코드가 200이라면 성공
 			int responseCode = conn.getResponseCode();
 			String content = conn.getResponseMessage();
 			System.out.println("content : " + content);
@@ -248,8 +230,6 @@ public class UserServiceImpl implements UserService {
 		URL url = new URL(reqURL);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-
-// Object를 JSON Object 문자열로 반환
 
 		conn.setRequestMethod("GET");
 		conn.setDoOutput(true);
@@ -285,7 +265,6 @@ public class UserServiceImpl implements UserService {
 		URL url = new URL(reqURL);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-		//POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
 		StringBuilder sb = new StringBuilder();
 
 		conn.setRequestMethod("POST");
@@ -323,12 +302,10 @@ public class UserServiceImpl implements UserService {
 		bw.write(param);
 		bw.flush();
 
-		//결과 코드가 200이라면 성공
 		int responseCode = conn.getResponseCode();
 		String content = conn.getResponseMessage();
 		System.out.println("content : " + content);
 		System.out.println("responseCode : " + responseCode);
-		//System.out.println(param);
 		return -1;
 	}
 
@@ -585,64 +562,4 @@ public class UserServiceImpl implements UserService {
 		return sb.toString();
 	};
 
-
-//	@Override
-//	public void getEmailUser(Long id) throws Exception{
-//		String reqURL = "https://kapi.kakao.com/v2/user/me";
-//		//access_token을 이용하여 사용자 정보 조회
-//		try {
-//			URL url = new URL(reqURL);
-//			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-//
-//			conn.setRequestMethod("POST");
-//			conn.setDoOutput(true);
-//			conn.setRequestProperty("Authorization", "KakaoAK " + "84855b2a3cf41e2bb77719fc79528128"); //전송할 header 작성, access_token전송
-//
-//			//결과 코드가 200이라면 성공
-//			int responseCode = conn.getResponseCode();
-//			System.out.println("responseCode : " + responseCode);
-//
-//			//요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
-//			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-//			String line = "";
-//			String result = "";
-//
-//			while ((line = br.readLine()) != null) {
-//				result += line;
-//			}
-//			System.out.println("response body : " + result);
-//
-//			//Gson 라이브러리로 JSON파싱
-//			JsonParser parser = new JsonParser();
-//			JsonElement element = parser.parse(result);
-//
-//			id = element.getAsJsonObject().get("id").getAsLong();
-//
-//
-//			JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
-//			JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-//
-//			String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-//			String email = kakao_account.getAsJsonObject().get("email").getAsString();
-//
-//			boolean hasEmail = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("has_email").getAsBoolean();
-//			if(hasEmail){
-//				email = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("email").getAsString();
-//			}
-//
-//			System.out.println("nickname : " + nickname);
-//			System.out.println("email : " + email);
-//
-//			br.close();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
-
-//	@Override
-//	public Boolean update(UserDto.UserPutReq userPutReq) {
-//		User user = new User();
-//		user.update(userPutReq.getEmail(),userPutReq.getPassword(),userPutReq.getNickname());
-//		return true;
-//	}
 }
