@@ -78,7 +78,7 @@ function Articles() {
         className="p-1 sm:p-0 sm:w-11/12 md:w-3/4 lg:w-2/3 mx-auto"
         onClick={handleClick}
       >
-        <div className="text-4xl lg:text-5xl font-bold">TOP 10</div>
+        {/* <div className="text-4xl lg:text-5xl font-bold">TOP 10</div> */}
         {/* <div className="border-t-2 border-slate-700">
           {like
             ?.slice(20 * (page - 1), 20 * (page - 1) + 20)
@@ -103,8 +103,38 @@ function Articles() {
             자유게시판
           </Typography>
         </Box>
+        <Grid container spacing={2}>
+            <Grid item xs={12} md={6}  style={{paddingLeft:40}}>
+              <RecentLikeBookmark setState={setArticles}/>
+            </Grid>
+            <Grid item xs={12} md={6} style={{paddingRight:25}}>
+              <Box
+                style={{
+                  display: "flex",
+                  justifyContent: "end",
+                  marginBottom: "1rem",
+                }}
+              >
+                <Searchbar url="board/search" setState={setArticles} />
+                <Button
+                  id="write"
+                  style={{
+                    marginLeft: "1rem",
+                    backgroundColor: "#F93D59",
+                    color: "white",
+                    fontWeight: "bold",
+                    borderRadius: 10,
+                    height: "2rem",
+                    marginTop: "10px",
+                  }}
+                >
+                  글쓰기
+                </Button>
+              </Box>
+            </Grid>
+          </Grid>
 
-        <RecentLikeBookmark setState={setArticles} />
+        {/* <RecentLikeBookmark setState={setArticles} />
         <div className="text-right mr-1 my-2">
           <Searchbar url="board/search" setState={setArticles} />
           <button
@@ -122,7 +152,7 @@ function Articles() {
           >
             글쓰기
           </button>
-        </div>
+        </div> */}
 
         <div className="border-t-2 border-slate-700">
           {articles
@@ -139,9 +169,9 @@ function Articles() {
           pageRangeDisplayed={5}
           onChange={handlePageChange}
         ></Pagination>
-        <div className="text-center mt-10">
+        {/* <div className="text-center mt-10">
           <Searchbar url="board/search" setState={setArticles} />
-        </div>
+        </div> */}
       </div>
       <Footer />
     </div>
