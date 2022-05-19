@@ -73,27 +73,23 @@ function Appbar() {
         // accessToken을 kakaoCallback에 날렸지만 로그인 불가능 답이 옴
         axios({
           method: "post",
-          url: BASE_URL + "users/kakaoAlarm",
-          params: {
-            token: authObj.access_token,
-          },
-        }).then((res) => {
-          // console.log(res);
-          // localStorage.setItem('user_id', res.data.object.id);
-          if (res.data.statusCode === 200) {
-            console.log("알림 보내기 성공!!");
-          }
-        });
-
-        // accessToken을 kakaoCallback에 날렸지만 로그인 불가능 답이 옴
-        axios({
-          method: "post",
           url: BASE_URL + "users/kakao",
           params: {
             token: authObj.access_token,
           },
         }).then((res) => {
-          // console.log(res);
+          const user_id = res.data.object.id;
+          const apps = ["board", "recipe", "goods"];
+          apps.forEach((app) => {
+            axios({
+              method: "get",
+              url: `${app}/like/userlist`,
+              params: { user_id },
+            }).then((res) => {
+              localStorage.setItem([app], JSON.stringify(res.data.object));
+            });
+          });
+
           localStorage.setItem("user_id", res.data.object.id);
           if (res.data.statusCode === 200) {
             alert("1bool1에 오신걸 환영합니다!");
@@ -332,15 +328,18 @@ function Appbar() {
             </Link> */}
           </Box>
 
-          <Box sx={{ flexGrow: 0, }}>
+          <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, width:'80px' }}>
+              <IconButton
+                onClick={handleOpenUserMenu}
+                sx={{ p: 0, width: "80px" }}
+              >
                 {localStorage.getItem("email") ? (
-                  <img src={kakaoLogo} alt='kakao'/>
-                  // <Avatar alt="Remy Sharp" src={kakaoLogo} />
+                  <img src={kakaoLogo} alt="kakao" />
                 ) : (
+                  // <Avatar alt="Remy Sharp" src={kakaoLogo} />
                   // <Avatar src={kakaoLogin} />
-                  <img src={kakaoLogin} alt='kakao'/>
+                  <img src={kakaoLogin} alt="kakao" />
                   // <img src={kakaoLogo} alt='kakao'/>
                 )}
               </IconButton>

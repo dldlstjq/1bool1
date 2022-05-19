@@ -35,7 +35,7 @@ export default function WriteFree() {
       url: "board",
       data,
     })
-      .then(setTimeout(() => navigate("/community"), 1000))
+      .then(setTimeout(() => navigate("/community"), 1500))
       .catch((err) => console.log(err));
   }
 
