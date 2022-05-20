@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c8b540ab-a9d8-4288-91ac-0bd00fe099ba" name="Changes" comment="#[200~# &lt;타입&gt; : &lt;제목&gt; 형식으로 작성하며 제목은 최대 50글자 정도로만 입력&#10;# 제목을 아랫줄에 작성, 제목 끝에 마침표 금지, 무엇을 했는지 명확하게 작성&#10;# 1일 1커밋은 필수! 하다못해 안되는 부분이라도 어디서, 뭐가 안됐는지 적기!&#10;## 예시) Feature : Add login&#10;##       Feature : 로그인 추가&#10;################&#10;# 본문(추가 설명)을 아랫줄에 작성&#10;&#10; &#10;&#10;################&#10;# 꼬릿말(footer)을 아랫줄에 작성 (관련된 이슈 번호 등 추가)&#10;&#10;################&#10;# Feature : 새로운 기능 추가&#10;# Fix : 버그 수정&#10;# Docs : 문서 수정&#10;# Test : 테스트 코드 추가&#10;# Refactor : 코드 리팩토링&#10;# Style : 코드 의미에 영향을 주지 않는 변경사항&#10;# Chore : 빌드 부분 혹은 패키지 매니저 수정사항&#10;&#10;################">
+      <change beforePath="$PROJECT_DIR$/../BE/oneplusone/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../BE/oneplusone/src/main/resources/application.properties" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="283J7yZp8zyoV2anBOa1BmKOhHy" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c8b540ab-a9d8-4288-91ac-0bd00fe099ba" name="Changes" comment="" />
+      <created>1650439173138</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1650439173138</updated>
+    </task>
+    <servers />
+  </component>
+</project>

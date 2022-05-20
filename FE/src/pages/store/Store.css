@@ -1,0 +1,129 @@
+/* CU card & box*/
+.CU {
+  /* display: flex;
+  justify-content: center; */
+  width: 320px;
+  height: 170px;
+  border-width: 2px;
+  border-color:#9DC92A;
+}
+.cu {
+  /* display: flex;
+  justify-content: center;
+  width: 3rem;
+  border-radius: 30px; */
+  background-color: #9DC92A;
+  color: #751485;
+  font-weight: bold;
+}
+/* gs25 card & box*/
+.GS {
+  /* display: flex;
+  justify-content: center; */
+  width: 320px;
+  height: 170px;
+  border-width: 2px;
+  border-color:#009CFF;
+  /* border-color:#5EFFE6; */
+}
+.gs {
+  /* display: flex;
+  justify-content: center;
+  width: 5rem;
+  border-radius: 30px; */
+  background-color: #009CFF;
+  /* background-color: #5EFFE6; */
+  /* color: #009CFF; */
+  color: white;
+  font-weight: bold;
+}
+/* 이마트24 card & box*/
+.EM {
+  /* display: flex;
+  justify-content: center; */
+  width: 320px;
+  height: 170px;
+  border-width: 2px;
+  border-color:#fcb525;
+}
+.emart {
+  /* display: flex;
+  justify-content: center;
+  width: 5rem;
+  border-radius: 30px; */
+  background-color: #fcb525;
+  color: #54565b;
+  font-weight: bold;
+}
+/* 세븐일레븐 card & box*/
+.SE {
+  /* display: flex;
+  justify-content: center; */
+  width: 320px;
+  height: 170px;
+  border-width: 2px;
+  border-color:#1b932a;
+}
+.seleven {
+  /* display: flex;
+  justify-content: center;
+  width: 6rem;
+  border-radius: 30px; */
+  background-color: #1b932a;
+  color: white;
+  /* text-shadow:-1px 0 #e30613, 0 1px #e30613, 1px 0 #e30613, 0 -1px #000;; */
+  font-weight: bold;
+}
+/* 미니스톱 card & box*/
+.MS {
+  /* display: flex; */
+  /* justify-content: center; */
+  width: 320px;
+  height: 170px;
+  border-width: 2px;
+  border-color:#FFAB00;
+}
+.ministop {
+  /* display: flex; */
+  /* justify-content: center; */
+  /* width: 6rem; */
+  /* border-radius: 30px; */
+  background-color: #FFAB00;
+  color: #111987;
+  font-weight: bold;
+}
+/* .ministop {
+  display: flex;
+  justify-content: center;
+  width: 6rem;
+  border-radius: 30px;
+  background-color: #FFAB00;
+  color: #111987;
+  font-weight: bold;
+} */
+/* 씨스페이스 card & box*/
+.CS {
+  /* display: flex;
+  justify-content: center; */
+  width: 320px;
+  height: 170px;
+  border-width: 2px;
+  border-color:#fcc900;
+}
+.cspace {
+  /* display: flex;
+  justify-content: center;
+  width: 6rem;
+  border-radius: 30px; */
+  background-color: #fcc900;
+  color: #000000;
+  font-weight: bold;
+}
+/* .MuiCheckbox-colorPrimary { 
+  color : 'green'
+
+}
+
+.MuiCheckbox-colorPrimary .hover {
+  background-color:'red'
+} */
