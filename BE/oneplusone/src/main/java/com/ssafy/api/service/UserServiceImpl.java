@@ -320,13 +320,13 @@ public class UserServiceImpl implements UserService {
 
 	public String eventType(Long event){
 		if (event == 2){
-			return "1쁠라스1";
+			return "1불1";
 		}
 		else if (event == 3){
-			return "2쁠라스1";
+			return "2블1";
 		}
 		else if (event == 4){
-			return "3쁠라스1";
+			return "3불1";
 		}
 		else if (event == 5){
 			return "가격 SALE 중";
