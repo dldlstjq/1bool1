@@ -46,7 +46,7 @@ public class User extends BaseEntity{
         if(this.isAlarm == null ||this.isAlarm == 0){
             this.isAlarm = 1;
         }else{
-            this.isAlarm = 1;
+            this.isAlarm = 0;
         }
     }
 
