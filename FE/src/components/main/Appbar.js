@@ -436,7 +436,7 @@ function Appbar() {
             </Tooltip>
 
             <Tooltip title='Open settings'>
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, width: '80px', height: '80px' }}>
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, width: '50px', height: '50px' }}>
                 {localStorage.getItem('email') ? (
                   <img src={kakaoLogo} alt='kakao' />
                 ) : (
