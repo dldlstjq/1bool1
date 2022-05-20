@@ -57,10 +57,9 @@ function StoreDetail() {
         params: {
           userId: localStorage.getItem("user_id"),
         },
-      })
-        .then((res) => {
-          if (res.data.object === true) setIsLike(true);
-        })
+      }).then((res) => {
+        if (res.data.object === true) setIsLike(true);
+      });
     }
   }, [goods.id]);
 
@@ -140,8 +139,7 @@ function StoreDetail() {
         if (res.data.statusCode === 200) {
         }
       });
-    } catch (err) {
-    }
+    } catch (err) {}
   };
 
   return (
@@ -219,14 +217,10 @@ function StoreDetail() {
                     onChange={handleChange}
                     color="error"
                   />
-
                 </button>
-
               </div>
-
             </div>
             <Comments which="goods" detailId={goods.id} />
-    
 
             <Box style={{ display: "flex", justifyContent: "center" }}>
               <Button
@@ -241,7 +235,6 @@ function StoreDetail() {
                 목록
               </Button>
             </Box>
-
           </div>
         </Container>
       </div>

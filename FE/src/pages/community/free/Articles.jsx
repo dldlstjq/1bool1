@@ -8,9 +8,9 @@ import axios from "axios";
 import Article from "./Article";
 import { Searchbar } from "../common/searchbar/Searchbar";
 import RecentLikeBookmark from "../common/WriteOrderBtns";
-import Appbar from "../../../components/main/Appbar";
 import Footer from "../../../components/main/Footer";
 import Pagination from "react-js-pagination";
+import Appbar from "../../../components/main/Appbar";
 
 function Articles() {
   const navigate = useNavigate();
@@ -29,6 +29,8 @@ function Articles() {
       .then((res) => {
         recent.current = res.data.object;
         setArticles(res.data.object);
+        const boardIdArray = res.data.object.map((el) => el.id);
+        localStorage.setItem("boardIdArray", JSON.stringify(boardIdArray));
       })
     axios({
       method: "get",
