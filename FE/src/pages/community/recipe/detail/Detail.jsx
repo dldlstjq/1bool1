@@ -63,7 +63,7 @@ function Detail() {
 
   const goods = useFetchList('recipe/goods/' + recipeId);
 
-  console.log(goods);
+  // console.log(goods);
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100%' }}>
       <Appbar />
@@ -95,28 +95,35 @@ function Detail() {
               <LikeButton url={'recipe/like/' + recipeId} user_id={user_id} recipe_id={recipeId} />
             )} */}
             {/* <LikeButton url={'recipe/like/' + recipeId} user_id={user_id} recipe_id={recipeId} /> */}
-            <hr id='line' style={{marginTop:'1rem'}}></hr>
-            <Box sx={{ display: 'flex', justifyContent: 'end', marginTop:'1rem',marginBottom:'1rem'}}>
-
-            <DeleteOrUpdate
-              setPassword={setInputPassword}
-              inputPassword={inputPassword}
-              afterUrl='/recipe'
-              params={{ nickname, password }}
-              password={password}
-              state={recipe}
-              updatePageUrl='/recipe/write'
-              url={`recipe/${recipeId}`}
-            /></Box>
+            <hr id='line' style={{ marginTop: '1rem' }}></hr>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'end',
+                marginTop: '1rem',
+                marginBottom: '1rem',
+              }}
+            >
+              <DeleteOrUpdate
+                setPassword={setInputPassword}
+                inputPassword={inputPassword}
+                afterUrl='/recipe'
+                params={{ nickname, password }}
+                password={password}
+                state={recipe}
+                updatePageUrl='/recipe/write'
+                url={`recipe/${recipeId}`}
+              />
+            </Box>
             <Comments which='recipe' detailId={recipeId} />
-            <Box style={{display:'flex', justifyContent:'center'}}>
+            <Box style={{ display: 'flex', justifyContent: 'center' }}>
               <Button
                 onClick={() => navi('/recipe')}
                 style={{
                   backgroundColor: '#F93D59',
                   color: 'white',
                   fontWeight: 'bold',
-                  marginTop:'2rem'
+                  marginTop: '2rem',
                 }}
               >
                 목록
