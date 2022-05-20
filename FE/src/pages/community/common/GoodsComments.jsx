@@ -8,7 +8,6 @@ import Comment from './GoodsComment';
 
 const Comments = ({ url, comments, goodsId, boardId, recipeId, refresh }) => {
   const [showComments, setShowComments] = useState(true);
-  // const [popover, setPopover] = useState(false);
   const textareaRef = useRef();
   const buttonRef = useRef();
   const coordRef = useRef();
@@ -36,7 +35,7 @@ const Comments = ({ url, comments, goodsId, boardId, recipeId, refresh }) => {
           buttonRef.current.disabled = false;
         }, 1000);
       })
-      .catch((err) => console.log(err));
+      // .catch((err) => console.log(err));
   }
 
   return (

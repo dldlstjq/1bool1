@@ -35,7 +35,7 @@ function Recipes() {
       .then((res) => {
         setRecipes(res.data.object);
       })
-      .catch((err) => console.log(err));
+      // .catch((err) => console.log(err));
   }, [orderBy]);
 
   function handleClick({ target }) {
@@ -53,10 +53,10 @@ function Recipes() {
         .get(`${axios.defaults.baseURL}recipe/like/userlist?user_id=${localStorage.getItem('user_id')}`)
         .then((res) => {
           setRecipes(res.data.object);
-          console.log(res.data.object)
+          // console.log(res.data.object)
         })
         .catch((err) => {
-          console.log(err)
+          // console.log(err)
           alert("북마크를 확인하시려면 로그인을 해주세요!");
           setRecipes([]);
         });

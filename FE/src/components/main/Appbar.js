@@ -8,7 +8,6 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-// import Avatar from "@mui/material/Avatar";
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
@@ -20,8 +19,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 
 import logo from '../../common/logo.png';
-// import kakaoLogo from "../../common/kakao_k.png";
-// import kakaoLogo from "../../common/kakao_round.png";
 import kakaoLogo from '../../common/kakaolink_btn.png';
 import kakaoLogin from '../../common/kakao_login.png';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
@@ -29,7 +26,6 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { BASE_URL } from '../../index';
 import axios from 'axios';
 
-// const pages = ['편의점', '레시피', '커뮤니티', '이벤트'];
 const settings = ['로그인'];
 const { Kakao } = window;
 
@@ -75,20 +71,11 @@ function Appbar() {
     if (localStorage.getItem('isAlarm') !== null) {
       setChecked(true);
     }
-    // axios({
-    //   method: 'get',
-    //   url: 'recipe/' + recipeId,
-    // })
-    //   .then((res) => {
-    //     setChecked(res.data.object);
-    //   })
-    //   .catch((err) => console.log(err));
   }, []);
 
   const handleChange = (event) => {
     event.preventDefault();
     setChecked(event.target.checked);
-    // console.log(event.target.checked);
 
     if (event.target.checked) {
       axios({
@@ -103,11 +90,10 @@ function Appbar() {
         },
       })
         .then((res) => {
-          // console.log(res);
           localStorage.setItem('isAlarm', true);
           alert('알람을 활성화했습니다.');
         })
-        .catch((err) => console.log(err));
+        // .catch((err) => console.log(err));
     } else {
       axios({
         method: 'put',
@@ -121,11 +107,10 @@ function Appbar() {
         },
       })
         .then((res) => {
-          // console.log(res);
           localStorage.removeItem('isAlarm');
           alert('알람을 껐습니다.');
         })
-        .catch((err) => console.log(err));
+        // .catch((err) => console.log(err));
     }
   };
   const navigate = useNavigate();

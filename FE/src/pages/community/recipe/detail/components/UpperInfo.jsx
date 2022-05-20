@@ -22,7 +22,7 @@ function UpperInfo({
   likeCnt,
 }) {
   const [like, setLike] = useState(likeCnt);
-  console.log(like);
+  // console.log(like);
   const handleLike = async (e) => {
     // e.preventDefault();
     // if (localStorage.getItem('user_id') !== null) {
