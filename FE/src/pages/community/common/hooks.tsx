@@ -106,7 +106,6 @@ export function useFetchHit(url: string) {
       .then((res) => {
         setData(res.data.object);
       })
-      // .catch((err) => console.log(err));
   }, [url]);
   return data;
 }

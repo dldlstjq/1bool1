@@ -13,7 +13,6 @@ const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 function LikeButton({ url, user_id, recipe_id, setLike, likeCnt }) {
   const [foo, refresh] = useState(0);
-  // const [like, setLike] = useFetchItem(url, foo);
   const [isLike, setIsLike] = useState(false);
 
   useEffect(() => {
@@ -26,13 +25,10 @@ function LikeButton({ url, user_id, recipe_id, setLike, likeCnt }) {
         },
       })
         .then((res) => {
-          // console.log(res);
           if (res.data.object === true) setIsLike(true);
         })
-        // .catch((err) => console.log(err));
     }
   }, [url, user_id]);
-  // }, [recipe_id]);
 
   const postLike = async (e) => {
     if (localStorage.getItem('user_id') === null) {
@@ -42,7 +38,6 @@ function LikeButton({ url, user_id, recipe_id, setLike, likeCnt }) {
 
     const likeCurrent = e.target.checked;
     setIsLike(likeCurrent);
-    // e.preventDefault();
 
     if (likeCurrent) {
       setLike(likeCnt + 1);
@@ -59,34 +54,16 @@ function LikeButton({ url, user_id, recipe_id, setLike, likeCnt }) {
         },
       }).then((res) => {
         if (res.data.statusCode === 200) {
-          // console.log('좋아요 등록');
         }
       });
     } catch (err) {
-      // console.log(err);
     }
   };
 
-  // function postLike() {
-  //   if (!user_id) {
-  //     alert('로그인이 필요합니다');
-  //     return;
-  //   }
-  //   axios({
-  //     method: 'post',
-  //     url,
-  //     params: { user_id },
-  //   })
-  //     .then(() => refresh(foo + 1))
-  //     .catch((err) => console.log(err));
-  // }
 
   return (
-    <div /*className='text-center my-7'*/>
-      {/* <button className="btn" onClick={postLike}>
-        <i className={classNames("icon-box icon-info w-5 h-5", "icon-up")}></i>
-        {like}
-      </button> */}
+    <div>
+
       <button className='btn'>
         <Checkbox
           {...label}
@@ -96,7 +73,6 @@ function LikeButton({ url, user_id, recipe_id, setLike, likeCnt }) {
           onChange={postLike}
           color='error'
         />
-        {/* <i className='icon-box icon-info icon-up  w-5 h-5'></i> 0 */}
       </button>
     </div>
   );

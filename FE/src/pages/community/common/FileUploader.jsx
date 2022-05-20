@@ -43,7 +43,6 @@ export const FileUploader = ({ content }) => {
         accept=".png, .jpeg, .gif, .jpg"
         onChange={handleFileChange}
         name="file"
-        // required
       />
     </div>
   );

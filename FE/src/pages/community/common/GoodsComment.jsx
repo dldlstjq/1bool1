@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState, useRef } from 'react';
 
 import axios from 'axios';
@@ -5,7 +6,6 @@ import PersonPinIcon from '@mui/icons-material/PersonPin';
 import Grid from '@mui/material/Grid';
 import { DeleteOrUpdate } from './GoodsDeleteOrUpdate';
 
-/* eslint-disable no-unused-vars */
 function Comment({ content, nickname, password, id, goodsId, boardId, recipeId, url, refresh }) {
   const [inputMode, setInputMode] = useState(false);
   const data = { id, nickname, password };
@@ -25,10 +25,8 @@ function Comment({ content, nickname, password, id, goodsId, boardId, recipeId, 
       })
         .then(() => {
           setInputMode(false);
-          // console.log('수정됐나');
           refresh((prev) => (prev += 1));
         })
-        // .catch((err) => console.log(err));
     }
   }
   return (

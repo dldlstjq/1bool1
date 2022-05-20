@@ -23,7 +23,7 @@ function IngredientSelect({ selected, setSelected, sum, setSum }) {
     ["se", "세븐일레븐"],
   ];
   const [conv, setConv] = useState("CS");
-  // const [sum, setSum] = useState(0);
+
   const ingredients = useFetchList("goods/convinence?con=" + conv);
   var sum_price = 0;
 
@@ -52,21 +52,18 @@ function IngredientSelect({ selected, setSelected, sum, setSum }) {
   }
   function removeFromList({ target }) {
     if (target.matches("span")) {
-      // console.log(target.id);
+
       const newSelected = selected.filter(
         (el) => el.goodsId !== parseInt(target.id)
       );
-      // console.log(newSelected);
+  
       setSelected(newSelected);
-      // setSelected(selected.filter((el) => el.goodsId !== parseInt(target.id)));
+  
 
       let total = 0;
       newSelected.forEach((item) => (total += item.goodsPrice));
       setSum(total);
-      // console.log(target.p);
-      // console.log(target.price);
 
-      // setSum(sum - parseInt(target.price));
     }
   }
 
@@ -135,7 +132,7 @@ function IngredientSelect({ selected, setSelected, sum, setSum }) {
                 />
                 <p>{goodsPrice} 원</p>
               </span>
-              {/* <p>{sum_price}</p> */}
+
             </Box>
           )
         )}

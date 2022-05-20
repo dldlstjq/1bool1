@@ -49,7 +49,7 @@ function Detail() {
       .then((res) => {
         setRecipe(res.data.object);
       })
-      // .catch((err) => console.log(err));
+
 
     axios({
       method: 'get',
@@ -58,7 +58,7 @@ function Detail() {
       .then((res) => {
         setLikeCnt(res.data.object);
       })
-      // .catch((err) => console.log(err));
+
   }, [recipeId]);
 
   const goods = useFetchList('recipe/goods/' + recipeId);
@@ -81,19 +81,13 @@ function Detail() {
               price={price}
               likeCnt={likeCnt}
             />
-            {/* <div id='main' className='border-y-4 py-2 my-2'> */}
-            {/* <h1 className='text-xl'> 이 요리는...</h1>
-              <p> {description}</p> */}
-            {/* </div> */}
+
             <hr id='line'></hr>
             <Goods goods={goods} />
             {steps?.map((step, idx) => (
               <Step key={idx} step={step} img={photos[idx + 1]} i={idx + 1} />
             ))}
-            {/* {user_id && recipeId && (
-              <LikeButton url={'recipe/like/' + recipeId} user_id={user_id} recipe_id={recipeId} />
-            )} */}
-            {/* <LikeButton url={'recipe/like/' + recipeId} user_id={user_id} recipe_id={recipeId} /> */}
+
             <hr id='line' style={{ marginTop: '1rem' }}></hr>
             <Box
               sx={{

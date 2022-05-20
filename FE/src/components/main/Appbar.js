@@ -104,11 +104,11 @@ function Appbar() {
           nickname: "your_password",
           password: "your_password",
         },
-      }).then((res) => {
-        localStorage.removeItem("isAlarm");
-        alert("알람을 껐습니다.");
-      });
-      // .catch((err) => console.log(err));
+      })
+        .then((res) => {
+          localStorage.removeItem('isAlarm');
+          alert('알람을 껐습니다.');
+        })
     }
   };
   const navigate = useNavigate();
@@ -133,15 +133,11 @@ function Appbar() {
     e.preventDefault();
     Kakao.Auth.login({
       success: function (authObj) {
-        // 카카오 계정 이메일을 가져옴.
-        // 카카오 이메일은 ok. but 좋아요 등록 시 user_id를 어떻게 가져오나?
-        // console.log(authObj);
-        // console.log(authObj.access_token);
         Kakao.API.request({
           url: "/v2/user/me",
           success: function (res) {
-            localStorage.setItem("email", res.kakao_account.email);
-            // console.log(res);
+            localStorage.setItem('email', res.kakao_account.email);
+
           },
           fail: function (error) {
             alert(
@@ -151,7 +147,6 @@ function Appbar() {
           },
         });
 
-        // accessToken을 kakaoCallback에 날렸지만 로그인 불가능 답이 옴
         axios({
           method: "post",
           url: BASE_URL + "users/kakao",
@@ -214,7 +209,6 @@ function Appbar() {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              // color="inherit"
             >
               <MenuIcon />
             </IconButton>
@@ -275,32 +269,7 @@ function Appbar() {
                   </Button>
                 </Link>
               </MenuItem>
-              {/* <MenuItem onClick={handleCloseNavMenu}>
-                <Link to="/map" style={{ textDecoration: "none" }}>
-                  <Button
-                    style={{
-                      color: "black",
-                      fontSize: "1rem",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    근처 편의점
-                  </Button>
-                </Link>
-              </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Link to="/" style={{ textDecoration: "none" }}>
-                  <Button
-                    style={{
-                      color: "black",
-                      fontSize: "1rem",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    공지사항
-                  </Button>
-                </Link>
-              </MenuItem> */}
+              
             </Menu>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -369,45 +338,7 @@ function Appbar() {
                 커뮤니티
               </Button>
             </Link>
-            {/* <Link
-              to="/map"
-              style={{
-                textDecoration: "none",
-                marginRight: "2rem",
-                marginLeft: "2rem",
-                hoverColor: "red",
-              }}
-            >
-              <Button
-                style={{
-                  my: 2,
-                  color: "black",
-                  fontSize: "1.2rem",
-                  fontWeight: "bold",
-                }}
-              >
-                근처 편의점
-              </Button>
-            </Link>
-            <Link
-              to="/map"
-              style={{
-                textDecoration: "none",
-                marginLeft: "2rem",
-                hoverColor: "red",
-              }}
-            >
-              <Button
-                style={{
-                  my: 2,
-                  color: "black",
-                  fontSize: "1.2rem",
-                  fontWeight: "bold",
-                }}
-              >
-                공지사항
-              </Button>
-            </Link> */}
+            
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -417,11 +348,8 @@ function Appbar() {
             />
             <Tooltip title="Open settings">
               <FormControlLabel
-                control={
-                  <Android12Switch checked={checked} onChange={handleChange} />
-                }
-                // label='카카오 알림'
-                // style={{ marginRight: '50px' }}
+                control={<Android12Switch checked={checked} onChange={handleChange} />}
+
               />
             </Tooltip>
 
@@ -433,10 +361,9 @@ function Appbar() {
                 {localStorage.getItem("email") ? (
                   <img src={kakaoLogo} alt="kakao" />
                 ) : (
-                  // <Avatar alt="Remy Sharp" src={kakaoLogo} />
-                  // <Avatar src={kakaoLogin} />
-                  <img src={kakaoLogin} alt="kakao" />
-                  // <img src={kakaoLogo} alt='kakao'/>
+           
+                  <img src={kakaoLogin} alt='kakao' />
+
                 )}
               </IconButton>
             </Tooltip>
@@ -484,20 +411,12 @@ function Appbar() {
                       </Grid>
                     </Grid>
                   )}
-                  {/* {setting === '회원가입' && (
-                    <Link to='/signup' style={{ textDecoration: 'none' }}>
-                      <Typography textAlign='center'>{setting}</Typography>
-                    </Link>
-                  )} */}
+               
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          {/* <Box>
-            {localStorage.getItem('email') && (
-              <p style={{ color: 'black' }}>{localStorage.getItem('email')}</p>
-            )}
-          </Box> */}
+    
         </Toolbar>
       </Container>
     </AppBar>

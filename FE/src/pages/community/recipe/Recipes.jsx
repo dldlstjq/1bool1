@@ -56,10 +56,8 @@ function Recipes() {
           )
           .then((res) => {
             setRecipes(res.data.object);
-            // console.log(res.data.object)
           })
           .catch((err) => {
-            // console.log(err)
             alert("북마크를 확인하시려면 로그인을 해주세요!");
             setRecipes([]);
           });
@@ -130,22 +128,6 @@ function Recipes() {
             </Grid>
           </Grid>
 
-          {/* <div
-            id="recipes-box"
-            className="grid gap-1 grid-cols-1 sm:grid-cols-3 lg:grid-cols-4"
-          >
-            {recipes.length?recipes
-              .slice(12 * (page - 1), 12 * (page - 1) + 12)
-              .map((recipe, idx) => 
-
-                <Recipe key={idx} recipe={recipe} />
-                
-              )
-              :<Box style={{display:'flex', justifyContent:'center'}}>
-                <Typography variant='h4'>목록이 없습니다!!</Typography>
-              </Box>
-            }
-          </div> */}
           <Box>
             <Grid container spacing={5}>
               {!recipes ? (

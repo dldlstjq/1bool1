@@ -14,9 +14,6 @@ import {
   TextField,
 } from "@mui/material";
 
-// import Upper from './Upper';
-// import Popover from "../Popover";
-
 const Comments = ({ which, detailId }) => {
   const [showComments, setShowComments] = useState(true);
   const [comments, setComments] = useState([]);

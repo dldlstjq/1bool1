@@ -8,7 +8,6 @@ function Head({ setState }) {
       url: "board/like",
     })
       .then((res) => setState(res.data.object))
-      // .catch((err) => console.log(err));
   }
   return (
     <div className="head ">

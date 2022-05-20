@@ -17,16 +17,7 @@ function ButtonAndPerPage() {
   const handleChange = (e, newValue) => {
     setValue(newValue);
   };
-  // function handleClick({ target }) {
-  //   if (target.id === "order-by-recent") {
-  //     setState(like);
-  //     return;
-  //   }
-  //   if (target.id === "order-by-like") {
-  //     setState(recent);
-  //     return;
-  //   }
-  // }
+
 
   return (
     <div>
@@ -39,7 +30,6 @@ function ButtonAndPerPage() {
           },
           display: "flex",
         }}
-        // inBarStyle={{ background: "#F93D59" }}
         inbarStyle={{ background: "#F93D59" }}
       >
         <Tab

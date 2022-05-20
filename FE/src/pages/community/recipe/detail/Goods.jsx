@@ -3,7 +3,6 @@ import { GroupAddSharp } from '@mui/icons-material';
 import './RecipeDetail.css';
 
 function Goods({ goods }) {
-  // console.log(goods);
   return (
     <>
       <p id='ingredients' className='text-xl'>
@@ -22,7 +21,7 @@ function Goods({ goods }) {
             <p id='ingredientName'>{name}</p>
           </div>
 
-          // <p key={i}>{name}</p>
+
         ))}
       </div>
     </>

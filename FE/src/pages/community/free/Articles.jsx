@@ -32,14 +32,12 @@ function Articles() {
         const boardIdArray = res.data.object.map((el) => el.id);
         localStorage.setItem("boardIdArray", JSON.stringify(boardIdArray));
       })
-      // .catch((err) => console.log(err));
     axios({
       method: "get",
       url: "board/like",
       params: { page: 0, size: 999 },
     })
       .then((res) => (like.current = res.data.object.content))
-      // .catch((err) => console.log(err));
   }, []);
 
   function handleClick({ target }) {
@@ -126,26 +124,6 @@ function Articles() {
             </Box>
           </Grid>
         </Grid>
-
-        {/* <RecentLikeBookmark setState={setArticles} />
-        <div className="text-right mr-1 my-2">
-          <Searchbar url="board/search" setState={setArticles} />
-          <button
-            id="write"
-            style={{
-              padding: "1px",
-              marginLeft: "1rem",
-              backgroundColor: "#F93D59",
-              color: "white",
-              fontWeight: "bold",
-              borderRadius: 5,
-              height: "2rem",
-              marginTop: "10px",
-            }}
-          >
-            글쓰기
-          </button>
-        </div> */}
 
         <div className="border-t-2 border-slate-700">
           {articles

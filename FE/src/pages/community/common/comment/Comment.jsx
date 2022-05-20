@@ -9,14 +9,12 @@ import { DeleteOrUpdate } from "./DeleteOrUpdate";
 import { Container, Typography, Box, Button, TextField } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
-/* eslint-disable no-unused-vars */
 function Comment({ commentData, idForData, setComments, detailId, url }) {
   const [inputMode, setInputMode] = useState(false);
   const [checkPw, setCheckPw] = useState("");
   const { id, nickname, password, content } = commentData;
   const inputRef = useRef();
 
-  // 댓글 수정, 삭제 함수!!
   function handleClick({ target }) {
     if (target.id === "delete-comment") {
       if (password !== checkPw) {

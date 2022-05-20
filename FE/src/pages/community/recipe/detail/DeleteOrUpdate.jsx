@@ -28,6 +28,7 @@ export function DeleteOrUpdate({
           setTimeout(() => refresh((prev) => (prev += 1)), 1000);
         }
       });
+
       return;
     }
     alert("비밀번호가 다릅니다");
@@ -66,11 +67,8 @@ export function DeleteOrUpdate({
         삭제
       </Button>
       <Button
-        id="update"
-        onClick={toUpdatePage}
         style={{
           backgroundColor: "white",
-          borderRadius: 5,
           color: "grey",
           border: "1px solid",
           marginRight: 5,
