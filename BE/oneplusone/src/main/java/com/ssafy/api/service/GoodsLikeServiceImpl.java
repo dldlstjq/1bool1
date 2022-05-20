@@ -126,6 +126,9 @@ public class GoodsLikeServiceImpl implements GoodsLikeService{
         List<GoodsUserManagement> goods = goodsLikeRepository.findByUserId(userId);
         List<Goods> list = new ArrayList<>();
         for(int i = 0; i < goods.size(); i++){
+            if(goods.get(i).getIsLiked() == 0){
+                continue;
+            }
             list.add(goodsRepository.findById(goods.get(i).getGoods().getId()).orElseGet(()->null));
         }
         Collections.sort(list,new Comparator<Goods>() {
