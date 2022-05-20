@@ -31,7 +31,6 @@ function Comment({ commentData, idForData, setComments, detailId, url }) {
         .then(() => {
           setComments((prev) => prev.filter((comment) => comment.id !== id));
         })
-        .catch((err) => console.log(err));
       return;
     }
     if (target.id === "update-comment") {
@@ -67,7 +66,6 @@ function Comment({ commentData, idForData, setComments, detailId, url }) {
             )
           );
         })
-        .catch((err) => console.log(err));
     }
   }
 

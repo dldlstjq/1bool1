@@ -21,17 +21,13 @@ export function DeleteOrUpdate({
         params: { id, password },
       })
         .then(setTimeout(() => refresh((prev) => (prev += 1)), 1000))
-        .catch((err) => console.log(err));
+        // .catch((err) => console.log(err));
       return;
     }
     alert('비밀번호가 다릅니다');
   }
 
   function readyUpdate() {
-    // if (inputPw === password) {
-    //   setInputMode(true);
-    //   return;
-    // }
     if (inputMode === true) {
       setInputMode(false);
       return;

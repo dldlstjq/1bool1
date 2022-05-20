@@ -36,7 +36,7 @@ export default function WriteFree() {
       data,
     })
       .then(setTimeout(() => navigate("/community"), 1500))
-      .catch((err) => console.log(err));
+      // .catch((err) => console.log(err));
   }
 
   let fileObj = [];

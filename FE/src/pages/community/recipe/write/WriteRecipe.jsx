@@ -70,7 +70,7 @@ function WriteRecipe() {
         data: form,
       })
         .then(setTimeout(() => navi("/recipe"), 1000))
-        .catch((err) => console.log(err));
+        // .catch((err) => console.log(err));
     } else {
       axios({
         method: "post",
@@ -78,7 +78,7 @@ function WriteRecipe() {
         data: form,
       })
         .then(setTimeout(() => navi("/recipe"), 1000))
-        .catch((err) => console.log(err));
+        // .catch((err) => console.log(err));
     }
   }
   // function handleSubmit(e) {

@@ -2,7 +2,6 @@ import { useState, useRef } from 'react';
 
 import axios from 'axios';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
-// import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Grid from '@mui/material/Grid';
 import { DeleteOrUpdate } from './GoodsDeleteOrUpdate';
 
@@ -26,21 +25,17 @@ function Comment({ content, nickname, password, id, goodsId, boardId, recipeId, 
       })
         .then(() => {
           setInputMode(false);
-          console.log('수정됐나');
+          // console.log('수정됐나');
           refresh((prev) => (prev += 1));
         })
-        .catch((err) => console.log(err));
+        // .catch((err) => console.log(err));
     }
   }
   return (
     <div className='p-1 border border-stone-300'>
       <div>
         <div>
-          {/* <i className=' icon-etc  w-9 h-9'></i> */}
-          {/* <PersonPinIcon style={{ width: '40px', height: '40px' }} />
-          <span className='relative bottom-3' style={{ marginTop: 150 }}>
-            {nickname}
-          </span> */}
+
           <Grid container>
             <Grid lg={0.5}>
               <PersonPinIcon style={{ width: '40px', height: '40px' }} />
@@ -52,15 +47,6 @@ function Comment({ content, nickname, password, id, goodsId, boardId, recipeId, 
             </Grid>
           </Grid>
         </div>
-
-        {/* <div>
-          <button className='w-16 h-8  bd-df'>
-            <i className='icon-box icon-info icon-up w-5 h-5'></i> 0
-          </button>
-          <button className='w-16 h-8 ml-2 bd-df'>
-            <i className='icon-box icon-info icon-down w-5 h-5'></i> 0
-          </button>
-        </div> */}
       </div>
 
       {inputMode ? (

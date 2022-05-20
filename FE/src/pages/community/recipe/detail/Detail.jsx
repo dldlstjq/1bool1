@@ -49,7 +49,7 @@ function Detail() {
       .then((res) => {
         setRecipe(res.data.object);
       })
-      .catch((err) => console.log(err));
+      // .catch((err) => console.log(err));
 
     axios({
       method: 'get',
@@ -58,12 +58,11 @@ function Detail() {
       .then((res) => {
         setLikeCnt(res.data.object);
       })
-      .catch((err) => console.log(err));
+      // .catch((err) => console.log(err));
   }, [recipeId]);
 
   const goods = useFetchList('recipe/goods/' + recipeId);
 
-  // console.log(goods);
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100%' }}>
       <Appbar />

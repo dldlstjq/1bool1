@@ -32,14 +32,14 @@ function Articles() {
         const boardIdArray = res.data.object.map((el) => el.id);
         localStorage.setItem("boardIdArray", JSON.stringify(boardIdArray));
       })
-      .catch((err) => console.log(err));
+      // .catch((err) => console.log(err));
     axios({
       method: "get",
       url: "board/like",
       params: { page: 0, size: 999 },
     })
       .then((res) => (like.current = res.data.object.content))
-      .catch((err) => console.log(err));
+      // .catch((err) => console.log(err));
   }, []);
 
   function handleClick({ target }) {

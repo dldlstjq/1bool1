@@ -14,7 +14,7 @@ export function useFetchPage(url: string, page: number, size: number) {
       .then((res) => {
         setData(res.data.object.content ?? res.data.object);
       })
-      .catch((err) => console.log(err));
+      // .catch((err) => console.log(err));
   }, [url, page, size]);
   return [data, setData];
 }
@@ -30,7 +30,7 @@ export function useFetchItem(url: string, initialState: any) {
       .then((res) => {
         setData(res.data.object);
       })
-      .catch((err) => console.log(err));
+      // .catch((err) => console.log(err));
   }, [url]);
   return [data, setData];
 }
@@ -45,7 +45,7 @@ export function useFetchAndUpdate(url: string, dep: any) {
       .then((res) => {
         setData(res.data.object);
       })
-      .catch((err) => console.log(err));
+      // .catch((err) => console.log(err));
   }, [url, dep]);
   return data;
 }
@@ -60,7 +60,7 @@ export function useFetchListAndUpdate(url: string, dep: any) {
       .then((res) => {
         setData(res.data.object);
       })
-      .catch((err) => console.log(err));
+      // .catch((err) => console.log(err));
   }, [url, dep]);
   return [data, setData];
 }
@@ -75,7 +75,7 @@ export function useFetchList(url: string) {
       .then((res) => {
         setData(res.data.object);
       })
-      .catch((err) => console.log(err));
+      // .catch((err) => console.log(err));
   }, [url]);
   return data;
 }
@@ -106,7 +106,7 @@ export function useFetchHit(url: string) {
       .then((res) => {
         setData(res.data.object);
       })
-      .catch((err) => console.log(err));
+      // .catch((err) => console.log(err));
   }, [url]);
   return data;
 }

@@ -99,7 +99,7 @@ $ vi /etc/profile.d/gradle.sh
   #/bin/bash
   export GRADLE_HOME=/opt/gradle
   export PATH=/opt/gradle/bin:${PATH}
-
+  
   $ gradle -v //gradle 설치 확인
   ```
 ### 6. 프로젝트 설치 및 실행
@@ -200,3 +200,26 @@ $ gradlew clean build #jar 파일 생성
   }
 
   ```
+
+### 8. Crawling 설정
+
+```
+$ cd home/ubuntu/crawling/
+$ python3 manage.py runserver 0:8000
+```
+
+* 자동 크롤링을 위한 Django 서버 계속 열기
+
+```
+# 스크린 설치 
+$ sudo apt-get install screen
+$ screen -S build1
+$ screen -list
+$ screen -r [screen 명]
+$ cd home/ubuntu/crawling/
+$ python3 manage.py runserver 0:8000
+screen + a + d(스크린에서 나오기)
+```
+
+
+
