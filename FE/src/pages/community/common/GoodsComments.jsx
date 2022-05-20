@@ -35,14 +35,10 @@ const Comments = ({ url, comments, goodsId, boardId, recipeId, refresh }) => {
           buttonRef.current.disabled = false;
         }, 1000);
       })
-      // .catch((err) => console.log(err));
   }
 
   return (
     <>
-      {/* {showComments && (
-        
-      )} */}
       <form
         className='p-3 bg-stone-200 border border-stone-300 grid grid-cols-2 gap-2'
         onSubmit={handleSubmit}

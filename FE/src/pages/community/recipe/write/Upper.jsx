@@ -5,9 +5,7 @@ import { FileUploader } from '../../common/RecipeUploader';
 function Upper({ nickname, password, description, minute, star, title }) {
   return (
     <>
-      {/* <h1 className="text-4xl font-bold text-center my-8">
-        레시피 등록
-      </h1> */}
+ 
       <div className='grid gap-6 border-b p-4 rounded' style={{ backgroundColor: '#ffe2e180' }}>
         <h1 className='text-4xl font-bold text-center my-8'>레시피 등록</h1>
         <Grid container spacing={3}>
@@ -73,7 +71,7 @@ function Upper({ nickname, password, description, minute, star, title }) {
           <Grid item md={4} xs={4} lg={4}>
             <div>
               <span className='text-lg'>메인사진 &nbsp;</span>
-              {/* <input type="file" name="file" required className="inline-block"/> */}
+
               <FileUploader />
             </div>
           </Grid>

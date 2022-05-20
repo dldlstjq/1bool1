@@ -5,12 +5,11 @@ import Footer from '../../components/main/Footer';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Card from '@mui/material/Card';
-// import CardContent from '@mui/material/CardContent';
+
 import CardMedia from '@mui/material/CardMedia';
-// import { Button, Container, Grid, TextField, Typography, Box} from '@mui/material';
+
 import { Container, Grid, Typography, Box, Button, TextField } from '@mui/material';
-// import Pagination from '@mui/material/Pagination';
-// import Stack from '@mui/material/Stack';
+
 import Pagination from 'react-js-pagination';
 import styled from 'styled-components';
 import '../../components/store/Paging.css';
@@ -26,10 +25,7 @@ import Chip from '@mui/material/Chip';
 import './Store.css';
 import { FcMoneyTransfer } from 'react-icons/fc';
 import { FaWonSign, FaCoins } from 'react-icons/fa';
-// import { makeStyles } from "@material-ui/core/styles";
-// import { withStyles } from "@material-ui/core";
-// import styled from '@mui/material/styles';
-// import { withStyles } from 'material-ui/styles'
+
 import { useNavigate, useLocation } from 'react-router-dom';
 
 function Store() {
@@ -262,9 +258,7 @@ function Store() {
               borderRadius: '30px',
             }}
           >
-            {/* <Box sx={{backgroundColor:'#F93D5910', display: 'flex', flexDirection:'column', justifyContent:'center', alignItems: "center"}}> */}
             <FormGroup aria-label='position' row style={{ marginBottom: '1rem' }}>
-              {/* <FormLabel component="legend" style={{borderColor:'#F93D59', borderWidth:'1'}}>편의점   </FormLabel> */}
               <Typography
                 style={{
                   width: '80px',

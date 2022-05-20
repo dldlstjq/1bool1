@@ -73,7 +73,6 @@ function Detail() {
         }
       });
     } catch (err) {
-      // console.log(err);
     }
   };
 
@@ -84,7 +83,6 @@ function Detail() {
         <Container>
           <Box
             sx={{
-              // borderTop: 2,
               borderBottom: 2,
               borderColor: 'grey.500',
               marginTop: '3rem',
@@ -124,10 +122,6 @@ function Detail() {
                 </Grid>
               </Grid>
 
-              {/* <Box >
-                    <Box style={{display:'flex', justifyItems:'end'}}>
-                    </Box>
-                </Box> */}
             </Box>
             <Box style={{ margin: '1rem' }}>
               <Typography style={{ padding: '1rem' }}>{content}</Typography>
@@ -145,7 +139,6 @@ function Detail() {
                 <button className='btn'>
                   <Checkbox
                     {...label}
-                    // label="좋아요"
                     icon={<FavoriteBorder />}
                     checkedIcon={<Favorite />}
                     checked={isLike}

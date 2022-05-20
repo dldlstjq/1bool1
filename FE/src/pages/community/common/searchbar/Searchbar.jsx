@@ -3,7 +3,6 @@ import { useRef, useState } from "react";
 import axios from "axios";
 
 import searchIcon from "./search.png";
-import whiteSearchIcon from "./white-search.png";
 
 export function Searchbar({ url, setState }) {
   const buttonRef = useRef();

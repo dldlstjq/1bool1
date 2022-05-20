@@ -16,7 +16,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 import { FaWonSign, FaCoins, FaCrown } from 'react-icons/fa';
 import { AiOutlineCrown } from 'react-icons/ai';
-// import { textAlign } from '@mui/system';
+
 
 function RecipeTop(props) {
   const [menus, setMenu] = useState([]);
@@ -32,7 +32,7 @@ function RecipeTop(props) {
   return (
     <div>
       <Box style={{display:'flex', flexDirection:'row' ,marginTop: "4rem", marginBottom:'2rem',}}>
-      {/* <AiOutlineCrown style={{ fontSize:50, color:'gold'  }}/> */}
+
       <FaCrown style={{ fontSize:50, color:'gold' }}/>
         <Typography
           variant="h4"
@@ -46,7 +46,7 @@ function RecipeTop(props) {
         >
            레시피 TOP 4
         </Typography>
-        {/* <FaCrown style={{ fontSize:50, color:'gold' }}/> */}
+
 
       </Box>
       <Box>
@@ -59,18 +59,12 @@ function RecipeTop(props) {
                   <Typography style={{position:'absolute', left:'0%' , backgroundColor:'#F93D59', color:'white', fontSize:20, width:'40px', height:'40px', textAlign:'center', borderRadius:10, fontWeight:'bold', paddingTop:5}}>
                     {index+1}
                   </Typography>
-                  {/* <CardMedia
-                  component="img"
-                  alt="이미지 준비중"
-                  sx={{ width :'50%' }}
-                  image={`${menu.photo}`}
-                  >
-                  </CardMedia> */}
+         
                   <img
                     src={menu.photo}
                     alt='이미지가 없습니다'
                     style={{ width: {xs:'80', sm:'100%'}, padding:4 }}
-                    // style={{ height: '100%' }}
+       
                   />
                 </Box>
                 <Typography style={{ fontWeight:'bold' ,wordBreak: 'keep-all', paddingLeft: '1rem', fontSize: 15 }}>

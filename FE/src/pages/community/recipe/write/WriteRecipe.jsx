@@ -9,7 +9,7 @@ import {
   Button,
   TextField,
 } from "@mui/material";
-// import { useInputs } from "../../common/hooks";
+
 import Appbar from "../../../../components/main/Appbar";
 import Footer from "../../../../components/main/Footer";
 
@@ -70,7 +70,6 @@ function WriteRecipe() {
         data: form,
       })
         .then(setTimeout(() => navi("/recipe"), 1000))
-        // .catch((err) => console.log(err));
     } else {
       axios({
         method: "post",
@@ -78,16 +77,9 @@ function WriteRecipe() {
         data: form,
       })
         .then(setTimeout(() => navi("/recipe"), 1000))
-        // .catch((err) => console.log(err));
     }
   }
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-  //   const form = new FormData(e.target);
-  //   for (var x of form) {
-  //     if (x[0] === "file") console.log(Boolean(x[1].name));
-  //   }
-  // }
+
 
   return (
     <div
@@ -127,9 +119,7 @@ function WriteRecipe() {
                 취소
               </button>
             </div>
-            {/* </Grid>
-        <Grid item xs={2}></Grid>
-      </Grid> */}
+     
           </form>
         </Container>
       </div>

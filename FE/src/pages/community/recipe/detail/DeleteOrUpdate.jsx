@@ -22,7 +22,7 @@ export function DeleteOrUpdate({ password, afterUrl, state, updatePageUrl, url, 
             setTimeout(() => refresh((prev) => (prev += 1)), 1000);
           }
         })
-        // .catch((err) => console.log(err));
+
       return;
     }
     alert('비밀번호가 다릅니다');
@@ -37,7 +37,7 @@ export function DeleteOrUpdate({ password, afterUrl, state, updatePageUrl, url, 
   }
 
   return (
-    // <div>
+
     <Box xs={{display:'flex', alignSelf:'end'}}>
       <input
         type='password'
@@ -56,8 +56,7 @@ export function DeleteOrUpdate({ password, afterUrl, state, updatePageUrl, url, 
       </Button>
       <Button
         id='update'
-        // className='bg-gray-700 text-white h-10'
-        // className='text-white h-10'
+
         onClick={toUpdatePage}
         style={{ backgroundColor: 'white', borderRadius: 5, color:'grey', border: '1px solid' , marginRight:5, fontWeight:'bold' }}
       >

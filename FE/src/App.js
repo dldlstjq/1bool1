@@ -9,8 +9,7 @@ import Main from "./pages/main/Main";
 import Store from "./pages/store/Store";
 import StoreDetail from "./pages/store/StoreDetail";
 
-//community
-// import Community from "./pages/community/Community";
+
 import Articles from "./pages/community/free/Articles";
 import WriteFree from "./pages/community/free/WriteFree";
 import Detail from "./pages/community/free/Detail";
@@ -18,7 +17,7 @@ import WriteRecipe from "./pages/community/recipe/write/WriteRecipe";
 import Recipes from "./pages/community/recipe/Recipes";
 import RecipeDetail from "./pages/community/recipe/detail/Detail";
 import KakaoMap from "./pages/kakaomap/KakaoMap";
-// signin, signup
+
 import Kakao from "./pages/user/KakaoLogin";
 
 function App() {
@@ -26,7 +25,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Main></Main>} />
       <Route path="signin" element={<Kakao />}></Route>
-      {/* <Route path="signup" element={<Signup />}></Route> */}
+
       <Route path="/store" element={<Store />}></Route>
       <Route path="/store/:goodsId" element={<StoreDetail />}></Route>
       <Route path="community" element={<Articles />} />
