@@ -104,19 +104,11 @@ function Appbar() {
           nickname: "your_password",
           password: "your_password",
         },
-<<<<<<< HEAD
       })
         .then((res) => {
           localStorage.removeItem('isAlarm');
           alert('알람을 껐습니다.');
         })
-=======
-      }).then((res) => {
-        localStorage.removeItem("isAlarm");
-        alert("알람을 껐습니다.");
-      });
-      // .catch((err) => console.log(err));
->>>>>>> 5e16819eb933183562fc9edec5087fd49f09c85e
     }
   };
   const navigate = useNavigate();
@@ -144,13 +136,8 @@ function Appbar() {
         Kakao.API.request({
           url: "/v2/user/me",
           success: function (res) {
-<<<<<<< HEAD
             localStorage.setItem('email', res.kakao_account.email);
 
-=======
-            localStorage.setItem("email", res.kakao_account.email);
-            // console.log(res);
->>>>>>> 5e16819eb933183562fc9edec5087fd49f09c85e
           },
           fail: function (error) {
             alert(
