@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -70,6 +71,20 @@ function Appbar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [checked, setChecked] = React.useState(false);
 
+  useEffect(() => {
+    if (localStorage.getItem('isAlarm') !== null) {
+      setChecked(true);
+    }
+    // axios({
+    //   method: 'get',
+    //   url: 'recipe/' + recipeId,
+    // })
+    //   .then((res) => {
+    //     setChecked(res.data.object);
+    //   })
+    //   .catch((err) => console.log(err));
+  }, []);
+
   const handleChange = (event) => {
     event.preventDefault();
     setChecked(event.target.checked);
@@ -89,11 +104,29 @@ function Appbar() {
       })
         .then((res) => {
           // console.log(res);
+          localStorage.setItem('isAlarm', true);
           alert('알람을 활성화했습니다.');
         })
         .catch((err) => console.log(err));
     } else {
+      localStorage.removeItem('isAlarm');
       alert('알람을 껐습니다.');
+      // axios({
+      //   method: 'put',
+      //   url: BASE_URL + 'users',
+      //   data: {
+      //     id: localStorage.getItem('user_id'),
+      //     isAlarm: 0,
+      //     isWithdrawal: 0,
+      //     nickname: 'your_password',
+      //     password: 'your_password',
+      //   },
+      // })
+      //   .then((res) => {
+      //     // console.log(res);
+      //     alert('알람을 껐습니다.');
+      //   })
+      //   .catch((err) => console.log(err));
     }
   };
   const navigate = useNavigate();
