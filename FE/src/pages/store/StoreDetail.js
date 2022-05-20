@@ -384,18 +384,7 @@ function StoreDetail() {
                   <i className='icon-box icon-info icon-down  w-5 h-5'></i> 0
                 </button> */}
               </div>
-              {/* <div className='userinfo-box' style={{ backgroundColor: '#ffe2e180' }}>
-                <i className='icon-box icon-etc icon-user  w-10 h-10'></i>
-                <div style={{ marginLeft: '1rem' }}>
-                  <span style={{ marginLeft: '5px' }}>{name}</span>
-                  <div className='icons'>
-                    <i className='icon-box icon-info icon-article w-5 h-5 relative top-1'></i>
-                    21
-                    <i className='icon-box icon-comment icon-info w-5 h-5 ml-1 relative top-1'></i>
-                    {comments.length}
-                  </div>
-                </div>
-              </div> */}
+
               {/* <DeleteOrUpdate
          setPw={setarticlePw}
          inputPw={articlePw}

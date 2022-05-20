@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+
 import React, { useState, useRef, useEffect } from "react";
 
 import axios from "axios";
@@ -21,7 +22,6 @@ const Comments = ({ which, detailId }) => {
   const [comments, setComments] = useState([]);
   const textareaRef = useRef();
   const buttonRef = useRef();
-  const fakeId = useRef(10000);
   const [inputs, setInputs] = useState({
     nickname: "",
     password: "",
