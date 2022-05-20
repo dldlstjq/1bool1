@@ -221,5 +221,11 @@ $ python3 manage.py runserver 0:8000
 screen + a + d(스크린에서 나오기)
 ```
 
+### 9. 외부서비스 이용
+
+- 카카오 소셜 Oauth 2.0
+- 카카오 Map API
+- Firebase Storage 
+
 
 
