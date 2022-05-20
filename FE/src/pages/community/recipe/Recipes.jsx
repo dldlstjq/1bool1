@@ -130,7 +130,7 @@ function Recipes() {
 
           <Box>
             <Grid container spacing={5}>
-              {!recipes ? (
+              {recipes ? (
                 recipes
                   .slice(12 * (page - 1), 12 * (page - 1) + 12)
                   .map((recipe, idx) => <Recipe key={idx} recipe={recipe} />)
