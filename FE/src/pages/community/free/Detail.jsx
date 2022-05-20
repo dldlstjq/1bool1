@@ -27,7 +27,7 @@ function Detail() {
     userId = null;
   userId = localStorage.getItem('user_id');
   userLike = userId && JSON.parse(localStorage.getItem('board'));
-  console.log(userLike);
+  // console.log(userLike);
 
   let title = '',
     content = '',
