@@ -44,11 +44,7 @@ export function Searchbar({ url, setState }) {
         ref={buttonRef}
         onClick={() => applyFilter(url)}
       >
-        {isFocused ? (
-          <img src={whiteSearchIcon} alt="" />
-        ) : (
-          <img src={searchIcon} alt="" />
-        )}
+        <img src={searchIcon} alt="" />
       </button>
     </div>
   );
