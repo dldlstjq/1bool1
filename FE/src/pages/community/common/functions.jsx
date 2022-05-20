@@ -7,6 +7,6 @@ function postLike(url, user_id) {
     url,
     params: { user_id },
   })
-    .then((res) => console.log(res))
-    .catch((err) => console.log(err));
+    // .then((res) => console.log(res))
+    // .catch((err) => console.log(err));
 }

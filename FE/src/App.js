@@ -19,8 +19,6 @@ import Recipes from "./pages/community/recipe/Recipes";
 import RecipeDetail from "./pages/community/recipe/detail/Detail";
 import KakaoMap from "./pages/kakaomap/KakaoMap";
 // signin, signup
-import Signin from "./pages/user/Signin";
-import Signup from "./pages/user/Signup";
 import Kakao from "./pages/user/KakaoLogin";
 
 function App() {
@@ -28,7 +26,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Main></Main>} />
       <Route path="signin" element={<Kakao />}></Route>
-      <Route path="signup" element={<Signup />}></Route>
+      {/* <Route path="signup" element={<Signup />}></Route> */}
       <Route path="/store" element={<Store />}></Route>
       <Route path="/store/:goodsId" element={<StoreDetail />}></Route>
       <Route path="community" element={<Articles />} />

@@ -61,7 +61,6 @@ function StoreDetail() {
         .then((res) => {
           if (res.data.object === true) setIsLike(true);
         })
-        // .catch((err) => console.log(err));
     }
   }, [goods.id]);
 
@@ -139,11 +138,9 @@ function StoreDetail() {
         },
       }).then((res) => {
         if (res.data.statusCode === 200) {
-          // console.log("좋아요 등록");
         }
       });
     } catch (err) {
-      // console.log(err);
     }
   };
 

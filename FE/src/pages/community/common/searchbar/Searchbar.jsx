@@ -21,7 +21,7 @@ export function Searchbar({ url, setState }) {
       params: { search: input },
     })
       .then((res) => setState(res.data.object))
-      // .catch((err) => console.log(err));
+
   }
 
   return (
