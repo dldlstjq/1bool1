@@ -109,24 +109,23 @@ function Appbar() {
         })
         .catch((err) => console.log(err));
     } else {
-      localStorage.removeItem('isAlarm');
-      alert('알람을 껐습니다.');
-      // axios({
-      //   method: 'put',
-      //   url: BASE_URL + 'users',
-      //   data: {
-      //     id: localStorage.getItem('user_id'),
-      //     isAlarm: 0,
-      //     isWithdrawal: 0,
-      //     nickname: 'your_password',
-      //     password: 'your_password',
-      //   },
-      // })
-      //   .then((res) => {
-      //     // console.log(res);
-      //     alert('알람을 껐습니다.');
-      //   })
-      //   .catch((err) => console.log(err));
+      axios({
+        method: 'put',
+        url: BASE_URL + 'users',
+        data: {
+          id: localStorage.getItem('user_id'),
+          isAlarm: 0,
+          isWithdrawal: 0,
+          nickname: 'your_password',
+          password: 'your_password',
+        },
+      })
+        .then((res) => {
+          // console.log(res);
+          localStorage.removeItem('isAlarm');
+          alert('알람을 껐습니다.');
+        })
+        .catch((err) => console.log(err));
     }
   };
   const navigate = useNavigate();
