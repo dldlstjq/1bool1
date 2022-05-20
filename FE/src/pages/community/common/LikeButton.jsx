@@ -26,10 +26,10 @@ function LikeButton({ url, user_id, recipe_id, setLike, likeCnt }) {
         },
       })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.data.object === true) setIsLike(true);
         })
-        .catch((err) => console.log(err));
+        // .catch((err) => console.log(err));
     }
   }, [url, user_id]);
   // }, [recipe_id]);
@@ -59,11 +59,11 @@ function LikeButton({ url, user_id, recipe_id, setLike, likeCnt }) {
         },
       }).then((res) => {
         if (res.data.statusCode === 200) {
-          console.log('좋아요 등록');
+          // console.log('좋아요 등록');
         }
       });
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 

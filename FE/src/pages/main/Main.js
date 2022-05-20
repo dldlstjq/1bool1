@@ -41,21 +41,17 @@ function Main() {
   // const nextRef = useRef(null);
   const navi = useNavigate();
   const searchWord = (event) => {
-    // console.log('이벤트', event)
     setWord(event.target.value);
-    // console.log(word);
   };
   useEffect(() => {
     axios.get(`${axios.defaults.baseURL}recipe/like/week`).then(({ data }) => {
       setLike(data.object);
-      // console.log('좋아요', data.object);
     });
   }, []);
 
   useEffect(() => {
     axios.get(`${axios.defaults.baseURL}goods/hit`).then(({ data }) => {
       setHit(data.object);
-      // console.log('조회수', data.object, hits);
     });
   }, []);
   let state = word;

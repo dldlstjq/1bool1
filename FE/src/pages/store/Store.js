@@ -33,13 +33,9 @@ import { FaWonSign, FaCoins } from 'react-icons/fa';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 function Store() {
-  // const { state } = useLocation();
   const location = useLocation();
-  // console.log('받은건 없음',location.state)
   const [goods, setGoods] = useState([]);
   const [page, setPage] = useState(1);
-  // const [word, setWord] = useState("");
-  // const [items, setItems] = useState(5);
   let name = '';
   const handlePageChange = (page) => {
     setPage(page);
@@ -47,9 +43,6 @@ function Store() {
   const [word, setWord] = useState({
     goodName: '0',
   });
-  // const name = location.state
-
-  // console.log('확인해봐', name)
 
   const [state, setState] = useState({
     all: false,
@@ -75,8 +68,6 @@ function Store() {
       ...state,
       [event.target.name]: event.target.checked,
     });
-    // setValue(event.target.value);
-    // console.log(value)
   };
   const {
     all,
@@ -102,11 +93,9 @@ function Store() {
   }
 
   const { goodName } = word;
-  // console.log('밖에는 제로간?', name, goodName)
   function onSubmit() {
     let conv = '';
     let event_type = '';
-    // let goodName = '0'
     if (cu) {
       conv += 'cu';
     }
@@ -148,8 +137,6 @@ function Store() {
     if (all || conv === '') {
       conv = 'all';
     }
-    // console.log(conv)
-
     if (noEvent) {
       event_type += '1';
     }
@@ -198,7 +185,6 @@ function Store() {
     if (allEvent || event_type === '') {
       event_type = '0';
     }
-    // console.log('adr확인중', conv, event_type, goodName)
     let adr = `${axios.defaults.baseURL}goods/conGoods?convinenceName=${conv}&event=${event_type}&goods=${goodName}`;
     if (book) {
       if (localStorage.getItem('user_id') !== null) {
@@ -212,21 +198,17 @@ function Store() {
 
     axios.get(adr).then(({ data }) => {
       setGoods(data.object);
-      // console.log(data.object)
     });
   }
   if (location.state) {
     name = location.state;
-    // onSubmit();
   }
 
   useEffect(() => {
     axios
       .get(`${axios.defaults.baseURL}goods/conGoods?convinenceName=all&event=0&goods=${name}`)
-      // .get(`https://1bool1.com/api/v1/goods/conGoods?convinenceName=all&event=0&goods=${name}`)
       .then(({ data }) => {
         setGoods(data.object);
-        // console.log(data.object);
       });
   }, [name]);
 
@@ -256,10 +238,6 @@ function Store() {
     let con = conName[w];
     return con;
   }
-  // function changeEvent(e) {
-  //   let even = eventGoods(e)
-
-  // }
   const onKeyPress = (e) => {
     if (e.key === 'Enter') {
       onSubmit();
@@ -381,7 +359,6 @@ function Store() {
               />
             </FormGroup>
             <FormGroup aria-label='position' row style={{ marginBottom: '1rem' }}>
-              {/* <Typography style={{width:'80px', padding:'0.5rem',textAlign: "center", marginRight:'2rem', backgroundColor:'#F93D59', color:'white', borderRadius:10, fontWeight:'bold'}}>행사</Typography> */}
               <Typography
                 style={{
                   width: '80px',
@@ -523,7 +500,6 @@ function Store() {
                 marginTop: '1rem',
               }}
             >
-              {/* <input onChange={searchWord} name="goodName" placeholder="상품을 입력하세요" style={{borderBottom :'teal 1px solid', borderLeft:'none',}} ></input> */}
               <TextField
                 onChange={searchWord}
                 onKeyPress={onKeyPress}
@@ -585,9 +561,6 @@ function Store() {
                           >
                             {changebox(good.convinence)}
                           </Box>
-                          {/* </Link> */}
-                          {/* </div> */}
-                          {/* <Link to={`/${good.id}`} style={{textDecoration:'none',}}> */}
                           <Box style={{ display: 'flex' }}>
                             <Box sx={{ width: '160px', height: '120px', marginTop: '1rem' }}>
                               <CardMedia
@@ -597,8 +570,6 @@ function Store() {
                                 image={`${good.photoPath}`}
                               />
                             </Box>
-                            {/* </Link>
-                    <Link to={`/${good.id}`} style={{textDecoration:'none',}}> */}
                             <Box
                               sx={{
                                 display: 'flex',

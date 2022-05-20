@@ -30,14 +30,14 @@ function Articles() {
         recent.current = res.data.object;
         setArticles(res.data.object);
       })
-      .catch((err) => console.log(err));
+      // .catch((err) => console.log(err));
     axios({
       method: "get",
       url: "board/like",
       params: { page: 0, size: 999 },
     })
       .then((res) => (like.current = res.data.object.content))
-      .catch((err) => console.log(err));
+      // .catch((err) => console.log(err));
   }, []);
 
   function handleClick({ target }) {

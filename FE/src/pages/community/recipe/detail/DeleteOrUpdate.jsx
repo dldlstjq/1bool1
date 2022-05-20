@@ -22,7 +22,7 @@ export function DeleteOrUpdate({ password, afterUrl, state, updatePageUrl, url, 
             setTimeout(() => refresh((prev) => (prev += 1)), 1000);
           }
         })
-        .catch((err) => console.log(err));
+        // .catch((err) => console.log(err));
       return;
     }
     alert('비밀번호가 다릅니다');

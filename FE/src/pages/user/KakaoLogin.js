@@ -34,7 +34,7 @@ export default function KakaoLogin() {
       success: function (authObj) {
         // 카카오 계정 이메일을 가져옴.
         // 카카오 이메일은 ok. but 좋아요 등록 시 user_id를 어떻게 가져오나?
-        console.log(authObj);
+        // console.log(authObj);
         Kakao.API.request({
           url: "/v2/user/me",
           success: function (res) {
@@ -59,7 +59,7 @@ export default function KakaoLogin() {
           },
         }).then((res) => {
           localStorage.setItem("user_id", res.data.object.id);
-          console.log("성공했나");
+          // console.log("성공했나");
           if (res.data.statusCode === 200) {
             alert("1bool1에 오신걸 환영합니다!");
             navigate("/");

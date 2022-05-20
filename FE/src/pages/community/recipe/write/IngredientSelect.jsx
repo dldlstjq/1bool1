@@ -52,11 +52,11 @@ function IngredientSelect({ selected, setSelected, sum, setSum }) {
   }
   function removeFromList({ target }) {
     if (target.matches("span")) {
-      console.log(target.id);
+      // console.log(target.id);
       const newSelected = selected.filter(
         (el) => el.goodsId !== parseInt(target.id)
       );
-      console.log(newSelected);
+      // console.log(newSelected);
       setSelected(newSelected);
       // setSelected(selected.filter((el) => el.goodsId !== parseInt(target.id)));
 

@@ -37,10 +37,7 @@ function StoreDetail() {
     goods = location.state.data;
     localStorage.setItem("goodsId", goods.id);
   }
-  // console.log(location.state);
 
-  // const [goodsData, setGoodsData] = useState({});
-  // const [reviewData, setReviewData] = useState([]);
   const { articleId } = useParams();
   const [showcomments, setshowcomments] = useState(true);
   const [foo, refresh] = useState(0);
@@ -53,26 +50,6 @@ function StoreDetail() {
   const navi = useNavigate();
 
   useEffect(() => {
-    // axios({
-    //   method: 'get',
-    //   url: BASE_URL + `goods/${localStorage.getItem('goodsId')}`,
-    // })
-    //   .then((res) => {
-    //     setGoodsData(res.data.object);
-    //   })
-    //   .catch((err) => console.log(err));
-    // axios({
-    //   method: 'get',
-    //   url: BASE_URL + `goodsreview/${localStorage.getItem('goodsId')}`,
-    // })
-    //   .then((res) => {
-    //     setReviewData(res.data.object);
-    //   })
-    //   .catch((err) => console.log(err));
-    // axios.put(BASE_URL + `goods/${goods.id}`).then(() => {
-    //   console.log('조회수 등록');
-    // });
-    // 지금 로그인한 유저가 좋아요 누른 상품인지 확인하는 기능 필요
     if (localStorage.getItem("user_id") !== null) {
       axios({
         method: "get",
@@ -82,20 +59,16 @@ function StoreDetail() {
         },
       })
         .then((res) => {
-          // console.log(res);
           if (res.data.object === true) setIsLike(true);
         })
-        .catch((err) => console.log(err));
+        // .catch((err) => console.log(err));
     }
   }, [goods.id]);
 
-  // const goodsData = useFetchItem(`goods/${localStorage.getItem('goodsId')}`);
   const [comments, setComments] = useFetchListAndUpdate(
     `goodsreview/${localStorage.getItem("goodsId")}`,
     foo
   );
-  // const hits = useFetchHit(`goods/${localStorage.getItem('goodsId')}`);
-  // const like = useFetchLike(`goods/${goods.id}`);
 
   const convName = {
     MS: "MINISTOP",
@@ -130,27 +103,10 @@ function StoreDetail() {
     convinence,
   } = goods;
 
-  console.log(goods);
-  //  console.log(goodsData[0]);
-
-  //   "id": 6438,
-  //   "createdDate": "2022-05-11 21:30:28.545944",
-  //   "modifiedDate": "2022-05-11 21:30:28.546002",
-  //   "name": "맛있다)곤약젤리복숭아150g",
-  //   "price": 2000,
-  //   "photoPath": "https://emart24.co.kr/upload/eventProduct/202205/8809293682472.jpg",
-  //   "description": null,
-  //   "category": null,
-  //   "isSell": 1,
-  //   "event": 2,
-  //   "hit": null,
-  //   "convinence": "EM",
-
   const str = String(price);
   let strPrice;
   if (str.length === 4)
     strPrice = str.substring(0, 1) + "," + str.substring(1, str.length);
-  // console.log(str.slice(0, 1) + ',' + str.slice(str.length - 3, str.length));
   else strPrice = str.slice(0, 2) + "," + str.slice(2, str.length);
 
   function handleClick(e) {
@@ -158,96 +114,13 @@ function StoreDetail() {
     if (target.matches("#show-comments")) {
       setshowcomments((prev) => !prev);
     }
-    // if (target.matches('#report')) {
-    //   coordRef.current = [clientX, clientY];
-    //   setpopover(true);
-    // } else {
-    //   setpopover(false);
-    // }
     if (target.matches("#focus")) {
       setshowcomments((prev) => true);
       setTimeout(() => {
         textareaRef.current.focus();
       }, 500);
     }
-    // if (target.matches("#delete")) {
-    //   if (articlePw === password) {
-    //     deleteReq(`board/${id}`, articlePw);
-    //     navi("/community/free");
-    //     return;
-    //   }
-    //   alert("비밀번호가 다릅니다");
-    // }
-    // if (target.matches("#update")) {
-    //   if (articlePw === password) {
-    //     navi("/community/free/write", {
-    //       state: {
-    //         articleId,
-    //         nickname,
-    //         password,
-    //         title,
-    //         content,
-    //       },
-    //     });
-    //     return;
-    //   }
-    //   alert("비밀번호가 다릅니다");
-    // }
   }
-
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-  //   console.log(e.target);
-  //   const method = "abc";
-  //   const data = new FormData(e.target);
-  //   if (data.get("password") !== password) {
-  //     alert("비밀번호가 다릅니다");
-  //     return;
-  //   }
-  //   axios({
-  //     method,
-  //     url: BASE_URL + "board/" + articleId,
-  //     data.append('boardId',articleId)
-  //     data: {
-  //       nickname: data.get("nickname"),
-  //       password: data.get("password"),
-  //       content: data.get("content"),
-  //       boardId: articleId,
-  //     },
-  //   });
-  // }
-
-  // function handleCommentSubmit(e) {
-  //   e.preventDefault();
-  //   const data = new FormData(e.target);
-  //   console.log('hi');
-  //   axios({
-  //     method: 'post',
-  //     url: BASE_URL + 'goodsreview/' + id,
-  //     data: {
-  //       nickname: data.get('nickname'),
-  //       password: data.get('password'),
-  //       content: data.get('content'),
-  //       goodsId: id,
-  //     },
-  //   })
-  //     .then(() => setInvokeUseEffect((prev) => prev + 1))
-  //     .catch((err) => console.log(err));
-  // }
-
-  // async function handleCommentSubmit(e) {
-  //   e.preventDefault();
-  //   const data = new FormData(e.target);
-  //   data.append("boardId", id);
-  //   const res = await axiosRequest(
-  //     `comment/${id}`,
-  //     "post",
-  //     null,
-  //     data,
-  //     "application/json"
-  //   );
-  //   console.log(res);
-  // }
 
   const handleChange = async (e) => {
     if (localStorage.getItem("user_id") === null) {
@@ -257,8 +130,6 @@ function StoreDetail() {
 
     const likeCurrent = e.target.checked;
     setIsLike(likeCurrent);
-    // e.preventDefault();
-
     try {
       await axios({
         method: "put",
@@ -268,11 +139,11 @@ function StoreDetail() {
         },
       }).then((res) => {
         if (res.data.statusCode === 200) {
-          console.log("좋아요 등록");
+          // console.log("좋아요 등록");
         }
       });
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 
@@ -284,22 +155,6 @@ function StoreDetail() {
       <div style={{ flex: "1", marginTop: 30 }}>
         <Container>
           <div onClick={handleClick}>
-            {/* <strong className='detail-title'>{name}</strong>
-            <div style={{ padding: '0.5rem 0', borderBottom: '1px solid #323232' }}>
-              <div className='author-and-date'>최근 수정 일시 | {modifiedDate?.split('.')[0]}</div>
-              <div className='icons'>
-                <i className='icon-box icon-info icon-views w-5 h-5 relative top-1'></i>
-                21
-                <i className='icon-box icon-comment icon-info w-5 h-5 relative top-1'></i>
-                {comments.length}
-                <i className='icon-box icon-up icon-info w-5 h-5'></i>22
-                <i className='icon-box icon-down icon-info w-5 h-5 relative top-1'></i>
-                22
-              </div>
-            </div>
-            <div className='relative mt-1'>
-              <i className='icon-box icon-sns w-20 h-6 absolute right-0'></i>
-            </div> */}
             <div className="content-box">
               {convName[convinence] === "CU" && (
                 <div id="CU" className="grey">
@@ -331,8 +186,6 @@ function StoreDetail() {
                   {convName[convinence]}
                 </div>
               )}
-              {/* <Grid container spacing={2} columns={16}>
-                <Grid item xs={8}> */}
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
                 <img
                   style={{
@@ -356,18 +209,9 @@ function StoreDetail() {
                 />
               </Box>
 
-              {/* </Grid> */}
-              {/* <Grid item xs={8}> */}
               <p id="goodsTitle">{name}</p>
               <p id="goodsPrice">{strPrice}원</p>
               <p id="goodsEvent">{showEvent[event]} </p>
-              {/* </Grid> */}
-              {/* </Grid> */}
-              {/* <Box style={{ display: 'flex', justifyContent: 'center' }}>
-                <img src={photoPath} alt={name} />
-                <p style={{ margin: '1.8rem 0' }}>{name}</p>
-                <p style={{ margin: '1.8rem 0' }}>{price}</p>
-              </Box> */}
               <div className="text-center my-7">
                 <button className="btn">
                   <Checkbox
@@ -378,50 +222,14 @@ function StoreDetail() {
                     onChange={handleChange}
                     color="error"
                   />
-                  {/* <i className='icon-box icon-info icon-up  w-5 h-5'></i> 0 */}
+
                 </button>
-                {/* <button className='btn'>
-                  <i className='icon-box icon-info icon-down  w-5 h-5'></i> 0
-                </button> */}
+
               </div>
-              {/* <div className='userinfo-box' style={{ backgroundColor: '#ffe2e180' }}>
-                <i className='icon-box icon-etc icon-user  w-10 h-10'></i>
-                <div style={{ marginLeft: '1rem' }}>
-                  <span style={{ marginLeft: '5px' }}>{name}</span>
-                  <div className='icons'>
-                    <i className='icon-box icon-info icon-article w-5 h-5 relative top-1'></i>
-                    21
-                    <i className='icon-box icon-comment icon-info w-5 h-5 ml-1 relative top-1'></i>
-                    {comments.length}
-                  </div>
-                </div>
-              </div> */}
-              {/* <DeleteOrUpdate
-         setPw={setarticlePw}
-         inputPw={articlePw}
-         pw={password}
-         id={articleId}
-         afterUrl='/community'
-         updatePageUrl='/community/free/write'
-         state={articleData}
-       /> */}
-              {/* <div>
-                댓글 {comments.length}
-                <div>
-                </div>
-              </div> */}
+
             </div>
             <Comments which="goods" detailId={goods.id} />
-            {/* {showcomments && (
-              <GoodsComments
-                comments={comments}
-                articleId={articleId}
-                goodsId={id}
-                ref={textareaRef}
-                url={'/goodsreview/' + id}
-                refresh={refresh}
-              />
-            )} */}
+    
 
             <Box style={{ display: "flex", justifyContent: "center" }}>
               <Button
@@ -437,11 +245,6 @@ function StoreDetail() {
               </Button>
             </Box>
 
-            {/* {popover && (
-              <Popover x={coordRef.current[0]} y={coordRef.current[1]}>
-                <h6>ㅇㅇ</h6>
-              </Popover>
-            )} */}
           </div>
         </Container>
       </div>

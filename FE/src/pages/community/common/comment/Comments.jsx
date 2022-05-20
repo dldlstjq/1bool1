@@ -45,7 +45,7 @@ const Comments = ({ which, detailId }) => {
       url: url + detailId,
     })
       .then((res) => setComments(res.data.object))
-      .catch((err) => console.log(err));
+      // .catch((err) => console.log(err));
   }, [url, detailId, foo]);
 
   function handleInputChange(e) {
@@ -67,7 +67,7 @@ const Comments = ({ which, detailId }) => {
         data,
       })
         .then(() => refresh((prev) => (prev += 1)))
-        .catch((err) => console.log(err));
+        // .catch((err) => console.log(err));
     } else if (target.matches("#toggle-comments")) {
       setShowComments((prev) => !prev);
     }
