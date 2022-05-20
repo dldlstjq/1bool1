@@ -49,7 +49,6 @@ function Detail() {
   const [idx, setIdx] = useState(
     boardIdArray.findIndex((boardId) => id === boardId)
   );
-  console.log("detail", idx);
   const prev = boardIdArray[Math.max(idx - 1, 0)];
   const next = boardIdArray[Math.min(idx + 1, boardIdArray.length - 1)];
 

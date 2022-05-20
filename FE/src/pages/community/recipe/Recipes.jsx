@@ -31,11 +31,10 @@ function Recipes() {
     axios({
       method: "get",
       url: orderBy,
-    })
-      .then((res) => {
-        setRecipes(res.data.object);
-      })
-      // .catch((err) => console.log(err));
+    }).then((res) => {
+      setRecipes(res.data.object);
+    });
+    // .catch((err) => console.log(err));
   }, [orderBy]);
 
   function handleClick({ target }) {
@@ -48,20 +47,23 @@ function Recipes() {
     } else if (target.matches("#order-by-recent")) {
       setOrderBy("recipe");
     } else if (target.matches("#bookmark")) {
-      if (localStorage.getItem('user_id') !== null) {
+      if (localStorage.getItem("user_id") !== null) {
         axios
-        .get(`${axios.defaults.baseURL}recipe/like/userlist?user_id=${localStorage.getItem('user_id')}`)
-        .then((res) => {
-          setRecipes(res.data.object);
-          // console.log(res.data.object)
-        })
-        .catch((err) => {
-          // console.log(err)
-          alert("북마크를 확인하시려면 로그인을 해주세요!");
-          setRecipes([]);
-        });
-      }
-      else {
+          .get(
+            `${
+              axios.defaults.baseURL
+            }recipe/like/userlist?user_id=${localStorage.getItem("user_id")}`
+          )
+          .then((res) => {
+            setRecipes(res.data.object);
+            // console.log(res.data.object)
+          })
+          .catch((err) => {
+            // console.log(err)
+            alert("북마크를 확인하시려면 로그인을 해주세요!");
+            setRecipes([]);
+          });
+      } else {
         alert("북마크를 확인하시려면 로그인을 해주세요!");
         setRecipes([]);
       }
@@ -98,10 +100,10 @@ function Recipes() {
             </Typography>
           </Box>
           <Grid container spacing={2}>
-            <Grid item xs={12} md={6} style={{paddingLeft:30}}>
+            <Grid item xs={12} md={6} style={{ paddingLeft: 30 }}>
               <OrderByRecentLikeBookmark />
             </Grid>
-            <Grid item xs={12} md={6} style={{paddingRight:10}}>
+            <Grid item xs={12} md={6} style={{ paddingRight: 10 }}>
               <Box
                 style={{
                   display: "flex",
@@ -144,19 +146,24 @@ function Recipes() {
               </Box>
             }
           </div> */}
-          <Box >
+          <Box>
             <Grid container spacing={5}>
-            {recipes.length?recipes
-              .slice(12 * (page - 1), 12 * (page - 1) + 12)
-              .map((recipe, idx) => 
-                 <Recipe key={idx} recipe={recipe} />
-              )
-              :<Box style={{marginTop:'5rem', marginBottom:'3rem', marginLeft:'5rem'}}>
-                <Typography variant='h6'>목록이 없습니다.</Typography>
-              </Box>
-            }
+              {!recipes ? (
+                recipes
+                  .slice(12 * (page - 1), 12 * (page - 1) + 12)
+                  .map((recipe, idx) => <Recipe key={idx} recipe={recipe} />)
+              ) : (
+                <Box
+                  style={{
+                    marginTop: "5rem",
+                    marginBottom: "3rem",
+                    marginLeft: "5rem",
+                  }}
+                >
+                  <Typography variant="h6">목록이 없습니다.</Typography>
+                </Box>
+              )}
             </Grid>
-
           </Box>
 
           <Pagination
